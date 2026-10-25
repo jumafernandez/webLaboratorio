@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Aranceles de la Maestría en Ciencia de Datos - UNLu UADER. Matrícula, 16 cuotas mensuales y derecho de defensa de tesis; beca del 50% para la comunidad UNLu. Información de pago y datos bancarios." />
+    <meta name="description" content="Aranceles de la Maestría en Ciencia de Datos - UNLu UADER. 16 cuotas mensuales de $400.000: $300.000 para graduados de la UNLu (beca del 25%) y $200.000 para docentes y nodocentes de la UNLu (beca del 50%). Matrícula, derecho de defensa de tesis, información de pago y datos bancarios." />
     <meta name="author" content="LICDIA - UNLu" />
     <meta name="keywords" content="maestría, ciencia de datos, posgrado, aranceles, UNLu, UADER" />
     <meta property="og:title" content="Aranceles - Maestría en Ciencia de Datos - UNLu UADER" />
@@ -326,6 +326,36 @@
         .table-aranceles td, .table-aranceles th {
             vertical-align: middle;
         }
+        .table-aranceles tbody tr.cuota-row td.text-center {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--brand);
+        }
+        .beca-th {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            border-radius: 999px;
+            padding: 0 0.45rem;
+            margin-left: 0.2rem;
+            white-space: nowrap;
+        }
+        .cuota-nota {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        .table-aranceles td .small { display: inline-block; line-height: 1.35; margin-top: 0.15rem; }
+        .aranceles-notas { padding-left: 1.1rem; }
+        .aranceles-notas li { margin-bottom: 0.3rem; }
+        /* En el celular, el concepto ocupa una fila entera y los tres importes van debajo, en columnas */
+        @media (max-width: 575.98px) {
+            .table-aranceles thead tr, .table-aranceles tbody tr { display: grid; grid-template-columns: repeat(3, 1fr); }
+            .table-aranceles thead th:first-child { display: none; }
+            .table-aranceles tbody td:first-child { grid-column: 1 / -1; border-bottom-width: 0; }
+            .table-aranceles th, .table-aranceles td { padding: 0.5rem 0.4rem; }
+            .table-aranceles thead th { font-size: 0.68rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; }
+            .table-aranceles .beca-th { margin-left: 0; }
+            .table-aranceles tbody tr.cuota-row td.text-center { font-size: 1rem; }
+        }
         .tag-tramite { display:inline-block; background:#ffc107; color:#3b2a00; font-weight:700; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; padding:.2rem .6rem; border-radius:999px; vertical-align:middle; margin-left:.35rem; white-space:nowrap; }
 </style>
 
@@ -413,56 +443,46 @@
                     <div>
                         Los importes corresponden a la primera cohorte (2027), se expresan en pesos a octubre de 2026
                         y se encuentran en trámite de aprobación. La cuota se revisa de forma <strong>semestral</strong>
-                        conforme a la variación del Índice de Precios al Consumidor (INDEC). Todos los conceptos equivalen
-                        a una cuota.
+                        conforme a la variación del Índice de Precios al Consumidor (INDEC).
                     </div>
                 </div>
 
-                <!-- Pricing hero -->
+                <!-- Cuota mensual según el perfil -->
                 <div class="arancel-hero" data-aos="fade-up" data-aos-duration="700">
-                    <div class="row g-3 align-items-center text-center">
+                    <div class="price-label text-center mb-3">Cuota mensual</div>
+                    <div class="row g-3 text-center">
                         <div class="col-12 col-md-4">
                             <div class="price-card">
-                                <div class="price-label">Matrícula inicial</div>
+                                <div class="price-label">Arancel general</div>
                                 <div class="price-amount">$400.000</div>
-                                <div class="price-sub">al inscribirse. No es reembolsable y confirma el cupo</div>
+                                <div class="price-sub">por mes</div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-1 d-none d-md-flex">
-                            <div class="separator-icon"><i class="fas fa-plus"></i></div>
                         </div>
                         <div class="col-12 col-md-4">
                             <div class="price-card">
-                                <div class="price-label">16 cuotas mensuales</div>
-                                <div class="price-amount">$400.000</div>
-                                <div class="price-sub">cada una, en los meses con cursada, del 1 al 10</div>
-                                <div class="cuota-pills">
-                                    <span class="cuota-pill">+ Derecho de defensa de tesis</span>
-                                    <span class="cuota-pill">$400.000</span>
-                                </div>
+                                <div class="price-label">Graduados UNLu</div>
+                                <div class="price-amount">$300.000</div>
+                                <div class="price-sub">por mes</div>
+                                <div class="cuota-pills"><span class="cuota-pill">Beca del 25%</span></div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3 d-flex flex-column align-items-center justify-content-center">
-                            <div class="price-label">Total programa</div>
-                            <div class="total-hero">$7.200.000</div>
-                            <div class="price-sub mt-1">matrícula, 16 cuotas y derecho de defensa</div>
-                            <div class="price-sub mt-1"><strong>$3.600.000</strong> con beca UNLu</div>
+                        <div class="col-12 col-md-4">
+                            <div class="price-card">
+                                <div class="price-label">Docentes y nodocentes UNLu</div>
+                                <div class="price-amount">$200.000</div>
+                                <div class="price-sub">por mes</div>
+                                <div class="cuota-pills"><span class="cuota-pill">Beca del 50%</span></div>
+                            </div>
                         </div>
                     </div>
+                    <p class="cuota-nota text-center mb-0 mt-3">
+                        16 cuotas en los meses con cursada, del 1 al 10 de cada mes. Las becas son automáticas.
+                    </p>
                 </div>
 
-                <!-- Beca automática 50% -->
-                <div class="alert alert-success d-flex gap-2 mb-4" role="alert"
-                     data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
-                    <div>
-                        <strong>Beca automática del 50%</strong> en todos los aranceles para
-                        <strong>docentes, nodocentes y graduados de la UNLu</strong>.
-                    </div>
-                </div>
-
-                <!-- Tabla de conceptos -->
+                <!-- Cuotas y total -->
                 <div class="section-title-line">
-                    <h2 class="h5 fw-bold mb-0">Detalle de conceptos</h2>
+                    <h2 class="h5 fw-bold mb-0">Cuotas y total del programa</h2>
                     <div class="line"></div>
                 </div>
                 <div class="table-responsive mb-3" data-aos="fade-up" data-aos-duration="600">
@@ -470,44 +490,36 @@
                         <thead>
                             <tr>
                                 <th scope="col">Concepto</th>
-                                <th scope="col" class="text-center">Importe</th>
-                                <th scope="col">Momento</th>
+                                <th scope="col" class="text-center">General</th>
+                                <th scope="col" class="text-center">Graduados UNLu <span class="beca-th">25%</span></th>
+                                <th scope="col" class="text-center">Docentes y nodocentes UNLu <span class="beca-th">50%</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><strong>Matrícula de inscripción</strong></td>
+                            <tr class="cuota-row">
+                                <td><strong>Cuota mensual</strong> (× 16)<br><span class="text-muted small">Meses con cursada: mayo a noviembre de 2027 y febrero a octubre de 2028, del 1 al 10 de cada mes</span></td>
                                 <td class="text-center">$400.000</td>
-                                <td>Al inscribirse</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Derecho de nivelación</strong><br><span class="text-muted small">solo quienes deban cursar uno o más cursos de nivelación</span></td>
-                                <td class="text-center">$400.000</td>
-                                <td>Abril de 2027, antes de los cursos de nivelación</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cuota mensual</strong> (× 16)</td>
-                                <td class="text-center">$400.000</td>
-                                <td>Meses con cursada: mayo a noviembre de 2027 y febrero a octubre de 2028, del 1 al 10 de cada mes</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Derecho de defensa de tesis</strong></td>
-                                <td class="text-center">$400.000</td>
-                                <td>Al solicitar la defensa</td>
+                                <td class="text-center">$300.000</td>
+                                <td class="text-center">$200.000</td>
                             </tr>
                             <tr class="total-row">
-                                <td>TOTAL PROGRAMA</td>
+                                <td>Total del programa<br><span class="small fw-normal">16 cuotas, matrícula y derecho de defensa de tesis</span></td>
                                 <td class="text-center">$7.200.000</td>
-                                <td>Sin nivelación · $3.600.000 con beca UNLu</td>
+                                <td class="text-center">$5.400.000</td>
+                                <td class="text-center">$3.600.000</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="text-muted small mb-4" data-aos="fade-up" data-aos-duration="500">
-                    <strong>Docentes, nodocentes y graduados de la UNLu</strong> acceden a un
-                    <strong>50&nbsp;% de descuento</strong> en todos los conceptos. El derecho de defensa de tesis se
-                    actualiza con el mismo criterio que la cuota al momento de su pago.
-                </p>
+                <ul class="aranceles-notas text-muted small mb-4" data-aos="fade-up" data-aos-duration="500">
+                    <li>La <strong>matrícula de inscripción</strong> equivale a una cuota y se abona al inscribirse. No es
+                        reembolsable, salvo que la cohorte no abra, y confirma el cupo.</li>
+                    <li>El <strong>derecho de defensa de tesis</strong> equivale a una cuota y se abona al solicitar la defensa,
+                        actualizado con el mismo criterio que la cuota.</li>
+                    <li>Quienes deban cursar uno o más cursos de nivelación abonan un único <strong>derecho de nivelación</strong> de una
+                        cuota en abril de 2027, que no está incluido en el total.</li>
+                    <li>Las becas se aplican también a estos conceptos.</li>
+                </ul>
 
                 <!-- Cursos individuales -->
                 <div class="section-title-line">
@@ -526,8 +538,8 @@
                             <p class="mb-0 text-muted small">
                                 Para estos cursantes externos a la carrera, el arancel equivale a
                                 <strong>1,5 cuotas mensuales por curso</strong> ($600.000), abonadas al inicio
-                                del dictado. La beca del <strong>50%</strong> aplica en los mismos
-                                términos para docentes, nodocentes y graduados de la UNLu.
+                                del dictado. Las becas aplican en los mismos términos: <strong>50%</strong> para
+                                docentes y nodocentes y <strong>25%</strong> para graduados de la UNLu.
                             </p>
                         </div>
                     </div>
