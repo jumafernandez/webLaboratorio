@@ -113,6 +113,7 @@ Versioning policy for this project:
 - Home y Publicaciones: "Remembering the Flow" (Fernández, Errecalde, Burdisso) figura como trabajo distinguido del Workshop de Bases de Datos y Minería de Datos de CACIC 2026. En Publicaciones el cambio va en `tools/publicaciones/gen_pubs_data.py` y la página se regeneró.
 
 ### Fixed
+- `instalar.sh` del asistente: la verificación del modelo de embeddings usa primero la caché sin conexión (ya no consulta a Hugging Face ni avisa por la falta de token; solo la primera instalación descarga el modelo) y la función nueva `get_embedding_dimension` (la anterior daba un aviso de obsolescencia).
 - Se quita el script de Start Bootstrap (`sb-forms-latest.js`) de las 20 páginas que lo cargaban y el atributo `data-sb-form-api-token` de los 12 bloques de contacto heredados: ningún formulario lo usaba (esos bloques no tienen campos y los formularios de las diplomaturas y la maestría envían con su propio código), daba un error en la consola y pedía un archivo a un servidor externo en cada página. También los comentarios de la plantilla que lo acompañaban.
 - `director-blockchain-pitch.html`: la foto de David Petrocelli apuntaba a `webLaboratorio/assets/…` y no cargaba.
 - Maestría, solicitud de información: si el envío falla, el botón vuelve a decir "Enviar solicitud" (decía "Reservar mi lugar", de cuando el formulario era para una charla).

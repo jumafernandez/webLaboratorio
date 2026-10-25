@@ -46,8 +46,11 @@ fi
 
 echo "== 5. Modelo de embeddings en la caché del servicio"
 MODELO=$(python3 -c "import json; print(json.load(open('$DEST/indice/modelo.json'))['modelo'])")
-HF_HOME="$DEST/.cache/huggingface" "$DEST/.venv/bin/python" -c \
-    "from sentence_transformers import SentenceTransformer as S; m = S('$MODELO', device='cpu'); print('   ', '$MODELO', m.get_sentence_embedding_dimension(), 'dimensiones')"
+# Primero sin conexión, con la caché que ya tiene el servicio (así no consulta a Hugging Face ni avisa por la falta de
+# token); solo la primera instalación lo descarga. get_embedding_dimension es el nombre nuevo de la función.
+VERIFICAR="from sentence_transformers import SentenceTransformer as S; m = S('$MODELO', device='cpu'); d = getattr(m, 'get_embedding_dimension', None) or m.get_sentence_embedding_dimension; print('   ', '$MODELO', d(), 'dimensiones')"
+HF_HOME="$DEST/.cache/huggingface" HF_HUB_OFFLINE=1 "$DEST/.venv/bin/python" -c "$VERIFICAR" 2>/dev/null \
+    || HF_HOME="$DEST/.cache/huggingface" "$DEST/.venv/bin/python" -c "$VERIFICAR"
 
 echo "== 6. Permisos"
 # Código e índice: de administrador, legibles por el grupo del servicio. Entorno, caché y clave: solo del servicio.
