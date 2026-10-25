@@ -107,4 +107,4 @@ Primera instalación, o cambios de dependencias o de la unidad de systemd (por e
 la carpeta de datos de los topes y el registro): copiar el proyecto (sin `.venv`, `.env` ni
 cachés) a `~/asistente-dev-ia` en la VM y correr `sudo bash ~/asistente-dev-ia/despliegue/instalar.sh`. Código e
 índice, sin sudo: `bash despliegue/actualizar.sh` desde la Mac con la VPN conectada. El servicio queda en `/opt/asistente-dev-ia` con usuario
-propio, en el puerto 8030 local, detrás de nginx en `/dev-ia/api/`, con límite de tasa y tope de memoria de 2 GB.
+propio, en el puerto 8030 local, detrás de nginx en `/dev-ia/api/`, con límite de tasa y tope de memoria de 2,5 GB.
