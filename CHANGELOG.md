@@ -111,6 +111,7 @@ Versioning policy for this project:
 - Home y Publicaciones: "Remembering the Flow" (Fernández, Errecalde, Burdisso) figura como trabajo distinguido del Workshop de Bases de Datos y Minería de Datos de CACIC 2026. En Publicaciones el cambio va en `tools/publicaciones/gen_pubs_data.py` y la página se regeneró.
 
 ### Fixed
+- Maestría, solicitud de información: si el envío falla, el botón vuelve a decir "Enviar solicitud" (decía "Reservar mi lugar", de cuando el formulario era para una charla).
 - Blog: parpadeos intermitentes en el índice. El hover de las tarjetas pasa a la columna (con el cursor en el borde inferior, la tarjeta subía, salía del hover y volvía a entrar sin parar); el nodo del mapa se enciende y apaga de forma gradual y no se apaga al pasar de una tarjeta a otra; el menú deja de usar `backdrop-filter` sobre el lienzo animado; y el lienzo se vuelve a medir cuando el encabezado cambia de alto al cargar las tipografías (`js/blog.js`, `css/blog.css`).
 - Páginas de docentes de dev-ia y blockchain-dev: `js/scripts.js` se pedía con una carpeta de menos y daba 404 (el menú no se achicaba al bajar); ahora carga.
 - dev-ia: la 2da cohorte figuraba como que "arranca en septiembre 2026" en la franja de la 1ra cohorte, en la pregunta frecuente "¿Cuándo empieza la cursada?" y en sus datos estructurados; pasa a "en curso desde septiembre 2026". Índice del asistente regenerado (evaluación de recuperación 28/28).
