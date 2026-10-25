@@ -902,9 +902,9 @@
     <span class="plan-icon-wrap" aria-hidden="true">4</span>
     <h4>Curso 4 — Desarrollo de Aplicaciones y DApps Blockchain</h4>
   </div>
-  <p class="curso-meta">Noviembre 2026 · Docente Responsable: Dr. David Petrocelli · Equipo: APU Nehuén Prados</p>
+  <p class="curso-meta">Noviembre 2026 (inicio: jueves 5/11 · cierre: jueves 26/11, 7 clases) · Docente Responsable: Dr. David Petrocelli · Equipo: <a href="../docentes/ciro/">Esp. Ciro Edgardo Romero</a></p>
   <div class="tp-resultado">
-    <span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> tu primera <strong>pasarela de pago Web3 (PaymentGateway)</strong> desplegada en Base Sepolia — contratos propios (ERC-20 + PaymentGateway), frontend con wallet connect (Next.js + wagmi + RainbowKit), auditoría con Slither y comparativa de costos contra mainnet. Reusa todo lo que diseñaste en el Curso 2 (token financiero) sobre el andamio levantado en el Curso 3 (infra).
+    <span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> tu propia <strong>pasarela de pago Web3 (PaymentGateway)</strong> desplegada en Base Sepolia: contratos propios (token ERC-20 de pago, NFT recibo y PaymentGateway) testeados y auditados, frontend con conexión de wallet (Next.js + wagmi + RainbowKit), contratos verificados y comparativa de costos de gas contra mainnet. Reusa lo que diseñaste en el Curso 2 (token y tokenomics) y puede correr sobre el andamio que levantaste en el Curso 3 (infra).
   </div>
   <div class="table-responsive">
     <table class="table table-sm" style="font-size:0.9rem;">
@@ -918,56 +918,51 @@
       <tbody>
         <tr>
           <td><strong>1</strong></td>
-          <td><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Repaso y nivelación de Solidity desde Curso 1 (tipos, mappings, modifiers, events, custom errors). Setup del entorno de desarrollo: Foundry, Anvil local y Next.js</td>
-          <td>Refactor en clase del contrato Counter del Curso 1 sumándole events y custom errors, midiendo gas antes y después</td>
+          <td><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Arquitectura de una DApp y modelo de negocio de la pasarela. Repaso de Solidity desde el Curso 1 (tipos, mappings, modifiers, events, custom errors). Setup: Foundry, Anvil y Next.js</td>
+          <td>Refactor del contrato Counter con events y custom errors, midiendo gas antes y después</td>
         </tr>
         <tr>
           <td><strong>2</strong></td>
-          <td>Primer ERC-20 propio con OpenZeppelin: mint, transfer, approve, allowance. Verificación en Etherscan</td>
-          <td>Despliegue en Sepolia del ERC-20 del alumno (token de pago de la pasarela), verificado públicamente en Etherscan</td>
+          <td>Primer ERC-20 propio con OpenZeppelin, partiendo de la tokenomics del Curso 2: mint, transfer, approve, allowance y permit. Deploy y verificación en Base Sepolia</td>
+          <td>Despliegue en Base Sepolia del token de pago de la pasarela, verificado con Sourcify (visible en Blockscout)</td>
         </tr>
         <tr>
           <td><strong>3</strong></td>
-          <td>Primer ERC-721 propio con OpenZeppelin: minteo, metadata e IPFS. Almacenamiento descentralizado para NFTs</td>
-          <td>Despliegue en Sepolia de un NFT propio (recibo/comprobante de la pasarela) con metadata e imagen subidas a IPFS</td>
+          <td>ERC-721 propio con OpenZeppelin: minteo, metadata e IPFS. Web3 avanzado: tokenización de activos reales (RWA) e identidad digital</td>
+          <td>NFT recibo/comprobante de la pasarela en Base Sepolia, con metadata e imagen en IPFS</td>
         </tr>
         <tr>
           <td><strong>4</strong></td>
-          <td>Patrones de seguridad: reentrancy, integer overflow, access control. Patrón CEI (Checks-Effects-Interactions) y ReentrancyGuard. Auditoría con Slither</td>
-          <td>CTF en clase: identificación y parcheo de vulnerabilidades en un contrato vulnerable provisto + corrida de Slither sobre los contratos propios</td>
+          <td>Patrones de seguridad: reentrancy, access control, front-running. CEI, ReentrancyGuard, Pausable y Pull over Push. Auditoría con Slither y Aderyn</td>
+          <td>CTF en clase: identificación y parcheo de vulnerabilidades en un contrato vulnerable + auditoría de los contratos propios</td>
         </tr>
         <tr>
           <td><strong>5</strong></td>
-          <td>Contrato <strong>PaymentGateway</strong>: recepción de pagos en ERC-20 (stablecoin), emisión de recibo (NFT) y liberación al receptor. Testing con Foundry</td>
-          <td>Despliegue del PaymentGateway que integra el ERC-20 y el NFT de los pasos anteriores, con suite de tests automatizados en Foundry</td>
+          <td>Contrato <strong>PaymentGateway</strong>: cobro en ERC-20, emisión del recibo (NFT) y liberación al comercio. Testing con Foundry: cheatcodes, fuzz e invariant testing, coverage</td>
+          <td>PaymentGateway que integra el ERC-20 y el NFT, con suite de tests automatizados, desplegado en Base Sepolia</td>
         </tr>
         <tr>
           <td><strong>6</strong></td>
           <td>Frontend Web3: Next.js + wagmi + viem + RainbowKit. Conexión de wallet, lectura de estado on-chain y disparo de transacciones</td>
-          <td>Construcción del frontend de la pasarela: conectar wallet, mostrar saldo del ERC-20 y disparar un pago contra el PaymentGateway desplegado</td>
+          <td>Frontend de la pasarela: conectar wallet, mostrar saldo del token, aprobar y pagar contra el PaymentGateway</td>
         </tr>
         <tr>
           <td><strong>7</strong></td>
-          <td>Layer 2 con foco en Base (OP Stack): migración del DApp completo a Base Sepolia, onramp de testnet y comparativa de costos de gas vs Ethereum mainnet</td>
-          <td>Despliegue end-to-end del DApp (ERC-20 + NFT + PaymentGateway + frontend) sobre Base Sepolia, verificado en Basescan, con análisis de gas comparado</td>
-        </tr>
-        <tr>
-          <td><strong>8</strong></td>
-          <td>Cierre e integración del DApp: pulido de auditoría Slither, mejoras de UX del frontend, completar documentación del repo y entrega final</td>
-          <td>Pulido final en clase del DApp (PaymentGateway + frontend + auditoría) sobre Base Sepolia y entrega del repo público completo para la defensa posterior del PIF</td>
+          <td>Layer 2 con foco en Base (OP Stack): deploy end-to-end, testnet vs mainnet y comparativa de costos de gas. <strong>Cierre del curso</strong> con la checklist de calidad del trabajo final</td>
+          <td>DApp completo (ERC-20 + NFT + PaymentGateway + frontend) en Base Sepolia, contratos verificados y análisis de gas comparado</td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="lente-estrategica">
-    <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>del contrato al producto en Layer 2</em> — construcción incremental de una pasarela de pago Web3 real, integrando ERC-20 + NFTs + frontend + auditoría con Slither, con foco en costos reales de gas y experiencia de usuario.
+    <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>del contrato al producto en Layer 2</em> — construcción incremental de una pasarela de pago Web3 real, integrando ERC-20 + NFTs + frontend + auditoría con Slither y Aderyn, con foco en costos reales de gas y experiencia de usuario.
   </div>
 </div>
 
 <div class="estrategia-block" data-aos="fade-up" data-aos-delay="500">
   <h5>¿Y la estrategia? — Versión cronograma</h5>
   <p>
-    Cada clase produce un <strong>artefacto reproducible</strong> en la actividad práctica: repo público, contrato verificado en Etherscan, dashboard Grafana, informe regulatorio. Las 32 clases construyen el <strong>Proyecto Integrador Final desde la primera semana</strong> — la última clase no es "el cierre del programa", es la <strong>defensa de algo que se vino construyendo</strong> clase por clase. El alumno egresa con repos públicos auditables y un DApp desplegado en mainnet o testnet pública, con documentación completa.
+    Cada clase produce un <strong>artefacto reproducible</strong> en la actividad práctica: repo público, contrato verificado en un explorador público, dashboard Grafana, informe regulatorio. Las 31 clases construyen el <strong>Proyecto Integrador Final desde la primera semana</strong> — la última clase no es "el cierre del programa", es la <strong>defensa de algo que se vino construyendo</strong> clase por clase. El alumno egresa con repos públicos auditables y un DApp desplegado en mainnet o testnet pública, con documentación completa.
   </p>
 </div>
 
