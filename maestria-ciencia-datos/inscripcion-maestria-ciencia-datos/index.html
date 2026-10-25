@@ -417,7 +417,7 @@
                 var data = new FormData(form);
                 data.append('Origen', 'Inscripción Maestría en Ciencia de Datos');
                 // Registro propio (tools/formularios/maestria-registro.gs): la misma URL que REGISTRO_URL de la portada
-                fetch('URL_DEL_REGISTRO', { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) })
+                fetch('https://script.google.com/macros/s/AKfycbyFparz6wRUT97m-hB1hFlE7FA43NpOc39zvhFIitsX2vJc58yuFaAdkTFDJTSsJKu5fA/exec', { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) })
                 .then(function() {
                     window.location.href = '../gracias-charla/';
                 })
