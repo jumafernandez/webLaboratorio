@@ -1317,6 +1317,9 @@
     });
     </script>
     <script>
+        // Registro propio: aplicación de Apps Script en licdia.unlu@gmail.com (tools/formularios/maestria-registro.gs),
+        // que guarda en una planilla y avisa por correo. Vacío: se usa el webhook anterior.
+        var REGISTRO_URL = '';
         document.addEventListener('DOMContentLoaded', function () {
             var formCharla = document.getElementById('formCharla');
             if (formCharla) {
@@ -1329,12 +1332,17 @@
                     submitBtn.textContent = 'Enviando...';
                     var controller = new AbortController();
                     var timeoutId = setTimeout(function () { controller.abort(); }, 120000);
-                    fetch('https://n8n.impulsate.lat/webhook/licdia-inscripcion', {
-                        method: 'POST',
-                        body: data,
-                        headers: { 'Accept': 'application/json' },
-                        signal: controller.signal
-                    }).then(function (r) { clearTimeout(timeoutId); return r.json().catch(function () { return {}; }); })
+                    // Apps Script responde con una redirección que el navegador no deja leer: se envía sin CORS
+                    // (no-cors) y como formulario codificado, que es lo que Apps Script lee en e.parameter
+                    var envio = REGISTRO_URL
+                        ? fetch(REGISTRO_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data), signal: controller.signal })
+                        : fetch('https://n8n.impulsate.lat/webhook/licdia-inscripcion', {
+                            method: 'POST',
+                            body: data,
+                            headers: { 'Accept': 'application/json' },
+                            signal: controller.signal
+                        });
+                    envio.then(function (r) { clearTimeout(timeoutId); return r.type === 'opaque' ? {} : r.json().catch(function () { return {}; }); })
                       .then(function (resp) {
                         if (resp && resp.event_id) {
                             try { sessionStorage.setItem('lead_event_id', resp.event_id); } catch (e) {}

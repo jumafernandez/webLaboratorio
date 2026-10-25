@@ -416,12 +416,8 @@
                 btn.textContent = 'Enviando...';
                 var data = new FormData(form);
                 data.append('Origen', 'Inscripción Maestría en Ciencia de Datos');
-                fetch('https://n8n.impulsate.lat/webhook/licdia-inscripcion', {
-                    method: 'POST',
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                })
-                .then(function(r) { return r.json(); })
+                // Registro propio (tools/formularios/maestria-registro.gs): la misma URL que REGISTRO_URL de la portada
+                fetch('URL_DEL_REGISTRO', { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) })
                 .then(function() {
                     window.location.href = '../gracias-charla/';
                 })
