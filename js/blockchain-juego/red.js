@@ -72,6 +72,22 @@ export function renderRed(el, { onVerTxs }) {
   el.querySelector(".bcw-redtxs").addEventListener("click", onVerTxs);
 }
 
+// The normal site's "Lo que vas a construir" lists the same contracts: [data-bcw-contratos] gets them once the backend
+// says the chain is live, and stays hidden otherwise (simulated chain or Anvil).
+export function contratosEnSitio() {
+  const ul = document.querySelector("[data-bcw-contratos]");
+  if (!ul || !REAL.on || esAnvil()) return;
+  const items = CONTRATOS.filter(([a]) => REAL.contratos[a]).map(([a, nombre, que]) => {
+    const dir = REAL.contratos[a];
+    const href = linkDir(dir);
+    const code = `<code>${esc(short(dir, 8, 6))}</code>`;
+    return `<li><b>${nombre}</b><span>${que}</span>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${code} ↗</a>` : code}</li>`;
+  });
+  if (!items.length) return;
+  ul.innerHTML = items.join("");
+  ul.hidden = false;
+}
+
 // Live block number while the card is open.
 export function vigilarBloque(el, on) {
   clearInterval(poll);

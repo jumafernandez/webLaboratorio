@@ -930,3 +930,112 @@ html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-id b { border-c
 @media (prefers-reduced-motion: reduce) {
     .bc-crono-enlace code { transition: none; }
 }
+
+/* ---------- Puentes al juego: botones [data-bcw-nivel] y contratos en vivo ----------
+   js/blockchain-juego/main.js abre el nivel al hacer click; red.js llena [data-bcw-contratos]. */
+.bc-plan-jugar {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .55rem 1.05rem;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--bc-ambar), #ffd77e);
+    color: #1a1033;
+    font: 700 .85rem Montserrat, sans-serif;
+    text-align: left;
+    cursor: pointer;
+}
+.bc-plan-jugar:hover { box-shadow: 0 0 18px rgba(245, 185, 66, .4); }
+.bc-plan-jugar:focus-visible { outline: 2px solid var(--bc-lila); outline-offset: 2px; }
+button.bc-boton-borde { cursor: pointer; }
+
+.bc-evidencia {
+    max-width: 880px;
+    margin: 2.5rem auto 0;
+    padding: 1.6rem 1.75rem;
+    border: 1px solid rgba(196, 165, 255, .3);
+    border-radius: 14px;
+    background: linear-gradient(160deg, #1a1033, var(--bc-noche));
+    color: var(--bc-tinta);
+}
+html body.blockchain-theme .bc-evidencia p { color: #d4c9ea; }
+html body.blockchain-theme .bc-evidencia p.bc-evidencia-k {
+    margin-bottom: .35rem;
+    color: var(--bc-ambar);
+    font: 600 .72rem var(--bc-mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+html body.blockchain-theme .bc-evidencia h3.bc-evidencia-t {
+    margin-bottom: .75rem;
+    color: #fff;
+    font: 600 1.25rem "Space Grotesk", Montserrat, sans-serif;
+}
+.bc-evidencia-lista { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .5rem; }
+.bc-evidencia-lista li {
+    display: grid;
+    grid-template-columns: minmax(9rem, auto) 1fr auto;
+    align-items: baseline;
+    gap: .75rem;
+    padding: .55rem .8rem;
+    border-radius: 8px;
+    background: rgba(196, 165, 255, .07);
+    font-size: .86rem;
+}
+.bc-evidencia-lista b { color: var(--bc-lila); font-family: var(--bc-mono); font-weight: 600; }
+.bc-evidencia-lista span { color: var(--bc-tenue); }
+html body.blockchain-theme .bc-evidencia-lista a { color: var(--bc-tinta) !important; text-decoration: none; white-space: nowrap; }
+html body.blockchain-theme .bc-evidencia-lista a:hover code { color: var(--bc-ambar); }
+.bc-evidencia-lista code { color: var(--bc-tinta); font: 400 .78rem var(--bc-mono); }
+.bc-evidencia-acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+.bc-evidencia-acciones .bc-boton-borde { padding: .55rem 1.05rem; font-size: .85rem; }
+
+.bc-cert-juego {
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    border-left: 3px solid var(--bc-violeta, #4C1C7F);
+    border-radius: 0 10px 10px 0;
+    background: rgba(76, 28, 127, .06);
+}
+html[data-theme="dark"] body.blockchain-theme .bc-cert-juego { border-left-color: var(--bc-lila); background: rgba(196, 165, 255, .08); }
+
+@media (max-width: 767.98px) {
+    .bc-evidencia { padding: 1.25rem 1.1rem; }
+    .bc-evidencia-lista li { grid-template-columns: 1fr; gap: .2rem; }
+    .bc-plan-jugar { white-space: normal; }
+}
+
+/* Cuerpo docente: los cursos (bloques) que dicta cada docente */
+.bc-doc-bloques { display: flex; justify-content: center; flex-wrap: wrap; gap: .35rem; margin: -.25rem 0 .75rem; }
+.bc-doc-bloques span {
+    padding: .15rem .6rem;
+    border: 1px solid rgba(76, 28, 127, .3);
+    border-radius: 999px;
+    background: rgba(76, 28, 127, .06);
+    color: var(--bc-violeta, #4C1C7F);
+    font: 500 .72rem var(--bc-mono);
+}
+html[data-theme="dark"] body.blockchain-theme .bc-doc-bloques span { border-color: rgba(196, 165, 255, .35); background: rgba(196, 165, 255, .08); color: var(--bc-lila); }
+
+/* Resultados de aprendizaje: una tarjeta por curso, con el hash de su bloque al pie */
+.bc-resultado {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid rgba(76, 28, 127, .18);
+    border-radius: 12px;
+    background: #fff;
+}
+html body.blockchain-theme .bc-resultado p { margin: 0; }
+html body.blockchain-theme .bc-resultado .bc-resultado-k { color: var(--bc-violeta, #4C1C7F); font: 600 .74rem var(--bc-mono); letter-spacing: .06em; text-transform: uppercase; }
+html body.blockchain-theme .bc-resultado .bc-resultado-t { font-weight: 600; line-height: 1.5; }
+html body.blockchain-theme .bc-resultado .bc-resultado-ev { color: #5b5470; font-size: .88rem; line-height: 1.55; }
+html body.blockchain-theme .bc-resultado .bc-resultado-hash { margin-top: auto; padding-top: .5rem; color: #8a80a3; font: 400 .72rem var(--bc-mono); }
+html[data-theme="dark"] body.blockchain-theme .bc-resultado { border-color: rgba(196, 165, 255, .2); background: rgba(20, 11, 42, .6); }
+html[data-theme="dark"] body.blockchain-theme .bc-resultado .bc-resultado-k { color: var(--bc-lila); }
+html[data-theme="dark"] body.blockchain-theme .bc-resultado .bc-resultado-ev,
+html[data-theme="dark"] body.blockchain-theme .bc-resultado .bc-resultado-hash { color: var(--bc-tenue); }

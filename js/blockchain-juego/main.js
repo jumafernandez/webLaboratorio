@@ -12,7 +12,7 @@
 import { addBlock, chain, onBlock, ready } from "./cadena.js";
 import * as real from "./cadena-real.js";
 import { buildDentro, renderAgente, renderCadena } from "./dentro.js";
-import { buildRed, renderRed, vigilarBloque } from "./red.js";
+import { buildRed, contratosEnSitio, renderRed, vigilarBloque } from "./red.js";
 import { startFondo } from "./fondo.js";
 import { BADGES, LEVELS, BONUS, badgeSVG, progressEl } from "./juego.js";
 import { configurarMedicion, track, vaciarAlSalir } from "./medicion.js";
@@ -975,6 +975,7 @@ async function checkAI() {
     S.stats = d;
     configurarMedicion(d.medicion !== false);
     if (real.configurar(d.cadena)) setLive();
+    contratosEnSitio();
     panel.querySelector(".bcw-ai").hidden = !S.ai;
     const map = stage.querySelector(".bcw-levels");
     if (map && d.insignias_hoy && !stage.querySelector(".bcw-stat"))
@@ -1133,8 +1134,30 @@ async function keywordRoute(ctx, text) {
   menuChips(nextChips());
 }
 
+// ---------- from the page into a level ----------
+// The normal site links each course to its level: a [data-bcw-nivel] button plays it right there, and ?bcw=c1 (or any
+// level id) in a shared link opens the game on it. data-bcw-nivel="red" opens the "Base Sepolia · en vivo" card.
+function playFromPage(id) {
+  openGame(true);
+  if (id === "red") return toggleRed(true);
+  startPlaying("sitio");
+  clearChips();
+  const l = LEVELS.find((x) => x.id === id);
+  userSay(l ? `Nivel ${l.curso} · ${l.corto}` : (BONUS.find((b) => b.id === id)?.titulo ?? id));
+  startFlow((c) => c.play(id));
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-bcw-nivel]");
+  if (!b || panel.contains(b)) return;
+  const id = b.dataset.bcwNivel;
+  if (!PLAY[id] && id !== "red") return;
+  e.preventDefault();
+  playFromPage(id);
+});
+const linkedLevel = new URLSearchParams(location.search).get("bcw");
+
 // Full screen on arrival, like dev-ia; ?vista=sitio, an anchor or a saved choice start on the page.
-const startsInGame = !askedSite || new URLSearchParams(location.search).get("bcw") === "open";
+const startsInGame = !askedSite || linkedLevel === "open" || !!PLAY[linkedLevel];
 // One "visita" per session, wherever it starts: it is the funnel's denominator (queued until /estado answers).
 (() => {
   let seen = false;
@@ -1150,4 +1173,5 @@ checkAI();
 real.onEstado.add(() => {
   if (real.REAL.on) setLive();
 });
-if (startsInGame) openGame(false);
+if (PLAY[linkedLevel]) playFromPage(linkedLevel);
+else if (startsInGame) openGame(false);
