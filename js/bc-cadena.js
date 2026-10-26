@@ -109,7 +109,7 @@
             if (x) x.innerHTML = campos[c];
         });
         if (estado) {
-            el.classList.remove('minando', 'minado', 'verificado');
+            el.classList.remove('minando', 'minado', 'verificado', 'alterado');
             void el.offsetWidth;   // reinicia el destello al volver a verificar
             el.classList.add.apply(el.classList, estado[0].split(' '));
             el.querySelector('[data-bc="estado"]').textContent = estado[1];
@@ -262,7 +262,7 @@
         var datos = sha256Texto('Curso ' + b.n + ' — ' + b.titulo + '\n' + texto);
         var h = sha256Texto('curso:' + b.n + '|anterior:' + b.prev + '|datos:' + datos + '|nonce:' + b.nonce);
         var ok = datos === b.datos && h === b.hash && h.indexOf(DIFICULTAD) === 0;
-        plan(k, {}, ok ? ['minado verificado', '✓ verificado'] : ['minando', '✗ no coincide']);
+        plan(k, {}, ok ? ['minado verificado', '✓ verificado'] : ['alterado', '✗ no coincide']);
         el.querySelector('[data-bc="estado"]').title = ok ? 'SHA-256 de los contenidos y del bloque recalculados en tu navegador: coinciden con lo minado' : '';
     });
 

@@ -545,6 +545,9 @@ html body.blockchain-theme .bc-oscuro .bc-eslabon { color: var(--bc-lila) !impor
 .bc-plan-bloque.minando .bc-plan-estado { border-color: rgba(245, 185, 66, .6); color: var(--bc-ambar); animation: bc-latido 1s ease-in-out infinite; }
 .bc-plan-bloque.minado .bc-plan-estado { border-color: rgba(196, 165, 255, .55); color: var(--bc-lila); }
 .bc-plan-bloque.verificado .bc-plan-estado { border-color: transparent; background: var(--bc-lila); color: #1a0f33; }
+/* el contenido cambió después de minar (por ejemplo, una traducción automática): el bloque ya no verifica */
+.bc-plan-bloque.alterado { border-color: rgba(255, 120, 120, .7); box-shadow: 0 0 22px rgba(255, 120, 120, .15); }
+.bc-plan-bloque.alterado .bc-plan-estado { border-color: rgba(255, 120, 120, .7); color: #ff9a9a; }
 
 /* los datos del bloque: contenidos a la izquierda; resultado, lente y programa a la derecha */
 .bc-plan-cuerpo {
@@ -628,6 +631,7 @@ html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-tp .bc-plan-et
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando .bc-plan-num small,
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando .bc-plan-estado { color: var(--bc-ambar) !important; }
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.verificado .bc-plan-estado { color: #1a0f33 !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.alterado .bc-plan-estado { color: #ff9a9a !important; }
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-intro,
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-meta span,
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-campo > span,
@@ -705,6 +709,7 @@ html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-e
 }
 @media (prefers-reduced-motion: reduce) {
     .bc-cierre-cab .bc-plan-estado { animation: none; }
+}
 
 /* ---------- Lo que vas a construir (#proyectos) ----------
    Son proyectos integradores alternativos, no una secuencia: cada uno corre sobre la cadena completa de los cuatro
@@ -754,6 +759,7 @@ html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-bloque > span { 
 html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-curso { color: #c9d1d9 !important; }
 @media (prefers-reduced-motion: reduce) {
     #proyectos a.bc-pr-chip, #proyectos .bc-pr-bloque > span { transition: none !important; }
+}
 
 /* ---------- Subpágina plan-de-estudios ----------
    El plan usa el mismo marcado que la portada (.bc-oscuro + .bc-plan). El cronograma sigue la cadena: cada curso es
