@@ -121,6 +121,19 @@
         e.classList.add('minado');
     }
     bloques.forEach(function (b, k) { plan(k, { datos: corto(b.datos) }); });
+    // Cualquier sección puede mostrar un hash de la cadena sin tocar la minería: [data-bc-datos="N"] recibe el hash
+    // de datos del curso N al cargar, [data-bc-hash="N"] el hash del bloque N cuando se mina (y la clase .minado).
+    // Además se avisa con el evento 'bc:minado' en document ({ n, hash }).
+    bloques.forEach(function (b) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-bc-datos="' + b.n + '"]'), function (x) { x.textContent = corto(b.datos); });
+    });
+    function publicar(n, h) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-bc-hash="' + n + '"]'), function (x) {
+            x.textContent = corto(h);
+            x.classList.add('minado');
+        });
+        document.dispatchEvent(new CustomEvent('bc:minado', { detail: { n: n, hash: h } }));
+    }
 
     var capa = header.querySelector('.bc-fondo');
     if (!capa) {
@@ -186,6 +199,7 @@
                 tar.title = 'hash ' + h;
                 plan(actual, { nonce: nonce.toLocaleString('es-AR'), hash: tar.querySelector('.bc-hash').innerHTML }, ['minado', '✓ minado']);
                 planEnlace(b.n, h);
+                publicar(b.n, h);
                 sumarAlFondo(h, true);
                 actual++;
                 if (actual < bloques.length) { prepararBloque(); } else { terminar(); return; }

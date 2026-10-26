@@ -332,10 +332,11 @@ html body.blockchain-theme > div.container { margin-top: 2.5rem !important; marg
 /* en modo oscuro los rótulos con hash van en lila (el violeta no se lee sobre fondo oscuro) */
 html[data-theme="dark"] body.blockchain-theme .bc-eslabon { color: var(--bc-lila) !important; }
 
-/* ---------- Plan de estudios de la portada: los cuatro cursos como la cadena del encabezado ----------
-   Fondo oscuro en los dos temas, como el encabezado y la franja de información. js/bc-cadena.js llena anterior,
-   nonce y hash con la misma minería, y al abrir un curso lo vuelve a verificar. */
-html body.blockchain-theme article#informacionPlan {
+/* ---------- Secciones oscuras (.bc-oscuro) y plan de estudios como la cadena del encabezado ----------
+   .bc-oscuro: fondo oscuro con la grilla del encabezado, en los dos temas, para las secciones que son parte de la
+   cadena. En el plan, js/bc-cadena.js llena anterior, nonce y hash con la misma minería y al abrir un curso lo
+   vuelve a verificar. */
+html body.blockchain-theme .bc-oscuro {
     position: relative;
     overflow: hidden;
     background:
@@ -344,7 +345,7 @@ html body.blockchain-theme article#informacionPlan {
         linear-gradient(180deg, #170d33, var(--bc-noche)) !important;
     color: var(--bc-tinta);
 }
-html body.blockchain-theme article#informacionPlan::before {
+html body.blockchain-theme .bc-oscuro::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -358,24 +359,25 @@ html body.blockchain-theme article#informacionPlan::before {
 }
 /* style2.css le da 100 px de relleno a los costados en todos los anchos (antes lo salteaba .full-bleed): el margen lo pone el container */
 html body.blockchain-theme > article#informacionPlan { padding-left: 0 !important; padding-right: 0 !important; }
-html body.blockchain-theme article#informacionPlan > .container { position: relative; z-index: 1; }
-html body.blockchain-theme article#informacionPlan h2.card-t {
+html body.blockchain-theme .bc-oscuro > .container { position: relative; z-index: 1; }
+html body.blockchain-theme .bc-oscuro h2.card-t,
+html body.blockchain-theme .bc-oscuro h2.section-heading {
     color: #fff !important;
     background: linear-gradient(90deg, #fff, #e6d9ff 50%, var(--bc-lila));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-html body.blockchain-theme article#informacionPlan > .container > hr {
+html body.blockchain-theme .bc-oscuro > .container > hr {
     height: 1px;
     border: 0;
     background: linear-gradient(90deg, transparent, rgba(196, 165, 255, .5), transparent);
     opacity: 1;
 }
 /* style2.css pinta en violeta todo link dentro de un article: estos van sobre fondo oscuro */
-html body.blockchain-theme article#informacionPlan a.bc-plan-programa,
-html body.blockchain-theme article#informacionPlan a.bc-boton-borde { color: var(--bc-tinta) !important; }
-html body.blockchain-theme article#informacionPlan .bc-eslabon { color: var(--bc-lila) !important; }
+html body.blockchain-theme .bc-oscuro a.bc-plan-programa,
+html body.blockchain-theme .bc-oscuro a.bc-boton-borde { color: var(--bc-tinta) !important; }
+html body.blockchain-theme .bc-oscuro .bc-eslabon { color: var(--bc-lila) !important; }
 
 .bc-plan { max-width: 1040px; margin: 0 auto; }
 .bc-plan-intro {
@@ -606,34 +608,34 @@ html body.blockchain-theme article#informacionPlan .bc-eslabon { color: var(--bc
 .bc-plan-estrategia strong { color: var(--bc-lila); }
 
 /* enhancements.css tiñe en modo oscuro todo p, span y code con !important: acá van los mismos colores que en el tema claro */
-html[data-theme="dark"] body.blockchain-theme #informacionPlan code {
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro code {
     border: 0;
     background: none !important;
     color: #ddd0f7 !important;
 }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-genesis code,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-enlace code { border: 1px solid rgba(196, 165, 255, .22); background: #140b2a !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-enlace.minado code { border-color: rgba(196, 165, 255, .6); color: var(--bc-lila) !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-bloque.minando code[data-bc="nonce"],
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-bloque.minando code[data-bc="hash"] { color: var(--bc-ambar) !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-titulo { color: #fff !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-num small,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-etq,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-bloque.minado .bc-plan-estado { color: var(--bc-lila) !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-tp .bc-plan-etq,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-bloque.minando .bc-plan-num small,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-bloque.minando .bc-plan-estado { color: var(--bc-ambar) !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-bloque.verificado .bc-plan-estado { color: #1a0f33 !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-intro,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-meta span,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-campo > span,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-estado,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-genesis span,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-enlace span { color: var(--bc-tenue) !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-datos p:not(.bc-plan-etq),
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-lente,
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-estrategia p { color: #d4c9ea !important; }
-html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-tp p:not(.bc-plan-etq) { color: #efe4c9 !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-genesis code,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-enlace code { border: 1px solid rgba(196, 165, 255, .22); background: #140b2a !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-enlace.minado code { border-color: rgba(196, 165, 255, .6); color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando code[data-bc="nonce"],
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando code[data-bc="hash"] { color: var(--bc-ambar) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-titulo { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-num small,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-etq,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minado .bc-plan-estado { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-tp .bc-plan-etq,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando .bc-plan-num small,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando .bc-plan-estado { color: var(--bc-ambar) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.verificado .bc-plan-estado { color: #1a0f33 !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-intro,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-meta span,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-campo > span,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-estado,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-genesis span,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-enlace span { color: var(--bc-tenue) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-datos p:not(.bc-plan-etq),
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-lente,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-estrategia p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-tp p:not(.bc-plan-etq) { color: #efe4c9 !important; }
 
 @media (max-width: 767.98px) {
     .bc-plan-cab { align-items: flex-start; gap: .8rem; padding: 1rem; }
@@ -646,7 +648,7 @@ html[data-theme="dark"] body.blockchain-theme #informacionPlan .bc-plan-tp p:not
     .bc-plan-estado { grid-column: 1 / -1; justify-self: start; }
     .bc-plan-cuerpo { grid-template-columns: 1fr; gap: 1.1rem; margin: 0 1rem; }
     .bc-plan-estrategia { padding: 1.1rem 1.15rem; }
-    html body.blockchain-theme article#informacionPlan > .container { padding-left: 1rem; padding-right: 1rem; }
+    html body.blockchain-theme .bc-oscuro > .container { padding-left: 1rem; padding-right: 1rem; }
     .bc-plan-intro { font-size: .9rem; }
 }
 @media (prefers-reduced-motion: reduce) {
