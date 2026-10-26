@@ -295,15 +295,6 @@ html body.blockchain-theme #containerInfo a:not(.btn) { color: var(--bc-lila) !i
 .bc-eslabon b { font-weight: 500; opacity: .5; }
 .bc-eslabon.bc-eslabon-izq { margin-bottom: .3rem; text-align: left; }
 section.bg-dark .bc-eslabon, [style*="#261951"] .bc-eslabon { color: var(--bc-lila); }
-/* en el plan, cada módulo muestra el mismo hash de datos que su bloque del encabezado */
-.bc-tag {
-    margin-left: auto;
-    padding-left: 1rem;
-    color: var(--bc-violeta);
-    font: 500 .68rem var(--bc-mono);
-    letter-spacing: .04em;
-    white-space: nowrap;
-}
 
 /* Ritmo vertical: todos los bloques con el mismo aire (antes había huecos de 270 a 510 px) */
 html body.blockchain-theme > section:not(#contact),
@@ -319,7 +310,6 @@ html body.blockchain-theme > div.container { margin-top: 2.5rem !important; marg
     html body.blockchain-theme > section:not(#contact),
     html body.blockchain-theme > article#cta-inscripcion,
     html body.blockchain-theme > article#informacionPlan { padding-top: 3rem !important; padding-bottom: 3rem !important; }
-    .bc-tag { display: none; }
     .bc-eslabon { font-size: .66rem; letter-spacing: .04em; }
 }
 
@@ -339,8 +329,604 @@ html body.blockchain-theme > div.container { margin-top: 2.5rem !important; marg
     html body.blockchain-theme #mainNav .navbar-nav .nav-item { margin: 0 !important; }
     html body.blockchain-theme #mainNav .navbar-nav .nav-item .nav-link { padding: .4rem .55rem !important; font-size: .8rem !important; letter-spacing: .03em; white-space: nowrap; }
 }
-/* la flecha del acordeón no compite con la etiqueta por el espacio libre */
-html body.blockchain-theme #informacionPlan .accordion-button::after { margin-left: .8rem; }
 /* en modo oscuro los rótulos con hash van en lila (el violeta no se lee sobre fondo oscuro) */
-html[data-theme="dark"] body.blockchain-theme .bc-eslabon,
-html[data-theme="dark"] body.blockchain-theme .bc-tag { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-eslabon { color: var(--bc-lila) !important; }
+
+/* ---------- Secciones oscuras (.bc-oscuro) y plan de estudios como la cadena del encabezado ----------
+   .bc-oscuro: fondo oscuro con la grilla del encabezado, en los dos temas, para las secciones que son parte de la
+   cadena. En el plan, js/bc-cadena.js llena anterior, nonce y hash con la misma minería y al abrir un curso lo
+   vuelve a verificar. */
+html body.blockchain-theme .bc-oscuro {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(700px 420px at 12% 8%, rgba(124, 58, 237, .22), transparent 62%),
+        radial-gradient(700px 480px at 90% 92%, rgba(76, 28, 127, .45), transparent 62%),
+        linear-gradient(180deg, #170d33, var(--bc-noche)) !important;
+    color: var(--bc-tinta);
+}
+html body.blockchain-theme .bc-oscuro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(196, 165, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196, 165, 255, .05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+    pointer-events: none;
+}
+/* style2.css le da 100 px de relleno a los costados en todos los anchos (antes lo salteaba .full-bleed): el margen lo pone el container */
+html body.blockchain-theme > article#informacionPlan { padding-left: 0 !important; padding-right: 0 !important; }
+html body.blockchain-theme .bc-oscuro > .container { position: relative; z-index: 1; }
+html body.blockchain-theme .bc-oscuro h2.card-t,
+html body.blockchain-theme .bc-oscuro h2.section-heading {
+    color: #fff !important;
+    background: linear-gradient(90deg, #fff, #e6d9ff 50%, var(--bc-lila));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+html body.blockchain-theme .bc-oscuro > .container > hr {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, rgba(196, 165, 255, .5), transparent);
+    opacity: 1;
+}
+/* style2.css pinta en violeta con !important todo link dentro de un article, section o .container, con selectores de
+   hasta siete clases: :not(#_) suma el peso de un id (no hay ningún elemento con id "_") para ganarles sin atar la
+   regla a una sección */
+html body.blockchain-theme .bc-oscuro a.bc-plan-programa:not(#_),
+html body.blockchain-theme .bc-oscuro a.bc-boton-borde:not(#_) { color: var(--bc-tinta) !important; }
+html body.blockchain-theme .bc-oscuro .bc-eslabon { color: var(--bc-lila) !important; }
+
+.bc-plan { max-width: 1040px; margin: 0 auto; }
+.bc-plan-intro {
+    max-width: 680px;
+    margin: 0 auto 2rem;
+    color: var(--bc-tenue) !important;
+    font-size: .95rem;
+    line-height: 1.6;
+    text-align: center;
+}
+.bc-plan-cadena { position: relative; }
+
+/* génesis y enlaces: la línea que une cada bloque con el siguiente lleva el hash que este guarda como "anterior" */
+.bc-plan-genesis, .bc-plan-enlace {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+    font: 500 .66rem var(--bc-mono);
+    letter-spacing: .06em;
+    text-transform: lowercase;
+    color: var(--bc-tenue);
+}
+.bc-plan-genesis { margin-bottom: 0; padding-bottom: 1.6rem; }
+.bc-plan-genesis code, .bc-plan-enlace code {
+    position: relative;
+    z-index: 1;
+    padding: .2rem .65rem;
+    border: 1px solid rgba(196, 165, 255, .22);
+    border-radius: 999px;
+    background: #140b2a;
+    color: #ddd0f7;
+    font: 400 .7rem var(--bc-mono);
+    transition: border-color .5s ease, color .5s ease, box-shadow .5s ease;
+}
+.bc-plan-genesis span, .bc-plan-enlace span { position: relative; z-index: 1; padding: 0 .5rem; border-radius: 4px; background: #120a29; }
+.bc-plan-genesis::after, .bc-plan-enlace::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    margin-left: -1px;
+    background: rgba(196, 165, 255, .16);
+    transition: background .5s ease, box-shadow .5s ease;
+}
+.bc-plan-genesis::after { top: 2.2rem; bottom: 0; }
+.bc-plan-enlace { padding: 1.1rem 0; }
+.bc-plan-enlace::before { top: 0; bottom: 0; }
+.bc-plan-enlace.minado::before {
+    background: linear-gradient(180deg, var(--bc-lila), rgba(196, 165, 255, .45));
+    box-shadow: 0 0 10px rgba(196, 165, 255, .55);
+}
+.bc-plan-enlace.minado code { border-color: rgba(196, 165, 255, .6); color: var(--bc-lila); box-shadow: 0 0 14px rgba(196, 165, 255, .2); }
+
+/* el bloque */
+.bc-plan-bloque {
+    position: relative;
+    border: 1px solid rgba(196, 165, 255, .24);
+    border-radius: 14px;
+    background: rgba(20, 11, 42, .82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--bc-tinta);
+    transition: border-color .4s ease, box-shadow .4s ease;
+}
+.bc-plan-bloque.minando { border-color: rgba(245, 185, 66, .7); box-shadow: 0 0 26px rgba(245, 185, 66, .2); }
+.bc-plan-bloque.minado { border-color: rgba(196, 165, 255, .5); box-shadow: 0 0 22px rgba(196, 165, 255, .12); }
+.bc-plan-bloque.verificado { animation: bc-verificado 1.2s ease-out; }
+@keyframes bc-verificado {
+    0% { box-shadow: 0 0 0 0 rgba(196, 165, 255, .7), 0 0 22px rgba(196, 165, 255, .12); }
+    100% { box-shadow: 0 0 0 14px rgba(196, 165, 255, 0), 0 0 22px rgba(196, 165, 255, .12); }
+}
+.bc-plan-h { margin: 0; font-size: inherit; }
+.bc-plan-cab {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    width: 100%;
+    padding: 1.15rem 1.3rem;
+    border: 0;
+    border-radius: 14px 14px 0 0;
+    background: none;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+.bc-plan-cab:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+.bc-plan-num {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 4.2rem;
+    height: 4.2rem;
+    border: 1px solid rgba(196, 165, 255, .45);
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(124, 58, 237, .45), rgba(38, 25, 81, .9));
+    color: #fff;
+    font: 600 1.45rem/1 "Space Grotesk", Montserrat, sans-serif;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+.bc-plan-num small {
+    margin-bottom: .2rem;
+    color: var(--bc-lila);
+    font: 500 .56rem var(--bc-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.bc-plan-bloque.minando .bc-plan-num small { color: var(--bc-ambar); }
+.bc-plan-info { display: flex; flex: 1 1 auto; flex-direction: column; gap: .45rem; min-width: 0; }
+.bc-plan-titulo { color: #fff; font: 600 1.14rem/1.3 "Space Grotesk", Montserrat, sans-serif; letter-spacing: -.005em; }
+.bc-plan-meta { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; color: var(--bc-tenue); font-size: .8rem; }
+.bc-plan-meta > span { display: inline-flex; align-items: center; gap: .4rem; }
+.bc-plan-meta svg, .bc-plan-meta i { color: var(--bc-lila); font-size: .75rem; }
+.bc-plan-flecha {
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(196, 165, 255, .35);
+    border-radius: 50%;
+    background: center / .8rem no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23c4a5ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+    transition: transform .3s ease, background-color .3s ease;
+}
+.bc-plan-cab:not(.collapsed) .bc-plan-flecha { transform: rotate(180deg); background-color: rgba(196, 165, 255, .14); }
+.bc-plan-cab:hover .bc-plan-flecha { background-color: rgba(196, 165, 255, .14); }
+
+/* encabezado del bloque: anterior, datos, nonce, hash y estado */
+.bc-plan-hashes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    align-items: center;
+    gap: .4rem 1.2rem;
+    margin: 0 1.3rem;
+    padding: .7rem 0 .95rem;
+    border-top: 1px dashed rgba(196, 165, 255, .2);
+}
+.bc-plan-campo { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.bc-plan-campo > span { color: var(--bc-tenue); font: 500 .6rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-plan-campo code {
+    overflow: hidden;
+    color: #ddd0f7;
+    background: none;
+    font: 400 .76rem var(--bc-mono);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.bc-plan-campo-hash code b { color: var(--bc-lila); font-weight: 600; }
+.bc-plan-bloque.minando .bc-plan-campo code[data-bc="nonce"],
+.bc-plan-bloque.minando .bc-plan-campo code[data-bc="hash"] { color: var(--bc-ambar); }
+.bc-plan-estado {
+    justify-self: end;
+    padding: .22rem .65rem;
+    border: 1px solid rgba(196, 165, 255, .25);
+    border-radius: 999px;
+    color: var(--bc-tenue);
+    font: 500 .66rem var(--bc-mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.bc-plan-bloque.minando .bc-plan-estado { border-color: rgba(245, 185, 66, .6); color: var(--bc-ambar); animation: bc-latido 1s ease-in-out infinite; }
+.bc-plan-bloque.minado .bc-plan-estado { border-color: rgba(196, 165, 255, .55); color: var(--bc-lila); }
+.bc-plan-bloque.verificado .bc-plan-estado { border-color: transparent; background: var(--bc-lila); color: #1a0f33; }
+/* el contenido cambió después de minar (por ejemplo, una traducción automática): el bloque ya no verifica */
+.bc-plan-bloque.alterado { border-color: rgba(255, 120, 120, .7); box-shadow: 0 0 22px rgba(255, 120, 120, .15); }
+.bc-plan-bloque.alterado .bc-plan-estado { border-color: rgba(255, 120, 120, .7); color: #ff9a9a; }
+
+/* los datos del bloque: contenidos a la izquierda; resultado, lente y programa a la derecha */
+.bc-plan-cuerpo {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 1.6rem;
+    margin: 0 1.3rem;
+    padding: 1.2rem 0 1.4rem;
+    border-top: 1px solid rgba(196, 165, 255, .14);
+}
+.bc-plan-etq {
+    margin: 0 0 .5rem !important;
+    color: var(--bc-lila) !important;
+    font: 500 .66rem var(--bc-mono) !important;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.bc-plan-datos p:not(.bc-plan-etq) { margin: 0; color: #d4c9ea !important; font-size: .92rem; line-height: 1.7; }
+.bc-plan-datos .bc-plan-nota {
+    margin-top: .9rem !important;
+    padding: .6rem .85rem;
+    border: 1px dashed rgba(196, 165, 255, .3);
+    border-radius: 10px;
+    font-size: .85rem !important;
+}
+.bc-plan-nota strong, .bc-plan-tp strong { color: #fff; }
+.bc-plan-lado { display: flex; flex-direction: column; gap: .9rem; }
+.bc-plan-tp, .bc-plan-lente { padding: .85rem 1rem; border-radius: 10px; font-size: .88rem; line-height: 1.6; }
+.bc-plan-tp { border: 1px solid rgba(245, 185, 66, .35); background: rgba(245, 185, 66, .06); }
+.bc-plan-tp .bc-plan-etq { color: var(--bc-ambar) !important; }
+.bc-plan-tp p:not(.bc-plan-etq) { margin: 0; color: #efe4c9 !important; }
+.bc-plan-lente { border-left: 3px solid var(--bc-lila); background: rgba(196, 165, 255, .08); color: #d4c9ea; }
+.bc-plan-lente .pin { margin-right: .35rem; }
+.bc-plan-lente strong { color: var(--bc-lila); }
+.bc-plan-lente em { color: #fff; }
+.bc-plan-programa {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .55rem 1.05rem;
+    border: 1px solid rgba(196, 165, 255, .45);
+    border-radius: 999px;
+    color: var(--bc-tinta) !important;
+    font: 600 .85rem Montserrat, sans-serif;
+    text-decoration: none !important;
+}
+.bc-plan-programa:hover { border-color: var(--bc-lila); background: rgba(196, 165, 255, .1); }
+.bc-plan-programa:focus-visible, .bc-boton-borde:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+.bc-plan-programa svg, .bc-plan-programa i { font-size: .72rem; color: var(--bc-lila); }
+
+/* ¿Y la estrategia? y el cronograma, al pie de la cadena */
+.bc-plan-estrategia {
+    margin-top: 2.2rem;
+    padding: 1.3rem 1.5rem;
+    border: 1px solid rgba(196, 165, 255, .22);
+    border-left: 3px solid var(--bc-ambar);
+    border-radius: 12px;
+    background: rgba(20, 11, 42, .6);
+}
+.bc-plan-estrategia h3 { margin-bottom: .55rem; color: #fff; font-weight: 600; }
+.bc-plan-estrategia p { margin: 0; color: #d4c9ea !important; font-size: .95rem; line-height: 1.7; }
+.bc-plan-estrategia strong { color: var(--bc-lila); }
+
+/* enhancements.css tiñe en modo oscuro todo p, span y code con !important: acá van los mismos colores que en el tema claro */
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro code {
+    border: 0;
+    background: none !important;
+    color: #ddd0f7 !important;
+}
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-genesis code,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-enlace code { border: 1px solid rgba(196, 165, 255, .22); background: #140b2a !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-enlace.minado code { border-color: rgba(196, 165, 255, .6); color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando code[data-bc="nonce"],
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando code[data-bc="hash"] { color: var(--bc-ambar) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-titulo { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-num small,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-etq,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minado .bc-plan-estado { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-tp .bc-plan-etq,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando .bc-plan-num small,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.minando .bc-plan-estado { color: var(--bc-ambar) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.verificado .bc-plan-estado { color: #1a0f33 !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-bloque.alterado .bc-plan-estado { color: #ff9a9a !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-intro,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-meta span,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-campo > span,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-estado,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-genesis span,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-enlace span { color: var(--bc-tenue) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-datos p:not(.bc-plan-etq),
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-lente,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-estrategia p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-tp p:not(.bc-plan-etq) { color: #efe4c9 !important; }
+
+@media (max-width: 767.98px) {
+    .bc-plan-cab { align-items: flex-start; gap: .8rem; padding: 1rem; }
+    .bc-plan-num { width: 3.2rem; height: 3.2rem; font-size: 1.15rem; }
+    .bc-plan-num small { font-size: .5rem; }
+    .bc-plan-titulo { font-size: 1rem; }
+    .bc-plan-meta { font-size: .74rem; gap: .25rem .8rem; }
+    .bc-plan-flecha { width: 1.7rem; height: 1.7rem; }
+    .bc-plan-hashes { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 1rem; }
+    .bc-plan-estado { grid-column: 1 / -1; justify-self: start; }
+    .bc-plan-cuerpo { grid-template-columns: 1fr; gap: 1.1rem; margin: 0 1rem; }
+    .bc-plan-estrategia { padding: 1.1rem 1.15rem; }
+    html body.blockchain-theme .bc-oscuro > .container { padding-left: 1rem; padding-right: 1rem; }
+    .bc-plan-intro { font-size: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bc-plan-bloque, .bc-plan-enlace::before, .bc-plan-enlace code, .bc-plan-flecha { transition: none; }
+    .bc-plan-bloque.verificado, .bc-plan-bloque.minando .bc-plan-estado { animation: none; }
+}
+
+/* ---------- Cierre: bloque pendiente de la cohorte 2027 (#contact) ----------
+   Último bloque de la cadena: el #5 todavía no se minó, así que va en ámbar (pendiente) con borde punteado.
+   El eslabón de arriba se enciende en lila cuando el encabezado mina el bloque #4 (code[data-bc-hash="4"].minado).
+   La lista de espera sigue siendo la acción principal. */
+html body.blockchain-theme section#contact.bc-oscuro { padding: 4rem 0 !important; margin: 0 !important; }
+.bc-cierre { max-width: 860px; margin: 0 auto; }
+.bc-cierre-enlace:has(code.minado)::before {
+    background: linear-gradient(180deg, var(--bc-lila), rgba(245, 185, 66, .55));
+    box-shadow: 0 0 10px rgba(196, 165, 255, .45);
+}
+.bc-cierre-enlace code.minado { border-color: rgba(196, 165, 255, .6); color: var(--bc-lila); box-shadow: 0 0 14px rgba(196, 165, 255, .2); }
+.bc-cierre-bloque {
+    padding-top: 1.1rem;
+    border-style: dashed;
+    border-color: rgba(245, 185, 66, .55);
+    box-shadow: 0 0 26px rgba(245, 185, 66, .1);
+}
+.bc-cierre-cab { display: flex; align-items: center; gap: .9rem; margin: 0 1.3rem; padding-bottom: .4rem; }
+.bc-cierre-cab .bc-plan-num { width: 3.4rem; height: 3.4rem; font-size: 1.2rem; border-color: rgba(245, 185, 66, .55); }
+.bc-cierre-cab .bc-plan-num small { color: var(--bc-ambar); font-size: .5rem; }
+.bc-cierre-titulo { flex: 1 1 auto; min-width: 0; color: #fff; font: 600 1.05rem/1.3 "Space Grotesk", Montserrat, sans-serif; }
+.bc-cierre-cab .bc-plan-estado { border-color: rgba(245, 185, 66, .6); color: var(--bc-ambar); animation: bc-latido 2s ease-in-out infinite; }
+.bc-cierre-bloque .bc-plan-campo code[data-bc-hash="4"].minado { color: var(--bc-lila); }
+.bc-cierre-hashes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bc-cierre-hashes .bc-plan-campo:nth-child(n+2) code { color: var(--bc-ambar); }
+.bc-cierre .btn-primary:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 3px; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):not(#_) { color: #fff !important; text-decoration: underline; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):not(#_):hover { color: var(--bc-lila) !important; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):not(#_):focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; border-radius: 3px; }
+/* enhancements.css tiñe p, span y code en modo oscuro con !important: acá los mismos colores que en el tema claro */
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-titulo { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-cab .bc-plan-num small,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-cab .bc-plan-estado,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-hashes .bc-plan-campo:nth-child(n+2) code { color: var(--bc-ambar) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-bloque .bc-plan-campo code[data-bc-hash="4"].minado,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-enlace code.minado { color: var(--bc-lila) !important; }
+@media (max-width: 767.98px) {
+    html body.blockchain-theme section#contact.bc-oscuro { padding: 3rem 0 !important; }
+    html body.blockchain-theme section#contact.bc-oscuro > .container { padding-left: 1rem; padding-right: 1rem; }
+    .bc-cierre-cab, .bc-cierre-hashes { margin: 0 1rem; }
+    .bc-cierre-hashes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bc-cierre-hashes .bc-plan-campo-hash { grid-column: 1 / -1; }
+    .bc-cierre-bloque .btn-lg { width: 100%; padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bc-cierre-cab .bc-plan-estado { animation: none; }
+}
+
+/* ---------- Lo que vas a construir (#proyectos) ----------
+   Son proyectos integradores alternativos, no una secuencia: cada uno corre sobre la cadena completa de los cuatro
+   cursos y el chip muestra el hash de su punta (bloque #4, lo llena js/bc-cadena.js). Sección clara: el chip es lo
+   único que lleva el lenguaje de la cadena. Los colores de enhancements.css (modo oscuro) y style2.css (links) se pisan con el id. */
+#proyectos .row > [class*="col-"] { position: relative; }
+#proyectos .proyecto-card { height: 100%; display: flex; flex-direction: column; }
+#proyectos .proyecto-card > .bc-pr-chip { margin-top: auto; }
+#proyectos .proyecto-card > div:not(.bc-icon-wrap) { margin-bottom: 1rem; }
+
+html body.blockchain-theme #proyectos a.bc-pr-chip {
+    align-self: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .1rem;
+    max-width: 100%;
+    padding: .4rem .85rem;
+    border: 1px solid rgba(76, 28, 127, .3);
+    border-radius: 12px;
+    background: #f4eefb;
+    color: var(--bc-violeta) !important;
+    text-decoration: none !important;
+    transition: border-color .3s ease, background-color .3s ease;
+}
+html body.blockchain-theme #proyectos a.bc-pr-chip:hover { border-color: var(--bc-violeta); background: #ebe0f8; }
+html body.blockchain-theme #proyectos a.bc-pr-chip:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+html body.blockchain-theme #proyectos .bc-pr-bloque {
+    color: var(--bc-violeta) !important;
+    font: 500 .68rem var(--bc-mono);
+    letter-spacing: .04em;
+    white-space: nowrap;
+}
+html body.blockchain-theme #proyectos .bc-pr-bloque > span { color: var(--bc-violeta) !important; font: inherit; opacity: .6; transition: opacity .5s ease; }
+html body.blockchain-theme #proyectos .bc-pr-bloque > span.minado { opacity: 1; }
+html body.blockchain-theme #proyectos .bc-pr-curso {
+    color: #4a4a4a !important;
+    font: 600 .74rem Montserrat, sans-serif;
+    line-height: 1.3;
+}
+
+/* modo oscuro: las tarjetas son oscuras, el chip va en lila */
+html[data-theme="dark"] body.blockchain-theme #proyectos a.bc-pr-chip { border-color: rgba(196, 165, 255, .35); background: rgba(196, 165, 255, .08); }
+html[data-theme="dark"] body.blockchain-theme #proyectos a.bc-pr-chip:hover { border-color: var(--bc-lila); background: rgba(196, 165, 255, .16); }
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-bloque,
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-bloque > span { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-curso { color: #c9d1d9 !important; }
+@media (prefers-reduced-motion: reduce) {
+    #proyectos a.bc-pr-chip, #proyectos .bc-pr-bloque > span { transition: none !important; }
+}
+
+/* ---------- Subpágina plan-de-estudios ----------
+   El plan usa el mismo marcado que la portada (.bc-oscuro + .bc-plan). El cronograma sigue la cadena: cada curso es
+   un bloque (cabecera oscura como las tarjetas del encabezado, con el hash que se mina arriba en [data-bc-hash]) y
+   cada clase es una transacción. La sección queda clara: entre el plan y el cronograma va "El camino del alumno". */
+
+html body.blockchain-theme #informacionPlan .breadcrumb { max-width: 1040px; margin: 0 auto 1.6rem; font-size: .85rem; }
+html body.blockchain-theme #informacionPlan .breadcrumb-item a { color: var(--bc-lila) !important; }
+html body.blockchain-theme #informacionPlan .breadcrumb-item.active { color: var(--bc-tenue) !important; }
+html body.blockchain-theme #informacionPlan .breadcrumb-item a:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+
+.bc-crono-intro, .bc-crono-aviso { max-width: 720px; margin: 0 auto; color: #5f5873; }
+.bc-crono-aviso { margin-top: .5rem; font-size: .85rem; }
+.bc-crono-aviso svg, .bc-crono-aviso i { color: #4C1C7F; }
+.bc-crono { max-width: 1040px; margin: 0 auto; }
+
+/* el bloque: cabecera oscura con número, título, fechas y docentes, y el hash minado */
+.bc-crono-bloque {
+    overflow: hidden;
+    border: 1px solid rgba(76, 28, 127, .16);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(38, 25, 81, .08);
+}
+.bc-crono-cab {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.15rem 1.3rem;
+    background: linear-gradient(135deg, #261951, #170d33);
+    color: var(--bc-tinta);
+}
+.bc-crono-info { flex: 1 1 auto; min-width: 0; }
+.bc-crono-titulo { margin: 0; color: #fff; font: 600 1.14rem/1.3 "Space Grotesk", Montserrat, sans-serif; letter-spacing: -.005em; }
+.bc-crono-meta { margin: .4rem 0 0; color: var(--bc-tenue) !important; font-size: .8rem; line-height: 1.5; }
+html body.blockchain-theme #cronograma .bc-crono-meta a { color: var(--bc-lila) !important; text-decoration: underline; text-underline-offset: 2px; }
+.bc-crono-hashes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .3rem .8rem;
+    margin: 0;
+    padding: .55rem 1.3rem .8rem;
+    border-top: 1px dashed rgba(196, 165, 255, .2);
+    background: #170d33;
+    color: var(--bc-tenue);
+    font: 500 .62rem var(--bc-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.bc-crono-hashes span:last-child { margin-left: auto; }
+.bc-crono-hashes code {
+    padding: 0;
+    background: none;
+    color: #ddd0f7;
+    font: 400 .76rem var(--bc-mono);
+    letter-spacing: 0;
+    text-transform: none;
+}
+.bc-crono-hashes code.minado { color: var(--bc-lila); }
+.bc-crono-cuerpo { padding: 1.2rem 1.3rem 1.4rem; }
+
+/* resultado del TP, cursada conjunta y lente: las mismas cajas que en el plan, en versión clara */
+.bc-crono-tp, .bc-crono-nota, .bc-crono-lente { margin: 0 0 .9rem; padding: .85rem 1rem; border-radius: 10px; font-size: .9rem; line-height: 1.6; }
+.bc-crono-tp { border: 1px solid rgba(245, 185, 66, .6); background: #fff8e8; color: #4a3712; }
+.bc-crono-tp strong { color: #8a5a00; }
+.bc-crono-nota { border: 1px dashed rgba(76, 28, 127, .35); color: #3a2a5a; }
+.bc-crono-nota strong { color: #261951; }
+.bc-crono-lente { margin: 1.1rem 0 0; border-left: 3px solid #4C1C7F; background: #f3ebfb; color: #261951; }
+.bc-crono-lente strong { color: #4C1C7F; }
+.bc-crono-lente em { color: #261951; }
+.bc-crono-tp .pin, .bc-crono-nota .pin, .bc-crono-lente .pin { margin-right: .35rem; }
+
+/* cada clase, una transacción: id a la izquierda, tema y actividad práctica en dos columnas */
+.bc-tx-lista { margin: 1.1rem 0 0; padding: 0; border-top: 1px solid rgba(76, 28, 127, .14); list-style: none; }
+.bc-tx {
+    display: grid;
+    grid-template-columns: 5.4rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: .95rem 0;
+    border-bottom: 1px dashed rgba(76, 28, 127, .2);
+}
+.bc-tx-id { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; margin: 0; }
+.bc-tx-id b {
+    padding: .15rem .6rem;
+    border: 1px solid rgba(76, 28, 127, .25);
+    border-radius: 999px;
+    background: rgba(76, 28, 127, .07);
+    color: #4C1C7F;
+    font: 500 .78rem var(--bc-mono);
+    white-space: nowrap;
+}
+.bc-tx-id span { color: #6b5d85; font: 500 .62rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-tx-datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; margin: 0; }
+.bc-tx-datos dt { margin: 0 0 .25rem; color: #4C1C7F; font: 500 .62rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-tx-datos dd { margin: 0; color: #2d2440; font-size: .9rem; line-height: 1.6; }
+.bc-tx-datos dd strong { color: #261951; }
+
+/* enlace entre bloques: el hash del bloque anterior, cuando se mina arriba */
+.bc-crono-enlace::before { background: rgba(76, 28, 127, .25); }
+.bc-crono-enlace span { background: #fff; color: #6b5d85; }
+.bc-crono-enlace code { border-color: rgba(76, 28, 127, .25); background: #fff; color: #4C1C7F; }
+.bc-crono-enlace code.minado { border-color: rgba(76, 28, 127, .55); box-shadow: 0 0 12px rgba(76, 28, 127, .15); }
+
+.bc-crono-estrategia {
+    margin-top: 2.2rem;
+    padding: 1.3rem 1.5rem;
+    border: 1px solid rgba(76, 28, 127, .16);
+    border-left: 3px solid var(--bc-ambar);
+    border-radius: 12px;
+    background: #fff;
+}
+.bc-crono-estrategia h3 { margin-bottom: .55rem; color: #261951; font-weight: 600; }
+.bc-crono-estrategia p { margin: 0; color: #3a3a3a; font-size: .95rem; line-height: 1.7; }
+.bc-crono-estrategia strong { color: #4C1C7F; }
+
+/* modo oscuro: enhancements.css tiñe p, span, dd, dt y code con !important; los bloques van como los del plan */
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-intro,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-aviso { color: #a9a1bd !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-aviso svg { color: var(--bc-lila); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-bloque,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia { border-color: rgba(196, 165, 255, .24); background: #140b2a; box-shadow: none; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-titulo { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-meta,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-hashes span,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-id span,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace span { color: var(--bc-tenue) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-plan-num small { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma code { border: 0; background: none !important; color: #ddd0f7 !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma code.minado { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace::before { background: rgba(196, 165, 255, .2); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace span { background: #0d1117; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace code { border: 1px solid rgba(196, 165, 255, .25); background: #140b2a !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-tp { border-color: rgba(245, 185, 66, .35); background: rgba(245, 185, 66, .06); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-tp { color: #efe4c9 !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-tp strong { color: var(--bc-ambar); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-nota { border-color: rgba(196, 165, 255, .3); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-nota,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-datos dd,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente { border-left-color: var(--bc-lila); background: rgba(196, 165, 255, .08); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-nota strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente em,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-datos dd strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia h3 { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-datos dt { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-lista { border-top-color: rgba(196, 165, 255, .16); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx { border-bottom-color: rgba(196, 165, 255, .16); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-id b { border-color: rgba(196, 165, 255, .35); background: rgba(196, 165, 255, .1); color: var(--bc-lila); }
+
+@media (max-width: 767.98px) {
+    .bc-crono-cab { align-items: flex-start; gap: .8rem; padding: 1rem; }
+    .bc-crono-titulo { font-size: 1rem; }
+    .bc-crono-meta { font-size: .74rem; }
+    .bc-crono-hashes { padding: .5rem 1rem .7rem; }
+    .bc-crono-hashes span:last-child { flex-basis: 100%; margin-left: 0; }
+    .bc-crono-cuerpo { padding: 1rem; }
+    .bc-crono-tp, .bc-crono-nota, .bc-crono-lente { font-size: .86rem; }
+    .bc-tx { grid-template-columns: 1fr; gap: .55rem; padding: .85rem 0; }
+    .bc-tx-id { flex-direction: row; align-items: center; gap: .6rem; }
+    .bc-tx-datos { grid-template-columns: 1fr; gap: .6rem; }
+    .bc-tx-datos dd { font-size: .86rem; }
+    .bc-crono-estrategia { padding: 1.1rem 1.15rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bc-crono-enlace code { transition: none; }
+}

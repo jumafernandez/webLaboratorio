@@ -377,102 +377,6 @@
             .bc-card, .prereq-item, #btn-quiz-submit { transition: none; }
             #quiz-result-box { animation: none; }
         }
-
-        /* Plan de estudios — estilo unificado con /plan-de-estudios/ */
-        .plan-card {
-            background: #fff;
-            border: 1px solid #ece7f3;
-            border-radius: 14px;
-            margin-bottom: 1rem;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #4C1C7F 0%, #261951 100%);
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-        .plan-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 36px rgba(76, 28, 127, 0.16);
-            border-color: #F3EBFB;
-        }
-        .plan-card:hover::before { opacity: 1; }
-        .plan-card .accordion-item {
-            border: none;
-            border-radius: 0;
-            background: transparent;
-        }
-        .plan-card .accordion-button {
-            background: transparent;
-            color: #261951;
-            font-weight: 700;
-            border-radius: 0 !important;
-            box-shadow: none;
-        }
-        .plan-card .accordion-button:not(.collapsed) {
-            background: #F3EBFB;
-            color: #261951;
-            box-shadow: none;
-        }
-        .plan-card .accordion-button:focus {
-            box-shadow: 0 0 0 2px rgba(76, 28, 127, 0.3);
-        }
-        .plan-icon-wrap {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #4C1C7F;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 800;
-            flex-shrink: 0;
-            margin-right: 0.75rem;
-            transition: background 0.25s ease;
-        }
-        .plan-card:hover .plan-icon-wrap { background: #261951; }
-        .lente-estrategica {
-            background: #F3EBFB;
-            border-left: 4px solid #4C1C7F;
-            border-radius: 8px;
-            padding: 0.85rem 1.1rem;
-            margin: 1rem 0 1rem;
-            font-size: 0.95rem;
-            color: #261951;
-        }
-        .lente-estrategica .pin { display: inline-block; margin-right: 0.4rem; }
-        .lente-estrategica strong { color: #4C1C7F; font-weight: 800; }
-        .lente-estrategica em { color: #261951; font-style: italic; }
-        .estrategia-block {
-            background: #fff;
-            border-left: 4px solid #4C1C7F;
-            border-radius: 10px;
-            padding: 1.25rem 1.5rem;
-            margin-top: 1.5rem;
-            box-shadow: 0 4px 16px rgba(76, 28, 127, 0.08);
-        }
-        .estrategia-block h5 {
-            color: #261951;
-            font-weight: 800;
-            margin-bottom: 0.6rem;
-        }
-        .estrategia-block p {
-            color: #3a3a3a;
-            font-size: 0.97rem;
-            line-height: 1.7;
-            margin-bottom: 0;
-        }
-        .estrategia-block strong { color: #4C1C7F; }
     </style>
     <!-- Meta Pixel Code -->
     <script>
@@ -976,184 +880,262 @@
     </div>
     <div id="bordefino"></div>
 
-    <article id="informacionPlan">
+    <article id="informacionPlan" class="bc-oscuro">
         <div class="container mt-5 mb-5">
             <h2 class="card-t card-title">Plan de estudios</h2>
             <hr>
 
+            <!-- Los cuatro cursos como la misma cadena del encabezado: js/bc-cadena.js llena anterior, datos, nonce y hash
+                 con la minería real, y vuelve a verificar el bloque al abrir cada curso -->
+            <div class="bc-plan">
+                <p class="bc-plan-intro">4 cursos de posgrado de 40 hs, uno detrás del otro. Cada curso es un bloque: guarda el hash de sus contenidos y el del curso anterior. Abrí uno para verlo y verificarlo en tu navegador.</p>
+                <div class="bc-plan-genesis" aria-hidden="true"><span>génesis</span><code>0x0000000000…0000</code></div>
+                <div id="accordionPanelsStayOpenExample" class="bc-plan-cadena">
 
-            <div class="full-bleed my-2">
-                <div class="row g-0 justify-content-center">
-                    <!-- En mobile: 12 cols, en desktop: 10 cols centradas -->
-                    <div class="col-12 col-lg-10 px-0">
-                        <div class="card border-0 rounded-0 shadow-sm">
-                            <div class="card-body p-3 p-md-4">
-                                <div id="accordionPanelsStayOpenExample">
-
-                                    <!-- Item 1 -->
-                                    <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                                    aria-controls="panelsStayOpen-collapseOne">
-                                                    <span class="plan-icon-wrap" aria-hidden="true">1</span>
-                                                    Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                                                <div class="accordion-body">
-                                                    <p>
-                                                        Breve revisión de la evolución de blockchain. Conceptos clave
-                                                        como bloques, nodos y mineros. Clasificación de tipos de
-                                                        blockchain: públicas, privadas y de consorcio.
-                                                        Principios de Descentralización. Funcionamiento de cadenas de
-                                                        bloques: tipos de cadenas de bloques y algoritmos de consenso.
-                                                        Casos de uso y aplicaciones actuales. Desafíos y limitaciones.
-                                                        Frameworks y Herramientas para Desarrollo Web3/DApp. Ethereum y
-                                                        Solidity, Hardhat y otras plataformas.
-                                                        Elementos de criptografía en DeFi. Criptografía como medio para
-                                                        asegurar la integridad, seguridad y privacidad en sistemas
-                                                        descentralizados. Creación de criptomonedas, y los fundamentos de
-                                                        la criptografía hash.
-                                                    </p>
-                                                    <div class="lente-estrategica">
-                                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> selección de <em>use case</em> — cuándo conviene blockchain (y cuándo no), qué tipo elegir (pública / privada / consorcio) según el problema a resolver.
-                                                    </div>
-                                                    <a href="https://drive.google.com/file/d/1Q-N7jwTl8uJG8VtwRX3_wVyEWjiL4Zpk/view?usp=sharing"
-                                                        class="alert-link text-decoration-underline" target="_blank">
-                                                        Accede al programa
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Item 2 -->
-                                    <div class="plan-card" data-aos="fade-up" data-aos-delay="200">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
-                                                    aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                                    <span class="plan-icon-wrap" aria-hidden="true">2</span>
-                                                    Fundamentos Financieros y Blockchain para Finanzas Descentralizadas
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    <p>
-                                                        Introducción a las Finanzas: Concepto y Objetivos; Análisis
-                                                        Financiero: Cálculo Financiero. Riesgo y Rentabilidad:
-                                                        Definiciones y Diversificación. Finanzas Corporativas: Estructura
-                                                        de Capital y Decisiones de Inversión. Blockchain y Criptomonedas:
-                                                        Aplicaciones de DeFi, Ventajas y Riesgos. Casos de Uso en DeFi:
-                                                        Ejemplos de Proyectos e Impacto en el Sector Financiero.
-                                                        Criptoeconomía y DeFi: Características y funcionamiento de
-                                                        criptomonedas, Stablecoins, Staking, Lending and Borrowing, AMMs,
-                                                        DEX vs CEX, Derivados sintéticos, ICOs.
-                                                    </p>
-                                                    <div class="lente-estrategica">
-                                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>criptoeconomía aplicada</em> — diseño de tokenomics, evaluación de modelos DeFi (lending, AMMs, derivados) y lectura crítica de proyectos reales del ecosistema.
-                                                    </div>
-                                                    <a href="https://drive.google.com/file/d/1C8kqt3Z111b1hI_5Svx54ZXIuFzzx9_C/view?usp=sharing"
-                                                        class="alert-link text-decoration-underline" target="_blank">
-                                                        Accede al programa
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Item 3 -->
-                                    <div class="plan-card" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
-                                                    aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                                    <span class="plan-icon-wrap" aria-hidden="true">3</span>
-                                                    Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    <p>
-                                                        Infraestructura para Blockchain: Nube y sus servicios para
-                                                        BlockChain (almacenamiento, cómputo, bases de datos).
-                                                        Infraestructura como código (IaC) y canalizaciones CI/CD, para
-                                                        despliegue de recursos en entornos cloud. Arquitectura y
-                                                        orquestadores de contenedores como plataformas escalables y
-                                                        especializadas en BlockChain. Redes capa 1 (Layer 1) y capa 2
-                                                        (Layer 2). Escalabilidad y rendimiento: soluciones de capa 2.
-                                                    </p>
-                                                    <div class="lente-estrategica">
-                                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>trade-offs de implementación</em> — costos, performance y seguridad al elegir Layer 1 vs Layer 2, nodo propio vs servicio gestionado, on-chain vs off-chain.
-                                                    </div>
-                                                    <a href="https://drive.google.com/file/d/1MF09yPS-uZcD7KgLDP0N2_nkhvJrjyFQ/view?usp=sharing"
-                                                        class="alert-link text-decoration-underline" target="_blank">
-                                                        Accede al programa
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Item 4 -->
-                                    <div class="plan-card" data-aos="fade-up" data-aos-delay="400">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour"
-                                                    aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                                    <span class="plan-icon-wrap" aria-hidden="true">4</span>
-                                                    Desarrollo de Aplicaciones y DApps Blockchain
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    <p>
-                                                        Solidity avanzado, patrones de seguridad (reentrancy, front-running,
-                                                        access control) y testing con Hardhat y Foundry. Estándares de tokens:
-                                                        ERC-20, ERC-721, ERC-1155, ERC-4626 y ERC-5114 (SBTs). Frontend Web3
-                                                        con React, ethers.js, wagmi y viem. Integración con wallets:
-                                                        WalletConnect, RainbowKit, EIP-712 y SIWE. Identidad descentralizada:
-                                                        DIDs (W3C), Verifiable Credentials (W3C VC Data Model 2.0) y EAS
-                                                        (Ethereum Attestation Service). Layer 2 (Polygon, Optimism, Arbitrum,
-                                                        zkSync) con bridges y mensajería cross-chain. Upgradeable proxies
-                                                        (UUPS, Transparent) y auditoría con Slither.
-                                                    </p>
-                                                    <div class="lente-estrategica">
-                                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>business case end-to-end</em> — del contrato Solidity al frontend Web3 con wallets, identidad descentralizada (VCs, EAS) y producto desplegado en mainnet/testnet pública.
-                                                    </div>
-                                                    <a href="https://drive.google.com/file/d/1ACkbJjGBDEG3U-pQTcB6YiOcEPj8rDqn/view?usp=sharing"
-                                                        class="alert-link text-decoration-underline" target="_blank">
-                                                        Accede al programa
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div><!-- /accordion -->
-
-                                <div class="estrategia-block" data-aos="fade-up" data-aos-delay="500">
-                                    <h5>¿Y la estrategia?</h5>
+                    <!-- Curso 1 -->
+                    <div class="bc-plan-bloque" data-bloque="1" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#1</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Agosto 2026</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>8 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Mg. Juan Manuel Fernández · Esp. Ciro Edgardo Romero</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Los mismos datos que el bloque #1 del encabezado">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseOne" class="collapse show">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
                                     <p>
-                                        Está distribuida en los 4 módulos, no aislada en una capa para directivos. La <strong>criptoeconomía</strong> vive en el módulo de DeFi, el <strong>business case</strong> en el de DApps, la <strong>selección de use case</strong> en los fundamentos, los <strong>trade-offs de implementación</strong> en infraestructura. Lo que en otros programas son slides, acá son decisiones que el alumno toma mientras construye.
+                                        Breve revisión de la evolución de blockchain. Conceptos clave
+                                        como bloques, nodos y mineros. Clasificación de tipos de
+                                        blockchain: públicas, privadas y de consorcio.
+                                        Principios de Descentralización. Funcionamiento de cadenas de
+                                        bloques: tipos de cadenas de bloques y algoritmos de consenso.
+                                        Casos de uso y aplicaciones actuales. Desafíos y limitaciones.
+                                        Frameworks y Herramientas para Desarrollo Web3/DApp. Ethereum y
+                                        Solidity, Hardhat y otras plataformas.
+                                        Elementos de criptografía en DeFi. Criptografía como medio para
+                                        asegurar la integridad, seguridad y privacidad en sistemas
+                                        descentralizados. Creación de criptomonedas, y los fundamentos de
+                                        la criptografía hash.
                                     </p>
                                 </div>
-
-                                <div class="text-center mt-4">
-                                    <a href="plan-de-estudios/#cronograma" class="btn btn-outline-dark btn-lg px-4 py-2">
-                                        <i class="far fa-calendar-alt me-2"></i>Ver cronograma clase por clase
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>Tu primer contrato Solidity propio desplegado y verificado en Sepolia, con tests y CI en repo público.</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> selección de <em>use case</em> — cuándo conviene blockchain (y cuándo no), qué tipo elegir (pública / privada / consorcio) según el problema a resolver.
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1Q-N7jwTl8uJG8VtwRX3_wVyEWjiL4Zpk/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                                     </a>
                                 </div>
-                            </div><!-- /card-body -->
-                        </div><!-- /card -->
-                    </div><!-- /col -->
-                </div><!-- /row -->
-            </div><!-- /full-bleed -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bc-plan-enlace" data-desde="1" aria-hidden="true"><span>anterior = hash #1</span><code>—</code></div>
+
+                    <!-- Curso 2 -->
+                    <div class="bc-plan-bloque" data-bloque="2" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#2</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Fundamentos Financieros y Blockchain para Finanzas Descentralizadas</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Septiembre 2026</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>8 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Dr. Julián Olivares · Deiller Guevara</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Los mismos datos que el bloque #2 del encabezado">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseTwo" class="collapse">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Introducción a las Finanzas: Concepto y Objetivos; Análisis
+                                        Financiero: Cálculo Financiero. Riesgo y Rentabilidad:
+                                        Definiciones y Diversificación. Finanzas Corporativas: Estructura
+                                        de Capital y Decisiones de Inversión. Blockchain y Criptomonedas:
+                                        Aplicaciones de DeFi, Ventajas y Riesgos. Casos de Uso en DeFi:
+                                        Ejemplos de Proyectos e Impacto en el Sector Financiero.
+                                        Criptoeconomía y DeFi: Características y funcionamiento de
+                                        criptomonedas, Stablecoins, Staking, Lending and Borrowing, AMMs,
+                                        DEX vs CEX, Derivados sintéticos, ICOs.
+                                    </p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>Artículo financiero de un token propio (tokenomics + encuadre PSAV) y el ERC-20 desplegado en Sepolia siguiendo ese diseño.</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>criptoeconomía aplicada</em> — diseño de tokenomics, evaluación de modelos DeFi (lending, AMMs, derivados) y lectura crítica de proyectos reales del ecosistema.
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1C8kqt3Z111b1hI_5Svx54ZXIuFzzx9_C/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bc-plan-enlace" data-desde="2" aria-hidden="true"><span>anterior = hash #2</span><code>—</code></div>
+
+                    <!-- Curso 3 -->
+                    <div class="bc-plan-bloque" data-bloque="3" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseThree">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#3</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Octubre-noviembre 2026 · del 6/10 al 3/11</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>8 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Dr. David Petrocelli · Mauricio Romero</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Los mismos datos que el bloque #3 del encabezado">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseThree" class="collapse">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Infraestructura para Blockchain: Nube y sus servicios para
+                                        BlockChain (almacenamiento, cómputo, bases de datos).
+                                        Infraestructura como código (IaC) y canalizaciones CI/CD, para
+                                        despliegue de recursos en entornos cloud. Arquitectura y
+                                        orquestadores de contenedores como plataformas escalables y
+                                        especializadas en BlockChain. Redes capa 1 (Layer 1) y capa 2
+                                        (Layer 2). Escalabilidad y rendimiento: soluciones de capa 2.
+                                    </p>
+                                    <p class="bc-plan-nota"><strong>Cursada conjunta</strong> con el Curso 2 de la Diplomatura en IA Generativa: las clases 1 a 6 son compartidas y las clases 7 y 8 son específicas de cada orientación.</p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>El "andamio Web2" completo para sostener tu proyecto Web3 en producción — contenedores, IaC con Terraform, GKE, observabilidad y pipelines, más proxy RPC propio sobre Base Sepolia, gateway IPFS dedicado e indexer self-hosted. La capa sobre la que el DApp del Curso 4 va a correr en producción.</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>trade-offs de implementación</em> — costos, performance y seguridad al elegir Layer 1 vs Layer 2, nodo propio vs servicio gestionado, on-chain vs off-chain.
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1MF09yPS-uZcD7KgLDP0N2_nkhvJrjyFQ/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bc-plan-enlace" data-desde="3" aria-hidden="true"><span>anterior = hash #3</span><code>—</code></div>
+
+                    <!-- Curso 4 -->
+                    <div class="bc-plan-bloque" data-bloque="4" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseFour">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#4</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Desarrollo de Aplicaciones y DApps Blockchain</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Noviembre 2026 · del 5/11 al 26/11</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>7 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Dr. David Petrocelli · Esp. Ciro Edgardo Romero</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Los mismos datos que el bloque #4 del encabezado">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseFour" class="collapse">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Crowdfunding, Web3, clasificación y aplicación en el ecosistema
+                                        blockchain. Crowdfunding basado en recompensas utilizando DApps y
+                                        smart contracts. Web3 avanzado: Metaverso, NFTs y tokenización de
+                                        activos. Escribir, compilar y desplegar contratos inteligentes en
+                                        Ethereum L2 (Base Sepolia / OP Stack) con Solidity. Construcción incremental de una pasarela de pago Web3 (ERC-20 + NFT de recibo + PaymentGateway + frontend Next.js) como caso guía del curso.
+                                    </p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>Tu propia <strong>pasarela de pago Web3 (PaymentGateway)</strong> desplegada en Base Sepolia: contratos propios (token ERC-20 de pago, NFT recibo y PaymentGateway) testeados y auditados, frontend con conexión de wallet (Next.js + wagmi + RainbowKit), contratos verificados y comparativa de costos de gas contra mainnet. Reusa lo que diseñaste en el Curso 2 (token y tokenomics) y puede correr sobre el andamio que levantaste en el Curso 3 (infra).</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>del contrato al producto en Layer 2</em> — seguridad, testing y despliegue end-to-end con foco en costos reales de gas y experiencia de usuario Web3.
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1ACkbJjGBDEG3U-pQTcB6YiOcEPj8rDqn/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /cadena -->
+
+                <div class="bc-plan-estrategia" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="h5">¿Y la estrategia?</h3>
+                    <p>
+                        Está distribuida en los 4 módulos, no aislada en una capa para directivos. La <strong>criptoeconomía</strong> vive en el módulo de DeFi, el <strong>business case</strong> en el de DApps, la <strong>selección de use case</strong> en los fundamentos, los <strong>trade-offs de implementación</strong> en infraestructura. Lo que en otros programas son slides, acá son decisiones que el alumno toma mientras construye.
+                    </p>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="plan-de-estudios/#cronograma" class="bc-boton-borde">
+                        <i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Ver cronograma clase por clase
+                    </a>
+                </div>
+            </div><!-- /bc-plan -->
         </div>
     </article>
 
@@ -1663,6 +1645,10 @@
                             <span class="stack-pill">GCP</span>
                             <span class="stack-pill">React</span>
                         </div>
+                        <a class="bc-pr-chip" href="#informacionPlan" title="Ver los cuatro cursos en el plan de estudios">
+                            <span class="bc-pr-bloque">cadena #1→#4 · <span data-bc-hash="4">—</span></span>
+                            <span class="bc-pr-curso">Proyecto integrador: usa los 4 cursos</span>
+                        </a>
                     </div>
                 </div>
 
@@ -1679,6 +1665,10 @@
                             <span class="stack-pill">ethers.js</span>
                             <span class="stack-pill">Hardhat</span>
                         </div>
+                        <a class="bc-pr-chip" href="#informacionPlan" title="Ver los cuatro cursos en el plan de estudios">
+                            <span class="bc-pr-bloque">cadena #1→#4 · <span data-bc-hash="4">—</span></span>
+                            <span class="bc-pr-curso">Proyecto integrador: usa los 4 cursos</span>
+                        </a>
                     </div>
                 </div>
 
@@ -1695,6 +1685,10 @@
                             <span class="stack-pill">ENS</span>
                             <span class="stack-pill">GCP</span>
                         </div>
+                        <a class="bc-pr-chip" href="#informacionPlan" title="Ver los cuatro cursos en el plan de estudios">
+                            <span class="bc-pr-bloque">cadena #1→#4 · <span data-bc-hash="4">—</span></span>
+                            <span class="bc-pr-curso">Proyecto integrador: usa los 4 cursos</span>
+                        </a>
                     </div>
                 </div>
 
@@ -1711,6 +1705,10 @@
                             <span class="stack-pill">IPFS</span>
                             <span class="stack-pill">Polygon</span>
                         </div>
+                        <a class="bc-pr-chip" href="#informacionPlan" title="Ver los cuatro cursos en el plan de estudios">
+                            <span class="bc-pr-bloque">cadena #1→#4 · <span data-bc-hash="4">—</span></span>
+                            <span class="bc-pr-curso">Proyecto integrador: usa los 4 cursos</span>
+                        </a>
                     </div>
                 </div>
 
@@ -2359,8 +2357,16 @@
     </section>
 
 <!--SECCION DE INSCRIPCION -->
-    <section class="page-section" id="contact">
+    <section class="page-section bc-oscuro" id="contact">
         <div class="container">
+            <div class="bc-cierre">
+            <div class="bc-plan-enlace bc-cierre-enlace" aria-hidden="true"><span>anterior = hash #4</span><code data-bc-hash="4">—</code></div>
+            <div class="bc-plan-bloque bc-cierre-bloque">
+            <div class="bc-cierre-cab" aria-hidden="true">
+                <span class="bc-plan-num"><small>bloque</small>#5</span>
+                <span class="bc-cierre-titulo">Cohorte 2027</span>
+                <span class="bc-plan-estado">pendiente</span>
+            </div>
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Inscripción 2026 — Cerrada</h2>
                 <h3 class="section-subheading mb-4" style="color: rgba(255,255,255,0.85); font-weight: 500;">La cohorte de agosto 2026 está en curso, con 15 estudiantes · Si querés formar parte de la cohorte 2027, dejanos tus datos que te escribimos el año que viene</h3>
@@ -2378,6 +2384,14 @@
                         </p>
                     </div>
                 </div>
+            </div>
+            <div class="bc-plan-hashes bc-cierre-hashes" title="Bloque pendiente: todavía no se mina">
+                <span class="bc-plan-campo"><span>anterior</span><code data-bc-hash="4">—</code></span>
+                <span class="bc-plan-campo"><span>datos</span><code>lista de espera</code></span>
+                <span class="bc-plan-campo"><span>nonce</span><code>—</code></span>
+                <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code>esperando inscripción</code></span>
+            </div>
+            </div>
             </div>
         </div>
     </section>

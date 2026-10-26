@@ -32,111 +32,6 @@
             --brand-dark: #261951;
             --brand-soft: #F3EBFB;
         }
-        .plan-card {
-            background: #fff;
-            border: 1px solid #ece7f3;
-            border-radius: 14px;
-            margin-bottom: 1rem;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--brand) 0%, var(--brand-dark) 100%);
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-        .plan-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 36px rgba(76, 28, 127, 0.16);
-            border-color: var(--brand-soft);
-        }
-        .plan-card:hover::before {
-            opacity: 1;
-        }
-        /* Remove accordion-item's own border so plan-card controls it */
-        .plan-card .accordion-item {
-            border: none;
-            border-radius: 0;
-            background: transparent;
-        }
-        .plan-card .accordion-button {
-            background: transparent;
-            color: var(--brand-dark);
-            font-weight: 700;
-            border-radius: 0 !important;
-            box-shadow: none;
-        }
-        .plan-card .accordion-button:not(.collapsed) {
-            background: var(--brand-soft);
-            color: var(--brand-dark);
-            box-shadow: none;
-        }
-        .plan-card .accordion-button:focus {
-            box-shadow: 0 0 0 2px rgba(76, 28, 127, 0.3);
-        }
-        .plan-icon-wrap {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--brand);
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 800;
-            flex-shrink: 0;
-            margin-right: 0.75rem;
-            transition: background 0.25s ease;
-        }
-        .plan-card:hover .plan-icon-wrap {
-            background: var(--brand-dark);
-        }
-        .lente-estrategica {
-            background: var(--brand-soft);
-            border-left: 4px solid var(--brand);
-            border-radius: 8px;
-            padding: 0.85rem 1.1rem;
-            margin: 1rem 0 1rem;
-            font-size: 0.95rem;
-            color: var(--brand-dark);
-        }
-        .lente-estrategica .pin {
-            display: inline-block;
-            margin-right: 0.4rem;
-        }
-        .lente-estrategica strong {
-            color: var(--brand);
-            font-weight: 800;
-        }
-        .lente-estrategica em {
-            color: var(--brand-dark);
-            font-style: italic;
-        }
-        .tp-resultado {
-            background: #e8f5e9;
-            border-left: 4px solid #2e7d32;
-            border-radius: 8px;
-            padding: 0.85rem 1.1rem;
-            margin: 0.6rem 0 1rem;
-            font-size: 0.95rem;
-            color: #1b5e20;
-        }
-        .tp-resultado .pin {
-            display: inline-block;
-            margin-right: 0.4rem;
-        }
-        .tp-resultado strong {
-            color: #2e7d32;
-            font-weight: 800;
-        }
         /* Camino del alumno (timeline horizontal de bolitas) */
         .camino-alumno {
             background: linear-gradient(135deg, #faf7ff 0%, #f3ebfb 100%);
@@ -307,75 +202,6 @@
                 padding: 0 1rem;
             }
         }
-        .estrategia-block {
-            background: #fff;
-            border-left: 4px solid var(--brand);
-            border-radius: 10px;
-            padding: 1.25rem 1.5rem;
-            margin-top: 1.5rem;
-            box-shadow: 0 4px 16px rgba(76, 28, 127, 0.08);
-        }
-        .estrategia-block h5 {
-            color: var(--brand-dark);
-            font-weight: 800;
-            margin-bottom: 0.6rem;
-        }
-        .estrategia-block p {
-            color: #3a3a3a;
-            font-size: 0.97rem;
-            line-height: 1.7;
-            margin-bottom: 0;
-        }
-        .estrategia-block strong {
-            color: var(--brand);
-        }
-        /* Curso card (cronograma) — replica el estilo del plan-card pero sin accordion */
-        .curso-card {
-            background: #fff;
-            border: 1px solid #ece7f3;
-            border-radius: 14px;
-            margin-bottom: 1.25rem;
-            padding: 1.5rem 1.5rem 1rem;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .curso-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--brand) 0%, var(--brand-dark) 100%);
-            opacity: 1;
-        }
-        .curso-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(76, 28, 127, 0.14);
-            border-color: var(--brand-soft);
-        }
-        .curso-card .curso-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.25rem;
-        }
-        .curso-card .curso-header h4 {
-            color: var(--brand-dark);
-            font-weight: 800;
-            margin: 0;
-            font-size: 1.1rem;
-        }
-        .curso-card .curso-meta {
-            color: #6c757d;
-            font-size: 0.88rem;
-            margin: 0.4rem 0 0.75rem;
-        }
-        .curso-card table thead {
-            background: var(--brand);
-            color: #fff;
-        }
     </style>
     <script>
         !function (f, b, e, v, n, t, s) {
@@ -446,172 +272,275 @@
         </div>
     </header>
 
-    <div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
+    <article id="informacionPlan" class="bc-oscuro">
+        <div class="container mt-5 mb-5">
             <h2 class="card-t card-title">Plan de estudios</h2>
             <hr>
-            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23c4a5ff'/%3E%3C/svg%3E&#34;);"
                 aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="../">Inicio</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Plan de estudios</li>
                 </ol>
             </nav>
-            <div class="col-12 col-lg-10">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-3 p-md-4">
-                        <div id="accordionPlan">
 
-                            <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                            <span class="plan-icon-wrap" aria-hidden="true">1</span>
-                                            Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps
-                                        </button>
-                                    </h2>
-                                    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#accordionPlan">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Breve revisión de la evolución de blockchain. Conceptos clave
-                                                como bloques, nodos y mineros. Clasificación de tipos de
-                                                blockchain: públicas, privadas y de consorcio.
-                                                Principios de Descentralización. Funcionamiento de cadenas de
-                                                bloques: tipos de cadenas de bloques y algoritmos de consenso.
-                                                Casos de uso y aplicaciones actuales. Desafíos y limitaciones.
-                                                Frameworks y Herramientas para Desarrollo Web3/DApp. Ethereum y
-                                                Solidity, Hardhat y otras plataformas.
-                                                Elementos de criptografía en DeFi. Criptografía como medio para
-                                                asegurar la integridad, seguridad y privacidad en sistemas
-                                                descentralizados. Creación de criptomonedas, y los fundamentos de
-                                                la criptografía hash.
-                                            </p>
-                                            <div class="lente-estrategica">
-                                                <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> del <em>primer commit al primer contrato verificado</em> — entender blockchain construyéndolo, no leyéndolo. Salís con código propio firmando transacciones en Ethereum.
-                                            </div>
-                                            <a href="https://drive.google.com/file/d/1Q-N7jwTl8uJG8VtwRX3_wVyEWjiL4Zpk/view?usp=sharing"
-                                                class="alert-link text-decoration-underline" target="_blank">
-                                                Accede al programa
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- El mismo marcado que el plan de la portada (blockchain-dev/index.html), con los contenidos y lentes propios
+                 de esta página: el hash de datos se calcula sobre lo que se ve acá. js/bc-cadena.js mina los bloques
+                 sin las tarjetas del encabezado y vuelve a verificar el bloque al abrir cada curso -->
+            <div class="bc-plan">
+                <p class="bc-plan-intro">4 cursos de posgrado de 40 hs, uno detrás del otro. Cada curso es un bloque: guarda el hash de sus contenidos y el del curso anterior. Abrí uno para verlo y verificarlo en tu navegador.</p>
+                <div class="bc-plan-genesis" aria-hidden="true"><span>génesis</span><code>0x0000000000…0000</code></div>
+                <div id="accordionPanelsStayOpenExample" class="bc-plan-cadena">
 
-                            <div class="plan-card" data-aos="fade-up" data-aos-delay="200">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                            <span class="plan-icon-wrap" aria-hidden="true">2</span>
-                                            Fundamentos Financieros y Blockchain para Finanzas Descentralizadas
-                                        </button>
-                                    </h2>
-                                    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#accordionPlan">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Introducción a las Finanzas: Concepto y Objetivos; Análisis
-                                                Financiero: Cálculo Financiero. Riesgo y Rentabilidad:
-                                                Definiciones y Diversificación. Finanzas Corporativas: Estructura
-                                                de Capital y Decisiones de Inversión. Blockchain y Criptomonedas:
-                                                Aplicaciones de DeFi, Ventajas y Riesgos. Casos de Uso en DeFi:
-                                                Ejemplos de Proyectos e Impacto en el Sector Financiero.
-                                                Criptoeconomía y DeFi: Características y funcionamiento de
-                                                criptomonedas, Stablecoins, Staking, Lending and Borrowing, AMMs,
-                                                DEX vs CEX, Derivados sintéticos, ICOs.
-                                            </p>
-                                            <div class="lente-estrategica">
-                                                <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>tokenomics con criterio regulatorio argentino</em> — diseñar la economía de un token y poder defenderla técnica, financiera y legalmente frente a CNV (PSAV / RG 994).
-                                            </div>
-                                            <a href="https://drive.google.com/file/d/1C8kqt3Z111b1hI_5Svx54ZXIuFzzx9_C/view?usp=sharing"
-                                                class="alert-link text-decoration-underline" target="_blank">
-                                                Accede al programa
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="plan-card" data-aos="fade-up" data-aos-delay="300">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                            <span class="plan-icon-wrap" aria-hidden="true">3</span>
-                                            Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain
-                                        </button>
-                                    </h2>
-                                    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#accordionPlan">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Infraestructura para Blockchain: Nube y sus servicios para
-                                                BlockChain (almacenamiento, cómputo, bases de datos).
-                                                Infraestructura como código (IaC) y canalizaciones CI/CD, para
-                                                despliegue de recursos en entornos cloud. Arquitectura y
-                                                orquestadores de contenedores como plataformas escalables y
-                                                especializadas en BlockChain. Redes capa 1 (Layer 1) y capa 2
-                                                (Layer 2). Escalabilidad y rendimiento: soluciones de capa 2.
-                                                Curso de cursada conjunta con el Curso 2 de la Diplomatura en
-                                                IA Generativa: las clases 1 a 6 son compartidas entre ambas
-                                                cohortes y las clases 7 y 8 son específicas de la orientación
-                                                Blockchain/Web3.
-                                            </p>
-                                            <div class="lente-estrategica">
-                                                <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>qué necesitás de Web2 para que tu Web3 funcione en producción</em> — cloud, contenedores, observabilidad y pipelines como código, sobre los que después corre tu DApp. La diferencia entre "deploy en testnet" y "proyecto productivo".
-                                            </div>
-                                            <a href="https://drive.google.com/file/d/1MF09yPS-uZcD7KgLDP0N2_nkhvJrjyFQ/view?usp=sharing"
-                                                class="alert-link text-decoration-underline" target="_blank">
-                                                Accede al programa
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="plan-card" data-aos="fade-up" data-aos-delay="400">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                            <span class="plan-icon-wrap" aria-hidden="true">4</span>
-                                            Desarrollo de Aplicaciones y DApps Blockchain
-                                        </button>
-                                    </h2>
-                                    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionPlan">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Crowdfunding, Web3, clasificación y aplicación en el ecosistema
-                                                blockchain. Crowdfunding basado en recompensas utilizando DApps y
-                                                smart contracts. Web3 avanzado: Metaverso, NFTs y tokenización de
-                                                activos. Escribir, compilar y desplegar contratos inteligentes en
-                                                Ethereum L2 (Base Sepolia / OP Stack) con Solidity. Construcción incremental de una pasarela de pago Web3 (ERC-20 + NFT de recibo + PaymentGateway + frontend Next.js) como caso guía del curso.
-                                            </p>
-                                            <div class="lente-estrategica">
-                                                <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>del contrato al producto en Layer 2</em> — seguridad, testing y despliegue end-to-end con foco en costos reales de gas y experiencia de usuario Web3.
-                                            </div>
-                                            <a href="https://drive.google.com/file/d/1ACkbJjGBDEG3U-pQTcB6YiOcEPj8rDqn/view?usp=sharing"
-                                                class="alert-link text-decoration-underline" target="_blank">
-                                                Accede al programa
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                    <!-- Curso 1 -->
+                    <div class="bc-plan-bloque" data-bloque="1" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#1</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Agosto 2026</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>8 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Mg. Juan Manuel Fernández · Esp. Ciro Edgardo Romero</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Hash de los contenidos del curso 1, encadenado con el bloque anterior">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
                         </div>
-
-                        <div class="estrategia-block" data-aos="fade-up" data-aos-delay="500">
-                            <h5>¿Y la estrategia?</h5>
-                            <p>
-                                Está distribuida en los 4 módulos, no aislada en una capa para directivos. La <strong>criptoeconomía</strong> vive en el módulo de DeFi, el <strong>business case</strong> en el de DApps, la <strong>selección de use case</strong> en los fundamentos, los <strong>trade-offs de implementación</strong> en infraestructura. Lo que en otros programas son slides, acá son decisiones que el alumno toma mientras construye.
-                            </p>
+                        <div id="panelsStayOpen-collapseOne" class="collapse show">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Breve revisión de la evolución de blockchain. Conceptos clave
+                                        como bloques, nodos y mineros. Clasificación de tipos de
+                                        blockchain: públicas, privadas y de consorcio.
+                                        Principios de Descentralización. Funcionamiento de cadenas de
+                                        bloques: tipos de cadenas de bloques y algoritmos de consenso.
+                                        Casos de uso y aplicaciones actuales. Desafíos y limitaciones.
+                                        Frameworks y Herramientas para Desarrollo Web3/DApp. Ethereum y
+                                        Solidity, Hardhat y otras plataformas.
+                                        Elementos de criptografía en DeFi. Criptografía como medio para
+                                        asegurar la integridad, seguridad y privacidad en sistemas
+                                        descentralizados. Creación de criptomonedas, y los fundamentos de
+                                        la criptografía hash.
+                                    </p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>Tu primer contrato Solidity propio desplegado y verificado en Sepolia, con tests y CI en repo público.</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> del <em>primer commit al primer contrato verificado</em> — entender blockchain construyéndolo, no leyéndolo. Salís con código propio firmando transacciones en Ethereum.
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1Q-N7jwTl8uJG8VtwRX3_wVyEWjiL4Zpk/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="bc-plan-enlace" data-desde="1" aria-hidden="true"><span>anterior = hash #1</span><code>—</code></div>
+
+                    <!-- Curso 2 -->
+                    <div class="bc-plan-bloque" data-bloque="2" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#2</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Fundamentos Financieros y Blockchain para Finanzas Descentralizadas</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Septiembre 2026</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>8 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Dr. Julián Olivares · Deiller Guevara</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Hash de los contenidos del curso 2, encadenado con el bloque anterior">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseTwo" class="collapse">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Introducción a las Finanzas: Concepto y Objetivos; Análisis
+                                        Financiero: Cálculo Financiero. Riesgo y Rentabilidad:
+                                        Definiciones y Diversificación. Finanzas Corporativas: Estructura
+                                        de Capital y Decisiones de Inversión. Blockchain y Criptomonedas:
+                                        Aplicaciones de DeFi, Ventajas y Riesgos. Casos de Uso en DeFi:
+                                        Ejemplos de Proyectos e Impacto en el Sector Financiero.
+                                        Criptoeconomía y DeFi: Características y funcionamiento de
+                                        criptomonedas, Stablecoins, Staking, Lending and Borrowing, AMMs,
+                                        DEX vs CEX, Derivados sintéticos, ICOs.
+                                    </p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>Artículo financiero de un token propio (tokenomics + encuadre PSAV) y el ERC-20 desplegado en Sepolia siguiendo ese diseño.</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>tokenomics con criterio regulatorio argentino</em> — diseñar la economía de un token y poder defenderla técnica, financiera y legalmente frente a CNV (PSAV / RG 994).
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1C8kqt3Z111b1hI_5Svx54ZXIuFzzx9_C/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bc-plan-enlace" data-desde="2" aria-hidden="true"><span>anterior = hash #2</span><code>—</code></div>
+
+                    <!-- Curso 3 -->
+                    <div class="bc-plan-bloque" data-bloque="3" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseThree">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#3</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Octubre-noviembre 2026 · del 6/10 al 3/11</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>8 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Dr. David Petrocelli · Mauricio Romero</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Hash de los contenidos del curso 3, encadenado con el bloque anterior">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseThree" class="collapse">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Infraestructura para Blockchain: Nube y sus servicios para
+                                        BlockChain (almacenamiento, cómputo, bases de datos).
+                                        Infraestructura como código (IaC) y canalizaciones CI/CD, para
+                                        despliegue de recursos en entornos cloud. Arquitectura y
+                                        orquestadores de contenedores como plataformas escalables y
+                                        especializadas en BlockChain. Redes capa 1 (Layer 1) y capa 2
+                                        (Layer 2). Escalabilidad y rendimiento: soluciones de capa 2.
+                                        Curso de cursada conjunta con el Curso 2 de la Diplomatura en
+                                        IA Generativa: las clases 1 a 6 son compartidas entre ambas
+                                        cohortes y las clases 7 y 8 son específicas de la orientación
+                                        Blockchain/Web3.
+                                    </p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>El "andamio Web2" completo para sostener tu proyecto Web3 en producción — contenedores, IaC con Terraform, GKE, observabilidad y pipelines, más proxy RPC propio sobre Base Sepolia, gateway IPFS dedicado e indexer self-hosted. La capa sobre la que el DApp del Curso 4 va a correr en producción.</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>qué necesitás de Web2 para que tu Web3 funcione en producción</em> — cloud, contenedores, observabilidad y pipelines como código, sobre los que después corre tu DApp. La diferencia entre "deploy en testnet" y "proyecto productivo".
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1MF09yPS-uZcD7KgLDP0N2_nkhvJrjyFQ/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bc-plan-enlace" data-desde="3" aria-hidden="true"><span>anterior = hash #3</span><code>—</code></div>
+
+                    <!-- Curso 4 -->
+                    <div class="bc-plan-bloque" data-bloque="4" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="bc-plan-h">
+                            <button class="bc-plan-cab collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseFour">
+                                <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#4</span>
+                                <span class="bc-plan-info">
+                                    <span class="bc-plan-titulo">Desarrollo de Aplicaciones y DApps Blockchain</span>
+                                    <span class="bc-plan-meta">
+                                        <span><i class="far fa-calendar" aria-hidden="true"></i>Noviembre 2026 · del 5/11 al 26/11</span>
+                                        <span><i class="fas fa-video" aria-hidden="true"></i>7 clases</span>
+                                        <span><i class="fas fa-user-tie" aria-hidden="true"></i>Dr. David Petrocelli · Esp. Ciro Edgardo Romero</span>
+                                    </span>
+                                </span>
+                                <span class="bc-plan-flecha" aria-hidden="true"></span>
+                            </button>
+                        </h3>
+                        <div class="bc-plan-hashes" title="Hash de los contenidos del curso 4, encadenado con el bloque anterior">
+                            <span class="bc-plan-campo"><span>anterior</span><code data-bc="prev">—</code></span>
+                            <span class="bc-plan-campo"><span>datos</span><code data-bc="datos">—</code></span>
+                            <span class="bc-plan-campo"><span>nonce</span><code data-bc="nonce">—</code></span>
+                            <span class="bc-plan-campo bc-plan-campo-hash"><span>hash</span><code data-bc="hash">—</code></span>
+                            <span class="bc-plan-estado" data-bc="estado">en espera</span>
+                        </div>
+                        <div id="panelsStayOpen-collapseFour" class="collapse">
+                            <div class="bc-plan-cuerpo">
+                                <div class="bc-plan-datos">
+                                    <p class="bc-plan-etq">Contenidos</p>
+                                    <p>
+                                        Crowdfunding, Web3, clasificación y aplicación en el ecosistema
+                                        blockchain. Crowdfunding basado en recompensas utilizando DApps y
+                                        smart contracts. Web3 avanzado: Metaverso, NFTs y tokenización de
+                                        activos. Escribir, compilar y desplegar contratos inteligentes en
+                                        Ethereum L2 (Base Sepolia / OP Stack) con Solidity. Construcción incremental de una pasarela de pago Web3 (ERC-20 + NFT de recibo + PaymentGateway + frontend Next.js) como caso guía del curso.
+                                    </p>
+                                </div>
+                                <div class="bc-plan-lado">
+                                    <div class="bc-plan-tp">
+                                        <p class="bc-plan-etq"><span aria-hidden="true">🎯</span> Resultado del TP</p>
+                                        <p>Tu propia <strong>pasarela de pago Web3 (PaymentGateway)</strong> desplegada en Base Sepolia: contratos propios (token ERC-20 de pago, NFT recibo y PaymentGateway) testeados y auditados, frontend con conexión de wallet (Next.js + wagmi + RainbowKit), contratos verificados y comparativa de costos de gas contra mainnet. Reusa lo que diseñaste en el Curso 2 (token y tokenomics) y puede correr sobre el andamio que levantaste en el Curso 3 (infra).</p>
+                                    </div>
+                                    <div class="bc-plan-lente">
+                                        <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica:</strong> <em>del contrato al producto en Layer 2</em> — seguridad, testing y despliegue end-to-end con foco en costos reales de gas y experiencia de usuario Web3.
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1ACkbJjGBDEG3U-pQTcB6YiOcEPj8rDqn/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
+                                        Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /cadena -->
+
+                <div class="bc-plan-estrategia" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="h5">¿Y la estrategia?</h3>
+                    <p>
+                        Está distribuida en los 4 módulos, no aislada en una capa para directivos. La <strong>criptoeconomía</strong> vive en el módulo de DeFi, el <strong>business case</strong> en el de DApps, la <strong>selección de use case</strong> en los fundamentos, los <strong>trade-offs de implementación</strong> en infraestructura. Lo que en otros programas son slides, acá son decisiones que el alumno toma mientras construye.
+                    </p>
                 </div>
-            </div>
+
+                <div class="text-center mt-4">
+                    <a href="#cronograma" class="bc-boton-borde">
+                        <i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Ver cronograma clase por clase
+                    </a>
+                </div>
+            </div><!-- /bc-plan -->
         </div>
-    </div>
+    </article>
 
     <!-- ============================================================ -->
     <!-- EL CAMINO DEL ALUMNO                                         -->
@@ -681,293 +610,315 @@
 
     <!-- ============================================================ -->
     <!-- CRONOGRAMA CLASE POR CLASE                                  -->
+    <!-- Cada curso es su bloque de la cadena y cada clase, una       -->
+    <!-- transacción. [data-bc-hash] recibe el hash minado arriba.    -->
     <!-- ============================================================ -->
-    <section class="page-section" id="cronograma" data-aos="fade-up" data-aos-duration="1200">
+    <section class="page-section bc-crono-seccion" id="cronograma" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <div class="text-center mb-4">
                 <h2 class="section-heading text-uppercase">Cronograma clase por clase</h2>
-                <p class="text-muted" style="max-width:720px; margin:0 auto;">Cohorte agosto 2026 — Martes y jueves de 19:00 a 21:00 hs (ARG). 32 clases en vivo distribuidas en 4 cursos consecutivos. Cada clase tiene tema y actividad práctica concreta.</p>
-                <p class="text-muted mt-2" style="max-width:720px; margin:0 auto; font-size:0.85rem;"><i class="fas fa-info-circle me-1" style="color:var(--brand);"></i>Cronograma de referencia — sujeto a ajustes menores antes del inicio de cohorte.</p>
+                <p class="bc-crono-intro">Cohorte agosto 2026 — Martes y jueves de 19:00 a 21:00 hs (ARG). 32 clases en vivo distribuidas en 4 cursos consecutivos. Cada clase tiene tema y actividad práctica concreta.</p>
+                <p class="bc-crono-aviso"><i class="fas fa-info-circle me-1" aria-hidden="true"></i>Cronograma de referencia — sujeto a ajustes menores antes del inicio de cohorte.</p>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-11">
-
-<div class="curso-card" data-aos="fade-up" data-aos-delay="100">
-  <div class="curso-header">
-    <span class="plan-icon-wrap" aria-hidden="true">1</span>
-    <h4>Curso 1 — Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps</h4>
-  </div>
-  <p class="curso-meta">Agosto 2026 · Docente Responsable: Mg. Juan Manuel Fernández · Equipo: Esp. Ciro Edgardo Romero</p>
-  <div class="tp-resultado">
-    <span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> tu primer contrato Solidity propio desplegado y verificado en Sepolia, con tests y CI en repo público.
-  </div>
-  <div class="table-responsive">
-    <table class="table table-sm" style="font-size:0.9rem;">
-      <thead>
-        <tr>
-          <th>Clase</th>
-          <th>Tema</th>
-          <th>Actividad práctica</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1</strong></td>
-          <td><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Historia de blockchain, criptografía asimétrica (ECDSA, secp256k1) y funciones hash (SHA-256, Keccak-256)</td>
-          <td>Generación de un par de llaves con OpenSSL y firma/verificación de un mensaje, con análisis de la salida en clase</td>
-        </tr>
-        <tr>
-          <td><strong>2</strong></td>
-          <td>Estructura del bloque, Merkle Trees, nonce y vinculación de bloques (hash chain)</td>
-          <td>Exploración visual de bloques reales en un explorador público (Etherscan/Sepolia): lectura de la cabecera del bloque y de la vinculación de hashes entre bloques consecutivos</td>
-        </tr>
-        <tr>
-          <td><strong>3</strong></td>
-          <td>Protocolos de consenso: PoW, PoS, PoA, dPoS, BFT — trade-offs y casos de uso</td>
-          <td>Análisis comparativo de PoW vs PoS aplicado a una red financiera regional, con discusión de trade-offs en clase</td>
-        </tr>
-        <tr>
-          <td><strong>4</strong></td>
-          <td>Tipos de redes: públicas (Ethereum, Bitcoin), privadas (Besu, Quorum), híbridas y Layer 2 (introducción a Optimistic vs ZK Rollups, Base, Arbitrum); gobernanza on-chain</td>
-          <td>Diseño arquitectónico de un caso de trazabilidad agroindustrial argentino (pública, privada o híbrida)</td>
-        </tr>
-        <tr>
-          <td><strong>5</strong></td>
-          <td>Wallets (HD wallets, BIP-39/BIP-44), MetaMask, conexión a testnets (Sepolia, Holesky) y faucets</td>
-          <td>Configuración de MetaMask sobre testnet Sepolia y análisis de una transacción en Etherscan</td>
-        </tr>
-        <tr>
-          <td><strong>6</strong></td>
-          <td>Remix IDE e introducción a Solidity: tipos, mappings, structs, visibilidad y modifiers</td>
-          <td>Despliegue de un contrato "Voting" en Remix sobre Sepolia y verificación pública en Etherscan</td>
-        </tr>
-        <tr>
-          <td><strong>7</strong></td>
-          <td>Setup de Hardhat y Foundry: scripts, tests, fork de mainnet y debugging local (con referencia a Anchor como equivalente del lado Solana)</td>
-          <td>Armado en vivo de un repo Hardhat + Foundry con contrato Counter, tests unitarios y CI básico en GitHub Actions</td>
-        </tr>
-        <tr>
-          <td><strong>8</strong></td>
-          <td>Cierre del Curso 1: entrega del TP final (contrato propio + tests + verificación en Etherscan) y handoff a Curso 2 (capa financiera sobre la base técnica)</td>
-          <td>Presentación en clase del TP final del curso y revisión cruzada entre alumnos del repo y del contrato verificado</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="lente-estrategica">
-    <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> del <em>primer commit al primer contrato verificado</em> — entender blockchain construyéndolo, no leyéndolo. Salís con código propio firmando transacciones en Ethereum.
-  </div>
-</div>
-
-<div class="curso-card" data-aos="fade-up" data-aos-delay="200">
-  <div class="curso-header">
-    <span class="plan-icon-wrap" aria-hidden="true">2</span>
-    <h4>Curso 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas</h4>
-  </div>
-  <p class="curso-meta">Septiembre 2026 · Docente Responsable: Dr. Julián Olivares · Equipo: Deiller Guevara</p>
-  <div class="tp-resultado">
-    <span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> artículo financiero de un token propio (tokenomics + encuadre PSAV) y el ERC-20 desplegado en Sepolia siguiendo ese diseño.
-  </div>
-  <div class="table-responsive">
-    <table class="table table-sm" style="font-size:0.9rem;">
-      <thead>
-        <tr>
-          <th>Clase</th>
-          <th>Tema</th>
-          <th>Actividad práctica</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1</strong></td>
-          <td><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Historia del dinero: trueque, metálico, fiat, dinero digital y emisión monetaria</td>
-          <td>Análisis en clase de la inflación argentina 2020-2026 y discusión del rol potencial de las stablecoins en la economía local</td>
-        </tr>
-        <tr>
-          <td><strong>2</strong></td>
-          <td>Tokenomics: supply, emission, vesting, sinks, incentivos de gobernanza y veTokenomics</td>
-          <td>Diseño colaborativo de tokenomics sobre un caso real: supply, vesting, sinks e incentivos de gobernanza en pizarra</td>
-        </tr>
-        <tr>
-          <td><strong>3</strong></td>
-          <td>Stablecoins: collateralized (USDC, USDT), crypto-backed (DAI), algorítmicas y caso UST/Luna</td>
-          <td>Comparación en vivo de USDC, DAI y FRAX: lectura de reservas auditadas y análisis del colapso de UST/Luna como caso de estudio</td>
-        </tr>
-        <tr>
-          <td><strong>4</strong></td>
-          <td>DeFi y AMMs: Uniswap v2/v3/v4, mecánica x*y=k, concentrated liquidity y impermanent loss</td>
-          <td>Provisión de liquidez en vivo en Uniswap v3 testnet y simulación de impermanent loss con distintos escenarios de precio</td>
-        </tr>
-        <tr>
-          <td><strong>5</strong></td>
-          <td>Lending &amp; borrowing: Aave, Compound, Curve; tasas variables, liquidaciones y flash loans</td>
-          <td>Ejecución guiada de un flash loan en testnet de Aave v3 para arbitraje simple entre dos DEX, con inspección de la transacción</td>
-        </tr>
-        <tr>
-          <td><strong>6</strong></td>
-          <td>Derivados on-chain: perpetuals (GMX, dYdX), opciones (Lyra, Premia) y productos estructurados</td>
-          <td>Modelado del payoff de un perpetual con funding rate en notebook Python y backtest sobre datos reales del mercado</td>
-        </tr>
-        <tr>
-          <td><strong>7</strong></td>
-          <td>Marco regulatorio: PSAV en Argentina (RG CNV 994), MiCA en UE y casos LATAM (Brasil, México)</td>
-          <td>Mesa de análisis regulatorio: lectura de la RG CNV 994 y discusión sobre cómo encuadrar un proyecto propio bajo el régimen PSAV</td>
-        </tr>
-        <tr>
-          <td><strong>8</strong></td>
-          <td>Cierre: integración financiera con el proyecto integrador y handoff a Curso 3 (infraestructura)</td>
-          <td>Integración en clase de la capa financiera del proyecto integrador (tokenomics + regulación + riesgos) y handoff a la fase de infraestructura</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="lente-estrategica">
-    <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>tokenomics con criterio regulatorio argentino</em> — diseñar la economía de un token y poder defenderla técnica, financiera y legalmente frente a CNV (PSAV / RG 994).
-  </div>
-</div>
-
-<div class="curso-card" data-aos="fade-up" data-aos-delay="300">
-  <div class="curso-header">
-    <span class="plan-icon-wrap" aria-hidden="true">3</span>
-    <h4>Curso 3 — Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain</h4>
-  </div>
-  <p class="curso-meta">Octubre-noviembre 2026 (inicio: martes 6/10 · cierre: martes 3/11, 8 clases) · Docente Responsable: Dr. David Petrocelli · Equipo: Mauricio Romero</p>
-  <div class="lente-estrategica">
-    <span class="pin" aria-hidden="true">🤝</span><strong>Cursada conjunta:</strong> este curso se dicta junto con el Curso 2 de la Diplomatura en IA Generativa (orientación Inteligencia Artificial). Las clases 1 a 6 son compartidas entre ambas cohortes; las clases 7 y 8 son específicas de cada orientación.
-  </div>
-  <div class="tp-resultado">
-    <span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> el "andamio Web2" completo para sostener tu proyecto Web3 en producción — contenedores, IaC con Terraform, GKE, observabilidad y pipelines, más proxy RPC propio sobre Base Sepolia, gateway IPFS dedicado e indexer self-hosted. La capa sobre la que el DApp del Curso 4 va a correr en producción.
-  </div>
-  <div class="table-responsive">
-    <table class="table table-sm" style="font-size:0.9rem;">
-      <thead>
-        <tr>
-          <th>Clase</th>
-          <th>Tema</th>
-          <th>Actividad práctica</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1</strong></td>
-          <td><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Arquitectura híbrida en la nube: qué corre en GCP y qué no — sistemas Web3 entre on-chain y off-chain, y cargas de IA entre GPU y CPU. Despliegue de nodos blockchain sobre Compute Engine. Presentación del repo template provisto por la cátedra (mini-blockchain educativa que se opera en paralelo durante el curso)</td>
-          <td>Despliegue en vivo de un nodo blockchain sobre Compute Engine y deploy del repo template en una segunda instancia para operarla como infra propia</td>
-        </tr>
-        <tr>
-          <td><strong>2</strong></td>
-          <td>IaC con Terraform sobre GCP: VPC, Compute Engine, Persistent Disk, IAM y Secret Manager para workloads stateful</td>
-          <td>Construcción guiada de un módulo Terraform reutilizable para nodo Ethereum en GCP, con tfvars dev/prod y plan validado en clase</td>
-        </tr>
-        <tr>
-          <td><strong>3</strong></td>
-          <td>Terraform avanzado en GCP: módulos reutilizables, workspaces (dev/staging/prod) y patrones multi-environment</td>
-          <td>Armado en vivo de un módulo Terraform reutilizable para un proxy RPC propio sobre Base Sepolia, con autoescalado, snapshots automáticos de Persistent Disk y secretos gestionados</td>
-        </tr>
-        <tr>
-          <td><strong>4</strong></td>
-          <td>CI/CD con GitHub Actions: build, test, deploy y promoción dev→prod con OIDC</td>
-          <td>Armado en clase de un pipeline GitHub Actions que despliega contratos a testnet en cada PR y a mainnet en tag de release vía OIDC</td>
-        </tr>
-        <tr>
-          <td><strong>5</strong></td>
-          <td>Kubernetes con GKE (Google Kubernetes Engine): Helm charts, persistent volumes y StatefulSets para workloads stateful</td>
-          <td>Despliegue guiado de un Helm chart para nodo Geth en GKE, con StatefulSet, PVC y exposición del endpoint JSON-RPC</td>
-        </tr>
-        <tr>
-          <td><strong>6</strong></td>
-          <td>Observabilidad con Cloud Monitoring, Prometheus, Grafana y Loki: métricas, logs y alertas de las cargas en producción</td>
-          <td>Construcción en vivo de un dashboard Grafana con los paneles clave del nodo y configuración de alertas sobre peer count, sync y disco</td>
-        </tr>
-        <tr>
-          <td><strong>7</strong></td>
-          <td>Infraestructura Web3 sobre Layer 2 (Base Sepolia): proxy RPC propio con caché y rate limiting, gateway IPFS dedicado para metadatos y assets, e indexer self-hosted (Graph Node) para escuchar eventos on-chain</td>
-          <td>Despliegue en vivo de un stack mínimo de infra Web3 sobre GCP: proxy RPC apuntando a Base Sepolia, gateway IPFS propio e indexer básico que escucha eventos de un contrato del Curso 1</td>
-        </tr>
-        <tr>
-          <td><strong>8</strong></td>
-          <td>Cierre: FinOps Web3 y revisión por pilares de buena arquitectura cloud (Google Cloud Architecture Framework, con guiños comparativos a AWS Well-Architected y Azure Well-Architected). Handoff a Curso 4: el andamio Web2 queda listo para hostear el DApp final</td>
-          <td>Revisión en clase del andamio Web2 desplegado (nodo Ethereum + PoC educativa + proxy RPC Base + IPFS + indexer + observabilidad) bajo los pilares del Google Cloud Architecture Framework, con priorización colaborativa de remediaciones antes del handoff al Curso 4</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="lente-estrategica">
-    <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>qué necesitás de Web2 para que tu Web3 funcione en producción</em> — cloud, contenedores, observabilidad y pipelines como código, sobre los que después corre tu DApp. La diferencia entre "deploy en testnet" y "proyecto productivo".
-  </div>
-</div>
-
-<div class="curso-card" data-aos="fade-up" data-aos-delay="400">
-  <div class="curso-header">
-    <span class="plan-icon-wrap" aria-hidden="true">4</span>
-    <h4>Curso 4 — Desarrollo de Aplicaciones y DApps Blockchain</h4>
-  </div>
-  <p class="curso-meta">Noviembre 2026 (inicio: jueves 5/11 · cierre: jueves 26/11, 7 clases) · Docente Responsable: Dr. David Petrocelli · Equipo: <a href="../docentes/ciro/">Esp. Ciro Edgardo Romero</a></p>
-  <div class="tp-resultado">
-    <span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> tu propia <strong>pasarela de pago Web3 (PaymentGateway)</strong> desplegada en Base Sepolia: contratos propios (token ERC-20 de pago, NFT recibo y PaymentGateway) testeados y auditados, frontend con conexión de wallet (Next.js + wagmi + RainbowKit), contratos verificados y comparativa de costos de gas contra mainnet. Reusa lo que diseñaste en el Curso 2 (token y tokenomics) y puede correr sobre el andamio que levantaste en el Curso 3 (infra).
-  </div>
-  <div class="table-responsive">
-    <table class="table table-sm" style="font-size:0.9rem;">
-      <thead>
-        <tr>
-          <th>Clase</th>
-          <th>Tema</th>
-          <th>Actividad práctica</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1</strong></td>
-          <td><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Arquitectura de una DApp y modelo de negocio de la pasarela. Repaso de Solidity desde el Curso 1 (tipos, mappings, modifiers, events, custom errors). Setup: Foundry, Anvil y Next.js</td>
-          <td>Refactor del contrato Counter con events y custom errors, midiendo gas antes y después</td>
-        </tr>
-        <tr>
-          <td><strong>2</strong></td>
-          <td>Primer ERC-20 propio con OpenZeppelin, partiendo de la tokenomics del Curso 2: mint, transfer, approve, allowance y permit. Deploy y verificación en Base Sepolia</td>
-          <td>Despliegue en Base Sepolia del token de pago de la pasarela, verificado con Sourcify (visible en Blockscout)</td>
-        </tr>
-        <tr>
-          <td><strong>3</strong></td>
-          <td>ERC-721 propio con OpenZeppelin: minteo, metadata e IPFS. Web3 avanzado: tokenización de activos reales (RWA) e identidad digital</td>
-          <td>NFT recibo/comprobante de la pasarela en Base Sepolia, con metadata e imagen en IPFS</td>
-        </tr>
-        <tr>
-          <td><strong>4</strong></td>
-          <td>Patrones de seguridad: reentrancy, access control, front-running. CEI, ReentrancyGuard, Pausable y Pull over Push. Auditoría con Slither y Aderyn</td>
-          <td>CTF en clase: identificación y parcheo de vulnerabilidades en un contrato vulnerable + auditoría de los contratos propios</td>
-        </tr>
-        <tr>
-          <td><strong>5</strong></td>
-          <td>Contrato <strong>PaymentGateway</strong>: cobro en ERC-20, emisión del recibo (NFT) y liberación al comercio. Testing con Foundry: cheatcodes, fuzz e invariant testing, coverage</td>
-          <td>PaymentGateway que integra el ERC-20 y el NFT, con suite de tests automatizados, desplegado en Base Sepolia</td>
-        </tr>
-        <tr>
-          <td><strong>6</strong></td>
-          <td>Frontend Web3: Next.js + wagmi + viem + RainbowKit. Conexión de wallet, lectura de estado on-chain y disparo de transacciones</td>
-          <td>Frontend de la pasarela: conectar wallet, mostrar saldo del token, aprobar y pagar contra el PaymentGateway</td>
-        </tr>
-        <tr>
-          <td><strong>7</strong></td>
-          <td>Layer 2 con foco en Base (OP Stack): deploy end-to-end, testnet vs mainnet y comparativa de costos de gas. <strong>Cierre del curso</strong> con la checklist de calidad del trabajo final</td>
-          <td>DApp completo (ERC-20 + NFT + PaymentGateway + frontend) en Base Sepolia, contratos verificados y análisis de gas comparado</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="lente-estrategica">
-    <span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>del contrato al producto en Layer 2</em> — construcción incremental de una pasarela de pago Web3 real, integrando ERC-20 + NFTs + frontend + auditoría con Slither y Aderyn, con foco en costos reales de gas y experiencia de usuario.
-  </div>
-</div>
-
-<div class="estrategia-block" data-aos="fade-up" data-aos-delay="500">
-  <h5>¿Y la estrategia? — Versión cronograma</h5>
-  <p>
-    Cada clase produce un <strong>artefacto reproducible</strong> en la actividad práctica: repo público, contrato verificado en un explorador público, dashboard Grafana, informe regulatorio. Las 31 clases construyen el <strong>Proyecto Integrador Final desde la primera semana</strong> — la última clase no es "el cierre del programa", es la <strong>defensa de algo que se vino construyendo</strong> clase por clase. El alumno egresa con repos públicos auditables y un DApp desplegado en mainnet o testnet pública, con documentación completa.
-  </p>
-</div>
-
+            <div class="bc-crono">
+                <!-- Curso 1 -->
+                <div class="bc-crono-bloque" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bc-crono-cab">
+                        <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#1</span>
+                        <div class="bc-crono-info">
+                            <h3 class="bc-crono-titulo">Curso 1 — Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps</h3>
+                            <p class="bc-crono-meta">Agosto 2026 · Docente Responsable: Mg. Juan Manuel Fernández · Equipo: Esp. Ciro Edgardo Romero</p>
+                        </div>
+                    </div>
+                    <p class="bc-crono-hashes"><span>hash del bloque</span><code data-bc-hash="1">—</code><span>8 transacciones · una por clase</span></p>
+                    <div class="bc-crono-cuerpo">
+                        <p class="bc-crono-tp"><span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> tu primer contrato Solidity propio desplegado y verificado en Sepolia, con tests y CI en repo público.</p>
+                        <ol class="bc-tx-lista" aria-label="Clases del curso 1">
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 01</b><span>clase 1</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Historia de blockchain, criptografía asimétrica (ECDSA, secp256k1) y funciones hash (SHA-256, Keccak-256)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Generación de un par de llaves con OpenSSL y firma/verificación de un mensaje, con análisis de la salida en clase</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 02</b><span>clase 2</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Estructura del bloque, Merkle Trees, nonce y vinculación de bloques (hash chain)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Exploración visual de bloques reales en un explorador público (Etherscan/Sepolia): lectura de la cabecera del bloque y de la vinculación de hashes entre bloques consecutivos</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 03</b><span>clase 3</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Protocolos de consenso: PoW, PoS, PoA, dPoS, BFT — trade-offs y casos de uso</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Análisis comparativo de PoW vs PoS aplicado a una red financiera regional, con discusión de trade-offs en clase</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 04</b><span>clase 4</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Tipos de redes: públicas (Ethereum, Bitcoin), privadas (Besu, Quorum), híbridas y Layer 2 (introducción a Optimistic vs ZK Rollups, Base, Arbitrum); gobernanza on-chain</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Diseño arquitectónico de un caso de trazabilidad agroindustrial argentino (pública, privada o híbrida)</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 05</b><span>clase 5</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Wallets (HD wallets, BIP-39/BIP-44), MetaMask, conexión a testnets (Sepolia, Holesky) y faucets</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Configuración de MetaMask sobre testnet Sepolia y análisis de una transacción en Etherscan</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 06</b><span>clase 6</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Remix IDE e introducción a Solidity: tipos, mappings, structs, visibilidad y modifiers</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Despliegue de un contrato "Voting" en Remix sobre Sepolia y verificación pública en Etherscan</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 07</b><span>clase 7</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Setup de Hardhat y Foundry: scripts, tests, fork de mainnet y debugging local (con referencia a Anchor como equivalente del lado Solana)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Armado en vivo de un repo Hardhat + Foundry con contrato Counter, tests unitarios y CI básico en GitHub Actions</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 08</b><span>clase 8</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Cierre del Curso 1: entrega del TP final (contrato propio + tests + verificación en Etherscan) y handoff a Curso 2 (capa financiera sobre la base técnica)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Presentación en clase del TP final del curso y revisión cruzada entre alumnos del repo y del contrato verificado</dd></div>
+                                </dl>
+                            </li>
+                        </ol>
+                        <p class="bc-crono-lente"><span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> del <em>primer commit al primer contrato verificado</em> — entender blockchain construyéndolo, no leyéndolo. Salís con código propio firmando transacciones en Ethereum.</p>
+                    </div>
                 </div>
-            </div>
+                <div class="bc-plan-enlace bc-crono-enlace" aria-hidden="true"><span>anterior = hash #1</span><code data-bc-hash="1">—</code></div>
+                <!-- Curso 2 -->
+                <div class="bc-crono-bloque" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bc-crono-cab">
+                        <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#2</span>
+                        <div class="bc-crono-info">
+                            <h3 class="bc-crono-titulo">Curso 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas</h3>
+                            <p class="bc-crono-meta">Septiembre 2026 · Docente Responsable: Dr. Julián Olivares · Equipo: Deiller Guevara</p>
+                        </div>
+                    </div>
+                    <p class="bc-crono-hashes"><span>hash del bloque</span><code data-bc-hash="2">—</code><span>8 transacciones · una por clase</span></p>
+                    <div class="bc-crono-cuerpo">
+                        <p class="bc-crono-tp"><span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> artículo financiero de un token propio (tokenomics + encuadre PSAV) y el ERC-20 desplegado en Sepolia siguiendo ese diseño.</p>
+                        <ol class="bc-tx-lista" aria-label="Clases del curso 2">
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 01</b><span>clase 1</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Historia del dinero: trueque, metálico, fiat, dinero digital y emisión monetaria</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Análisis en clase de la inflación argentina 2020-2026 y discusión del rol potencial de las stablecoins en la economía local</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 02</b><span>clase 2</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Tokenomics: supply, emission, vesting, sinks, incentivos de gobernanza y veTokenomics</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Diseño colaborativo de tokenomics sobre un caso real: supply, vesting, sinks e incentivos de gobernanza en pizarra</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 03</b><span>clase 3</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Stablecoins: collateralized (USDC, USDT), crypto-backed (DAI), algorítmicas y caso UST/Luna</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Comparación en vivo de USDC, DAI y FRAX: lectura de reservas auditadas y análisis del colapso de UST/Luna como caso de estudio</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 04</b><span>clase 4</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>DeFi y AMMs: Uniswap v2/v3/v4, mecánica x*y=k, concentrated liquidity y impermanent loss</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Provisión de liquidez en vivo en Uniswap v3 testnet y simulación de impermanent loss con distintos escenarios de precio</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 05</b><span>clase 5</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Lending &amp; borrowing: Aave, Compound, Curve; tasas variables, liquidaciones y flash loans</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Ejecución guiada de un flash loan en testnet de Aave v3 para arbitraje simple entre dos DEX, con inspección de la transacción</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 06</b><span>clase 6</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Derivados on-chain: perpetuals (GMX, dYdX), opciones (Lyra, Premia) y productos estructurados</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Modelado del payoff de un perpetual con funding rate en notebook Python y backtest sobre datos reales del mercado</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 07</b><span>clase 7</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Marco regulatorio: PSAV en Argentina (RG CNV 994), MiCA en UE y casos LATAM (Brasil, México)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Mesa de análisis regulatorio: lectura de la RG CNV 994 y discusión sobre cómo encuadrar un proyecto propio bajo el régimen PSAV</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 08</b><span>clase 8</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Cierre: integración financiera con el proyecto integrador y handoff a Curso 3 (infraestructura)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Integración en clase de la capa financiera del proyecto integrador (tokenomics + regulación + riesgos) y handoff a la fase de infraestructura</dd></div>
+                                </dl>
+                            </li>
+                        </ol>
+                        <p class="bc-crono-lente"><span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>tokenomics con criterio regulatorio argentino</em> — diseñar la economía de un token y poder defenderla técnica, financiera y legalmente frente a CNV (PSAV / RG 994).</p>
+                    </div>
+                </div>
+                <div class="bc-plan-enlace bc-crono-enlace" aria-hidden="true"><span>anterior = hash #2</span><code data-bc-hash="2">—</code></div>
+                <!-- Curso 3 -->
+                <div class="bc-crono-bloque" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bc-crono-cab">
+                        <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#3</span>
+                        <div class="bc-crono-info">
+                            <h3 class="bc-crono-titulo">Curso 3 — Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain</h3>
+                            <p class="bc-crono-meta">Octubre-noviembre 2026 (inicio: martes 6/10 · cierre: martes 3/11, 8 clases) · Docente Responsable: Dr. David Petrocelli · Equipo: Mauricio Romero</p>
+                        </div>
+                    </div>
+                    <p class="bc-crono-hashes"><span>hash del bloque</span><code data-bc-hash="3">—</code><span>8 transacciones · una por clase</span></p>
+                    <div class="bc-crono-cuerpo">
+                        <p class="bc-crono-nota"><span class="pin" aria-hidden="true">🤝</span><strong>Cursada conjunta:</strong> este curso se dicta junto con el Curso 2 de la Diplomatura en IA Generativa (orientación Inteligencia Artificial). Las clases 1 a 6 son compartidas entre ambas cohortes; las clases 7 y 8 son específicas de cada orientación.</p>
+                        <p class="bc-crono-tp"><span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> el "andamio Web2" completo para sostener tu proyecto Web3 en producción — contenedores, IaC con Terraform, GKE, observabilidad y pipelines, más proxy RPC propio sobre Base Sepolia, gateway IPFS dedicado e indexer self-hosted. La capa sobre la que el DApp del Curso 4 va a correr en producción.</p>
+                        <ol class="bc-tx-lista" aria-label="Clases del curso 3">
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 01</b><span>clase 1</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Arquitectura híbrida en la nube: qué corre en GCP y qué no — sistemas Web3 entre on-chain y off-chain, y cargas de IA entre GPU y CPU. Despliegue de nodos blockchain sobre Compute Engine. Presentación del repo template provisto por la cátedra (mini-blockchain educativa que se opera en paralelo durante el curso)</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Despliegue en vivo de un nodo blockchain sobre Compute Engine y deploy del repo template en una segunda instancia para operarla como infra propia</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 02</b><span>clase 2</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>IaC con Terraform sobre GCP: VPC, Compute Engine, Persistent Disk, IAM y Secret Manager para workloads stateful</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Construcción guiada de un módulo Terraform reutilizable para nodo Ethereum en GCP, con tfvars dev/prod y plan validado en clase</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 03</b><span>clase 3</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Terraform avanzado en GCP: módulos reutilizables, workspaces (dev/staging/prod) y patrones multi-environment</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Armado en vivo de un módulo Terraform reutilizable para un proxy RPC propio sobre Base Sepolia, con autoescalado, snapshots automáticos de Persistent Disk y secretos gestionados</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 04</b><span>clase 4</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>CI/CD con GitHub Actions: build, test, deploy y promoción dev→prod con OIDC</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Armado en clase de un pipeline GitHub Actions que despliega contratos a testnet en cada PR y a mainnet en tag de release vía OIDC</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 05</b><span>clase 5</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Kubernetes con GKE (Google Kubernetes Engine): Helm charts, persistent volumes y StatefulSets para workloads stateful</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Despliegue guiado de un Helm chart para nodo Geth en GKE, con StatefulSet, PVC y exposición del endpoint JSON-RPC</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 06</b><span>clase 6</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Observabilidad con Cloud Monitoring, Prometheus, Grafana y Loki: métricas, logs y alertas de las cargas en producción</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Construcción en vivo de un dashboard Grafana con los paneles clave del nodo y configuración de alertas sobre peer count, sync y disco</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 07</b><span>clase 7</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Infraestructura Web3 sobre Layer 2 (Base Sepolia): proxy RPC propio con caché y rate limiting, gateway IPFS dedicado para metadatos y assets, e indexer self-hosted (Graph Node) para escuchar eventos on-chain</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Despliegue en vivo de un stack mínimo de infra Web3 sobre GCP: proxy RPC apuntando a Base Sepolia, gateway IPFS propio e indexer básico que escucha eventos de un contrato del Curso 1</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 08</b><span>clase 8</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Cierre: FinOps Web3 y revisión por pilares de buena arquitectura cloud (Google Cloud Architecture Framework, con guiños comparativos a AWS Well-Architected y Azure Well-Architected). Handoff a Curso 4: el andamio Web2 queda listo para hostear el DApp final</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Revisión en clase del andamio Web2 desplegado (nodo Ethereum + PoC educativa + proxy RPC Base + IPFS + indexer + observabilidad) bajo los pilares del Google Cloud Architecture Framework, con priorización colaborativa de remediaciones antes del handoff al Curso 4</dd></div>
+                                </dl>
+                            </li>
+                        </ol>
+                        <p class="bc-crono-lente"><span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>qué necesitás de Web2 para que tu Web3 funcione en producción</em> — cloud, contenedores, observabilidad y pipelines como código, sobre los que después corre tu DApp. La diferencia entre "deploy en testnet" y "proyecto productivo".</p>
+                    </div>
+                </div>
+                <div class="bc-plan-enlace bc-crono-enlace" aria-hidden="true"><span>anterior = hash #3</span><code data-bc-hash="3">—</code></div>
+                <!-- Curso 4 -->
+                <div class="bc-crono-bloque" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bc-crono-cab">
+                        <span class="bc-plan-num" aria-hidden="true"><small>bloque</small>#4</span>
+                        <div class="bc-crono-info">
+                            <h3 class="bc-crono-titulo">Curso 4 — Desarrollo de Aplicaciones y DApps Blockchain</h3>
+                            <p class="bc-crono-meta">Noviembre 2026 (inicio: jueves 5/11 · cierre: jueves 26/11, 7 clases) · Docente Responsable: Dr. David Petrocelli · Equipo: <a href="../docentes/ciro/">Esp. Ciro Edgardo Romero</a></p>
+                        </div>
+                    </div>
+                    <p class="bc-crono-hashes"><span>hash del bloque</span><code data-bc-hash="4">—</code><span>7 transacciones · una por clase</span></p>
+                    <div class="bc-crono-cuerpo">
+                        <p class="bc-crono-tp"><span class="pin" aria-hidden="true">🎯</span><strong>Resultado del TP del curso:</strong> tu propia <strong>pasarela de pago Web3 (PaymentGateway)</strong> desplegada en Base Sepolia: contratos propios (token ERC-20 de pago, NFT recibo y PaymentGateway) testeados y auditados, frontend con conexión de wallet (Next.js + wagmi + RainbowKit), contratos verificados y comparativa de costos de gas contra mainnet. Reusa lo que diseñaste en el Curso 2 (token y tokenomics) y puede correr sobre el andamio que levantaste en el Curso 3 (infra).</p>
+                        <ol class="bc-tx-lista" aria-label="Clases del curso 4">
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 01</b><span>clase 1</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd><strong>Presentación del curso</strong> (objetivos, modalidad, metodología y trabajo final). Arquitectura de una DApp y modelo de negocio de la pasarela. Repaso de Solidity desde el Curso 1 (tipos, mappings, modifiers, events, custom errors). Setup: Foundry, Anvil y Next.js</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Refactor del contrato Counter con events y custom errors, midiendo gas antes y después</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 02</b><span>clase 2</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Primer ERC-20 propio con OpenZeppelin, partiendo de la tokenomics del Curso 2: mint, transfer, approve, allowance y permit. Deploy y verificación en Base Sepolia</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Despliegue en Base Sepolia del token de pago de la pasarela, verificado con Sourcify (visible en Blockscout)</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 03</b><span>clase 3</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>ERC-721 propio con OpenZeppelin: minteo, metadata e IPFS. Web3 avanzado: tokenización de activos reales (RWA) e identidad digital</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>NFT recibo/comprobante de la pasarela en Base Sepolia, con metadata e imagen en IPFS</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 04</b><span>clase 4</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Patrones de seguridad: reentrancy, access control, front-running. CEI, ReentrancyGuard, Pausable y Pull over Push. Auditoría con Slither y Aderyn</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>CTF en clase: identificación y parcheo de vulnerabilidades en un contrato vulnerable + auditoría de los contratos propios</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 05</b><span>clase 5</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Contrato <strong>PaymentGateway</strong>: cobro en ERC-20, emisión del recibo (NFT) y liberación al comercio. Testing con Foundry: cheatcodes, fuzz e invariant testing, coverage</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>PaymentGateway que integra el ERC-20 y el NFT, con suite de tests automatizados, desplegado en Base Sepolia</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 06</b><span>clase 6</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Frontend Web3: Next.js + wagmi + viem + RainbowKit. Conexión de wallet, lectura de estado on-chain y disparo de transacciones</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>Frontend de la pasarela: conectar wallet, mostrar saldo del token, aprobar y pagar contra el PaymentGateway</dd></div>
+                                </dl>
+                            </li>
+                            <li class="bc-tx">
+                                <p class="bc-tx-id"><b>tx 07</b><span>clase 7</span></p>
+                                <dl class="bc-tx-datos">
+                                    <div><dt>Tema</dt><dd>Layer 2 con foco en Base (OP Stack): deploy end-to-end, testnet vs mainnet y comparativa de costos de gas. <strong>Cierre del curso</strong> con la checklist de calidad del trabajo final</dd></div>
+                                    <div><dt>Actividad práctica</dt><dd>DApp completo (ERC-20 + NFT + PaymentGateway + frontend) en Base Sepolia, contratos verificados y análisis de gas comparado</dd></div>
+                                </dl>
+                            </li>
+                        </ol>
+                        <p class="bc-crono-lente"><span class="pin" aria-hidden="true">📌</span><strong>Lente estratégica del curso:</strong> <em>del contrato al producto en Layer 2</em> — construcción incremental de una pasarela de pago Web3 real, integrando ERC-20 + NFTs + frontend + auditoría con Slither y Aderyn, con foco en costos reales de gas y experiencia de usuario.</p>
+                    </div>
+                </div>
+
+                <div class="bc-crono-estrategia" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="h5">¿Y la estrategia? — Versión cronograma</h3>
+                    <p>
+                        Cada clase produce un <strong>artefacto reproducible</strong> en la actividad práctica: repo público, contrato verificado en un explorador público, dashboard Grafana, informe regulatorio. Las 31 clases construyen el <strong>Proyecto Integrador Final desde la primera semana</strong> — la última clase no es "el cierre del programa", es la <strong>defensa de algo que se vino construyendo</strong> clase por clase. El alumno egresa con repos públicos auditables y un DApp desplegado en mainnet o testnet pública, con documentación completa.
+                    </p>
+                </div>
+            </div><!-- /bc-crono -->
         </div>
     </section>
 
