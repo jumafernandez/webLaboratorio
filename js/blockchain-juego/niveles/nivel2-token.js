@@ -41,7 +41,7 @@ export default async function nivel2(ctx, { ejemplo } = {}) {
   };
   await ctx.bot("**Nivel 2 · Curso 2.** Vamos a crear **tu propia criptomoneda**. ¿Cómo se llama?");
   ctx.escape();
-  const name = (await ctx.ask({ placeholder: "Nombre de tu moneda (ej: Mate Coin)", onInput: preview })).slice(0, 24);
+  const name = await ctx.askPublico({ placeholder: "Nombre de tu moneda (ej: Mate Coin)", onInput: preview, max: 24, derivados: (v) => [symbolOf(v)] });
   const sym = symbolOf(name);
   ctx.paso("nombre");
   await ctx.bot(`**${esc(name)}** (${sym}). ¿Cuántas monedas van a existir en total?`);

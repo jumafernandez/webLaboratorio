@@ -211,9 +211,46 @@ export async function bloqueActual() {
   return n;
 }
 
+// POST /revisar: can this text be written on the public chain? {ok, motivo}, or null when the backend can't say
+// (no backend, network down). Runs in simulated mode too: the text still shows on the page.
+export async function revisarTexto(texto) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), 10000);
+  try {
+    const r = await fetch(`${API}/revisar`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ texto }),
+      signal: ctl.signal,
+    });
+    if (!r.ok) return null;
+    const d = await r.json();
+    return typeof d.ok === "boolean" ? d : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+// Why a text was turned down, in the visitor's words.
+const MOTIVOS = {
+  insulto: "tiene palabras que no van",
+  odio: "puede ofender a alguien",
+  sexual: "tiene contenido sexual",
+  violencia: "suena a amenaza o violencia",
+  politica: "tiene contenido político",
+  publicidad: "tiene un link, una cuenta o publicidad",
+  datos_personales: "parece tener datos personales (teléfono, correo, documento)",
+  texto_invalido: "tiene caracteres que no se pueden grabar",
+};
+export const motivoRechazo = (m) => MOTIVOS[m] || "no pasa el filtro de lo que se puede publicar";
+
 // Message the visitor sees when the real call didn't work and the game went on simulated.
 export function motivoSimulada(res) {
   const e = res?.data?.error;
+  if (e === "texto_rechazado") return `No lo mandé a la cadena real porque ${motivoRechazo(res.data.motivo)}: esta vez fue simulada.`;
+  if (e === "sin_revision") return "No pude revisar el texto antes de publicarlo, así que no lo mandé a la cadena real: esta vez fue simulada.";
   if (e === "datos_personales") return "No lo mandé a la cadena real porque parecía tener datos personales: esta vez fue simulada.";
   if (e === "limite_diario" || e === "tope_origen" || e === "tope_global" || res?.status === 429)
     return "Llegamos al tope de transacciones reales de hoy: esta vez fue simulada.";

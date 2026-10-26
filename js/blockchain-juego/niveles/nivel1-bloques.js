@@ -45,7 +45,7 @@ export default async function nivel1(ctx, { ejemplo } = {}) {
   await ctx.bot("**Nivel 1 · Curso 1.** Escribí algo que quieras que **dure para siempre**: una frase, un deseo, tu nombre.");
   await ctx.bot(`Mirá ${THERE} mientras escribís ${POINT} cada letra cambia la huella entera.`, 500);
   ctx.escape();
-  const text = (await ctx.ask({ placeholder: "Escribí tu mensaje para la cadena…", onInput: update })).slice(0, 120);
+  const text = await ctx.askPublico({ placeholder: "Escribí tu mensaje para la cadena…", onInput: update });
   ctx.paso("mensaje");
 
   // Real chain: the message is also sealed on the network (SelloLICDIA) while the browser chain mines it.
