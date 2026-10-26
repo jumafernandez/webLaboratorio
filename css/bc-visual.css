@@ -703,4 +703,87 @@ html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-e
 }
 @media (prefers-reduced-motion: reduce) {
     .bc-cierre-cab .bc-plan-estado { animation: none; }
+
+/* ---------- Lo que vas a construir (#proyectos) ----------
+   Cada proyecto indica de qué bloque de la cadena sale y las tarjetas se unen con conectores que se encienden cuando
+   js/bc-cadena.js mina los cuatro bloques (js/bc-proyectos.js). Sección clara: el chip es lo único que lleva el
+   lenguaje de la cadena. Los colores de enhancements.css (modo oscuro) y style2.css (links) se pisan con el id. */
+#proyectos .row > [class*="col-"] { position: relative; }
+#proyectos .proyecto-card { height: 100%; display: flex; flex-direction: column; }
+#proyectos .proyecto-card > .bc-pr-chip { margin-top: auto; }
+#proyectos .proyecto-card > div:not(.bc-icon-wrap) { margin-bottom: 1rem; }
+
+html body.blockchain-theme #proyectos a.bc-pr-chip {
+    align-self: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .1rem;
+    max-width: 100%;
+    padding: .4rem .85rem;
+    border: 1px solid rgba(76, 28, 127, .3);
+    border-radius: 12px;
+    background: #f4eefb;
+    color: var(--bc-violeta) !important;
+    text-decoration: none !important;
+    transition: border-color .3s ease, background-color .3s ease;
+}
+html body.blockchain-theme #proyectos a.bc-pr-chip:hover { border-color: var(--bc-violeta); background: #ebe0f8; }
+html body.blockchain-theme #proyectos a.bc-pr-chip:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+html body.blockchain-theme #proyectos .bc-pr-bloque {
+    color: var(--bc-violeta) !important;
+    font: 500 .68rem var(--bc-mono);
+    letter-spacing: .04em;
+    white-space: nowrap;
+}
+html body.blockchain-theme #proyectos .bc-pr-bloque > span { color: var(--bc-violeta) !important; font: inherit; opacity: .6; transition: opacity .5s ease; }
+html body.blockchain-theme #proyectos .bc-pr-bloque > span.minado { opacity: 1; }
+html body.blockchain-theme #proyectos .bc-pr-curso {
+    color: #4a4a4a !important;
+    font: 600 .74rem Montserrat, sans-serif;
+    line-height: 1.3;
+}
+
+/* conectores: horizontales entre columnas (desde 768 px), verticales en el celular */
+#proyectos .bc-pr-eslabon { position: absolute; pointer-events: none; z-index: 1; }
+#proyectos .bc-pr-eslabon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    background: rgba(76, 28, 127, .18);
+    transition: background .6s ease, box-shadow .6s ease;
+}
+#proyectos .bc-pr-eslabon.minado::before {
+    background: linear-gradient(90deg, var(--bc-violeta), #9d6bff);
+    box-shadow: 0 0 8px rgba(124, 58, 237, .45);
+}
+#proyectos .bc-pr-eslabon[data-desde="2"].minado::before { transition-delay: .15s; }
+#proyectos .bc-pr-eslabon[data-desde="3"].minado::before { transition-delay: .3s; }
+/* celular: debajo de la tarjeta, en el hueco entre filas */
+#proyectos .bc-pr-eslabon { top: 100%; left: 50%; width: 2px; height: 1.5rem; margin-left: -1px; }
+#proyectos .bc-pr-eslabon.minado::before { background: linear-gradient(180deg, var(--bc-violeta), #9d6bff); }
+@media (min-width: 768px) {
+    #proyectos .bc-pr-eslabon { top: 2.7rem; left: auto; right: -1.5rem; width: 1.5rem; height: 2px; margin: 0; }
+    #proyectos .bc-pr-eslabon.minado::before { background: linear-gradient(90deg, var(--bc-violeta), #9d6bff); }
+    /* con dos columnas el 2 -> 3 cae en otra fila */
+    #proyectos .bc-pr-eslabon[data-desde="2"] { display: none; }
+}
+@media (min-width: 992px) {
+    #proyectos .bc-pr-eslabon[data-desde="2"] { display: block; }
+}
+
+/* modo oscuro: las tarjetas son oscuras, el chip y los conectores van en lila */
+html[data-theme="dark"] body.blockchain-theme #proyectos a.bc-pr-chip { border-color: rgba(196, 165, 255, .35); background: rgba(196, 165, 255, .08); }
+html[data-theme="dark"] body.blockchain-theme #proyectos a.bc-pr-chip:hover { border-color: var(--bc-lila); background: rgba(196, 165, 255, .16); }
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-bloque,
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-bloque > span { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-curso { color: #c9d1d9 !important; }
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-eslabon::before { background: rgba(196, 165, 255, .2); }
+html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-eslabon.minado::before { background: linear-gradient(180deg, var(--bc-lila), rgba(196, 165, 255, .5)); }
+@media (min-width: 768px) {
+    html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-eslabon.minado::before { background: linear-gradient(90deg, var(--bc-lila), rgba(196, 165, 255, .5)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    #proyectos a.bc-pr-chip, #proyectos .bc-pr-bloque > span, #proyectos .bc-pr-eslabon::before { transition: none !important; }
 }
