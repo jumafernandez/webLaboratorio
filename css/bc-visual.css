@@ -374,9 +374,11 @@ html body.blockchain-theme .bc-oscuro > .container > hr {
     background: linear-gradient(90deg, transparent, rgba(196, 165, 255, .5), transparent);
     opacity: 1;
 }
-/* style2.css pinta en violeta todo link dentro de un article: estos van sobre fondo oscuro */
-html body.blockchain-theme .bc-oscuro a.bc-plan-programa,
-html body.blockchain-theme .bc-oscuro a.bc-boton-borde { color: var(--bc-tinta) !important; }
+/* style2.css pinta en violeta con !important todo link dentro de un article, section o .container, con selectores de
+   hasta siete clases: :not(#_) suma el peso de un id (no hay ningún elemento con id "_") para ganarles sin atar la
+   regla a una sección */
+html body.blockchain-theme .bc-oscuro a.bc-plan-programa:not(#_),
+html body.blockchain-theme .bc-oscuro a.bc-boton-borde:not(#_) { color: var(--bc-tinta) !important; }
 html body.blockchain-theme .bc-oscuro .bc-eslabon { color: var(--bc-lila) !important; }
 
 .bc-plan { max-width: 1040px; margin: 0 auto; }
@@ -682,9 +684,9 @@ html body.blockchain-theme section#contact.bc-oscuro { padding: 4rem 0 !importan
 .bc-cierre-hashes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .bc-cierre-hashes .bc-plan-campo:nth-child(n+2) code { color: var(--bc-ambar); }
 .bc-cierre .btn-primary:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 3px; }
-html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn) { color: #fff !important; text-decoration: underline; }
-html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):hover { color: var(--bc-lila) !important; }
-html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; border-radius: 3px; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):not(#_) { color: #fff !important; text-decoration: underline; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):not(#_):hover { color: var(--bc-lila) !important; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):not(#_):focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; border-radius: 3px; }
 /* enhancements.css tiñe p, span y code en modo oscuro con !important: acá los mismos colores que en el tema claro */
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre p { color: #d4c9ea !important; }
 html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-titulo { color: #fff !important; }
