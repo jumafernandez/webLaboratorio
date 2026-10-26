@@ -4,7 +4,8 @@
    navegador: prueba de trabajo real hasta encontrar un nonce con el que el hash del encabezado empiece con DIFICULTAD.
    El fondo muestra hashes SHA-256 reales de las secciones de esta página; los bloques minados se suman.
    Se mina en tramos de pocos milisegundos por cuadro para no trabar la página.
-   En las subpáginas no hay cadena: quedan el fondo de hashes y los rótulos encadenados de las secciones. */
+   En las subpáginas no hay cadena: quedan el fondo de hashes y los rótulos encadenados de las secciones. La del plan
+   de estudios trae los mismos bloques (.bc-plan): ahí se mina igual, sin las tarjetas ni el estado del encabezado. */
 (function () {
     'use strict';
     var header = document.querySelector('header.fondoBlockchain');
@@ -97,9 +98,9 @@
             ancla.parentNode.insertBefore(p, ancla);
         });
     })();
-    // En el plan de estudios de la portada cada curso es el mismo bloque del encabezado: la minería de abajo llena
-    // anterior, nonce y hash, y los enlaces entre bloques muestran el hash que guarda el bloque siguiente
-    var enPlan = bloques.map(function (b) { return lienzoCadena && document.querySelector('.bc-plan-bloque[data-bloque="' + b.n + '"]'); });
+    // En el plan de estudios (portada y subpágina) cada curso es el mismo bloque del encabezado: la minería de abajo
+    // llena anterior, nonce y hash, y los enlaces entre bloques muestran el hash que guarda el bloque siguiente
+    var enPlan = bloques.map(function (b) { return document.querySelector('.bc-plan-bloque[data-bloque="' + b.n + '"]'); });
     function plan(k, campos, estado) {
         var el = enPlan[k];
         if (!el) return;
@@ -150,7 +151,9 @@
         cont.insertBefore(rotulo, cont.firstChild);
     }
     function cadena() {
-    // Tarjetas
+    // Tarjetas: solo en la portada; sin ellas (subpágina del plan) se mina igual y se llena solo el plan
+    var tarjetas = [], estado = null;
+    if (lienzoCadena) {
     lienzoCadena.innerHTML = bloques.map(function (b) {
         return '<button type="button" class="bc-bloque" data-ancla="' + b.ancla + '" aria-label="Curso ' + b.n + ': ' + b.titulo + '. Ver en el plan de estudios">' +
             '<span class="bc-bloque-cab"><span>Bloque #' + b.n + '</span><span class="bc-bloque-estado">en espera</span></span>' +
@@ -161,8 +164,8 @@
             '<span class="bc-campo bc-campo-hash"><span>hash</span><code class="bc-hash">—</code></span>' +
             '</button>';
     }).join('');
-    var tarjetas = lienzoCadena.querySelectorAll('.bc-bloque');
-    var estado = header.querySelector('.bc-estado');
+    tarjetas = lienzoCadena.querySelectorAll('.bc-bloque');
+    estado = header.querySelector('.bc-estado');
     lienzoCadena.addEventListener('click', function (e) {
         var t = e.target.closest('.bc-bloque');
         if (!t) return;
@@ -171,6 +174,7 @@
         var destino = document.getElementById('informacionPlan') || el;
         if (destino) destino.scrollIntoView({ behavior: reducir ? 'auto' : 'smooth', block: 'start' });
     });
+    }
 
     // ---------- Minería: prueba de trabajo real, en tramos por cuadro ----------
     var totalHashes = 0, t0 = 0, actual = 0, prev = '0'.repeat(64), nonce = 0, prefijo = null;
@@ -179,9 +183,12 @@
         b.prev = prev;
         prefijo = 'curso:' + b.n + '|anterior:' + prev + '|datos:' + b.datos + '|nonce:';
         nonce = 0;
-        tarjetas[actual].classList.add('minando');
-        tarjetas[actual].querySelector('.bc-bloque-estado').textContent = 'minando…';
-        tarjetas[actual].querySelector('.bc-prev').textContent = corto(prev);
+        var tar = tarjetas[actual];
+        if (tar) {
+            tar.classList.add('minando');
+            tar.querySelector('.bc-bloque-estado').textContent = 'minando…';
+            tar.querySelector('.bc-prev').textContent = corto(prev);
+        }
         plan(actual, { prev: corto(prev) }, ['minando', 'minando…']);
     }
     function minar() {
@@ -192,12 +199,15 @@
             if (h.slice(0, DIFICULTAD.length) === DIFICULTAD) {
                 var b = bloques[actual];
                 b.nonce = nonce; b.hash = h; prev = h;
-                tar.classList.remove('minando'); tar.classList.add('minado');
-                tar.querySelector('.bc-bloque-estado').textContent = '✓ minado';
-                tar.querySelector('.bc-nonce').textContent = nonce.toLocaleString('es-AR');
-                tar.querySelector('.bc-hash').innerHTML = '<b>' + DIFICULTAD + '</b>' + corto(h).slice(DIFICULTAD.length);
-                tar.title = 'hash ' + h;
-                plan(actual, { nonce: nonce.toLocaleString('es-AR'), hash: tar.querySelector('.bc-hash').innerHTML }, ['minado', '✓ minado']);
+                var marcado = '<b>' + DIFICULTAD + '</b>' + corto(h).slice(DIFICULTAD.length);
+                if (tar) {
+                    tar.classList.remove('minando'); tar.classList.add('minado');
+                    tar.querySelector('.bc-bloque-estado').textContent = '✓ minado';
+                    tar.querySelector('.bc-nonce').textContent = nonce.toLocaleString('es-AR');
+                    tar.querySelector('.bc-hash').innerHTML = marcado;
+                    tar.title = 'hash ' + h;
+                }
+                plan(actual, { nonce: nonce.toLocaleString('es-AR'), hash: marcado }, ['minado', '✓ minado']);
                 planEnlace(b.n, h);
                 publicar(b.n, h);
                 sumarAlFondo(h, true);
@@ -208,16 +218,19 @@
             nonce++;
         }
         if (actual < bloques.length) {
-            tarjetas[actual].querySelector('.bc-nonce').textContent = nonce.toLocaleString('es-AR');
-            tarjetas[actual].querySelector('.bc-hash').textContent = corto(h || '');
+            if (tarjetas[actual]) {
+                tarjetas[actual].querySelector('.bc-nonce').textContent = nonce.toLocaleString('es-AR');
+                tarjetas[actual].querySelector('.bc-hash').textContent = corto(h || '');
+            }
             plan(actual, { nonce: nonce.toLocaleString('es-AR'), hash: corto(h || '') });
             var seg = (performance.now() - t0) / 1000;
-            estado.textContent = 'Minando el bloque #' + (actual + 1) + ' en este navegador · ' + Math.round(totalHashes / Math.max(seg, 0.1)).toLocaleString('es-AR') + ' hashes por segundo';
+            if (estado) estado.textContent = 'Minando el bloque #' + (actual + 1) + ' en este navegador · ' + Math.round(totalHashes / Math.max(seg, 0.1)).toLocaleString('es-AR') + ' hashes por segundo';
             requestAnimationFrame(minar);
         }
     }
     function terminar() {
         var seg = (performance.now() - t0) / 1000;
+        if (!lienzoCadena) return;   // sin encabezado no hay estado que mostrar
         estado.textContent = bloques.length + ' bloques encadenados · dificultad ' + DIFICULTAD + ' · ' + totalHashes.toLocaleString('es-AR') +
             ' hashes SHA-256 calculados en tu navegador en ' + seg.toFixed(1).replace('.', ',') + ' s';
         lienzoCadena.classList.add('completa');
@@ -230,12 +243,12 @@
     // Arranca cuando el encabezado está a la vista (y una vez cargadas las tipografías, para no recalcular el diseño)
     var arrancada = false;
     function quizasArrancar() { if (!arrancada) { arrancada = true; setTimeout(arrancarMineria, reducir ? 0 : 600); } }
-    // ... o el plan de estudios, si se entra directo por #informacionPlan
+    // ... o el plan de estudios, si se entra directo por #informacionPlan (en la subpágina, solo el plan)
     if ('IntersectionObserver' in window) {
         var vigia = new IntersectionObserver(function (es) {
             if (es.some(function (e) { return e.isIntersecting; })) quizasArrancar();
         });
-        vigia.observe(lienzoCadena);
+        if (lienzoCadena) vigia.observe(lienzoCadena);
         if (document.querySelector('.bc-plan')) vigia.observe(document.querySelector('.bc-plan'));
     } else { quizasArrancar(); }
 
@@ -321,5 +334,5 @@
     }
 
     fondo();
-    if (lienzoCadena && bloques.length) cadena();
+    if (bloques.length && (lienzoCadena || document.querySelector('.bc-plan'))) cadena();
 })();
