@@ -655,3 +655,52 @@ html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-plan-tp p:not(.bc-p
     .bc-plan-bloque, .bc-plan-enlace::before, .bc-plan-enlace code, .bc-plan-flecha { transition: none; }
     .bc-plan-bloque.verificado, .bc-plan-bloque.minando .bc-plan-estado { animation: none; }
 }
+
+/* ---------- Cierre: bloque pendiente de la cohorte 2027 (#contact) ----------
+   Último bloque de la cadena: el #5 todavía no se minó, así que va en ámbar (pendiente) con borde punteado.
+   El eslabón de arriba se enciende en lila cuando el encabezado mina el bloque #4 (code[data-bc-hash="4"].minado).
+   La lista de espera sigue siendo la acción principal. */
+html body.blockchain-theme section#contact.bc-oscuro { padding: 4rem 0 !important; margin: 0 !important; }
+.bc-cierre { max-width: 860px; margin: 0 auto; }
+.bc-cierre-enlace:has(code.minado)::before {
+    background: linear-gradient(180deg, var(--bc-lila), rgba(245, 185, 66, .55));
+    box-shadow: 0 0 10px rgba(196, 165, 255, .45);
+}
+.bc-cierre-enlace code.minado { border-color: rgba(196, 165, 255, .6); color: var(--bc-lila); box-shadow: 0 0 14px rgba(196, 165, 255, .2); }
+.bc-cierre-bloque {
+    padding-top: 1.1rem;
+    border-style: dashed;
+    border-color: rgba(245, 185, 66, .55);
+    box-shadow: 0 0 26px rgba(245, 185, 66, .1);
+}
+.bc-cierre-cab { display: flex; align-items: center; gap: .9rem; margin: 0 1.3rem; padding-bottom: .4rem; }
+.bc-cierre-cab .bc-plan-num { width: 3.4rem; height: 3.4rem; font-size: 1.2rem; border-color: rgba(245, 185, 66, .55); }
+.bc-cierre-cab .bc-plan-num small { color: var(--bc-ambar); font-size: .5rem; }
+.bc-cierre-titulo { flex: 1 1 auto; min-width: 0; color: #fff; font: 600 1.05rem/1.3 "Space Grotesk", Montserrat, sans-serif; }
+.bc-cierre-cab .bc-plan-estado { border-color: rgba(245, 185, 66, .6); color: var(--bc-ambar); animation: bc-latido 2s ease-in-out infinite; }
+.bc-cierre-bloque .bc-plan-campo code[data-bc-hash="4"].minado { color: var(--bc-lila); }
+.bc-cierre-hashes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bc-cierre-hashes .bc-plan-campo:nth-child(n+2) code { color: var(--bc-ambar); }
+.bc-cierre .btn-primary:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 3px; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn) { color: #fff !important; text-decoration: underline; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):hover { color: var(--bc-lila) !important; }
+html body.blockchain-theme .bc-oscuro .bc-cierre a:not(.btn):focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; border-radius: 3px; }
+/* enhancements.css tiñe p, span y code en modo oscuro con !important: acá los mismos colores que en el tema claro */
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-titulo { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-cab .bc-plan-num small,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-cab .bc-plan-estado,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-hashes .bc-plan-campo:nth-child(n+2) code { color: var(--bc-ambar) !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-bloque .bc-plan-campo code[data-bc-hash="4"].minado,
+html[data-theme="dark"] body.blockchain-theme .bc-oscuro .bc-cierre .bc-cierre-enlace code.minado { color: var(--bc-lila) !important; }
+@media (max-width: 767.98px) {
+    html body.blockchain-theme section#contact.bc-oscuro { padding: 3rem 0 !important; }
+    html body.blockchain-theme section#contact.bc-oscuro > .container { padding-left: 1rem; padding-right: 1rem; }
+    .bc-cierre-cab, .bc-cierre-hashes { margin: 0 1rem; }
+    .bc-cierre-hashes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bc-cierre-hashes .bc-plan-campo-hash { grid-column: 1 / -1; }
+    .bc-cierre-bloque .btn-lg { width: 100%; padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bc-cierre-cab .bc-plan-estado { animation: none; }
+}
