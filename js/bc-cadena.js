@@ -69,9 +69,10 @@
         var cuerpo = document.getElementById('panelsStayOpen-collapse' + n);
         var boton = document.querySelector('[data-bs-target="#panelsStayOpen-collapse' + n + '"]');
         if (!cuerpo || !boton) return;
-        var titulo = boton.textContent.replace(/\s+/g, ' ').trim().replace(/^\d+\s*/, '');
-        var texto = (cuerpo.querySelector('.accordion-body') || cuerpo).textContent.replace(/\s+/g, ' ').trim();
-        bloques.push({ n: k + 1, ancla: cuerpo.id, titulo: titulo, corto: CORTOS[k] || titulo,
+        // en la portada el botón trae además fechas y docentes: el título es solo .bc-plan-titulo
+        var titulo = (boton.querySelector('.bc-plan-titulo') || boton).textContent.replace(/\s+/g, ' ').trim().replace(/^\d+\s*/, '');
+        var texto = (cuerpo.querySelector('.bc-plan-cuerpo, .accordion-body') || cuerpo).textContent.replace(/\s+/g, ' ').trim();
+        bloques.push({ n: k + 1, ancla: cuerpo.id, titulo: titulo, corto: CORTOS[k] || titulo, texto: texto,
                        datos: sha256Texto('Curso ' + (k + 1) + ' — ' + titulo + '\n' + texto) });
     });
 
@@ -96,16 +97,30 @@
             ancla.parentNode.insertBefore(p, ancla);
         });
     })();
-    // En el plan de estudios, cada módulo muestra el mismo hash de datos que su bloque del encabezado
-    if (lienzoCadena) bloques.forEach(function (b) {
-        var boton = document.querySelector('[data-bs-target="#' + b.ancla + '"]');
-        if (!boton) return;
-        var t = document.createElement('span');
-        t.className = 'bc-tag';
-        t.textContent = 'bloque #' + b.n + ' · datos ' + b.datos.slice(0, 8) + '…';
-        t.title = 'El mismo hash de datos que el bloque #' + b.n + ' del encabezado';
-        boton.appendChild(t);
-    });
+    // En el plan de estudios de la portada cada curso es el mismo bloque del encabezado: la minería de abajo llena
+    // anterior, nonce y hash, y los enlaces entre bloques muestran el hash que guarda el bloque siguiente
+    var enPlan = bloques.map(function (b) { return lienzoCadena && document.querySelector('.bc-plan-bloque[data-bloque="' + b.n + '"]'); });
+    function plan(k, campos, estado) {
+        var el = enPlan[k];
+        if (!el) return;
+        Object.keys(campos).forEach(function (c) {
+            var x = el.querySelector('[data-bc="' + c + '"]');
+            if (x) x.innerHTML = campos[c];
+        });
+        if (estado) {
+            el.classList.remove('minando', 'minado', 'verificado');
+            void el.offsetWidth;   // reinicia el destello al volver a verificar
+            el.classList.add.apply(el.classList, estado[0].split(' '));
+            el.querySelector('[data-bc="estado"]').textContent = estado[1];
+        }
+    }
+    function planEnlace(n, h) {
+        var e = document.querySelector('.bc-plan-enlace[data-desde="' + n + '"]');
+        if (!e) return;
+        e.querySelector('code').textContent = corto(h);
+        e.classList.add('minado');
+    }
+    bloques.forEach(function (b, k) { plan(k, { datos: corto(b.datos) }); });
 
     var capa = header.querySelector('.bc-fondo');
     if (!capa) {
@@ -154,6 +169,7 @@
         tarjetas[actual].classList.add('minando');
         tarjetas[actual].querySelector('.bc-bloque-estado').textContent = 'minando…';
         tarjetas[actual].querySelector('.bc-prev').textContent = corto(prev);
+        plan(actual, { prev: corto(prev) }, ['minando', 'minando…']);
     }
     function minar() {
         var tar = tarjetas[actual], limite = performance.now() + 3, h;   // 3 ms por cuadro: cada bloque tarda ~1 s y se ve correr el nonce
@@ -168,6 +184,8 @@
                 tar.querySelector('.bc-nonce').textContent = nonce.toLocaleString('es-AR');
                 tar.querySelector('.bc-hash').innerHTML = '<b>' + DIFICULTAD + '</b>' + corto(h).slice(DIFICULTAD.length);
                 tar.title = 'hash ' + h;
+                plan(actual, { nonce: nonce.toLocaleString('es-AR'), hash: tar.querySelector('.bc-hash').innerHTML }, ['minado', '✓ minado']);
+                planEnlace(b.n, h);
                 sumarAlFondo(h, true);
                 actual++;
                 if (actual < bloques.length) { prepararBloque(); } else { terminar(); return; }
@@ -178,6 +196,7 @@
         if (actual < bloques.length) {
             tarjetas[actual].querySelector('.bc-nonce').textContent = nonce.toLocaleString('es-AR');
             tarjetas[actual].querySelector('.bc-hash').textContent = corto(h || '');
+            plan(actual, { nonce: nonce.toLocaleString('es-AR'), hash: corto(h || '') });
             var seg = (performance.now() - t0) / 1000;
             estado.textContent = 'Minando el bloque #' + (actual + 1) + ' en este navegador · ' + Math.round(totalHashes / Math.max(seg, 0.1)).toLocaleString('es-AR') + ' hashes por segundo';
             requestAnimationFrame(minar);
@@ -197,9 +216,28 @@
     // Arranca cuando el encabezado está a la vista (y una vez cargadas las tipografías, para no recalcular el diseño)
     var arrancada = false;
     function quizasArrancar() { if (!arrancada) { arrancada = true; setTimeout(arrancarMineria, reducir ? 0 : 600); } }
+    // ... o el plan de estudios, si se entra directo por #informacionPlan
     if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (es) { if (es[0].isIntersecting) quizasArrancar(); }).observe(lienzoCadena);
+        var vigia = new IntersectionObserver(function (es) {
+            if (es.some(function (e) { return e.isIntersecting; })) quizasArrancar();
+        });
+        vigia.observe(lienzoCadena);
+        if (document.querySelector('.bc-plan')) vigia.observe(document.querySelector('.bc-plan'));
     } else { quizasArrancar(); }
+
+    // Al abrir un curso del plan se verifica su bloque: se recalcula el hash de los contenidos que se ven y el del
+    // encabezado con el nonce encontrado, y se compara con lo minado
+    document.addEventListener('shown.bs.collapse', function (e) {
+        var k = bloques.findIndex(function (b) { return b.ancla === e.target.id; });
+        var b = bloques[k], el = enPlan[k];
+        if (!b || !el || b.hash == null) return;
+        var texto = e.target.querySelector('.bc-plan-cuerpo').textContent.replace(/\s+/g, ' ').trim();
+        var datos = sha256Texto('Curso ' + b.n + ' — ' + b.titulo + '\n' + texto);
+        var h = sha256Texto('curso:' + b.n + '|anterior:' + b.prev + '|datos:' + datos + '|nonce:' + b.nonce);
+        var ok = datos === b.datos && h === b.hash && h.indexOf(DIFICULTAD) === 0;
+        plan(k, {}, ok ? ['minado verificado', '✓ verificado'] : ['minando', '✗ no coincide']);
+        el.querySelector('[data-bc="estado"]').title = ok ? 'SHA-256 de los contenidos y del bloque recalculados en tu navegador: coinciden con lo minado' : '';
+    });
 
     // Para verificar desde la consola: window.bcCadena.verificar() recalcula cada hash
     window.bcCadena = {
