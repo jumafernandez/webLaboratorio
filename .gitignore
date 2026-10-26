@@ -63,3 +63,7 @@ dev-ia/docentes/**/*CV*.html
 **/_backup/
 **/_backend/
 **/_backup_*.html
+
+# Python bytecode
+__pycache__/
+*.pyc
