@@ -1,0 +1,6 @@
+# Estilo del proyecto: líneas de hasta 120 columnas, alineado a mano (sin formateador automático)
+line-length = 120
+force-exclude = true
+
+[format]
+exclude = ["*.py"]

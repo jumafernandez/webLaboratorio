@@ -1,0 +1,56 @@
+# /etc/systemd/system/asistente-blockchain.service
+[Unit]
+Description=Asistente-juego de la Diplomatura en Blockchain (blockchain-dev)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Mismo usuario de sistema que el asistente de dev-ia: sin intérprete de comandos ni permisos de administración.
+User=asistente
+Group=asistente
+WorkingDirectory=/opt/asistente-blockchain
+
+# En producción nunca se sirve el sitio desde la app (eso es de desarrollo): nginx sirve los estáticos.
+Environment=DEV=0
+# La UNLu sale a Internet por el proxy institucional (API del modelo de lenguaje y, si se activa, el RPC de la cadena).
+Environment=HTTPS_PROXY=http://proxy.unlu.edu.ar:8080
+Environment=HTTP_PROXY=http://proxy.unlu.edu.ar:8080
+Environment=NO_PROXY=localhost,127.0.0.1
+# nginx corre en la misma VM y pisa X-Real-IP con $remote_addr: solo desde acá se cree ese encabezado (backend/origen.py)
+Environment=PROXIES_CONFIABLES=127.0.0.1
+# Clave de la API y variables CADENA_* (ver despliegue/asistente-blockchain.env.example). La app además lee el mismo
+# archivo por su cuenta (backend/app.py, leer_env), así que vale para las dos formas de leer la configuración.
+EnvironmentFile=/opt/asistente-blockchain/.env
+
+ExecStart=/opt/asistente-blockchain/.venv/bin/python -m uvicorn backend.app:app \
+          --host 127.0.0.1 --port 8021 --log-level warning
+Restart=on-failure
+RestartSec=5
+
+# --- Endurecimiento ---
+# Todo de solo lectura salvo la carpeta de datos.
+NoNewPrivileges=true
+ProtectSystem=strict
+# Topes de uso, registro anónimo de preguntas y contadores del día (backend/registro.py, backend/estadisticas.py):
+# /var/lib/asistente-blockchain, legible por el grupo del servicio (administrador lo consulta con
+# despliegue/preguntas.sh) y por nadie más. registro.py la toma de STATE_DIRECTORY, que systemd define.
+StateDirectory=asistente-blockchain
+StateDirectoryMode=0750
+UMask=0027
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+# Si algún día hay cadena real con relayer, el keystore y su clave NO van en .env ni en /opt: se pasan como
+# credenciales de systemd (quedan en $CREDENTIALS_DIRECTORY, solo para este proceso). Por ejemplo:
+#   LoadCredential=keystore:/etc/asistente-blockchain/keystore.json
+#   LoadCredential=keystore-clave:/etc/asistente-blockchain/keystore.clave
+# Sin embeddings ni modelos locales: el proceso es chico.
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

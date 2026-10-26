@@ -1,0 +1,6 @@
+[submodule "tools/asistente-blockchain/contratos/lib/forge-std"]
+	path = tools/asistente-blockchain/contratos/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "tools/asistente-blockchain/contratos/lib/openzeppelin-contracts"]
+	path = tools/asistente-blockchain/contratos/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts

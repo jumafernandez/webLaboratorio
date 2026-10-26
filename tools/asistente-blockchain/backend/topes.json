@@ -1,0 +1,6 @@
+{
+ "_nota": "Topes del asistente (backend/registro.py). preguntas_por_persona_por_dia se cuenta por dirección de origen: la UNLu sale por pocas direcciones compartidas, por eso es holgado. usd_por_dia es el gasto total del día en el modelo de lenguaje, con los precios de llm.json; una pregunta típica cuesta alrededor de un centavo de dólar. dias_registro: cuánto se guardan las preguntas.",
+ "preguntas_por_persona_por_dia": 40,
+ "usd_por_dia": 5.0,
+ "dias_registro": 180
+}
