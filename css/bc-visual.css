@@ -754,4 +754,173 @@ html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-bloque > span { 
 html[data-theme="dark"] body.blockchain-theme #proyectos .bc-pr-curso { color: #c9d1d9 !important; }
 @media (prefers-reduced-motion: reduce) {
     #proyectos a.bc-pr-chip, #proyectos .bc-pr-bloque > span { transition: none !important; }
+
+/* ---------- Subpágina plan-de-estudios ----------
+   El plan usa el mismo marcado que la portada (.bc-oscuro + .bc-plan). El cronograma sigue la cadena: cada curso es
+   un bloque (cabecera oscura como las tarjetas del encabezado, con el hash que se mina arriba en [data-bc-hash]) y
+   cada clase es una transacción. La sección queda clara: entre el plan y el cronograma va "El camino del alumno". */
+
+html body.blockchain-theme #informacionPlan .breadcrumb { max-width: 1040px; margin: 0 auto 1.6rem; font-size: .85rem; }
+html body.blockchain-theme #informacionPlan .breadcrumb-item a { color: var(--bc-lila) !important; }
+html body.blockchain-theme #informacionPlan .breadcrumb-item.active { color: var(--bc-tenue) !important; }
+html body.blockchain-theme #informacionPlan .breadcrumb-item a:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+
+.bc-crono-intro, .bc-crono-aviso { max-width: 720px; margin: 0 auto; color: #5f5873; }
+.bc-crono-aviso { margin-top: .5rem; font-size: .85rem; }
+.bc-crono-aviso svg, .bc-crono-aviso i { color: #4C1C7F; }
+.bc-crono { max-width: 1040px; margin: 0 auto; }
+
+/* el bloque: cabecera oscura con número, título, fechas y docentes, y el hash minado */
+.bc-crono-bloque {
+    overflow: hidden;
+    border: 1px solid rgba(76, 28, 127, .16);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(38, 25, 81, .08);
+}
+.bc-crono-cab {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.15rem 1.3rem;
+    background: linear-gradient(135deg, #261951, #170d33);
+    color: var(--bc-tinta);
+}
+.bc-crono-info { flex: 1 1 auto; min-width: 0; }
+.bc-crono-titulo { margin: 0; color: #fff; font: 600 1.14rem/1.3 "Space Grotesk", Montserrat, sans-serif; letter-spacing: -.005em; }
+.bc-crono-meta { margin: .4rem 0 0; color: var(--bc-tenue) !important; font-size: .8rem; line-height: 1.5; }
+html body.blockchain-theme #cronograma .bc-crono-meta a { color: var(--bc-lila) !important; text-decoration: underline; text-underline-offset: 2px; }
+.bc-crono-hashes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .3rem .8rem;
+    margin: 0;
+    padding: .55rem 1.3rem .8rem;
+    border-top: 1px dashed rgba(196, 165, 255, .2);
+    background: #170d33;
+    color: var(--bc-tenue);
+    font: 500 .62rem var(--bc-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.bc-crono-hashes span:last-child { margin-left: auto; }
+.bc-crono-hashes code {
+    padding: 0;
+    background: none;
+    color: #ddd0f7;
+    font: 400 .76rem var(--bc-mono);
+    letter-spacing: 0;
+    text-transform: none;
+}
+.bc-crono-hashes code.minado { color: var(--bc-lila); }
+.bc-crono-cuerpo { padding: 1.2rem 1.3rem 1.4rem; }
+
+/* resultado del TP, cursada conjunta y lente: las mismas cajas que en el plan, en versión clara */
+.bc-crono-tp, .bc-crono-nota, .bc-crono-lente { margin: 0 0 .9rem; padding: .85rem 1rem; border-radius: 10px; font-size: .9rem; line-height: 1.6; }
+.bc-crono-tp { border: 1px solid rgba(245, 185, 66, .6); background: #fff8e8; color: #4a3712; }
+.bc-crono-tp strong { color: #8a5a00; }
+.bc-crono-nota { border: 1px dashed rgba(76, 28, 127, .35); color: #3a2a5a; }
+.bc-crono-nota strong { color: #261951; }
+.bc-crono-lente { margin: 1.1rem 0 0; border-left: 3px solid #4C1C7F; background: #f3ebfb; color: #261951; }
+.bc-crono-lente strong { color: #4C1C7F; }
+.bc-crono-lente em { color: #261951; }
+.bc-crono-tp .pin, .bc-crono-nota .pin, .bc-crono-lente .pin { margin-right: .35rem; }
+
+/* cada clase, una transacción: id a la izquierda, tema y actividad práctica en dos columnas */
+.bc-tx-lista { margin: 1.1rem 0 0; padding: 0; border-top: 1px solid rgba(76, 28, 127, .14); list-style: none; }
+.bc-tx {
+    display: grid;
+    grid-template-columns: 5.4rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: .95rem 0;
+    border-bottom: 1px dashed rgba(76, 28, 127, .2);
+}
+.bc-tx-id { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; margin: 0; }
+.bc-tx-id b {
+    padding: .15rem .6rem;
+    border: 1px solid rgba(76, 28, 127, .25);
+    border-radius: 999px;
+    background: rgba(76, 28, 127, .07);
+    color: #4C1C7F;
+    font: 500 .78rem var(--bc-mono);
+    white-space: nowrap;
+}
+.bc-tx-id span { color: #6b5d85; font: 500 .62rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-tx-datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; margin: 0; }
+.bc-tx-datos dt { margin: 0 0 .25rem; color: #4C1C7F; font: 500 .62rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-tx-datos dd { margin: 0; color: #2d2440; font-size: .9rem; line-height: 1.6; }
+.bc-tx-datos dd strong { color: #261951; }
+
+/* enlace entre bloques: el hash del bloque anterior, cuando se mina arriba */
+.bc-crono-enlace::before { background: rgba(76, 28, 127, .25); }
+.bc-crono-enlace span { background: #fff; color: #6b5d85; }
+.bc-crono-enlace code { border-color: rgba(76, 28, 127, .25); background: #fff; color: #4C1C7F; }
+.bc-crono-enlace code.minado { border-color: rgba(76, 28, 127, .55); box-shadow: 0 0 12px rgba(76, 28, 127, .15); }
+
+.bc-crono-estrategia {
+    margin-top: 2.2rem;
+    padding: 1.3rem 1.5rem;
+    border: 1px solid rgba(76, 28, 127, .16);
+    border-left: 3px solid var(--bc-ambar);
+    border-radius: 12px;
+    background: #fff;
+}
+.bc-crono-estrategia h3 { margin-bottom: .55rem; color: #261951; font-weight: 600; }
+.bc-crono-estrategia p { margin: 0; color: #3a3a3a; font-size: .95rem; line-height: 1.7; }
+.bc-crono-estrategia strong { color: #4C1C7F; }
+
+/* modo oscuro: enhancements.css tiñe p, span, dd, dt y code con !important; los bloques van como los del plan */
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-intro,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-aviso { color: #a9a1bd !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-aviso svg { color: var(--bc-lila); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-bloque,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia { border-color: rgba(196, 165, 255, .24); background: #140b2a; box-shadow: none; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-titulo { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-meta,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-hashes span,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-id span,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace span { color: var(--bc-tenue) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-plan-num small { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma code { border: 0; background: none !important; color: #ddd0f7 !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma code.minado { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace::before { background: rgba(196, 165, 255, .2); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace span { background: #0d1117; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-enlace code { border: 1px solid rgba(196, 165, 255, .25); background: #140b2a !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-tp { border-color: rgba(245, 185, 66, .35); background: rgba(245, 185, 66, .06); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-tp { color: #efe4c9 !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-tp strong { color: var(--bc-ambar); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-nota { border-color: rgba(196, 165, 255, .3); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-nota,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-datos dd,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente { border-left-color: var(--bc-lila); background: rgba(196, 165, 255, .08); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-nota strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente em,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-datos dd strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia h3 { color: #fff !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-lente strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-crono-estrategia strong,
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-datos dt { color: var(--bc-lila) !important; }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-lista { border-top-color: rgba(196, 165, 255, .16); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx { border-bottom-color: rgba(196, 165, 255, .16); }
+html[data-theme="dark"] body.blockchain-theme #cronograma .bc-tx-id b { border-color: rgba(196, 165, 255, .35); background: rgba(196, 165, 255, .1); color: var(--bc-lila); }
+
+@media (max-width: 767.98px) {
+    .bc-crono-cab { align-items: flex-start; gap: .8rem; padding: 1rem; }
+    .bc-crono-titulo { font-size: 1rem; }
+    .bc-crono-meta { font-size: .74rem; }
+    .bc-crono-hashes { padding: .5rem 1rem .7rem; }
+    .bc-crono-hashes span:last-child { flex-basis: 100%; margin-left: 0; }
+    .bc-crono-cuerpo { padding: 1rem; }
+    .bc-crono-tp, .bc-crono-nota, .bc-crono-lente { font-size: .86rem; }
+    .bc-tx { grid-template-columns: 1fr; gap: .55rem; padding: .85rem 0; }
+    .bc-tx-id { flex-direction: row; align-items: center; gap: .6rem; }
+    .bc-tx-datos { grid-template-columns: 1fr; gap: .6rem; }
+    .bc-tx-datos dd { font-size: .86rem; }
+    .bc-crono-estrategia { padding: 1.1rem 1.15rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bc-crono-enlace code { transition: none; }
 }
