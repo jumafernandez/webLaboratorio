@@ -501,6 +501,59 @@ html.bcw-locked, html.bcw-locked body { overflow: hidden !important; }
 .bcw-dentro-btn[aria-pressed="true"] { border-color: #ffd782; color: #ffd782; }
 .bcw-eye { width: 8px; height: 8px; border-radius: 50%; background: #ffd782; animation: bcw-eye 1.8s infinite; }
 @keyframes bcw-eye { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 130, .7); } 70% { box-shadow: 0 0 0 9px rgba(255, 215, 130, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 130, 0); } }
+/* "Ver por dentro" calls for a click: golden halo that breathes + a light sweep across it, until it is opened */
+.bcw-dentro-btn { position: relative; overflow: hidden; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.bcw-dentro-btn:hover { border-color: #ffd782; transform: translateY(-1px); }
+.bcw-dentro-btn.bcw-llama {
+  border-color: #ffd782; color: #fff3d6; background: rgba(255, 215, 130, .1);
+  box-shadow: 0 0 0 1px rgba(255, 215, 130, .55), 0 0 18px rgba(255, 215, 130, .45);
+  animation: bcw-llama 2.4s ease-in-out infinite;
+}
+.bcw-dentro-btn.bcw-llama::after {
+  content: ""; position: absolute; inset: -2px auto -2px -60%; width: 45%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 240, 200, .55), transparent);
+  transform: skewX(-20deg); animation: bcw-barrido 3.2s ease-in-out infinite;
+}
+.bcw-dentro-btn.bcw-llama .bcw-eye { width: 9px; height: 9px; box-shadow: 0 0 8px #ffd782; }
+@keyframes bcw-llama {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(255, 215, 130, .5), 0 0 10px rgba(255, 215, 130, .3); transform: scale(1); }
+  50% { box-shadow: 0 0 0 4px rgba(255, 215, 130, .18), 0 0 28px rgba(255, 215, 130, .7); transform: scale(1.04); }
+}
+@keyframes bcw-barrido { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+
+/* "Base Sepolia · en vivo" is a button: it opens the card about the network */
+button.bcw-badge { border: 0; font-family: inherit; cursor: pointer; transition: filter .2s, transform .2s; }
+button.bcw-badge:hover { filter: brightness(1.25); transform: translateY(-1px); }
+.bcw-bq {
+  display: inline-grid; place-items: center; width: 15px; height: 15px; margin-left: 2px; border-radius: 50%;
+  border: 1px solid currentColor; font-size: 10px; line-height: 1; opacity: .85;
+}
+.bcw-redpop {
+  position: absolute; z-index: 40; top: 62px; right: 16px; width: min(440px, calc(100% - 32px));
+  max-height: calc(100% - 80px); overflow: auto; padding: 18px 18px 16px; border-radius: 16px;
+  background: rgba(24, 10, 56, .99); backdrop-filter: blur(10px); border: 1px solid rgba(46, 229, 157, .35); color: #ece6ff;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .5), 0 0 30px rgba(46, 229, 157, .12); animation: bcw-in .2s ease-out;
+  font-size: 13.5px; line-height: 1.5;
+}
+.bcw-redpop[hidden] { display: none; }
+.bcw-redpop h3 { margin: 4px 0 12px; font-size: 17px; color: #fff; padding-right: 28px; }
+.bcw-redpop h4 { margin: 14px 0 6px; font-size: 13px; color: #c3b7ee; }
+.bcw-redx {
+  position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border: 0; border-radius: 8px;
+  background: rgba(255, 255, 255, .08); color: #fff; cursor: pointer;
+}
+.bcw-redstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
+.bcw-redstats span { display: flex; flex-direction: column; padding: 8px 6px; border-radius: 10px; background: rgba(46, 229, 157, .08); font-size: 11px; color: #c3b7ee; text-align: center; }
+.bcw-redstats b { font-size: 14px; color: var(--bcw-verde); font-variant-numeric: tabular-nums; }
+.bcw-redpop details { border-top: 1px solid rgba(196, 181, 253, .14); padding: 8px 0; }
+.bcw-redpop summary { cursor: pointer; font-weight: 700; color: #fff; }
+.bcw-redpop details p { margin: 6px 0 2px; color: #d9d0f7; }
+.bcw-redcontratos { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.bcw-redcontratos li { display: grid; grid-template-columns: auto 1fr; gap: 0 8px; font-size: 12.5px; }
+.bcw-redcontratos li span { color: #a99ad8; }
+.bcw-redcontratos li a, .bcw-redcontratos li code { grid-column: 1 / -1; color: var(--bcw-cian); font-size: 12px; }
+.bcw-redacciones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.bcw-redacciones a.bcw-chip { text-decoration: none; }
 
 /* glass columns over the background */
 .bcw-chat { background: rgba(18, 7, 42, .58); backdrop-filter: blur(12px); border-right: 1px solid rgba(196, 181, 253, .12); }
@@ -623,6 +676,13 @@ a.bcw-explorer { color: var(--bcw-cian); border-style: solid; border-color: rgba
   .bcw-head .bcw-badge.bcw-live { background: var(--bcw-verde); box-shadow: 0 0 0 3px rgba(46, 229, 157, .2); }
   .bcw-head .bcw-badge.bcw-live.bcw-caida { background: var(--bcw-ambar); }
   .bcw-head .bcw-badge.bcw-live::before { display: none; }
+  /* a 10px dot is too small to tap: 26px hit area, same dot drawn with background-clip */
+  .bcw-head button.bcw-badge, .bcw-head button.bcw-badge.bcw-live {
+    width: 26px; height: 26px; padding: 8px; background-clip: content-box; box-shadow: none;
+  }
+  .bcw-head .bcw-bq { display: none; }
+  .bcw-redpop { top: 54px; right: 10px; left: 10px; width: auto; max-height: calc(100dvh - 70px); }
+  .bcw-redstats { grid-template-columns: repeat(2, 1fr); }
   .bcw-pending { top: 8px; font-size: 11.5px; }
   .bcw-simnote { bottom: 50px; font-size: 11.5px; }
 }
@@ -649,6 +709,9 @@ a.bcw-explorer { color: var(--bcw-cian); border-style: solid; border-color: rgba
     transition-duration: .001ms !important; transition-delay: 0s !important; scroll-behavior: auto !important;
   }
   .bcw-spin, .bcw-livedot, .bcw-badge.bcw-live::before, .bcw-eye, .bcw-typing span { animation: none !important; }
+  /* no motion, but the call to action still shows: a steady golden glow */
+  .bcw-dentro-btn.bcw-llama { animation: none !important; box-shadow: 0 0 0 2px rgba(255, 215, 130, .6), 0 0 22px rgba(255, 215, 130, .55); }
+  .bcw-dentro-btn.bcw-llama::after { display: none; }
   .bcw-typing span { opacity: .7; }
 }
 @media (max-width: 420px) {

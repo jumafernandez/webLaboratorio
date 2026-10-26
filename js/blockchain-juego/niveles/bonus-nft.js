@@ -50,15 +50,14 @@ export default async function bonusNft(ctx) {
     s.append(h("div", "bcw-nft bcw-nftbig bcw-preview", nftSVG(picked, "Tu nombre", "?")));
   });
   await ctx.bot("Buenísimo. ¿Con qué **nombre** lo grabamos? Escribilo en el chat.");
-  const name = (
-    await ctx.ask({
-      placeholder: "El nombre para tu NFT…",
-      onInput: (v) => {
-        const p = ctx.stage.querySelector(".bcw-preview");
-        if (p) p.innerHTML = nftSVG(picked, v || "Tu nombre", "?");
-      },
-    })
-  ).slice(0, 22);
+  const name = await ctx.askPublico({
+    placeholder: "El nombre para tu NFT…",
+    max: 22,
+    onInput: (v) => {
+      const p = ctx.stage.querySelector(".bcw-preview");
+      if (p) p.innerHTML = nftSVG(picked, v || "Tu nombre", "?");
+    },
+  });
   ctx.paso("nombre");
 
   await ctx.ensureWallet();

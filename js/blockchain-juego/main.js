@@ -12,6 +12,7 @@
 import { addBlock, chain, onBlock, ready } from "./cadena.js";
 import * as real from "./cadena-real.js";
 import { buildDentro, renderAgente, renderCadena } from "./dentro.js";
+import { buildRed, renderRed, vigilarBloque } from "./red.js";
 import { startFondo } from "./fondo.js";
 import { BADGES, LEVELS, BONUS, badgeSVG, progressEl } from "./juego.js";
 import { configurarMedicion, track, vaciarAlSalir } from "./medicion.js";
@@ -80,9 +81,9 @@ panel.innerHTML = `
     <span class="bcw-logo">⛓️</span>
     <div class="bcw-id"><div class="bcw-title">Diplomatura en Blockchain</div><div class="bcw-sub">Juego · LICDIA · UNLu <span class="bcw-ai" hidden>· con Claude</span></div></div>
     <div class="bcw-progress-slot"></div>
-    <span class="bcw-badge" role="status" aria-label="DEMO · cadena simulada" title="DEMO · cadena simulada">DEMO · cadena simulada</span>
+    <button class="bcw-badge" type="button" aria-expanded="false" aria-controls="bcw-redpop" aria-label="DEMO · cadena simulada. Qué red usa el juego" title="¿Qué red usa el juego?"><span class="bcw-btxt">DEMO · cadena simulada</span><span class="bcw-bq" aria-hidden="true">?</span></button>
     <button class="bcw-iconbtn bcw-home" type="button" aria-label="Mapa del juego" title="Mapa del juego">🗺️</button>
-    <button class="bcw-dentro-btn" type="button" aria-expanded="false" aria-controls="bcw-dentro"><span class="bcw-eye"></span><span class="bcw-dtxt">Ver por dentro</span></button>
+    <button class="bcw-dentro-btn bcw-llama" type="button" aria-expanded="false" aria-controls="bcw-dentro"><span class="bcw-eye"></span><span class="bcw-dtxt">Ver por dentro</span></button>
     <div class="bcw-selector" role="group" aria-label="Vista de la página">
       <button type="button" data-v="juego" aria-pressed="true">Juego</button><button type="button" data-v="sitio" aria-pressed="false" aria-label="Sitio convencional">Sitio<span class="bcw-sel-largo"> convencional</span></button>
     </div>
@@ -106,7 +107,8 @@ const stage = panel.querySelector(".bcw-stage");
 const logBtn = panel.querySelector(".bcw-log");
 const progressSlot = panel.querySelector(".bcw-progress-slot");
 const dentro = buildDentro();
-panel.append(dentro);
+const redPop = buildRed();
+panel.append(dentro, redPop);
 document.body.append(launcher, panel);
 const fondo = startFondo(panel.querySelector(".bcw-fondo"));
 fondo.stop();
@@ -146,7 +148,43 @@ panel.querySelector(".bcw-home").addEventListener("click", () => {
   startPlaying("mapa");
   startFlow(backToMap);
 });
+// ---------- "Base Sepolia · en vivo": what the network is ----------
+const badgeBtn = panel.querySelector(".bcw-badge");
+function toggleRed(on) {
+  const open = on ?? redPop.hidden;
+  if (open === !redPop.hidden) return;
+  redPop.hidden = !open;
+  badgeBtn.setAttribute("aria-expanded", String(open));
+  vigilarBloque(redPop, open);
+  if (!open) return;
+  renderRed(redPop, {
+    onVerTxs: () => {
+      toggleRed(false);
+      toggleDentro(true);
+      pickTab("cadena");
+    },
+  });
+  redPop.querySelector(".bcw-redx").addEventListener("click", () => {
+    toggleRed(false);
+    badgeBtn.focus();
+  });
+  track("ver_red");
+  setTimeout(() => redPop.querySelector("summary")?.focus({ preventScroll: true }), 60);
+}
+badgeBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  toggleRed();
+});
+document.addEventListener("click", (e) => {
+  if (!redPop.hidden && !redPop.contains(e.target)) toggleRed(false);
+});
 document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !redPop.hidden) {
+    e.preventDefault();
+    toggleRed(false);
+    badgeBtn.focus();
+    return;
+  }
   if (e.key === "Escape" && panel.classList.contains("bcw-dentro-open")) {
     e.preventDefault();
     toggleDentro(false);
@@ -224,6 +262,7 @@ onBlock.add(() => {
 });
 real.onTx.add(() => {
   if (panel.classList.contains("bcw-dentro-open") && dentroTab === "cadena") renderCadena(dentro.querySelector(".bcw-dbody"));
+  llamarDentro();
 });
 
 // ---------- ver por dentro ----------
@@ -235,8 +274,27 @@ function renderDentro() {
   if (dentroTab === "cadena") renderCadena(body);
   else renderAgente(body, S.lastTurn, S.stats?.modelo);
 }
+// The button calls for attention (glow) until it is opened, and again when there is something new inside.
+const DENTRO_VISTO = "bcw-dentro-visto";
+try {
+  if (localStorage.getItem(DENTRO_VISTO)) dentroBtn.classList.remove("bcw-llama");
+} catch {
+  /* no storage: keep calling */
+}
+function llamarDentro() {
+  if (!panel.classList.contains("bcw-dentro-open")) dentroBtn.classList.add("bcw-llama");
+}
 function toggleDentro(on) {
   const open = on ?? !panel.classList.contains("bcw-dentro-open");
+  if (open) {
+    dentroBtn.classList.remove("bcw-llama");
+    try {
+      localStorage.setItem(DENTRO_VISTO, "1");
+    } catch {
+      /* no storage */
+    }
+    toggleRed(false);
+  }
   panel.classList.toggle("bcw-dentro-open", open);
   dentroBtn.setAttribute("aria-expanded", String(open));
   dentroBtn.querySelector(".bcw-dtxt").textContent = open ? "Cerrar" : "Ver por dentro";
@@ -413,13 +471,13 @@ function setLive() {
   const badge = panel.querySelector(".bcw-badge");
   const caida = real.REAL.caida;
   const texto = caida ? `${real.nombreRed()} · sin conexión, reintentando…` : real.etiqueta();
-  badge.textContent = texto;
+  badge.querySelector(".bcw-btxt").textContent = texto;
   badge.classList.add("bcw-live");
   badge.classList.toggle("bcw-caida", caida);
-  badge.setAttribute("aria-label", texto);
+  badge.setAttribute("aria-label", `${texto}. Qué es esta red`);
   badge.title = caida
-    ? "No hay conexión con la red: mientras tanto el juego sigue con la cadena simulada."
-    : "Las transacciones del juego van a una blockchain real. Las firma el relayer de la demo en nombre de tu wallet.";
+    ? "No hay conexión con la red: mientras tanto el juego sigue con la cadena simulada. Tocá para saber más."
+    : `¿Qué es ${real.nombreRed()}? Tocá para verlo`;
   panel.querySelector(".bcw-hero .bcw-aviso").textContent =
     `Respuestas generadas con IA a partir del contenido de este sitio: pueden tener errores. Las transacciones del juego van a ${real.REAL.red} (red de prueba): las paga la demo, vos no necesitás ETH. La wallet es de prueba y vive en tu navegador. Guardamos las preguntas, sin datos de quién las hace, para mejorar el sitio.`;
 }
@@ -539,6 +597,26 @@ function makeCtx(token) {
           },
         };
       });
+    },
+    // Free text that ends up on the public chain: checked by the backend (backend/moderacion.py) and asked again
+    // until it passes. `derivados` returns other strings built from it that are also published (the token symbol).
+    async askPublico({ placeholder, onInput, max = 120, derivados } = {}) {
+      for (;;) {
+        const v = real.recortarBytes((await ctx.ask({ placeholder, onInput })).trim(), max);
+        if (!v) continue;
+        let malo = null;
+        for (const t of [v, ...(derivados?.(v) || [])]) {
+          const r = await real.revisarTexto(t);
+          guard();
+          if (r && !r.ok) {
+            malo = r.motivo;
+            break;
+          }
+        }
+        if (!malo) return v;
+        track("texto_rechazado", { motivo: malo });
+        await ctx.bot(`Eso no lo puedo grabar: ${real.motivoRechazo(malo)}. Lo que va a la blockchain queda **público y para siempre** con el nombre de la diplomatura. Probá con otro 🙂`);
+      }
     },
     // Wait for something the visitor does on the stage (a button, a node, an edit).
     until(promise) {
@@ -976,6 +1054,7 @@ async function agentTurn(ctx, text) {
         else queued.push(data);
       } else if (event === "fin") {
         S.lastTurn.fin = data;
+        llamarDentro();
       } else if (event === "error") {
         answer += (answer ? "\n\n" : "") + data.mensaje;
         bubble.innerHTML = md(esc(answer));
