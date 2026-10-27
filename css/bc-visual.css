@@ -1039,3 +1039,86 @@ html[data-theme="dark"] body.blockchain-theme .bc-resultado { border-color: rgba
 html[data-theme="dark"] body.blockchain-theme .bc-resultado .bc-resultado-k { color: var(--bc-lila); }
 html[data-theme="dark"] body.blockchain-theme .bc-resultado .bc-resultado-ev,
 html[data-theme="dark"] body.blockchain-theme .bc-resultado .bc-resultado-hash { color: var(--bc-tenue); }
+
+/* ---------- Subpáginas secundarias: docentes, enfoque, destinatarios, por qué elegirnos, gracias ----------
+   Mismo lenguaje que la portada y el plan, más sobrio: el contenido administrativo (aranceles, beca, requisitos,
+   inscripción) solo recibe un acento en el borde de las tarjetas. */
+
+/* acento discreto en las tarjetas de las subpáginas */
+html body.blockchain-theme .card.shadow-sm.border-0,
+html body.blockchain-theme .docente-card { border-top: 3px solid var(--bc-violeta) !important; }
+
+/* docentes: el nodo de la red (id derivado del nombre y bloques que valida) */
+.bc-nodo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .6rem 1.4rem;
+    margin: 0 0 1rem;
+    padding: .8rem 1.2rem;
+    border: 1px solid rgba(196, 165, 255, .3);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #261951, #170d33);
+    color: var(--bc-tinta);
+}
+.bc-nodo-id { display: flex; align-items: center; gap: .6rem; margin: 0; font: 500 .66rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-nodo-id span { color: var(--bc-tenue) !important; }
+.bc-nodo-id code { padding: 0; background: none; color: var(--bc-lila) !important; font: 500 .85rem var(--bc-mono); letter-spacing: 0; text-transform: none; }
+.bc-nodo-bloques { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; }
+.bc-nodo-etq { color: var(--bc-tenue) !important; font: 500 .62rem var(--bc-mono); letter-spacing: .1em; text-transform: uppercase; }
+.bc-nodo ul { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.bc-nodo li { display: inline-flex; align-items: center; gap: .45rem; padding: .2rem .7rem; border: 1px solid rgba(196, 165, 255, .45); border-radius: 999px; background: rgba(196, 165, 255, .1); font-size: .75rem; }
+.bc-nodo li b { color: var(--bc-lila) !important; font: 500 .8rem var(--bc-mono); }
+.bc-nodo li span { color: #d4c9ea !important; }
+
+/* tarjetas como bloques encadenados: etiqueta de bloque arriba
+   (el ::before de las tarjetas ya lo usa la barra del hover) */
+.bc-cadena-tarjetas { counter-reset: bc-bloque; }
+.bc-cadena-tarjetas .enfoque-card,
+.bc-cadena-tarjetas .destinatario-card,
+.bc-cadena-tarjetas .licdia-card { position: relative; counter-increment: bc-bloque; }
+.bc-cadena-tarjetas .enfoque-card::after,
+.bc-cadena-tarjetas .destinatario-card::after,
+.bc-cadena-tarjetas .licdia-card::after {
+    content: "bloque #" counter(bc-bloque);
+    position: absolute;
+    top: .7rem;
+    left: .9rem;
+    color: var(--bc-violeta);
+    font: 500 .6rem var(--bc-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+html[data-theme="dark"] .bc-cadena-tarjetas .enfoque-card::after,
+html[data-theme="dark"] .bc-cadena-tarjetas .destinatario-card::after,
+html[data-theme="dark"] .bc-cadena-tarjetas .licdia-card::after { color: var(--bc-lila); }
+
+/* gracias: bloque confirmado */
+.bc-confirmado {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem 1.2rem;
+    margin: 0 auto 1.6rem;
+    padding: .7rem 1.2rem;
+    border: 1px solid rgba(196, 165, 255, .5);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #261951, #170d33);
+    box-shadow: 0 0 22px rgba(196, 165, 255, .14);
+    font-family: var(--bc-mono);
+}
+.bc-confirmado p { margin: 0; }
+.bc-confirmado-cab { color: var(--bc-lila) !important; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+.bc-confirmado-cab span, .bc-confirmado-cab b { color: var(--bc-lila) !important; font: inherit; }
+.bc-confirmado-hash { color: var(--bc-tenue) !important; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; }
+.bc-confirmado-hash span { color: var(--bc-tenue) !important; }
+.bc-confirmado-hash code { padding: 0; background: none; color: #ddd0f7 !important; font: 400 .82rem var(--bc-mono); letter-spacing: 0; text-transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+    .bc-confirmado { animation: bc-verificado 1.2s ease-out; }
+}
+@media (max-width: 575.98px) {
+    .bc-nodo { padding: .8rem 1rem; }
+}
