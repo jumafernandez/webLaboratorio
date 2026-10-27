@@ -299,17 +299,24 @@ section.bg-dark .bc-eslabon, [style*="#261951"] .bc-eslabon { color: var(--bc-li
 /* Ritmo vertical: todos los bloques con el mismo aire (antes había huecos de 270 a 510 px) */
 html body.blockchain-theme > section:not(#contact),
 html body.blockchain-theme > article#cta-inscripcion,
-html body.blockchain-theme > article#informacionPlan {
+html body.blockchain-theme > article#informacionPlan,
+html body.blockchain-theme > main#contenido > section:not(#contact),
+html body.blockchain-theme > main#contenido > article#cta-inscripcion,
+html body.blockchain-theme > main#contenido > article#informacionPlan {
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
-html body.blockchain-theme > div.container { margin-top: 2.5rem !important; margin-bottom: 2.5rem !important; }
+html body.blockchain-theme > div.container,
+html body.blockchain-theme > main#contenido > div.container { margin-top: 2.5rem !important; margin-bottom: 2.5rem !important; }
 @media (max-width: 767.98px) {
     html body.blockchain-theme > section:not(#contact),
     html body.blockchain-theme > article#cta-inscripcion,
-    html body.blockchain-theme > article#informacionPlan { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    html body.blockchain-theme > article#informacionPlan,
+    html body.blockchain-theme > main#contenido > section:not(#contact),
+    html body.blockchain-theme > main#contenido > article#cta-inscripcion,
+    html body.blockchain-theme > main#contenido > article#informacionPlan { padding-top: 3rem !important; padding-bottom: 3rem !important; }
     .bc-eslabon { font-size: .66rem; letter-spacing: .04em; }
 }
 
@@ -358,7 +365,8 @@ html body.blockchain-theme .bc-oscuro::before {
     pointer-events: none;
 }
 /* style2.css le da 100 px de relleno a los costados en todos los anchos (antes lo salteaba .full-bleed): el margen lo pone el container */
-html body.blockchain-theme > article#informacionPlan { padding-left: 0 !important; padding-right: 0 !important; }
+html body.blockchain-theme > article#informacionPlan,
+html body.blockchain-theme > main#contenido > article#informacionPlan { padding-left: 0 !important; padding-right: 0 !important; }
 html body.blockchain-theme .bc-oscuro > .container { position: relative; z-index: 1; }
 html body.blockchain-theme .bc-oscuro h2.card-t,
 html body.blockchain-theme .bc-oscuro h2.section-heading {
@@ -1125,7 +1133,7 @@ html[data-theme="dark"] .bc-cadena-tarjetas .licdia-card::after { color: var(--b
 
 /* Nested sections (cards/rows inside a page block) must not inherit the theme's 9rem section padding.
    Zero extra specificity so any class-level padding still wins. */
-:where(html body.blockchain-theme :not(body)) > section {
+:where(html body.blockchain-theme :not(body):not(main#contenido)) > section {
     padding-top: 0;
     padding-bottom: 0;
 }
