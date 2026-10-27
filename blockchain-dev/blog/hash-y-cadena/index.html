@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog de la Diplomatura en Blockchain</title>
+    <meta name="description" content="Qué propiedades tiene una función hash y cómo el encadenamiento de hashes hace detectable cualquier cambio en un bloque, con un experimento de 20 líneas en Python." />
+    <meta name="author" content="Cátedra de la Diplomatura" />
+    <meta property="og:title" content="Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog de la Diplomatura en Blockchain" />
+    <meta property="og:description" content="Qué propiedades tiene una función hash y cómo el encadenamiento de hashes hace detectable cualquier cambio en un bloque, con un experimento de 20 líneas en Python." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/blog/hash-y-cadena/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-10-27" />
+    <meta property="article:author" content="Cátedra de la Diplomatura" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/blog/hash-y-cadena/" />
+    <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../../css/styles.css" rel="stylesheet" />
+    <link href="../../../css/style2.css" rel="stylesheet" />
+    <link href="../../../css/bc-visual.css?v=2026-10-26a" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27a" rel="stylesheet" />
+    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+</head>
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="#page-top"><img src="../../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../plan-de-estudios/">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../blog/">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <div class="masthead-heading bb-masthead">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</div>
+            
+        </div>
+    </header>
+
+    <main class="bb-main">
+      <article class="bb-articulo" id="nota">
+        <nav class="bb-migas" aria-label="breadcrumb">
+            <a href="../../">Inicio</a> <span aria-hidden="true">/</span> <a href="../">Blog</a> <span aria-hidden="true">/</span> <span>Curso 1 · Fundamentos</span>
+        </nav>
+        <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>4 min de lectura</span></p>
+<p class="bb-lead">Una cadena de bloques no es más que datos ligados entre sí por hashes. Entender qué es un hash alcanza para entender por qué reescribir el pasado en una blockchain es tan costoso.</p>
+
+<h2>Qué hace una función hash</h2>
+<p>Una función hash criptográfica toma una entrada de cualquier tamaño y devuelve una salida de tamaño fijo. SHA-256 devuelve siempre 256 bits, que solemos escribir como 64 caracteres hexadecimales. Tres propiedades nos interesan:</p>
+<ul>
+  <li><strong>Es determinista:</strong> la misma entrada da siempre la misma salida, en cualquier computadora.</li>
+  <li><strong>Es difícil de invertir:</strong> a partir del hash no hay forma práctica de recuperar la entrada, salvo probar candidatos.</li>
+  <li><strong>Es sensible a cualquier cambio:</strong> una diferencia mínima en la entrada produce un hash que no se parece al anterior. Es el llamado efecto avalancha.</li>
+</ul>
+<p>Podés comprobarlo en una terminal. La diferencia entre las dos entradas es una sola letra:</p>
+<pre><code>$ printf 'hola' | sha256sum
+b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79
+$ printf 'holA' | sha256sum
+e028fa3463f8bbcb76607c0819bd85103de648004fcabb0648ce3662459956f4</code></pre>
+<p>Entre esos dos hashes difieren 131 de los 256 bits, es decir, un poco más de la mitad. No hay forma de "acercarse" a un hash buscado cambiando la entrada de a poco.</p>
+
+<h2>De un hash a una cadena</h2>
+<p>Un bloque agrupa transacciones y un encabezado. Según la documentación de Ethereum, ese encabezado incluye, entre otros campos, el hash del bloque padre (<code>parent_hash</code>), la raíz de las transacciones (<code>transactions_root</code>) y la raíz del estado (<code>state_root</code>). El hash del bloque se deriva de esos datos, de modo que cada bloque queda atado al anterior: si cambia algo en un bloque, cambia su hash, y el bloque siguiente guardaba el hash viejo.</p>
+<p>Para verlo sin la complejidad de una red real, este programa en Python arma una cadena mínima de tres bloques. Cada uno guarda sus datos, el hash del anterior y su propio hash, calculado sobre ambos:</p>
+<pre><code>import hashlib
+
+def sha(texto):
+    return hashlib.sha256(texto.encode()).hexdigest()
+
+def bloque(previo, datos):
+    return {"previo": previo, "datos": datos, "hash": sha(previo + datos)}
+
+cadena = [bloque("0" * 64, "Ana paga 5 a Beto")]
+cadena.append(bloque(cadena[-1]["hash"], "Beto paga 2 a Carla"))
+cadena.append(bloque(cadena[-1]["hash"], "Carla paga 1 a Ana"))
+
+def valida(cadena):
+    for i, b in enumerate(cadena):
+        if b["hash"] != sha(b["previo"] + b["datos"]):
+            return f"bloque {i}: su contenido no coincide con su hash"
+        if i and b["previo"] != cadena[i - 1]["hash"]:
+            return f"bloque {i}: el hash previo no coincide con el bloque {i - 1}"
+    return "cadena válida"
+
+print(valida(cadena))
+cadena[0]["datos"] = "Ana paga 50 a Beto"   # adulteramos el bloque 0
+print(valida(cadena))
+cadena[0]["hash"] = sha(cadena[0]["previo"] + cadena[0]["datos"])  # recalculamos su hash
+print(valida(cadena))</code></pre>
+<p>La salida de esta ejecución es:</p>
+<pre><code>cadena válida
+bloque 0: su contenido no coincide con su hash
+bloque 1: el hash previo no coincide con el bloque 0</code></pre>
+
+<h2>Por qué el atacante no puede "arreglarlo"</h2>
+<p>Mirá la tercera línea de salida. Después de modificar el bloque 0 recalculamos su hash para que sea consistente, y aun así la cadena sigue rota: ahora el que no cierra es el bloque 1, que conserva el hash viejo de su padre. Para repararlo habría que recalcular el bloque 1, lo que cambia su hash y rompe el bloque 2, y así hasta el final de la cadena.</p>
+<p>En una red real el problema es mayor, porque no hay un único dueño de la cadena. Cada nodo mantiene su copia y verifica los bloques que recibe, así que una versión adulterada simplemente no es aceptada por el resto. En las redes con prueba de trabajo, además, cada bloque reescrito exigía repetir el trabajo computacional que lo respaldaba, y la red daba por válida la cadena con más trabajo acumulado. Ethereum dejó de usar prueba de trabajo en 2022 y hoy usa prueba de participación (proof of stake), con otro mecanismo de consenso, pero el encadenamiento por hashes sigue siendo la base de la detección de cambios.</p>
+
+<h2>Una salvedad sobre el algoritmo</h2>
+<p>El ejemplo usa SHA-256. Solidity ofrece como funciones integradas tanto <code>sha256</code> como <code>keccak256</code>, y esta última es la que se usa habitualmente en contratos de Ethereum. Son funciones distintas: no esperes obtener el mismo valor de una y de otra para la misma entrada. Tené presente también que Solidity eliminó en la versión 0.5.0 el alias <code>sha3</code> de <code>keccak256</code>, así que conviene leer siempre el nombre exacto de la función que usa cada herramienta.</p>
+
+<h2>Lo que un hash no garantiza</h2>
+<p>El encadenamiento hace que los cambios sean <em>detectables</em>, no que la información sea <em>verdadera</em>. Un hash no dice si la transacción original era honesta, ni quién la firmó: para eso están las firmas digitales y el consenso. Tampoco oculta el contenido si es predecible; hashear un dato con pocas variantes posibles permite descubrirlo probando todas.</p>
+
+        <aside class="bb-cta">
+            <h2>Seguí por acá</h2>
+            <p><strong>En el plan de estudios:</strong> clases 1 y 2 del Curso 1 (funciones hash, estructura del bloque y hash chain). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseOne">Curso 1: Fundamentos de Blockchain</a>.</p>
+            <p><strong>En el juego del sitio:</strong> probalo en Nivel 1, donde minás un bloque y probás adulterarlo para ver cómo se rompe la cadena. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
+        </aside>
+        <section class="bb-fuentes">
+            <h2>Fuentes</h2>
+            <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>
+            <ul>
+            <li><a href="https://ethereum.org/en/developers/docs/blocks/" target="_blank" rel="noopener">ethereum.org: Blocks</a></li>
+            <li><a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/" target="_blank" rel="noopener">ethereum.org: Proof-of-work (PoW)</a></li>
+            <li><a href="https://docs.soliditylang.org/en/latest/units-and-global-variables.html" target="_blank" rel="noopener">Documentación de Solidity: funciones integradas (keccak256, sha256)</a></li>
+            </ul>
+        </section>
+        <section class="bb-mas">
+            <h2>Otras notas</h2>
+            <ul>
+            <li><a href="../testnet-gas-base-sepolia/">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</a></li>
+            <li><a href="../approve-transferfrom-pasarela/">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</a></li>
+            <li><a href="../reentrancy-checks-effects-interactions/">Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity</a></li>
+            </ul>
+            <p><a href="../">Ver todas las notas del blog</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-0">Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia Artificial de la Universidad de Luján - Argentina.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/scripts.js"></script>
+</body>
+</html>
