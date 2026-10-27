@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Verificador de insignias y credenciales de la Diplomatura de Posgrado en Blockchain de la UNLu: pegá una dirección, un token o una transacción y leé la cadena directo desde tu navegador." />
+    <meta name="author" content="LICDIA - UNLu" />
+    <meta property="og:title" content="Verificar credenciales - Diplomatura en Blockchain - UNLu" />
+    <meta property="og:description" content="Comprobá en la cadena qué insignias y credenciales tiene una dirección, sin intermediarios." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/verificar/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/verificar/" />
+    <title>Verificar credenciales - LICDIA</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link href="../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- LICDIA-ENHANCEMENTS-V1 -->
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../css/bc-visual.css?v=2026-10-26a" rel="stylesheet" />
+    <link href="../../css/bc-verificar.css?v=2026-10-27a" rel="stylesheet" />
+    <script src="../../js/enhancements.min.js" defer></script>
+</head>
+
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="#page-top"><img src="../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../plan-de-estudios/">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
+            <div class="masthead-heading">Verificar insignias y credenciales</div>
+        </div>
+    </header>
+
+    <article id="verificador" class="bc-oscuro">
+        <div class="container mt-5 mb-5" id="bcv" data-config="config.json">
+            <h2 class="card-t card-title">Verificador en la cadena</h2>
+            <hr>
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23c4a5ff'/%3E%3C/svg%3E&#34;);"
+                aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Verificar</li>
+                </ol>
+            </nav>
+
+            <div class="bcv-intro">
+                <p>Pegá una <strong>dirección</strong>, un <strong>número de token</strong> o el <strong>hash de una transacción</strong>. Esta página consulta la red pública <span id="bcv-red">Base Sepolia</span> desde tu navegador, sin pasar por ningún servidor nuestro, y muestra qué insignias y credenciales existen para ese dato.</p>
+            </div>
+
+            <form id="bcv-form" class="bcv-form" novalidate>
+                <label for="bcv-q" class="bcv-label">Dirección, token o transacción</label>
+                <div class="bcv-fila">
+                    <input id="bcv-q" name="q" type="text" class="bcv-input" inputmode="text" autocomplete="off" autocapitalize="off"
+                        spellcheck="false" placeholder="0x… o 1" aria-describedby="bcv-ayuda" />
+                    <button id="bcv-ir" type="submit" class="bcv-ir">Verificar</button>
+                </div>
+                <p id="bcv-ayuda" class="bcv-ayuda">Probá con el <button type="button" id="bcv-ejemplo" class="bcv-link">token #1</button> o pegá la dirección de tu billetera después de jugar.</p>
+            </form>
+            <p id="bcv-estado" class="bcv-estado" role="status" aria-live="polite"></p>
+            <div id="bcv-salida" class="bcv-salida"></div>
+
+            <div class="bcv-explica" role="region" aria-labelledby="bcv-que">
+                <h3 id="bcv-que" class="bcv-grupo-t">Qué se verifica y qué no</h3>
+                <div class="bcv-cols">
+                    <div class="bc-bloque minado bcv-caja">
+                        <div class="bc-bloque-cab"><span>credencial oficial</span><span class="bcv-sello bcv-sello-ok">verificable</span></div>
+                        <p class="bcv-caja-t">Egresados de la diplomatura</p>
+                        <p>Un token intransferible emitido solo por la universidad, con la cohorte, el alcance (diplomatura o curso) y el hash del acto administrativo. El título oficial es el diploma de la UNLu: la cadena aporta una prueba pública de que fue emitido y de si sigue vigente o fue revocado.</p>
+                        <p id="bcv-cred-estado" class="bcv-estado-cred">Cargando…</p>
+                    </div>
+                    <div class="bc-bloque minado bcv-caja">
+                        <div class="bc-bloque-cab"><span>juego</span><span class="bcv-sello bcv-sello-simb">simbólico</span></div>
+                        <p class="bcv-caja-t">Insignias del recorrido</p>
+                        <p>Las insignias y el certificado del juego de la página son piezas simbólicas, hechas para aprender cómo funciona un contrato. No acreditan estudios ni reemplazan ningún título.</p>
+                    </div>
+                </div>
+                <h3 class="bcv-grupo-t">Contratos consultados</h3>
+                <ul id="bcv-contratos" class="bcv-contratos"></ul>
+                <p class="bcv-nota">La red es una testnet: sirve para mostrar el mecanismo sin costo. Al emitir las credenciales oficiales se publicará la dirección del contrato y el código verificado en Sourcify. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.</p>
+            </div>
+        </div>
+    </article>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-2">
+                Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia
+                Artificial de la Universidad de Luján
+                <a href="https://resoluciones.unlu.edu.ar/documento.frame.php?cod=128241" target="_blank"
+                    class="text-decoration-none text-info">[Disposición del Grupo de Investigación]</a>
+                <a href="https://drive.google.com/file/d/1AddV4FMq70bOO4REUgAVppe5i4Vw9h_W/view" target="_blank"
+                    class="text-decoration-none text-info">[Resolución del Laboratorio]</a>
+                - Argentina. Todos los derechos reservados.
+            </p>
+            <p class="mb-0">
+                Desarrollada por
+                <a href="https://www.linkedin.com/in/lucas-santill%C3%A1n-a50166263/" target="_blank" rel="noopener"
+                    class="fw-bold text-decoration-none text-info">Lucas Santillan</a>
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"
+        integrity="sha384-6Zl0Pc8zjSz8KvmNeXRvUQgY4ryFb+BwDvKCmLYcBME0joAaru491tQgi9B7zsMM" crossorigin="anonymous"></script>
+    <script src="../../js/bc-verificar.js?v=2026-10-27a"></script>
+</body>
+</html>
