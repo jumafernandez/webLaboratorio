@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Equipo docente de la Diplomatura de Posgrado en Innovación y Desarrollo de Aplicaciones basadas en Blockchain (LICDIA UNLu): Petrocelli, Fernández, Olivares, Guevara, Ciro E. Romero y Mauricio Romero." />
+    <meta name="author" content="LICDIA - UNLu" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cuerpo docente — Diplomatura de Posgrado en Blockchain | LICDIA UNLu" />
+    <meta property="og:description" content="Equipo docente de la Diplomatura de Posgrado en Innovación y Desarrollo de Aplicaciones basadas en Blockchain (LICDIA UNLu): Petrocelli, Fernández, Olivares, Guevara, Ciro E. Romero y Mauricio Romero." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/docentes/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cuerpo docente — Diplomatura de Posgrado en Blockchain | LICDIA UNLu" />
+    <meta name="twitter:description" content="Equipo docente de la Diplomatura de Posgrado en Innovación y Desarrollo de Aplicaciones basadas en Blockchain (LICDIA UNLu): Petrocelli, Fernández, Olivares, Guevara, Ciro E. Romero y Mauricio Romero." />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/docentes/" />
+    <title>Cuerpo docente — Diplomatura de Posgrado en Blockchain | LICDIA UNLu</title>
+    <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../../css/styles.css" rel="stylesheet" />
+    <link href="../../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        :root {
+            --brand: #4C1C7F;
+            --brand-dark: #261951;
+            --brand-soft: #F3EBFB;
+        }
+
+        .docente-card {
+            background: #fff;
+            border: 1px solid #ece7f3;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 24px rgba(76, 28, 127, 0.08);
+        }
+
+        .docente-photo-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-bottom: 1.5rem;
+        }
+
+        .docente-photo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--brand-soft);
+            box-shadow: 0 8px 32px rgba(76, 28, 127, 0.22);
+        }
+
+        .docente-name {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .docente-role {
+            font-size: 1.1rem;
+            color: var(--brand);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .docente-bio p {
+            color: #3a3a3a;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .badge-area {
+            display: inline-block;
+            background: var(--brand-soft);
+            color: var(--brand-dark);
+            border: 1px solid #d6c8ee;
+            border-radius: 999px;
+            padding: 0.35rem 1rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin: 0.25rem;
+            transition: background 0.2s ease, color 0.2s ease;
+            cursor: default;
+        }
+
+        .badge-area:hover {
+            background: var(--brand);
+            color: #fff;
+            border-color: var(--brand);
+        }
+
+        .course-item {
+            background: var(--brand-soft);
+            border-left: 4px solid var(--brand);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .course-item strong {
+            color: var(--brand-dark);
+        }
+
+        .cta-inscribite {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            margin-top: 2.5rem;
+            box-shadow: 0 12px 30px rgba(76, 28, 127, 0.25);
+        }
+
+        .cta-inscribite h3,
+        .cta-inscribite h2 {
+            color: white;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-inscribite p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-cta {
+            background: #fff;
+            color: var(--brand-dark);
+            font-weight: 700;
+            padding: 0.85rem 2.5rem;
+            border-radius: 999px;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: var(--brand-dark);
+        }
+
+        .section-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--brand);
+            margin-bottom: 0.75rem;
+        }
+
+        .divider-brand {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brand) 0%, var(--brand-soft) 100%);
+            border-radius: 2px;
+            margin: 1.5rem 0;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Cuerpo docente de la Diplomatura de Posgrado en Blockchain",
+      "url": "https://licdia.unlu.edu.ar/blockchain-dev/docentes/",
+      "inLanguage": "es-AR",
+      "isPartOf": { "@type": "WebPage", "url": "https://licdia.unlu.edu.ar/blockchain-dev/" }
+    }
+    </script>
+    <!-- LICDIA-ENHANCEMENTS-V1 -->
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../../css/bc-visual.css?v=2026-10-27d" rel="stylesheet" />
+    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <script src="../../../js/enhancements.min.js" defer></script>
+
+</head>
+
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/logo.ico" alt="LICDIA" /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/depto.ico" alt="Departamento" /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/unlu.ico" alt="UNLu" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#informacionPlan">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../plan-de-estudios/#cronograma">Cronograma</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
+                            <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
+            <h1 class="masthead-heading">Cuerpo docente de la Diplomatura de Posgrado en Blockchain</h1>
+        </div>
+    </header>
+
+    <main id="contenido">
+        <section class="page-section bg-light">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="../../">Inicio</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cuerpo docente</li>
+                    </ol>
+                </nav>
+                <p class="text-muted text-center mx-auto mb-4" style="max-width:640px;">Cada curso del plan lo dictan docentes que investigan o trabajan en lo que enseñan. Debajo de cada nombre, los cursos que dicta.</p>
+                <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="team-member">
+                        <a href="petrocelli/" style="text-decoration:none; color:inherit;">
+                            <img class="mx-auto rounded-circle" src="../../../assets/img/team/petrocelli.jpg" alt="Dr. David Petrocelli" width="150" height="150" loading="lazy">
+                            <h2 class="h4">Dr. David Petrocelli</h2>
+                                <p class="docente-rol-idx">(Director)</p>
+                            <p class="bc-doc-bloques"><span>Curso 3</span><span>Curso 4</span></p>
+                            <p class="text-muted">Dr. en Ciencias Informáticas (UNLP). Senior Cloud Architect en Caylent Inc. (USA). Docente e investigador en UNLu.</p>
+                            <span style="font-size:0.85rem; color:#4C1C7F; font-weight:600;">Ver perfil &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="team-member">
+                        <a href="fernandez/" style="text-decoration:none; color:inherit;">
+                            <picture><source srcset="../../../assets/img/team/1.webp" type="image/webp"><img class="mx-auto rounded-circle" src="../../../assets/img/team/1.jpg" alt="Mg. Juan M. Fernández" width="150" height="150" loading="lazy"></picture>
+                            <h2 class="h4">Mg. Juan M. Fernández</h2>
+                                <p class="docente-rol-idx">(Coordinador Académico)</p>
+                            <p class="bc-doc-bloques"><span>Curso 1</span></p>
+                            <p class="text-muted">Director de LICDIA-UNLu. Magister en Inteligencia de datos orientada a Big Data (UNLP). Profesor en UNLu, ITBA y UNTREF.</p>
+                            <span style="font-size:0.85rem; color:#4C1C7F; font-weight:600;">Ver perfil &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="team-member">
+                        <a href="olivares/" style="text-decoration:none; color:inherit;">
+                            <img class="mx-auto rounded-circle" src="../../../assets/img/team/olivares.jpg" alt="Dr. Julián Olivares" width="150" height="150" loading="lazy">
+                            <h2 class="h4">Dr. Julián Olivares</h2>
+                            <p class="bc-doc-bloques"><span>Curso 2</span></p>
+                            <p class="text-muted">Dr. en Historia (UBA). Lic. en Historia (UNLu). Maestrando en Análisis y Generación de Información Estadística (UNTREF).</p>
+                            <span style="font-size:0.85rem; color:#4C1C7F; font-weight:600;">Ver perfil &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="team-member">
+                        <a href="guevara/" style="text-decoration:none; color:inherit;">
+                            <img class="mx-auto rounded-circle" src="../../../assets/img/team/guevara.jpg" alt="Deiller Guevara" width="150" height="150" loading="lazy">
+                            <h2 class="h4">Deiller Guevara</h2>
+                            <p class="bc-doc-bloques"><span>Curso 2</span></p>
+                            <p class="text-muted">Operador de Derivados, Programa NOR XI, A3 Mercados. Especialista en mercado de capitales, DeFi y mecánica de exchanges descentralizados.</p>
+                            <span style="font-size:0.85rem; color:#4C1C7F; font-weight:600;">Ver perfil &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="team-member">
+                        <a href="ciro/" style="text-decoration:none; color:inherit;">
+                            <img class="mx-auto rounded-circle" src="../../../assets/img/team/ciro.jpg" alt="Ciro E. Romero" width="150" height="150" loading="lazy">
+                            <h2 class="h4">Ciro E. Romero</h2>
+                            <p class="bc-doc-bloques"><span>Curso 1</span><span>Curso 4</span></p>
+                            <p class="text-muted">Líder de I+D+i en C&amp;S Informática S.A. Especialista en IoT (UBA-FIUBA). Docente en UNQ y Lab. Sistemas Embebidos FIUBA.</p>
+                            <span style="font-size:0.85rem; color:#4C1C7F; font-weight:600;">Ver perfil &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="team-member">
+                        <a href="romero/" style="text-decoration:none; color:inherit;">
+                            <picture><source srcset="../../../assets/img/team/mromero.webp" type="image/webp"><img class="mx-auto rounded-circle" src="../../../assets/img/team/mromero.jpg" alt="Mauricio Romero" width="150" height="150" loading="lazy"></picture>
+                            <h2 class="h4">Mauricio Romero</h2>
+                            <p class="bc-doc-bloques"><span>Curso 3</span></p>
+                            <p class="text-muted">Analista Coordinador de Bases de Datos en el BCRA. Ayudante en Sistemas Distribuidos (UNLu) y en Bases de Datos e Investigación Operativa (UNLaM).</p>
+                            <span style="font-size:0.85rem; color:#4C1C7F; font-weight:600;">Ver perfil &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                </div>
+                <p class="text-center mt-3"><a href="../../#team">Ver el cuerpo docente en la portada</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-2">
+                Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia
+                Artificial de la Universidad de Luján
+                <a href="https://resoluciones.unlu.edu.ar/documento.frame.php?cod=128241" target="_blank"
+                    class="text-decoration-none text-info">[Disposición del Grupo de Investigación]</a>
+                <a href="https://drive.google.com/file/d/1AddV4FMq70bOO4REUgAVppe5i4Vw9h_W/view" target="_blank"
+                    class="text-decoration-none text-info">[Resolución del Laboratorio]</a>
+                - Argentina. Todos los derechos reservados.
+            </p>
+            <p class="mb-0">
+                Desarrollada por
+                <a href="https://www.linkedin.com/in/lucas-santill%C3%A1n-a50166263/" target="_blank" rel="noopener"
+                    class="fw-bold text-decoration-none text-info">Lucas Santillan</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/scripts.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>AOS.init();</script>
+    <a href="https://api.whatsapp.com/send?phone=%2B541123953895&text=Hola,%20queria%20informaci%C3%B3n%20sobre%20la%20diplomatura%20en%20Blockchain%20..."
+        class="botonWPP" target="_blank" rel="noopener" aria-label="Consultá por WhatsApp sobre la Diplomatura en Blockchain">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+</html>
