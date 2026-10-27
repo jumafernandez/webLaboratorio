@@ -1501,3 +1501,35 @@ html[data-theme="dark"] .dev-ia-theme .link-primary,
 html[data-theme="dark"] .dev-ia-theme .alert-link {
   color: #93c5fd !important;
 }
+
+/* ---------- Blockchain: contraste AA y enlaces dentro de texto (WCAG 1.4.3 / 1.4.1) ---------- */
+/* El pie es oscuro en los dos temas: los enlaces .text-info violeta oscuro (#4c1c7f) daban 1,3:1 en tema claro.
+   Hay que igualar la especificidad de ".blockchain-theme .container a:not(...)" de style2.css. */
+html body.blockchain-theme footer.footer .container a.text-info:not(.nav-link):not(.navbar-brand):not(.btn):not(.botonWPP):not(.text-white) {
+  color: #d9c8ff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+/* Enlaces dentro de texto corrido: se distinguen con subrayado, no solo con el color. */
+html body.blockchain-theme main :is(p, li, div) > a:not(.btn):not(.btn-cta):not(.bc-boton):not(.bc-boton-borde):not(.bb-btn):not(.nav-link):not(.dropdown-item):not([class*="chip"]):not([class*="card"]):not([style*="text-decoration"]),
+html body.blockchain-theme footer p a {
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+/* .text-muted de Bootstrap (#6c757d y variantes con opacidad) queda entre 3,4:1 y 4,5:1 sobre fondos claros. */
+html:not([data-theme="dark"]) body.blockchain-theme .text-muted,
+html:not([data-theme="dark"]) body.blockchain-theme .breadcrumb-item.active {
+  color: #565e66 !important;
+}
+/* Botón primario del tema oscuro: blanco sobre #8b5cf6 daba 4,2:1. */
+html[data-theme="dark"] body.blockchain-theme .btn-primary {
+  background-color: #7c3aed !important;
+  border-color: #a78bfa !important;
+}
+html[data-theme="dark"] body.blockchain-theme .btn-primary:hover,
+html[data-theme="dark"] body.blockchain-theme .btn-primary:focus {
+  background-color: #6d28d9 !important;
+  border-color: #c4b5fd !important;
+  color: #fff !important;
+}
+html[data-theme="dark"] body.blockchain-theme .price-sub { color: #a3aab2 !important; opacity: 1; }

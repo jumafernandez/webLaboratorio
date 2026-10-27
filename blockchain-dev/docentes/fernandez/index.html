@@ -19,12 +19,11 @@
     <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/docentes/fernandez/" />
     <title>Mg. Juan M. Fernández — Coordinador Académico — Diplomatura Blockchain LICDIA-UNLu</title>
     <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <link href="../../../css/styles.css" rel="stylesheet" />
     <link href="../../../css/style2.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
@@ -121,7 +120,8 @@
             box-shadow: 0 12px 30px rgba(76, 28, 127, 0.25);
         }
 
-        .cta-inscribite h3 {
+        .cta-inscribite h3,
+        .cta-inscribite h2 {
             color: white;
             font-weight: 800;
             margin-bottom: 0.5rem;
@@ -216,10 +216,10 @@
         } catch(e){}
       })();
     </script>
-    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="../../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
-    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <link href="../../../css/bc-visual.css?v=2026-10-27e" rel="stylesheet" />
+    <script src="../../../js/bc-cadena.js?v=2026-10-27a" defer></script>
     <script src="../../../js/enhancements.min.js" defer></script>
 
 </head>
@@ -262,9 +262,12 @@
 
     <header class="backgroundAr fondoBlockchain" data-aos="flip-up" data-aos-delay="100" data-aos-duration="1500">
         <div class="container">
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
             <div class="masthead-heading">Mg. Juan M. Fernández - Cuerpo docente</div>
         </div>
     </header>
+
+    <main id="contenido">
 
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
@@ -294,7 +297,7 @@
 
                         <!-- Photo column -->
                         <div class="col-12 col-md-3 docente-photo-wrap" data-aos="fade-right" data-aos-delay="200">
-                            <picture><source srcset="../../../assets/img/team/1.webp" type="image/webp"><img class="docente-photo" src="../../../assets/img/team/1.jpg"
+                            <picture><source srcset="../../../assets/img/team/1.webp" type="image/webp"><img class="docente-photo" width="200" height="200" src="../../../assets/img/team/1.jpg"
                                 alt="Mg. Juan M. Fernández - Coordinador Académico Diplomatura en Blockchain UNLu" ></picture>
                         </div>
 
@@ -387,7 +390,7 @@
                     <p class="section-label"><i class="fas fa-chalkboard-teacher me-1"></i>¿Qué enseña en la diplomatura?</p>
 
                     <div class="course-item">
-                        <strong>Módulo 1 — Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps</strong>
+                        <strong>Curso 1 — Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps</strong>
                         <p class="mb-0 mt-1" style="font-size:0.92rem; color:#4a4a4a;">
                             <em>Docente Responsable.</em> Como Coordinador Académico, conduce el módulo introductorio: principios de descentralización, estructura de bloques y cadenas, algoritmos de consenso (PoW, PoS, PoA, dPoS, BFT) y trade-offs, casos de uso y aplicaciones actuales, frameworks y herramientas para desarrollo Web3/DApp, Ethereum y Solidity, Hardhat. Su formación en ciencia de datos y NLP permite además abordar el <strong>análisis de datos on-chain</strong> como parte de la introducción práctica al ecosistema.
                         </p>
@@ -560,7 +563,7 @@
 
                 <!-- CTA -->
                 <div class="cta-inscribite" data-aos="fade-up" data-aos-delay="400">
-                    <h3>¿Querés sumarte a la próxima cohorte?</h3>
+                    <h2 class="h3">¿Querés sumarte a la próxima cohorte?</h2>
                     <p>Formarte con el equipo que hace investigación activa en tecnologías descentralizadas.</p>
                     <a href="/blockchain-dev/espera-2027/" class="btn-cta">
                         <i class="fas fa-clock me-2"></i>Lista de espera 2027
@@ -576,6 +579,8 @@
             <i class="fas fa-arrow-left me-2"></i>Volver al cuerpo docente
         </a>
     </div>
+
+    </main>
 
     <footer class="footer bg-dark text-white py-4 mt-2">
         <div class="container text-center small">

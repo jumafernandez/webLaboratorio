@@ -82,7 +82,7 @@
     // portada la numeración sigue la de los cursos del encabezado (la primera sección es el bloque 05).
     (function eslabones() {
         var previo = '0'.repeat(64), n = lienzoCadena ? bloques.length : 0;
-        Array.prototype.forEach.call(document.querySelectorAll('body > section, body > article, body > div.container'), function (sec) {
+        Array.prototype.forEach.call(document.querySelectorAll('body > section, body > article, body > div.container, body > main#contenido > section, body > main#contenido > article, body > main#contenido > div.container'), function (sec) {
             var h2 = sec.querySelector('h2.section-heading, h2.card-t, .section-title-line h2');
             if (!h2) return;
             var h = sha256Texto(previo + sec.textContent.replace(/\s+/g, ' ').trim());

@@ -299,17 +299,24 @@ section.bg-dark .bc-eslabon, [style*="#261951"] .bc-eslabon { color: var(--bc-li
 /* Ritmo vertical: todos los bloques con el mismo aire (antes había huecos de 270 a 510 px) */
 html body.blockchain-theme > section:not(#contact),
 html body.blockchain-theme > article#cta-inscripcion,
-html body.blockchain-theme > article#informacionPlan {
+html body.blockchain-theme > article#informacionPlan,
+html body.blockchain-theme > main#contenido > section:not(#contact),
+html body.blockchain-theme > main#contenido > article#cta-inscripcion,
+html body.blockchain-theme > main#contenido > article#informacionPlan {
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
-html body.blockchain-theme > div.container { margin-top: 2.5rem !important; margin-bottom: 2.5rem !important; }
+html body.blockchain-theme > div.container,
+html body.blockchain-theme > main#contenido > div.container { margin-top: 2.5rem !important; margin-bottom: 2.5rem !important; }
 @media (max-width: 767.98px) {
     html body.blockchain-theme > section:not(#contact),
     html body.blockchain-theme > article#cta-inscripcion,
-    html body.blockchain-theme > article#informacionPlan { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    html body.blockchain-theme > article#informacionPlan,
+    html body.blockchain-theme > main#contenido > section:not(#contact),
+    html body.blockchain-theme > main#contenido > article#cta-inscripcion,
+    html body.blockchain-theme > main#contenido > article#informacionPlan { padding-top: 3rem !important; padding-bottom: 3rem !important; }
     .bc-eslabon { font-size: .66rem; letter-spacing: .04em; }
 }
 
@@ -358,7 +365,8 @@ html body.blockchain-theme .bc-oscuro::before {
     pointer-events: none;
 }
 /* style2.css le da 100 px de relleno a los costados en todos los anchos (antes lo salteaba .full-bleed): el margen lo pone el container */
-html body.blockchain-theme > article#informacionPlan { padding-left: 0 !important; padding-right: 0 !important; }
+html body.blockchain-theme > article#informacionPlan,
+html body.blockchain-theme > main#contenido > article#informacionPlan { padding-left: 0 !important; padding-right: 0 !important; }
 html body.blockchain-theme .bc-oscuro > .container { position: relative; z-index: 1; }
 html body.blockchain-theme .bc-oscuro h2.card-t,
 html body.blockchain-theme .bc-oscuro h2.section-heading {
@@ -1125,7 +1133,26 @@ html[data-theme="dark"] .bc-cadena-tarjetas .licdia-card::after { color: var(--b
 
 /* Nested sections (cards/rows inside a page block) must not inherit the theme's 9rem section padding.
    Zero extra specificity so any class-level padding still wins. */
-:where(html body.blockchain-theme :not(body)) > section {
+:where(html body.blockchain-theme :not(body):not(main#contenido)) > section {
     padding-top: 0;
     padding-bottom: 0;
+}
+
+/* ---------- Páginas de docentes: contraste AA (el <style> propio de cada página no tiene tema oscuro) ---------- */
+html:not([data-theme="dark"]) body.blockchain-theme .docente-card code,
+html:not([data-theme="dark"]) body.blockchain-theme .course-item code { color: #a3185f; }
+html[data-theme="dark"] body.blockchain-theme .badge-area { background: rgba(196, 165, 255, .14); color: #e6dcfa; border-color: rgba(196, 165, 255, .4); }
+html[data-theme="dark"] body.blockchain-theme .badge-area:hover { background: #7c3aed; color: #fff; border-color: #a78bfa; }
+html[data-theme="dark"] body.blockchain-theme .course-item { background: rgba(196, 165, 255, .1); border-left-color: #a78bfa; }
+html[data-theme="dark"] body.blockchain-theme .course-item strong,
+html[data-theme="dark"] body.blockchain-theme .docente-bio strong { color: #e6d9ff; }
+.docente-rol-idx { margin: -.2rem 0 .6rem; color: #565e66; font-weight: 600; }
+html[data-theme="dark"] body.blockchain-theme .docente-rol-idx { color: #c9d1d9; }
+
+/* Los tres logos del menú son 1125x1262: reservar el ancho antes de que carguen evita que el encabezado se corra (CLS en celular). */
+html body.blockchain-theme #mainNav .navbar-brand img { aspect-ratio: 1125 / 1262; width: auto; }
+
+/* Docentes en celular: al cargar la tipografía final la ruta de migas pasa de 1 a 2 líneas y corre la tarjeta (CLS); se reservan 2 líneas. */
+@media (max-width: 575.98px) {
+    html body.blockchain-theme:has(.docente-card) nav .breadcrumb { min-height: 3rem; align-content: flex-start; }
 }

@@ -72,7 +72,7 @@ from decimal import Decimal
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
-from backend.moderacion import Moderador
+from backend.moderacion import Moderador, revisar_lista
 from backend.origen import origen_de
 from backend.registro import CORREO, NUMERO
 
@@ -597,8 +597,16 @@ class Cadena:
         self.conectar()
         return cuerpo
 
-    def moderar(self, *textos: str) -> None:
-        """Lo que va a quedar público para siempre no lleva insultos, odio, sexo, links… (backend/moderacion.py)."""
+    def moderar(self, *textos: str, juntos: bool = False) -> None:
+        """Lo que va a quedar público para siempre no lleva insultos, odio, sexo, links… (backend/moderacion.py).
+
+        Con `juntos` (nombre y símbolo de un token) además se revisa la unión: cada parte sola puede ser inocua y
+        formar un insulto leídas seguidas ("pu" + "to"), con o sin espacio en el medio."""
+        if juntos and len(textos) > 1:
+            motivo = revisar_lista("".join(textos))
+            if motivo:
+                raise Rechazo(400, "texto_rechazado", motivo=motivo)
+            textos = (*textos, " ".join(textos))
         for t in textos:
             motivo = self.moderador.revisar(t)
             if motivo == "sin_revision":
@@ -658,7 +666,7 @@ class Cadena:
         simbolo = _texto(c.get("simbolo"), "simbolo_invalido", 1, MAX_SIMBOLO)
         supply = _entero(c.get("supply"), "supply_invalido", 1, MAX_SUPPLY)
         self.verificar_firma("token", c, direccion)
-        self.moderar(nombre, simbolo)
+        self.moderar(nombre, simbolo, juntos=True)
         with self._cerrojo_de(direccion):
             recibo, ms = self.enviar(origen, "token", self.contratos["FabricaTokens"].functions.crear(
                 direccion, nombre, simbolo, supply))

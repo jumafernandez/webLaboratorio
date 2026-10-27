@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog de la Diplomatura en Blockchain</title>
+    <title>Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog Blockchain LICDIA UNLu</title>
     <meta name="description" content="Qué es el gas, para qué sirve una red de prueba y por qué Base Sepolia, una capa 2 de Ethereum, es la red del curso y del juego del sitio." />
     <meta name="author" content="Cátedra de la Diplomatura" />
     <meta property="og:title" content="Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog de la Diplomatura en Blockchain" />
@@ -21,12 +21,11 @@
     <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
     <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/blog/testnet-gas-base-sepolia/" />
     <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <link href="../../../css/styles.css" rel="stylesheet" />
     <link href="../../../css/style2.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
       (function(){
         try {
@@ -36,12 +35,38 @@
         } catch(e){}
       })();
     </script>
-    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="../../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
-    <link href="../../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <link href="../../../css/bc-visual.css?v=2026-10-27e" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27d" rel="stylesheet" />
     <script src="../../../js/enhancements.min.js" defer></script>
-    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <script src="../../../js/bc-cadena.js?v=2026-10-27a" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia",
+  "description": "Qué es el gas, para qué sirve una red de prueba y por qué Base Sepolia, una capa 2 de Ethereum, es la red del curso y del juego del sitio.",
+  "datePublished": "2026-10-27",
+  "inLanguage": "es-AR",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://licdia.unlu.edu.ar/blockchain-dev/blog/testnet-gas-base-sepolia/"
+  },
+  "url": "https://licdia.unlu.edu.ar/blockchain-dev/blog/testnet-gas-base-sepolia/",
+  "image": "https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "Cátedra de la Diplomatura",
+    "url": "https://licdia.unlu.edu.ar/blockchain-dev/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LICDIA UNLu",
+    "url": "https://licdia.unlu.edu.ar/"
+  }
+}
+    </script>
 </head>
 <body id="page-top" class="blockchain-theme">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -81,7 +106,8 @@
 
     <header class="backgroundAr fondoBlockchain">
         <div class="container">
-            <div class="masthead-heading bb-masthead">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</div>
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
+            <h1 class="masthead-heading bb-masthead">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</h1>
             
         </div>
     </header>
@@ -96,7 +122,7 @@
 
 <h2>Qué es el gas</h2>
 <p>El gas mide el esfuerzo computacional de una operación en Ethereum. Una transferencia simple de ETH consume 21.000 unidades de gas, y un contrato inteligente consume más cuanto más cómputo y almacenamiento use. Lo que pagás es esa cantidad multiplicada por un precio por unidad. La documentación de ethereum.org lo resume así:</p>
-<pre><code>fee = unidades de gas usadas × (base fee + priority fee)</code></pre>
+<pre tabindex="0"><code>fee = unidades de gas usadas × (base fee + priority fee)</code></pre>
 <p>El <em>base fee</em> lo fija el protocolo según qué tan lleno estuvo el bloque anterior, y se quema (sale de circulación). El <em>priority fee</em> es una propina para quien valida el bloque. Con una transferencia de 21.000 unidades, un base fee de 10 gwei y una propina de 2 gwei, el costo es 252.000 gwei, o 0,000252 ETH. Es el ejemplo que usa la propia documentación.</p>
 
 <h2>Una testnet es una red de práctica</h2>
@@ -122,11 +148,11 @@
   <li>Las claves de una testnet nunca deberían reutilizarse en la red principal.</li>
 </ul>
 
-        <aside class="bb-cta">
+        <div class="bb-cta">
             <h2>Seguí por acá</h2>
-            <p><strong>En el plan de estudios:</strong> la clase 7 del Curso 4 (Layer 2 con foco en Base, testnet vs mainnet y comparativa de gas). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseFour">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
+            <p><strong>En el plan de estudios:</strong> la clase 7 del Curso 4 (Layer 2 con foco en Base, testnet vs mainnet y comparativa de gas). Mirá el <a href="../../plan-de-estudios/#cronograma">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
             <p><strong>En el juego del sitio:</strong> probalo en Nivel 3 y la tarjeta «Base Sepolia · en vivo», donde ves la red de prueba funcionando. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
-        </aside>
+        </div>
         <section class="bb-fuentes">
             <h2>Fuentes</h2>
             <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>

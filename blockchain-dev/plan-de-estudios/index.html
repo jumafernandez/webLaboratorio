@@ -17,14 +17,33 @@
     <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
     <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/plan-de-estudios/" />
     <meta property="og:description" content="Conocé los 4 cursos de la Diplomatura en Blockchain: Fundamentos, Finanzas Descentralizadas, Infraestructura y Desarrollo de DApps." />
-    <title>Plan de Estudios Blockchain - LICDIA</title>
+    <title>Plan de estudios de la Diplomatura de posgrado en Blockchain UNLu - LICDIA</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Diplomatura de Posgrado en Innovación y Desarrollo de Aplicaciones basadas en Blockchain",
+      "description": "Plan de estudios de la diplomatura de posgrado de la Universidad Nacional de Luján: 4 cursos de 40 hs (160 hs totales) sobre fundamentos de blockchain, finanzas descentralizadas, infraestructura y desarrollo de DApps, con 31 clases en vivo.",
+      "provider": {
+        "@type": "CollegeOrUniversity",
+        "name": "Universidad Nacional de Luján",
+        "sameAs": "https://www.unlu.edu.ar/",
+        "department": { "@type": "Organization", "name": "LICDIA - Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial" }
+      },
+      "educationalLevel": "Posgrado",
+      "educationalCredentialAwarded": "Diplomatura de Posgrado",
+      "inLanguage": "es-AR",
+      "courseMode": "online",
+      "timeRequired": "PT160H",
+      "url": "https://licdia.unlu.edu.ar/blockchain-dev/plan-de-estudios/"
+    }
+    </script>
     <link rel="icon" type="image/x-icon" href="../../assets/img/logo.ico" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <link href="../../css/styles.css" rel="stylesheet" />
     <link href="../../css/style2.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
@@ -211,8 +230,13 @@
             };
             if (!f._fbq) n = f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
-            t.src = v; s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
+            /* fbevents.js se descarga recien despues de load / primera interaccion (ver bloque de carga diferida);
+               mientras tanto fbq() encola los eventos */
+            window.__licdiaLoadFb = function () {
+                if (t.src) return;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s);
+            };
         }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1845986945991192');
         fbq('track', 'PageView');
@@ -221,6 +245,19 @@
         <img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1845986945991192&ev=PageView&noscript=1" />
     </noscript>
+    <!-- Carga diferida de analitica: Meta Pixel arranca en la primera interaccion o 4 s despues de load -->
+    <script>
+        (function () {
+            var done = false;
+            function go() {
+                if (done) return; done = true;
+                ['scroll', 'wheel', 'pointerdown', 'keydown', 'touchstart'].forEach(function (ev) { window.removeEventListener(ev, go); });
+                if (window.__licdiaLoadFb) window.__licdiaLoadFb();
+            }
+            ['scroll', 'wheel', 'pointerdown', 'keydown', 'touchstart'].forEach(function (ev) { window.addEventListener(ev, go, { passive: true, once: true }); });
+            window.addEventListener('load', function () { setTimeout(go, 4000); });
+        })();
+    </script>
     <!-- LICDIA-ENHANCEMENTS-V1 -->
     <script>
       (function(){
@@ -231,10 +268,10 @@
         } catch(e){}
       })();
     </script>
-    <link href="../../css/enhancements.css" rel="stylesheet" />
+    <link href="../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
-    <script src="../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <link href="../../css/bc-visual.css?v=2026-10-27e" rel="stylesheet" />
+    <script src="../../js/bc-cadena.js?v=2026-10-27a" defer></script>
     <script src="../../js/enhancements.min.js" defer></script>
 
 
@@ -276,9 +313,10 @@
         </div>
     </nav>
 
+    <main id="contenido">
     <header class="backgroundAr fondoBlockchain" data-aos="flip-up" data-aos-delay="100" data-aos-duration="1500">
         <div class="container">
-            <div class="masthead-heading">Plan de Estudios - Diplomatura en Blockchain</div>
+            <h1 class="masthead-heading">Plan de Estudios - Diplomatura en Blockchain</h1>
         </div>
     </header>
 
@@ -627,7 +665,7 @@
         <div class="container">
             <div class="text-center mb-4">
                 <h2 class="section-heading text-uppercase">Cronograma clase por clase</h2>
-                <p class="bc-crono-intro">Cohorte agosto 2026 — Martes y jueves de 19:00 a 21:00 hs (ARG). 32 clases en vivo distribuidas en 4 cursos consecutivos. Cada clase tiene tema y actividad práctica concreta.</p>
+                <p class="bc-crono-intro">Cohorte agosto 2026 — Martes y jueves de 19:00 a 21:00 hs (ARG). 31 clases en vivo distribuidas en 4 cursos consecutivos. Cada clase tiene tema y actividad práctica concreta.</p>
                 <p class="bc-crono-aviso"><i class="fas fa-info-circle me-1" aria-hidden="true"></i>Cronograma de referencia — sujeto a ajustes menores antes del inicio de cohorte.</p>
             </div>
 
@@ -938,6 +976,7 @@
         </a>
     </div>
 
+    </main>
     <footer class="footer bg-dark text-white py-4 mt-2">
         <div class="container text-center small">
             <p class="mb-2">
@@ -956,10 +995,14 @@
             </p>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/scripts.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>AOS.init();</script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="../../js/scripts.js"></script>
+    <script defer src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.AOS) AOS.init({ disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } });
+        });
+    </script>
     <a href="https://api.whatsapp.com/send?phone=%2B541123953895&text=Hola,%20queria%20informaci%C3%B3n%20sobre%20la%20diplomatura%20en%20Blockchain%20..."
         class="botonWPP" target="_blank" rel="noopener" aria-label="Consultá por WhatsApp sobre la Diplomatura en Blockchain">
         <i class="fab fa-whatsapp"></i>

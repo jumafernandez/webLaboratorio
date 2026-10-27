@@ -91,7 +91,7 @@ VALORES: dict[str, frozenset] = {
     "tab": frozenset({"agente", "cadena"}),
     "tema": frozenset({"plan", "docentes", "aranceles", "inscripcion", "requisitos", "destinatarios", "salida"}),
     "ancla": frozenset({"#informacionPlan", "#team", "#proceso-inscripcion", "#faq", "#proyectos", "#roles-laborales",
-                        "#comparativa", "#prerequisitos-check", "#por-que-licdia"}),
+                        "#comparativa", "#prerequisitos-check", "#por-que-licdia", "/blockchain-dev/espera-2027/"}),
     "id": NIVELES | {"cert"},
     "origen": frozenset({"certificado", "recorrido", "inscripcion", "otro"}),
     "accion": frozenset({"sellar", "token", "fondear", "pagar", "insignia"}),

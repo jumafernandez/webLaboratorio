@@ -139,3 +139,8 @@ html body.blockchain-theme .bb-articulo pre code {
     padding: 0 !important;
     border-radius: 0 !important;
 }
+
+/* Enlaces dentro del texto: subrayados (no solo color) y botón del tema oscuro con el contraste del diseño original. */
+.bb-migas a, .bb-pie-indice a, .bb-main p a:not(.bb-btn), .bb-main li a { text-decoration: underline; text-underline-offset: 2px; }
+html[data-theme="dark"] body.blockchain-theme a.bb-btn:not(.nav-link):not(.navbar-brand):not(.btn):not(.botonWPP):not(.text-info):not(.text-white) { color: #1d1630 !important; text-decoration: none; }
+html[data-theme="dark"] body.blockchain-theme a.bb-btn:not(.nav-link):not(.navbar-brand):not(.btn):not(.botonWPP):not(.text-info):not(.text-white):hover { color: #1d1630 !important; }
