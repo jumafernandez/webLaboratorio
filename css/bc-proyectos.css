@@ -45,3 +45,7 @@ html body.blockchain-theme .bcp { padding: 3.2rem 0 4rem; min-height: 50vh; }
     .bcp-filtro, .bcp-filtro select { width: 100%; }
     .bcp-vacio-bloque { padding: 1.2rem 1.1rem; }
 }
+
+/* Reserva el espacio de lo que llena js/bc-proyectos.js mientras carga, para que el pie no salte (CLS). */
+.bcp-estado { min-height: 1.4em; }
+.bcp-estado:not([hidden]) + .bcp-grilla:empty { min-height: 26rem; }
