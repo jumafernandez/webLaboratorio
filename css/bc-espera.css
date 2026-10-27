@@ -1,0 +1,100 @@
+/* Lista de espera 2027: el formulario es el bloque #5 de la cadena (usa las clases de bc-visual.css).
+   Los selectores llevan html body.blockchain-theme y :not(#_) porque style2.css y enhancements.css pintan
+   links, inputs y textos con !important. */
+html body.blockchain-theme section.bc-espera { padding: 7.5rem 0 4rem !important; margin: 0 !important; }
+.bc-espera-cadena { padding-top: .5rem; }
+.bc-espera .breadcrumb { margin-bottom: 1.5rem; }
+.bc-espera .bc-cierre-titulo { margin: 0; }
+html body.blockchain-theme .bc-espera h1.bc-cierre-titulo { color: #fff !important; font: 600 1.05rem/1.3 "Space Grotesk", Montserrat, sans-serif; text-transform: none; letter-spacing: 0; }
+
+.bc-espera-form, .bc-espera-ok { padding: .6rem 1.3rem 1rem; }
+.bc-espera-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.bc-espera-campo { display: flex; flex-direction: column; gap: .35rem; margin-bottom: 1rem; min-width: 0; }
+html body.blockchain-theme .bc-espera label {
+    color: var(--bc-tinta) !important;
+    font: 500 .78rem var(--bc-mono);
+    letter-spacing: .03em;
+}
+html body.blockchain-theme .bc-espera input[type="text"],
+html body.blockchain-theme .bc-espera input[type="email"],
+html body.blockchain-theme .bc-espera select {
+    width: 100%;
+    padding: .7rem .85rem;
+    border: 1px solid rgba(196, 165, 255, .35);
+    border-radius: 8px;
+    background: rgba(13, 8, 32, .85) !important;
+    color: #fff !important;
+    font: 400 1rem "Montserrat", sans-serif;
+}
+html body.blockchain-theme .bc-espera select option { background: #170d33; color: #fff; }
+html body.blockchain-theme .bc-espera input::placeholder { color: rgba(226, 216, 247, .45); }
+html body.blockchain-theme .bc-espera input:focus-visible,
+html body.blockchain-theme .bc-espera select:focus-visible,
+html body.blockchain-theme .bc-espera button:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+html body.blockchain-theme .bc-espera [aria-invalid="true"] { border-color: #ff9a9a; }
+
+/* trampa para bots: fuera de pantalla, no display:none */
+.bc-espera-trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.bc-espera-firma {
+    margin: .4rem 0 1.1rem;
+    padding: 1rem 1.1rem;
+    border: 1px dashed rgba(196, 165, 255, .4);
+    border-radius: 10px;
+    background: rgba(124, 58, 237, .08);
+}
+.bc-espera-firma[hidden], .bc-espera-ok[hidden], .bc-espera-global[hidden], .bc-espera-form[hidden] { display: none !important; }
+html body.blockchain-theme .bc-espera .bc-espera-firma h2 {
+    margin: 0 0 .4rem;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    background: none;
+    font: 600 1rem "Space Grotesk", Montserrat, sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+}
+.bc-espera-firma h2 span { color: var(--bc-tenue); font-weight: 400; font-size: .85rem; }
+.bc-espera-firma p { margin: 0 0 .7rem; color: var(--bc-tenue); font-size: .88rem; line-height: 1.55; }
+html body.blockchain-theme .bc-espera .bc-espera-firma p.bc-espera-mensaje {
+    padding: .55rem .7rem;
+    border-radius: 6px;
+    background: #120a29;
+    color: #ddd0f7 !important;
+    font: 400 .76rem/1.5 var(--bc-mono);
+    overflow-wrap: anywhere;
+}
+.bc-espera-firma button { cursor: pointer; background: transparent; }
+.bc-espera-firma button:disabled { opacity: .6; cursor: wait; }
+.bc-espera-firma-estado { margin: .7rem 0 0 !important; min-height: 1.2em; }
+html body.blockchain-theme .bc-espera .bc-espera-firma-estado.ok { color: var(--bc-lila) !important; }
+html body.blockchain-theme .bc-espera .bc-espera-firma-estado.mal { color: var(--bc-ambar) !important; }
+
+.bc-espera-consent { display: flex; align-items: flex-start; gap: .65rem; margin-top: .3rem; }
+.bc-espera-consent input { flex: 0 0 auto; width: 1.15rem; height: 1.15rem; margin-top: .15rem; accent-color: #9d6bff; }
+html body.blockchain-theme .bc-espera .bc-espera-consent label { font: 400 .85rem/1.5 "Montserrat", sans-serif; color: var(--bc-tenue) !important; }
+.bc-espera-error { margin: .3rem 0 0; min-height: 0; color: #ff9a9a; font-size: .8rem; }
+.bc-espera-error:empty { display: none; }
+.bc-espera-acciones { margin-top: 1.2rem; text-align: center; }
+.bc-espera-global { margin: 1rem 0 0; padding: .7rem .9rem; border: 1px solid rgba(255, 120, 120, .6); border-radius: 8px; color: #ffc2c2; font-size: .9rem; }
+.bc-espera-ok h2 { margin: 0 0 .5rem; color: #fff; font: 600 1.15rem "Space Grotesk", Montserrat, sans-serif; text-transform: none; }
+.bc-espera-ok p { color: var(--bc-tenue); line-height: 1.6; }
+.bc-espera .bc-plan-bloque.minado { border-style: solid; border-color: rgba(196, 165, 255, .6); box-shadow: 0 0 22px rgba(196, 165, 255, .18); }
+.bc-espera .bc-plan-bloque.minado .bc-plan-estado { border-color: rgba(196, 165, 255, .55); color: var(--bc-lila); animation: none; }
+.bc-espera-pie { margin-top: 2rem; text-align: center; color: var(--bc-tenue); font-size: .82rem; }
+html body.blockchain-theme .bc-espera a:not(.btn):not(#_) { color: #fff !important; text-decoration: underline; }
+html body.blockchain-theme .bc-espera a:not(.btn):not(#_):hover { color: var(--bc-lila) !important; }
+
+/* enhancements.css tiñe p, span y code en modo oscuro con !important */
+html[data-theme="dark"] body.blockchain-theme .bc-espera p { color: #d4c9ea !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-espera .bc-espera-error { color: #ff9a9a !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-espera .bc-espera-global { color: #ffc2c2 !important; }
+html[data-theme="dark"] body.blockchain-theme .bc-espera .bc-cierre-cab .bc-plan-estado,
+html[data-theme="dark"] body.blockchain-theme .bc-espera .bc-cierre-hashes .bc-plan-campo:nth-child(n+2) code { color: var(--bc-ambar) !important; }
+
+@media (max-width: 767.98px) {
+    html body.blockchain-theme section.bc-espera { padding: 6rem 0 3rem !important; }
+    html body.blockchain-theme section.bc-espera > .container { padding-left: 1rem; padding-right: 1rem; }
+    .bc-espera-fila { grid-template-columns: 1fr; gap: 0; }
+    .bc-espera-form, .bc-espera-ok { padding-left: 1rem; padding-right: 1rem; }
+    .bc-espera-acciones .btn { width: 100%; padding-left: 1rem !important; padding-right: 1rem !important; }
+}
