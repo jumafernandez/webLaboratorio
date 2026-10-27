@@ -1,0 +1,116 @@
+/* Verificador de credenciales (blockchain-dev/verificar). Reutiliza .bc-oscuro, .bc-bloque, .bc-campo y .bc-eslabon de
+   bc-visual.css; acá solo lo propio del formulario y las tarjetas de resultado. :not(#_) gana a style2.css, que pinta
+   con !important los links dentro de article y .container. */
+
+html body.blockchain-theme #bcv { max-width: 1040px; }
+#bcv .bcv-intro { max-width: 760px; margin: 0 auto 1.6rem; color: var(--bc-tinta); font-size: .98rem; line-height: 1.6; text-align: center; }
+#bcv .bcv-intro p { margin: 0; color: var(--bc-tinta); }
+
+/* Formulario */
+.bcv-form { max-width: 760px; margin: 0 auto; }
+.bcv-label { display: block; margin-bottom: .4rem; color: var(--bc-lila); font: 500 .74rem var(--bc-mono); letter-spacing: .08em; text-transform: uppercase; }
+.bcv-fila { display: flex; gap: .6rem; }
+.bcv-input {
+    flex: 1 1 auto; min-width: 0; padding: .8rem 1rem;
+    border: 1px solid rgba(196, 165, 255, .4); border-radius: 10px;
+    background: rgba(13, 8, 32, .85); color: #fff; font: 400 .92rem var(--bc-mono);
+}
+.bcv-input::placeholder { color: rgba(226, 216, 247, .45); }
+.bcv-input:focus { outline: 2px solid var(--bc-lila); outline-offset: 2px; border-color: var(--bc-lila); }
+.bcv-ir {
+    flex: 0 0 auto; padding: .8rem 1.4rem; border: 0; border-radius: 10px; cursor: pointer;
+    background: linear-gradient(135deg, #7c3aed, #4c1c7f); color: #fff; font: 600 .9rem Montserrat, sans-serif;
+}
+.bcv-ir:hover:not(:disabled) { filter: brightness(1.12); }
+.bcv-ir:focus-visible { outline: 2px solid var(--bc-lila); outline-offset: 2px; }
+.bcv-ir:disabled { opacity: .55; cursor: progress; }
+.bcv-ayuda { margin: .6rem 0 0; color: var(--bc-tenue); font-size: .8rem; }
+.bcv-link { padding: 0; border: 0; background: none; color: var(--bc-lila); font: inherit; text-decoration: underline; cursor: pointer; }
+.bcv-estado { min-height: 1.2em; margin: .8rem 0 0; color: var(--bc-tenue); font: 400 .74rem var(--bc-mono); text-align: center; }
+
+/* Resultados */
+.bcv-salida { margin-top: 1rem; }
+.bcv-resumen {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem; margin: 0 0 1.4rem; padding: .8rem 1rem;
+    border: 1px solid rgba(196, 165, 255, .3); border-radius: 10px; background: rgba(20, 11, 42, .7);
+}
+.bcv-resumen-t { color: var(--bc-lila); font: 600 .7rem var(--bc-mono); letter-spacing: .08em; text-transform: uppercase; }
+.bcv-resumen-c { flex: 1 1 100%; color: var(--bc-tenue); font-size: .82rem; }
+.bcv-mono, code.bcv-mono { overflow-wrap: anywhere; color: #ddd0f7; background: none; font: 400 .8rem var(--bc-mono); }
+.bcv-grupo { margin: 0 0 1.8rem; }
+.bcv-grupo-t { margin: 0 0 .8rem; color: #fff; font: 600 1.05rem "Space Grotesk", Montserrat, sans-serif; }
+.bcv-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); gap: 1.2rem; }
+
+.bcv-card.bc-bloque { cursor: default; opacity: 1; backdrop-filter: none; }
+.bcv-card.bc-bloque:hover { transform: none; }
+.bcv-card.bc-bloque::after { display: none !important; }
+.bcv-card-rev.bc-bloque { border-color: rgba(231, 111, 81, .7); }
+.bcv-card-cuerpo { display: flex; gap: 1rem; align-items: flex-start; }
+.bcv-img {
+    flex: 0 0 132px; width: 132px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border-radius: 10px; background: #140b2a; border: 1px solid rgba(196, 165, 255, .2);
+    color: var(--bc-tenue); font: 500 1rem var(--bc-mono);
+}
+.bcv-img img { width: 100%; height: 100%; object-fit: contain; }
+.bcv-datos { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: .32rem; }
+.bcv-datos .bc-bloque-titulo { font-size: .98rem; overflow-wrap: anywhere; }
+.bcv-campo > span { flex: 0 0 auto; }
+.bcv-campo code { min-width: 0; text-align: right; }
+.bcv-campo .bcv-txt { font-family: Montserrat, sans-serif; white-space: normal; text-align: right; overflow-wrap: anywhere; }
+.bcv-nota { margin: .3rem 0 0; color: var(--bc-tenue); font-size: .76rem; line-height: 1.45; }
+.bcv-acciones { margin-top: .4rem; display: flex; flex-direction: column; gap: .4rem; align-items: flex-start; font-size: .8rem; }
+.bcv-attrs summary { cursor: pointer; color: var(--bc-tenue); }
+.bcv-attrs ul { margin: .4rem 0 0; padding-left: 1.1rem; color: var(--bc-tinta); }
+
+.bcv-sello { font: 500 .66rem var(--bc-mono); letter-spacing: .05em; padding: .12rem .5rem; border-radius: 999px; border: 1px solid currentColor; }
+.bcv-sello-ok { color: #7ee2a8; }
+.bcv-sello-simb { color: var(--bc-ambar); }
+.bcv-sello-rev { color: #ff8f73; }
+
+html body.blockchain-theme #bcv a.bcv-enlace:not(#_) { color: var(--bc-lila) !important; text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+html body.blockchain-theme #bcv a.bcv-enlace:not(#_):hover { color: #fff !important; }
+
+/* Avisos y carga */
+.bcv-aviso {
+    display: flex; flex-direction: column; gap: .3rem; padding: .9rem 1.1rem; border-radius: 10px;
+    border: 1px solid rgba(196, 165, 255, .35); background: rgba(20, 11, 42, .7); color: var(--bc-tinta); font-size: .9rem;
+}
+.bcv-aviso strong { color: #fff; font-weight: 600; }
+.bcv-aviso span { color: var(--bc-tenue); }
+.bcv-aviso-error { border-color: rgba(231, 111, 81, .65); }
+.bcv-reintentar { align-self: flex-start; margin-top: .4rem; padding: .4rem 1rem; border: 1px solid var(--bc-lila); border-radius: 8px; background: none; color: var(--bc-lila); cursor: pointer; }
+.bcv-cargando { display: flex; align-items: center; justify-content: center; gap: .7rem; padding: 1.4rem; color: var(--bc-tenue); font: 400 .85rem var(--bc-mono); }
+.bcv-giro { width: 18px; height: 18px; border: 2px solid rgba(196, 165, 255, .3); border-top-color: var(--bc-lila); border-radius: 50%; animation: bcv-gira .8s linear infinite; }
+@keyframes bcv-gira { to { transform: rotate(360deg); } }
+
+/* Explicación */
+.bcv-explica { margin-top: 2.6rem; }
+.bcv-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-bottom: 1.8rem; }
+.bcv-caja.bc-bloque { cursor: default; opacity: 1; }
+.bcv-caja.bc-bloque:hover { transform: none; }
+.bcv-caja.bc-bloque::after { display: none !important; }
+.bcv-caja p { margin: 0; color: var(--bc-tinta); font-size: .86rem; line-height: 1.55; }
+.bcv-caja .bcv-caja-t { color: #fff; font: 600 1rem "Space Grotesk", Montserrat, sans-serif; }
+.bcv-caja .bcv-estado-cred { margin-top: .3rem; padding-top: .6rem; border-top: 1px solid rgba(196, 165, 255, .2); color: var(--bc-ambar); font: 500 .8rem var(--bc-mono); overflow-wrap: anywhere; }
+.bcv-contratos { margin: 0 0 1rem; padding: 0; list-style: none; display: grid; gap: .6rem; }
+.bcv-contratos li { display: flex; flex-wrap: wrap; gap: .2rem .8rem; align-items: baseline; color: var(--bc-tinta); font-size: .86rem; }
+.bcv-contratos strong { color: #fff; font-weight: 600; }
+.bcv-dir { font-size: .74rem; }
+.bcv-pendiente { color: var(--bc-tenue); }
+.bcv-explica > .bcv-nota { max-width: 760px; }
+
+@media (max-width: 767.98px) {
+    .bcv-cols { grid-template-columns: 1fr; }
+}
+@media (max-width: 575.98px) {
+    .bcv-fila { flex-direction: column; }
+    .bcv-ir { width: 100%; }
+    .bcv-card-cuerpo { flex-direction: column; }
+    .bcv-img { flex-basis: auto; width: 100%; max-width: 220px; align-self: center; }
+    .bcv-datos { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .bcv-giro { animation: none; } }
+
+/* Migas de pan: el violeta de style2.css no se lee sobre el fondo oscuro */
+html body.blockchain-theme #bcv .breadcrumb a:not(#_) { color: var(--bc-lila) !important; }
+html body.blockchain-theme #bcv .breadcrumb-item.active { color: var(--bc-tenue); }

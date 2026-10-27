@@ -1,0 +1,6 @@
+[submodule "tools/credenciales/lib/openzeppelin-contracts"]
+	path = tools/credenciales/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "tools/credenciales/lib/forge-std"]
+	path = tools/credenciales/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
