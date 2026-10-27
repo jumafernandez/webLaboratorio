@@ -1,0 +1,141 @@
+/* Blog de la Diplomatura en Blockchain (/blockchain-dev/blog/): notas largas con buena tipografía de lectura.
+   Va después de bc-visual.css; el encabezado es el de las subpáginas de la diplomatura. */
+
+html body.blockchain-theme {
+    --bb-violeta: #4c1c7f;
+    --bb-violeta-osc: #2e0f58;
+    --bb-lila: #f3ebfb;
+    --bb-tinta: #1d1630;
+    --bb-texto: #2b2540;
+    --bb-tenue: #6b6480;
+    --bb-borde: #e4daf2;
+    --bb-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #faf8fd;
+}
+
+html body.blockchain-theme header.fondoBlockchain .bb-masthead {
+    max-width: 960px;
+    margin: 0 auto 1rem;
+    font: 600 clamp(1.5rem, 3.4vw, 2.5rem)/1.18 "Space Grotesk", Montserrat, sans-serif;
+    letter-spacing: -.01em;
+    text-transform: none;
+    color: #fff;
+    overflow-wrap: break-word;
+}
+.bb-sub { max-width: 640px; margin: 0 auto; color: rgba(226, 216, 247, .8); font-size: 1.05rem; line-height: 1.5; }
+
+.bb-main { padding: 2.2rem 16px 3rem; }
+.bb-articulo, .bb-indice {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--bb-texto);
+    font: 400 1.075rem/1.75 Montserrat, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    overflow-wrap: break-word;
+}
+.bb-indice { max-width: 860px; }
+
+html body.blockchain-theme .bb-migas { background: transparent !important; padding: 0 !important; box-shadow: none !important; margin: 0 0 1rem; color: var(--bb-tenue); font-size: .85rem; }
+.bb-migas a { color: var(--bb-violeta); }
+.bb-meta { display: flex; flex-wrap: wrap; gap: .35rem .6rem; margin: 0 0 1.6rem; color: var(--bb-tenue); font: 500 .8rem var(--bb-mono); letter-spacing: .02em; }
+
+.bb-lead { font-size: 1.2rem; line-height: 1.6; color: var(--bb-tinta); border-left: 4px solid var(--bb-violeta); padding-left: 1rem; margin: 0 0 2rem; }
+
+.bb-articulo h2 {
+    margin: 2.4rem 0 .8rem;
+    color: var(--bb-violeta-osc);
+    font: 600 1.45rem/1.25 "Space Grotesk", Montserrat, sans-serif;
+    letter-spacing: -.005em;
+}
+.bb-articulo p, .bb-articulo ul { margin: 0 0 1.15rem; }
+.bb-articulo ul { padding-left: 1.3rem; }
+.bb-articulo li { margin-bottom: .45rem; }
+.bb-articulo a, .bb-indice a { color: var(--bb-violeta); text-underline-offset: 2px; }
+.bb-articulo a:hover, .bb-indice a:hover { color: #7e3fbf; }
+.bb-articulo strong { color: var(--bb-tinta); }
+
+.bb-articulo code {
+    padding: .1em .35em;
+    border-radius: 4px;
+    background: var(--bb-lila);
+    color: var(--bb-violeta-osc);
+    font: 500 .88em var(--bb-mono);
+    overflow-wrap: anywhere;
+}
+.bb-articulo pre {
+    margin: 0 0 1.4rem;
+    padding: 1rem 1.1rem;
+    border-radius: 10px;
+    background: #140b2a;
+    border: 1px solid #2b1b52;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    tab-size: 4;
+}
+.bb-articulo pre code { padding: 0; background: none; color: #e8defa; font-size: .84rem; line-height: 1.6; white-space: pre; overflow-wrap: normal; }
+
+.bb-cta, .bb-fuentes, .bb-mas { margin-top: 2.2rem; padding: 1.2rem 1.3rem; border-radius: 12px; }
+.bb-cta { background: var(--bb-lila); border: 1px solid var(--bb-borde); }
+.bb-fuentes { border: 1px solid var(--bb-borde); background: #fff; font-size: .95rem; line-height: 1.6; }
+.bb-mas { padding: 0; font-size: .95rem; }
+.bb-articulo .bb-cta h2, .bb-articulo .bb-fuentes h2, .bb-articulo .bb-mas h2 { margin: 0 0 .6rem; font-size: 1.1rem; }
+.bb-cta p:last-child, .bb-fuentes ul { margin-bottom: 0; }
+.bb-btn {
+    display: inline-block;
+    margin-left: .3rem;
+    padding: .35rem .9rem;
+    border-radius: 999px;
+    background: var(--bb-violeta);
+    color: #fff !important;
+    font-weight: 700;
+    font-size: .88rem;
+    text-decoration: none;
+}
+.bb-btn:hover { background: var(--bb-violeta-osc); }
+
+/* Índice */
+.bb-lista { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1.1rem; }
+.bb-tarjeta { padding: 1.3rem 1.4rem; border: 1px solid var(--bb-borde); border-radius: 14px; background: #fff; box-shadow: 0 4px 18px rgba(76, 28, 127, .06); }
+.bb-tarjeta h2 { margin: .1rem 0 .5rem; font: 600 1.3rem/1.3 "Space Grotesk", Montserrat, sans-serif; }
+.bb-tarjeta h2 a { color: var(--bb-violeta-osc); text-decoration: none; }
+.bb-tarjeta h2 a:hover { text-decoration: underline; }
+.bb-tarjeta p { margin: 0 0 .7rem; font-size: 1rem; line-height: 1.6; }
+.bb-tarjeta .bb-meta { margin: 0; }
+.bb-kicker { color: var(--bb-violeta); font: 500 .74rem var(--bb-mono); letter-spacing: .12em; text-transform: uppercase; }
+.bb-pie-indice { color: var(--bb-tenue); font-size: .95rem; }
+
+@media (max-width: 575px) {
+    .bb-lead { font-size: 1.1rem; }
+    .bb-articulo, .bb-indice { font-size: 1rem; }
+    .bb-articulo pre { padding: .85rem; }
+}
+
+/* ---------- Tema oscuro (data-theme="dark", lo pone el script del <head> y el botón del menú) ---------- */
+html[data-theme="dark"] body.blockchain-theme {
+    --bb-violeta: #c4a5ff;
+    --bb-violeta-osc: #e6d9ff;
+    --bb-lila: #241545;
+    --bb-tinta: #f4effc;
+    --bb-texto: #dcd3ee;
+    --bb-tenue: #a79bc2;
+    --bb-borde: #3a2766;
+    background: #0d0820 !important;
+}
+html[data-theme="dark"] body.blockchain-theme .bb-articulo a:hover,
+html[data-theme="dark"] body.blockchain-theme .bb-indice a:hover { color: #fff; }
+html[data-theme="dark"] body.blockchain-theme .bb-articulo code { background: #241545; color: #e6d9ff; }
+html[data-theme="dark"] body.blockchain-theme .bb-articulo pre { background: #090516; border-color: #3a2766; }
+html[data-theme="dark"] body.blockchain-theme .bb-articulo pre code { background: none; color: #e8defa; }
+html[data-theme="dark"] body.blockchain-theme .bb-fuentes,
+html[data-theme="dark"] body.blockchain-theme .bb-tarjeta { background: #150d2e !important; box-shadow: none; }
+html[data-theme="dark"] body.blockchain-theme .bb-btn { background: #c4a5ff; color: #1d1630 !important; }
+html[data-theme="dark"] body.blockchain-theme .bb-btn:hover { background: #e6d9ff; }
+/* enhancements.css pinta las <section> en oscuro: acá el fondo es el de la página */
+html body.blockchain-theme .bb-main, html body.blockchain-theme .bb-indice, html body.blockchain-theme .bb-mas { background: transparent !important; }
+
+/* enhancements.css styles inline <code> with a border and background; inside <pre> that outlines every line */
+html body.blockchain-theme .bb-articulo pre code {
+    border: 0 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}

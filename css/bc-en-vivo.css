@@ -1,0 +1,54 @@
+/* Pagina "En vivo" de la diplomatura en Blockchain. Reutiliza las variables de bc-visual.css */
+.bcv { max-width: 1100px; color: var(--bc-tinta, #efe9fb); }
+.bcv-intro { max-width: 760px; color: var(--bc-tenue, rgba(226,216,247,.64)); margin: 1rem 0 1.5rem; }
+.bcv-h { font: 700 1.25rem "Space Grotesk", Montserrat, sans-serif; color: var(--bc-tinta, #efe9fb); margin: 2.2rem 0 .9rem; }
+.bcv-estado { padding: .7rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-size: .9rem;
+    border: 1px solid rgba(245,185,66,.5); background: rgba(245,185,66,.1); color: #f5b942; }
+.bcv-estado[hidden] { display: none; }
+.bcv-fila { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.bcv-fila.bcv-cuatro { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bcv-dato { display: flex; flex-direction: column; gap: .25rem; padding: 1rem 1.1rem; min-width: 0;
+    border: 1px solid rgba(196,165,255,.24); border-radius: 12px; background: rgba(20,11,42,.78); }
+.bcv-etq { font: 600 .7rem var(--bc-mono, monospace); text-transform: uppercase; letter-spacing: .08em; color: var(--bc-ambar, #f5b942); }
+.bcv-num { font: 500 1.7rem var(--bc-mono, monospace); color: #fff; overflow-wrap: anywhere; }
+.bcv-sub { font-size: .75rem; color: var(--bc-tenue, rgba(226,216,247,.64)); }
+.bcv-pulso { animation: bcv-pulso .9s ease-out; }
+@keyframes bcv-pulso { from { color: var(--bc-ambar, #f5b942); } to { color: #fff; } }
+
+.bcv-feed-caja { border: 1px solid rgba(196,165,255,.24); border-radius: 12px; background: rgba(20,11,42,.78); padding: .4rem 0; }
+.bcv-vacio { padding: 1rem 1.1rem; margin: 0; color: var(--bc-tenue, rgba(226,216,247,.64)); }
+.bcv-vacio[hidden] { display: none; }
+.bcv-feed { list-style: none; margin: 0; padding: 0; }
+.bcv-ev { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: .8rem; align-items: baseline;
+    padding: .6rem 1.1rem; border-top: 1px solid rgba(196,165,255,.12); font-size: .88rem; }
+.bcv-ev:first-child { border-top: 0; }
+.bcv-tipo { font: 600 .68rem var(--bc-mono, monospace); text-transform: uppercase; letter-spacing: .06em; color: var(--bc-lila, #c4a5ff); }
+.bcv-txt { overflow-wrap: anywhere; min-width: 0; }
+.bcv-meta { font: 400 .72rem var(--bc-mono, monospace); color: var(--bc-tenue, rgba(226,216,247,.64)); white-space: nowrap; }
+.bcv-meta a { color: var(--bc-lila, #c4a5ff); }
+.bcv-nuevo { animation: bcv-entra .6s ease-out; }
+@keyframes bcv-entra { from { background: rgba(245,185,66,.18); } to { background: transparent; } }
+
+.bcv-contratos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1rem; }
+.bcv-card { display: flex; flex-direction: column; gap: .4rem; padding: 1rem 1.1rem; min-width: 0;
+    border: 1px solid rgba(196,165,255,.24); border-radius: 12px; background: rgba(20,11,42,.78); }
+.bcv-card h3 { font: 700 1.05rem "Space Grotesk", Montserrat, sans-serif; color: #fff; margin: 0; }
+.bcv-card p { margin: 0; font-size: .85rem; color: var(--bc-tenue, rgba(226,216,247,.8)); }
+.bcv-card code { font: 400 .78rem var(--bc-mono, monospace); color: var(--bc-lila, #c4a5ff); overflow-wrap: anywhere; }
+.bcv-card a { color: var(--bc-lila, #c4a5ff); }
+.bcv-ok { font-size: .72rem; color: var(--bc-ambar, #f5b942); }
+.bcv-texto { max-width: 760px; }
+.bcv-texto p { color: var(--bc-tinta, #efe9fb); }
+
+@media (max-width: 767px) {
+    .bcv-fila.bcv-cuatro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bcv-ev { grid-template-columns: minmax(0, 1fr) auto; }
+    .bcv-tipo { grid-column: 1 / -1; }
+}
+@media (max-width: 420px) {
+    .bcv-fila { grid-template-columns: minmax(0, 1fr); }
+    .bcv-num { font-size: 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bcv-pulso, .bcv-nuevo { animation: none; }
+}

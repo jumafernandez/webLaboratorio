@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog de la Diplomatura en Blockchain</title>
+    <meta name="description" content="Qué es el gas, para qué sirve una red de prueba y por qué Base Sepolia, una capa 2 de Ethereum, es la red del curso y del juego del sitio." />
+    <meta name="author" content="Cátedra de la Diplomatura" />
+    <meta property="og:title" content="Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog de la Diplomatura en Blockchain" />
+    <meta property="og:description" content="Qué es el gas, para qué sirve una red de prueba y por qué Base Sepolia, una capa 2 de Ethereum, es la red del curso y del juego del sitio." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/blog/testnet-gas-base-sepolia/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-10-27" />
+    <meta property="article:author" content="Cátedra de la Diplomatura" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/blog/testnet-gas-base-sepolia/" />
+    <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../../css/styles.css" rel="stylesheet" />
+    <link href="../../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <script src="../../../js/enhancements.min.js" defer></script>
+    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+</head>
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#informacionPlan">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../plan-de-estudios/#cronograma">Cronograma</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
+                            <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <div class="masthead-heading bb-masthead">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</div>
+            
+        </div>
+    </header>
+
+    <main class="bb-main">
+      <article class="bb-articulo" id="nota">
+        <nav class="bb-migas" aria-label="breadcrumb">
+            <a href="../../">Inicio</a> <span aria-hidden="true">/</span> <a href="../">Blog</a> <span aria-hidden="true">/</span> <span>Curso 1 y Curso 4</span>
+        </nav>
+        <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>3 min de lectura</span></p>
+<p class="bb-lead">Cada operación en una blockchain pública consume recursos de la red y alguien tiene que pagarlos. Ese costo se llama gas, y explica por qué se practica en redes de prueba y por qué elegimos una capa 2.</p>
+
+<h2>Qué es el gas</h2>
+<p>El gas mide el esfuerzo computacional de una operación en Ethereum. Una transferencia simple de ETH consume 21.000 unidades de gas, y un contrato inteligente consume más cuanto más cómputo y almacenamiento use. Lo que pagás es esa cantidad multiplicada por un precio por unidad. La documentación de ethereum.org lo resume así:</p>
+<pre><code>fee = unidades de gas usadas × (base fee + priority fee)</code></pre>
+<p>El <em>base fee</em> lo fija el protocolo según qué tan lleno estuvo el bloque anterior, y se quema (sale de circulación). El <em>priority fee</em> es una propina para quien valida el bloque. Con una transferencia de 21.000 unidades, un base fee de 10 gwei y una propina de 2 gwei, el costo es 252.000 gwei, o 0,000252 ETH. Es el ejemplo que usa la propia documentación.</p>
+
+<h2>Una testnet es una red de práctica</h2>
+<p>Una testnet funciona igual que la red principal, pero su moneda no tiene valor económico oficial. Ethereum.org recomienda Sepolia como la red de prueba por defecto para el desarrollo de aplicaciones. El ETH de prueba se obtiene en una faucet, una web donde ingresás tu dirección y recibís fondos para probar. Equivocarte no te cuesta dinero.</p>
+<p>Un matiz que vale la pena conocer: la documentación aclara que el ETH de prueba no debería tener valor, pero que en la práctica a veces escasea y se han formado mercados para conseguirlo. Por eso las faucets suelen limitar los montos.</p>
+
+<h2>Por qué Base Sepolia</h2>
+<p>Base es una capa 2 (L2) de Ethereum, incubada por Coinbase y construida sobre el OP Stack. Sus transacciones se ejecutan en Base y se publican en Ethereum para heredar su seguridad. La documentación de Base describe que cada transacción tiene dos costos: una tarifa de ejecución en la L2 y una tarifa de seguridad por publicar los datos en la L1. Base Sepolia es su red de pruebas: identificador de cadena 84532, frente a 8453 de la red principal.</p>
+<p>Elegimos Base Sepolia en el curso y en el sitio por razones prácticas y didácticas:</p>
+<ul>
+  <li><strong>Es la red donde va a vivir el trabajo final.</strong> El Curso 4 despliega la pasarela de pago en Base Sepolia, con contratos verificados y una comparativa de gas contra la red principal.</li>
+  <li><strong>No cuesta dinero.</strong> El gas se paga con ETH de prueba.</li>
+  <li><strong>Reproduce el entorno de producción.</strong> El mismo código de Solidity, las mismas herramientas (Foundry, wagmi, un explorador de bloques) y el mismo modelo de costos que una L2 real.</li>
+</ul>
+
+<h2>Quién paga el gas en el sitio</h2>
+<p>En el juego del sitio no necesitás tener ETH, ni instalar una wallet. Tu wallet de juego vive en el navegador y firma lo que querés hacer, y un <em>relayer</em> de la diplomatura verifica esa firma y paga el gas con ETH de prueba. El contrato registra tu dirección como autora. Es una decisión de diseño de la actividad: en una aplicación real, esa tarifa la pone el usuario o la absorbe quien ofrece el servicio, y diseñar esa política es parte del trabajo de un equipo de producto.</p>
+
+<h2>Qué hay que recordar al pasar a producción</h2>
+<ul>
+  <li>Que algo sea barato en una testnet o en una L2 no significa que sea gratuito en producción. Las pruebas de gas se hacen para <em>comparar</em>, no para suponer costo cero.</li>
+  <li>La tarifa de una L2 depende también de la actividad de Ethereum, porque incluye el costo de publicar datos en la L1. Por eso conviene medir en la red real antes de fijar precios.</li>
+  <li>Las claves de una testnet nunca deberían reutilizarse en la red principal.</li>
+</ul>
+
+        <aside class="bb-cta">
+            <h2>Seguí por acá</h2>
+            <p><strong>En el plan de estudios:</strong> la clase 7 del Curso 4 (Layer 2 con foco en Base, testnet vs mainnet y comparativa de gas). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseFour">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
+            <p><strong>En el juego del sitio:</strong> probalo en Nivel 3 y la tarjeta «Base Sepolia · en vivo», donde ves la red de prueba funcionando. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
+        </aside>
+        <section class="bb-fuentes">
+            <h2>Fuentes</h2>
+            <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>
+            <ul>
+            <li><a href="https://ethereum.org/en/developers/docs/gas/" target="_blank" rel="noopener">ethereum.org: Gas and fees</a></li>
+            <li><a href="https://ethereum.org/en/developers/docs/networks/" target="_blank" rel="noopener">ethereum.org: Networks (Sepolia y faucets)</a></li>
+            <li><a href="https://docs.base.org/base-chain/quickstart/connecting-to-base" target="_blank" rel="noopener">Base: Connecting to Base (Base Sepolia, chain ID 84532)</a></li>
+            <li><a href="https://docs.base.org/base-chain/network-information/network-fees" target="_blank" rel="noopener">Base: Network fees</a></li>
+            <li><a href="https://docs.base.org/learn/introduction-to-ethereum/guide-to-base" target="_blank" rel="noopener">Base: Guide to Base</a></li>
+            <li><a href="https://docs.optimism.io/stack/getting-started" target="_blank" rel="noopener">Optimism: OP Stack</a></li>
+            </ul>
+        </section>
+        <section class="bb-mas">
+            <h2>Otras notas</h2>
+            <ul>
+            <li><a href="../hash-y-cadena/">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</a></li>
+            <li><a href="../approve-transferfrom-pasarela/">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</a></li>
+            <li><a href="../reentrancy-checks-effects-interactions/">Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity</a></li>
+            </ul>
+            <p><a href="../">Ver todas las notas del blog</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-0">Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia Artificial de la Universidad de Luján - Argentina.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/scripts.js"></script>
+</body>
+</html>

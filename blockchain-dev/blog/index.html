@@ -1,13 +1,128 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
-    <title>Blog del LICDIA</title>
-    <meta name="robots" content="noindex" />
-    <link rel="canonical" href="https://licdia.unlu.edu.ar/blog/" />
-    <meta http-equiv="refresh" content="0; url=/blog/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Blog de la Diplomatura en Blockchain | LICDIA UNLu</title>
+    <meta name="description" content="Notas técnicas de la Cátedra de la Diplomatura de Posgrado en Blockchain de la UNLu: hashes, gas y capas 2, pasarelas de pago con ERC-20 y seguridad en contratos." />
+    <meta name="author" content="Cátedra de la Diplomatura" />
+    <meta property="og:title" content="Blog de la Diplomatura en Blockchain | LICDIA UNLu" />
+    <meta property="og:description" content="Notas técnicas de la Cátedra de la Diplomatura de Posgrado en Blockchain de la UNLu: hashes, gas y capas 2, pasarelas de pago con ERC-20 y seguridad en contratos." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/blog/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/blog/" />
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link href="../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
+    <link href="../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <script src="../../js/enhancements.min.js" defer></script>
+    <script src="../../js/bc-cadena.js?v=2026-10-26a" defer></script>
 </head>
-<body>
-    <p><a href="/blog/">El blog de la diplomatura ahora es parte del blog del LICDIA</a></p>
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../"><img src="../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../"><img src="../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../"><img src="../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#informacionPlan">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../plan-de-estudios/#cronograma">Cronograma</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
+                            <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <div class="masthead-heading bb-masthead">Blog de la Diplomatura en Blockchain</div>
+            <p class="bb-sub">Notas cortas sobre lo que se enseña en los cuatro cursos, con código que compila y fuentes oficiales.</p>
+        </div>
+    </header>
+
+    <main class="bb-main">
+      <section class="bb-indice">
+        <nav class="bb-migas" aria-label="breadcrumb"><a href="../">Inicio</a> <span aria-hidden="true">/</span> <span>Blog</span></nav>
+        <ul class="bb-lista">
+        <li class="bb-tarjeta">
+            <p class="bb-kicker">Curso 1 · Fundamentos</p>
+            <h2><a href="hash-y-cadena/">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</a></h2>
+            <p>Qué propiedades tiene una función hash y cómo el encadenamiento de hashes hace detectable cualquier cambio en un bloque, con un experimento de 20 líneas en Python.</p>
+            <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>4 min</span></p>
+        </li>
+        <li class="bb-tarjeta">
+            <p class="bb-kicker">Curso 1 y Curso 4</p>
+            <h2><a href="testnet-gas-base-sepolia/">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</a></h2>
+            <p>Qué es el gas, para qué sirve una red de prueba y por qué Base Sepolia, una capa 2 de Ethereum, es la red del curso y del juego del sitio.</p>
+            <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>3 min</span></p>
+        </li>
+        <li class="bb-tarjeta">
+            <p class="bb-kicker">Curso 4 · DApps</p>
+            <h2><a href="approve-transferfrom-pasarela/">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</a></h2>
+            <p>Por qué pagar con un token ERC-20 requiere dos transacciones, y un contrato de pasarela en Solidity que cobra con transferFrom y emite un NFT ERC-721 como recibo.</p>
+            <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>3 min</span></p>
+        </li>
+        <li class="bb-tarjeta">
+            <p class="bb-kicker">Curso 4 · Seguridad</p>
+            <h2><a href="reentrancy-checks-effects-interactions/">Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity</a></h2>
+            <p>Cómo un contrato puede ser vaciado por una llamada que vuelve a entrar, y cómo el patrón Checks-Effects-Interactions y ReentrancyGuard lo evitan, con código que compila.</p>
+            <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>4 min</span></p>
+        </li>
+        </ul>
+        <p class="bb-pie-indice">Las novedades generales del laboratorio están en el <a href="/blog/">blog del LICDIA</a>. Para ver el plan completo, visitá el <a href="../plan-de-estudios/">plan de estudios</a>, o <a href="../?bcw=open">probá el juego</a>.</p>
+      </section>
+    </main>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-0">Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia Artificial de la Universidad de Luján - Argentina.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/scripts.js"></script>
 </body>
 </html>

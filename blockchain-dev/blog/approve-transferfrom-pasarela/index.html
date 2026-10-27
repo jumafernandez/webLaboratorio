@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog de la Diplomatura en Blockchain</title>
+    <meta name="description" content="Por qué pagar con un token ERC-20 requiere dos transacciones, y un contrato de pasarela en Solidity que cobra con transferFrom y emite un NFT ERC-721 como recibo." />
+    <meta name="author" content="Cátedra de la Diplomatura" />
+    <meta property="og:title" content="approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog de la Diplomatura en Blockchain" />
+    <meta property="og:description" content="Por qué pagar con un token ERC-20 requiere dos transacciones, y un contrato de pasarela en Solidity que cobra con transferFrom y emite un NFT ERC-721 como recibo." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/blog/approve-transferfrom-pasarela/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-10-27" />
+    <meta property="article:author" content="Cátedra de la Diplomatura" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/blog/approve-transferfrom-pasarela/" />
+    <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../../css/styles.css" rel="stylesheet" />
+    <link href="../../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <script src="../../../js/enhancements.min.js" defer></script>
+    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+</head>
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#informacionPlan">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../plan-de-estudios/#cronograma">Cronograma</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
+                            <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <div class="masthead-heading bb-masthead">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</div>
+            
+        </div>
+    </header>
+
+    <main class="bb-main">
+      <article class="bb-articulo" id="nota">
+        <nav class="bb-migas" aria-label="breadcrumb">
+            <a href="../../">Inicio</a> <span aria-hidden="true">/</span> <a href="../">Blog</a> <span aria-hidden="true">/</span> <span>Curso 4 · DApps</span>
+        </nav>
+        <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>3 min de lectura</span></p>
+<p class="bb-lead">Pagar con un token ERC-20 no es mandar plata a un contrato: es darle permiso a un contrato para que la cobre. Ese permiso explica el patrón de dos pasos que usan casi todas las pasarelas Web3.</p>
+
+<h2>Por qué hacen falta dos transacciones</h2>
+<p>El ETH se envía junto con la llamada a un contrato. Un token ERC-20 no: es un registro de saldos que vive dentro del contrato del token, y un contrato externo no puede tocarlo por su cuenta. El estándar EIP-20 resuelve esto con un mecanismo de autorización:</p>
+<ul>
+  <li><code>approve(spender, valor)</code> autoriza a <code>spender</code> a retirar de tu cuenta, varias veces, hasta <code>valor</code>. Si lo volvés a llamar, el nuevo valor reemplaza al anterior.</li>
+  <li><code>allowance(owner, spender)</code> devuelve cuánto le queda por retirar.</li>
+  <li><code>transferFrom(from, to, valor)</code> mueve tokens de <code>from</code> a <code>to</code> y es la vía que usa un contrato para cobrar en tu nombre. Debe fallar si <code>from</code> no lo autorizó.</li>
+</ul>
+<p>Entonces, una compra son dos firmas: primero <code>approve</code> sobre el token, después <code>pagar</code> sobre la pasarela. Es lo que ves en el Nivel 4 del juego.</p>
+
+<h2>La pasarela mínima</h2>
+<p>El siguiente contrato cobra en un token ERC-20 y emite un NFT como recibo. Usa OpenZeppelin 5.x, y lo compilamos y probamos con Foundry antes de publicar esta nota:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+/// NFT que hace de recibo. Solo la pasarela puede emitirlo.
+contract Recibo is ERC721 {
+    address public immutable pasarela;
+    uint256 public proximoId;
+
+    error SoloPasarela();
+
+    constructor(address _pasarela) ERC721("Recibo de pago", "RCBO") {
+        pasarela = _pasarela;
+    }
+
+    function emitir(address a) external returns (uint256 id) {
+        if (msg.sender != pasarela) revert SoloPasarela();
+        id = proximoId++;
+        _safeMint(a, id);
+    }
+}
+
+contract Pasarela {
+    using SafeERC20 for IERC20;
+
+    IERC20 public immutable token;
+    address public immutable comercio;
+    Recibo public immutable recibo;
+
+    event Pago(address indexed pagador, bytes32 indexed producto, uint256 monto, uint256 reciboId);
+
+    constructor(IERC20 _token, address _comercio) {
+        token = _token;
+        comercio = _comercio;
+        recibo = new Recibo(address(this));
+    }
+
+    /// El pagador tiene que haber hecho antes token.approve(address(this), monto).
+    function pagar(bytes32 producto, uint256 monto) external returns (uint256 reciboId) {
+        // La pasarela mueve los tokens del pagador gracias al allowance.
+        token.safeTransferFrom(msg.sender, comercio, monto);
+        // El recibo se emite al final, cuando el cobro ya se hizo.
+        reciboId = recibo.emitir(msg.sender);
+        emit Pago(msg.sender, producto, monto, reciboId);
+    }
+}</code></pre>
+
+<h2>Qué decisiones hay detrás</h2>
+<p><strong>SafeERC20.</strong> Algunos tokens no cumplen el estándar al pie de la letra, por ejemplo no devuelven el booleano esperado. <code>safeTransferFrom</code> maneja esos casos y revierte si la transferencia falla, en lugar de seguir como si hubiera funcionado.</p>
+<p><strong>El recibo es un NFT.</strong> Un ERC-721 es único por identificador y queda en la wallet del pagador, así que es una prueba verificable de que el pago ocurrió. El evento <code>Pago</code> permite que un frontend o un indexador reconstruya el historial sin leer todo el estado.</p>
+<p><strong>Solo la pasarela emite.</strong> Si cualquiera pudiera llamar a <code>emitir</code>, los recibos no probarían nada. El control es una comparación contra la dirección inmutable de la pasarela.</p>
+<p><strong><code>_safeMint</code> y el orden de las operaciones.</strong> Si el destinatario es un contrato, <code>_safeMint</code> invoca <code>onERC721Received</code> en él, lo cual entrega el control a código ajeno. Por eso el recibo se emite después del cobro. Es el mismo criterio de la nota sobre reentrancy: primero los efectos propios, al final las llamadas externas. En nuestras pruebas, una cuenta que es un contrato sin esa función no puede recibir el recibo y la transacción entera revierte.</p>
+
+<h2>El permiso también es un riesgo</h2>
+<p>Un <code>approve</code> es una autorización con consecuencias. Un permiso mayor al necesario, o dado a un contrato con fallas, expone tus fondos. Algunas buenas prácticas:</p>
+<ul>
+  <li>Autorizá el monto de la compra y no más. En nuestro contrato, el allowance baja a cero tras el pago, y así lo verifica nuestra prueba.</li>
+  <li>El estándar recomienda que las interfaces pongan el allowance en 0 antes de cambiarlo por otro valor distinto, para evitar una condición de carrera conocida.</li>
+  <li>Revisá periódicamente a qué contratos les diste permiso.</li>
+</ul>
+
+        <aside class="bb-cta">
+            <h2>Seguí por acá</h2>
+            <p><strong>En el plan de estudios:</strong> el Curso 4, donde construís la pasarela de pago completa (ERC-20, NFT recibo y PaymentGateway). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseFour">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
+            <p><strong>En el juego del sitio:</strong> probalo en Nivel 4, donde firmás el approve, pagás y recibís el NFT de recibo. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
+        </aside>
+        <section class="bb-fuentes">
+            <h2>Fuentes</h2>
+            <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>
+            <ul>
+            <li><a href="https://eips.ethereum.org/EIPS/eip-20" target="_blank" rel="noopener">EIP-20: Token Standard</a></li>
+            <li><a href="https://docs.openzeppelin.com/contracts/5.x/api/token/erc721" target="_blank" rel="noopener">OpenZeppelin Contracts 5.x: ERC721 (_mint y _safeMint)</a></li>
+            <li><a href="https://docs.openzeppelin.com/contracts/5.x/api/utils" target="_blank" rel="noopener">OpenZeppelin Contracts 5.x: Utilities (ReentrancyGuard, Address)</a></li>
+            </ul>
+        </section>
+        <section class="bb-mas">
+            <h2>Otras notas</h2>
+            <ul>
+            <li><a href="../hash-y-cadena/">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</a></li>
+            <li><a href="../testnet-gas-base-sepolia/">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</a></li>
+            <li><a href="../reentrancy-checks-effects-interactions/">Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity</a></li>
+            </ul>
+            <p><a href="../">Ver todas las notas del blog</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-0">Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia Artificial de la Universidad de Luján - Argentina.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/scripts.js"></script>
+</body>
+</html>

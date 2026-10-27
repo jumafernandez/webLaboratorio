@@ -102,8 +102,9 @@
     const path = window.location.pathname;
     let href, label;
     if (path.includes('/blockchain-dev')) {
-      href = '/blockchain-dev/inscripcion-blockchain-dev/';
-      label = 'Inscribite a Blockchain';
+      // 2026 inscription is closed: point to the 2027 waiting list
+      href = '/blockchain-dev/espera-2027/';
+      label = 'Lista de espera 2027';
     } else if (path.includes('/dev-ia')) {
       href = '/dev-ia/inscripcion-dev-ia/';
       label = 'Inscribite a IA Generativa';
@@ -112,7 +113,7 @@
     }
 
     // No mostrar SI estamos ya en la página de inscripción o gracias
-    if (path.includes('/inscripcion-') || path.includes('/gracias-')) return;
+    if (path.includes('/inscripcion-') || path.includes('/gracias-') || path.includes('/espera-')) return;
 
     const a = document.createElement('a');
     a.className = 'sticky-cta';

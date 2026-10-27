@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "network": {
+    "chainId": 84532,
+    "name": "Base Sepolia",
+    "explorer": "https://base-sepolia.blockscout.com",
+    "rpc": "https://sepolia.base.org"
+  },
+  "projects": []
+}

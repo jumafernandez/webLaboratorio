@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Proyectos reales de las y los estudiantes de la Diplomatura en Blockchain de la UNLu: contratos desplegados en Base Sepolia, con enlace al explorador y verificación en vivo." />
+    <meta name="author" content="LICDIA - UNLu" />
+    <meta property="og:title" content="Proyectos de estudiantes - Diplomatura en Blockchain - UNLu" />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/proyectos/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/proyectos/" />
+    <title>Proyectos de estudiantes - Diplomatura en Blockchain - LICDIA</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link href="../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
+    <link href="../../css/bc-proyectos.css?v=2026-10-27a" rel="stylesheet" />
+    <script src="../../js/enhancements.min.js" defer></script>
+    <script src="../../js/bc-proyectos.js?v=2026-10-27a" defer></script>
+</head>
+
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="#page-top"><img src="../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../plan-de-estudios/">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
+                            <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <p class="bc-rotulo">proyectos de estudiantes · Base Sepolia</p>
+            <div class="masthead-heading">Proyectos de estudiantes</div>
+        </div>
+    </header>
+
+    <section class="page-section bc-oscuro bcp" id="galeria">
+        <div class="container">
+            <p class="bcp-intro">Acá se publica trabajo real de la diplomatura: contratos desplegados en la testnet Base Sepolia, con enlace al explorador para que cualquiera pueda leer el código y verificar que existe. Nada se muestra sin el consentimiento de sus autores.</p>
+
+            <div class="bcp-barra" id="bcpBarra" hidden>
+                <label class="bcp-filtro">Curso
+                    <select id="bcpCurso"><option value="">Todos</option></select>
+                </label>
+                <label class="bcp-filtro">Etiqueta
+                    <select id="bcpTag"><option value="">Todas</option></select>
+                </label>
+                <label class="bcp-check"><input type="checkbox" id="bcpVivo" /> Verificar en vivo que cada dirección tenga código</label>
+            </div>
+            <p class="bcp-estado" id="bcpEstado" role="status" aria-live="polite">Cargando proyectos…</p>
+
+            <div class="bcp-grilla" id="bcpGrilla"></div>
+
+            <div class="bcp-vacio" id="bcpVacio" hidden>
+                <div class="bcp-vacio-bloque">
+                    <div class="bcp-vacio-cab"><span>bloque pendiente</span><code>0x… sin minar</code></div>
+                    <h2>Todavía no hay proyectos publicados</h2>
+                    <p>Los primeros llegan con el Curso 4, <em>Desarrollo de Aplicaciones y DApps Blockchain</em>, que arranca el 5 de noviembre de 2026 y tiene 7 clases hasta el 26 de noviembre. La propuesta del trabajo final se presenta el 19 de noviembre y la entrega es el 30 de enero de 2027. Recién después de eso, y con el visto bueno de cada equipo, aparecen acá.</p>
+                    <p>Cuando estén, cada proyecto va a mostrar:</p>
+                    <ul>
+                        <li>Contratos propios (por ejemplo un token ERC-20, un recibo ERC-721 y una pasarela de pago que los usa) desplegados en Base Sepolia.</li>
+                        <li>Código verificado en Sourcify y visible en <a href="https://base-sepolia.blockscout.com" target="_blank" rel="noopener">Blockscout</a>.</li>
+                        <li>Un frontend Web3 que se conecta a esos contratos y, cuando el equipo quiere, el repositorio.</li>
+                    </ul>
+                    <p>Los tipos de proyecto integrador que se pueden encarar (tokenización de activos, DeFi y otros) están en <a href="../#proyectos">Lo que vas a construir</a>, en la portada. Esta página es la otra mitad: lo que efectivamente se construyó.</p>
+                    <p><a class="bc-boton-borde" href="../plan-de-estudios/">Ver el plan de estudios</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-2">
+                Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia
+                Artificial de la Universidad de Luján
+                <a href="https://resoluciones.unlu.edu.ar/documento.frame.php?cod=128241" target="_blank" rel="noopener"
+                    class="text-decoration-none text-info">[Disposición del Grupo de Investigación]</a>
+                <a href="https://drive.google.com/file/d/1AddV4FMq70bOO4REUgAVppe5i4Vw9h_W/view" target="_blank" rel="noopener"
+                    class="text-decoration-none text-info">[Resolución del Laboratorio]</a>
+                - Argentina. Todos los derechos reservados.
+            </p>
+            <p class="mb-0">
+                Desarrollada por
+                <a href="https://www.linkedin.com/in/lucas-santill%C3%A1n-a50166263/" target="_blank" rel="noopener"
+                    class="fw-bold text-decoration-none text-info">Lucas Santillan</a>
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/scripts.js"></script>
+</body>
+</html>

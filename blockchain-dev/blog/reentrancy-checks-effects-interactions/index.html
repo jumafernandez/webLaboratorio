@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity | Blog de la Diplomatura en Blockchain</title>
+    <meta name="description" content="Cómo un contrato puede ser vaciado por una llamada que vuelve a entrar, y cómo el patrón Checks-Effects-Interactions y ReentrancyGuard lo evitan, con código que compila." />
+    <meta name="author" content="Cátedra de la Diplomatura" />
+    <meta property="og:title" content="Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity | Blog de la Diplomatura en Blockchain" />
+    <meta property="og:description" content="Cómo un contrato puede ser vaciado por una llamada que vuelve a entrar, y cómo el patrón Checks-Effects-Interactions y ReentrancyGuard lo evitan, con código que compila." />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/blog/reentrancy-checks-effects-interactions/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-10-27" />
+    <meta property="article:author" content="Cátedra de la Diplomatura" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/blog/reentrancy-checks-effects-interactions/" />
+    <link rel="icon" type="image/x-icon" href="../../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../../css/styles.css" rel="stylesheet" />
+    <link href="../../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <script src="../../../js/enhancements.min.js" defer></script>
+    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+</head>
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../../"><img src="../../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#informacionPlan">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../plan-de-estudios/#cronograma">Cronograma</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
+                            <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <div class="masthead-heading bb-masthead">Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity</div>
+            
+        </div>
+    </header>
+
+    <main class="bb-main">
+      <article class="bb-articulo" id="nota">
+        <nav class="bb-migas" aria-label="breadcrumb">
+            <a href="../../">Inicio</a> <span aria-hidden="true">/</span> <a href="../">Blog</a> <span aria-hidden="true">/</span> <span>Curso 4 · Seguridad</span>
+        </nav>
+        <p class="bb-meta"><span>Cátedra de la Diplomatura</span><span aria-hidden="true">·</span><time datetime="2026-10-27">27/10/2026</time><span aria-hidden="true">·</span><span>4 min de lectura</span></p>
+<p class="bb-lead">Reentrancy es la vulnerabilidad en la que un contrato, al llamar a otro, le entrega el control y recibe una llamada de vuelta antes de haber terminado de actualizar su propio estado. Se previene con un orden de operaciones simple.</p>
+
+<h2>Qué ocurre exactamente</h2>
+<p>Según la documentación de Solidity, cuando un contrato llama a otro o le envía ETH, el contrato receptor toma el control y puede volver a llamar al contrato original antes de que la primera llamada termine. Si el original todavía no actualizó su estado, el atacante lo explota con datos viejos. Y no se limita a enviar ETH: cualquier llamada a otro contrato puede dar esa oportunidad.</p>
+
+<h2>Una bóveda vulnerable</h2>
+<p>Una bóveda guarda saldos por dirección. Su función <code>retirar</code> envía el dinero y recién después pone el saldo en cero:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+contract BovedaVulnerable {
+    mapping(address => uint256) public saldo;
+
+    function depositar() external payable {
+        saldo[msg.sender] += msg.value;
+    }
+
+    function retirar() external {
+        uint256 monto = saldo[msg.sender];
+        require(monto > 0, "sin saldo");
+
+        (bool ok, ) = msg.sender.call{value: monto}(""); // interacción
+        require(ok, "fallo el envio");
+
+        saldo[msg.sender] = 0; // efecto, demasiado tarde
+    }
+}</code></pre>
+<p>El atacante despliega un contrato cuya función <code>receive</code> se ejecuta cada vez que le llega ETH, y desde ahí vuelve a llamar a <code>retirar</code>:</p>
+<pre><code>interface IBoveda {
+    function depositar() external payable;
+    function retirar() external;
+}
+
+contract Atacante {
+    IBoveda public immutable boveda;
+
+    constructor(IBoveda _boveda) {
+        boveda = _boveda;
+    }
+
+    function atacar() external payable {
+        boveda.depositar{value: msg.value}();
+        boveda.retirar();
+    }
+
+    receive() external payable {
+        if (address(boveda).balance >= 1 ether) {
+            boveda.retirar();
+        }
+    }
+}</code></pre>
+<p>La secuencia es: el atacante deposita 1 ETH y llama a <code>retirar</code>. La bóveda lee su saldo (1 ETH) y le envía el ETH. En ese envío se ejecuta <code>receive</code>, que llama a <code>retirar</code> otra vez. El saldo sigue siendo 1 ETH porque la línea que lo pone en cero todavía no corrió, así que la bóveda paga de nuevo. Se repite hasta vaciarla. En la prueba que escribimos, la bóveda tenía 10 ETH de otras personas y el atacante depositó 1: terminó con 11 ETH.</p>
+
+<h2>Checks-Effects-Interactions</h2>
+<p>La solución que recomienda la documentación de Solidity es el patrón Checks-Effects-Interactions: primero se validan las condiciones, después se actualiza el estado y recién al final se hacen las llamadas externas.</p>
+<pre><code>contract BovedaSegura {
+    mapping(address => uint256) public saldo;
+
+    function depositar() external payable {
+        saldo[msg.sender] += msg.value;
+    }
+
+    function retirar() external {
+        uint256 monto = saldo[msg.sender];
+        require(monto > 0, "sin saldo"); // 1. Checks
+
+        saldo[msg.sender] = 0; // 2. Effects
+
+        (bool ok, ) = msg.sender.call{value: monto}(""); // 3. Interactions
+        require(ok, "fallo el envio");
+    }
+}</code></pre>
+<p>Ahora, cuando el atacante vuelve a entrar desde <code>receive</code>, su saldo ya es cero. El <code>require</code> falla, el envío interno revierte y toda la transacción se deshace: la bóveda conserva sus 10 ETH. Es lo que comprobamos con una prueba en Foundry.</p>
+
+<h2>Una segunda barrera: ReentrancyGuard</h2>
+<p>OpenZeppelin ofrece el módulo <code>ReentrancyGuard</code>, cuyo modificador <code>nonReentrant</code> impide que una función se llame a sí misma, directa o indirectamente, mientras se está ejecutando:</p>
+<pre><code>import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract BovedaConGuard is ReentrancyGuard {
+    // ... saldo y depositar iguales ...
+
+    function retirar() external nonReentrant {
+        uint256 monto = saldo[msg.sender];
+        require(monto > 0, "sin saldo");
+        saldo[msg.sender] = 0;
+        (bool ok, ) = msg.sender.call{value: monto}("");
+        require(ok, "fallo el envio");
+    }
+}</code></pre>
+<p>Tiene límites que conviene conocer. La documentación aclara que dos funciones <code>nonReentrant</code> no pueden llamarse entre sí; la solución sugerida es mover la lógica a funciones <code>private</code> y dejar el modificador solo en los puntos de entrada. Tampoco reemplaza al patrón: el guard es una protección adicional, no una excusa para ordenar mal el código. Existe además una variante, <code>ReentrancyGuardTransient</code>, que usa almacenamiento transitorio (EIP-1153), y la documentación de OpenZeppelin indica que la versión basada en storage está marcada como deprecada para la v6.0.</p>
+
+<h2>Reglas prácticas</h2>
+<ul>
+  <li>Ordená cada función pública: condiciones, estado, llamadas externas.</li>
+  <li>Considerá "externa" cualquier llamada a otro contrato, incluso a uno que creas confiable, y también la emisión de un NFT con <code>_safeMint</code>, que invoca código del receptor.</li>
+  <li>Pensá en varios contratos a la vez: la documentación advierte que un contrato puede cambiar el estado de otro del que dependés.</li>
+  <li>Auditá con herramientas de análisis estático, como Slither, y escribí una prueba que intente el ataque.</li>
+</ul>
+
+        <aside class="bb-cta">
+            <h2>Seguí por acá</h2>
+            <p><strong>En el plan de estudios:</strong> la clase 4 del Curso 4 (patrones de seguridad: reentrancy, CEI, ReentrancyGuard y auditoría con Slither y Aderyn). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseFour">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
+            <p><strong>En el juego del sitio:</strong> probalo en el desafío «Robá la bóveda», donde atacás un contrato vulnerable. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
+        </aside>
+        <section class="bb-fuentes">
+            <h2>Fuentes</h2>
+            <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>
+            <ul>
+            <li><a href="https://docs.soliditylang.org/en/latest/security-considerations.html" target="_blank" rel="noopener">Documentación de Solidity: Security Considerations (Reentrancy)</a></li>
+            <li><a href="https://docs.openzeppelin.com/contracts/5.x/api/utils" target="_blank" rel="noopener">OpenZeppelin Contracts 5.x: Utilities (ReentrancyGuard)</a></li>
+            <li><a href="https://docs.openzeppelin.com/contracts/5.x/api/token/erc721" target="_blank" rel="noopener">OpenZeppelin Contracts 5.x: ERC721</a></li>
+            </ul>
+        </section>
+        <section class="bb-mas">
+            <h2>Otras notas</h2>
+            <ul>
+            <li><a href="../hash-y-cadena/">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</a></li>
+            <li><a href="../testnet-gas-base-sepolia/">Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia</a></li>
+            <li><a href="../approve-transferfrom-pasarela/">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</a></li>
+            </ul>
+            <p><a href="../">Ver todas las notas del blog</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-0">Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia Artificial de la Universidad de Luján - Argentina.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/scripts.js"></script>
+</body>
+</html>
