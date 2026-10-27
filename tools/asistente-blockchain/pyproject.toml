@@ -1,0 +1,17 @@
+[project]
+name = "asistente-blockchain"
+version = "0.1.0"
+description = "Asistente-juego de la Diplomatura en Blockchain (LICDIA, UNLu)"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic==2.1.0",
+    "fastapi==0.157.0",
+    "uvicorn[standard]==0.54.0",
+    "web3==8.0.0",
+]
+
+[dependency-groups]
+dev = ["pytest", "httpx"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

@@ -1,0 +1,13 @@
+.env
+.venv/
+datos/
+__pycache__/
+tests/.datos-prueba/
+tests/e2e/capturas/
+.pytest_cache/
+.ruff_cache/
+*.pw
+*.keystore
+.wallet/
+node_modules/
+*.log
