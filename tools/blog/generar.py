@@ -5,8 +5,8 @@ Cada entrada es Markdown (admite HTML) con un encabezado entre dos líneas '---'
   tema (ia | blockchain | datos), idioma (es | en), resumen
   y, si hacen falta: imagen, imagen_alt, imagen_vertical (si), video (id de YouTube), etiqueta, slug, codigo (si).
 Escribe blog/<slug>/index.html, blog/index.html y blog/feed.xml; el bloque de novedades de la portada y las URL del blog
-en sitemap.xml (entre <!-- BLOG:INICIO --> y <!-- BLOG:FIN -->); y las redirecciones de /dev-ia/blog/ y
-/blockchain-dev/blog/ al blog.
+en sitemap.xml (entre <!-- BLOG:INICIO --> y <!-- BLOG:FIN -->); y la redirección de /dev-ia/blog/ al blog
+(/blockchain-dev/blog/ tiene sus propias notas y no se toca).
 Uso: tools/blog/.venv/bin/python tools/blog/generar.py
 """
 
@@ -35,7 +35,7 @@ TEMAS = {"ia": ("Inteligencia artificial", "Artificial intelligence"), "blockcha
          "datos": ("Ciencia de datos", "Data science")}
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre",
          "diciembre"]
-REDIRECCIONES = ["dev-ia/blog", "blockchain-dev/blog"]
+REDIRECCIONES = ["dev-ia/blog"]  # blockchain-dev/blog has its own hand-written notes
 EN_PORTADA = 3   # entradas en el bloque de novedades de la portada (sin los artículos técnicos, que están en inglés)
 
 
