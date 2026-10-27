@@ -7,9 +7,14 @@ completo da una **insignia** (un NFT en la wallet del visitante); con las cuatro
 recorrido. Por el chat se puede preguntar cualquier cosa de la diplomatura: responde un agente con Claude que conoce
 todo el sitio y que maneja el escenario (arranca niveles, muestra partes del sitio, lleva a secciones de la página).
 
-Igual que el asistente de dev-ia, se abre **a pantalla completa** al entrar: una portada sobre un fondo animado (carrusel
+El sitio convencional carga primero: el juego **no se abre solo** (el lanzador es lo único que carga de entrada; `main.js`
+trae el resto, `app.js` y los niveles, la primera vez que se pide). Se abre desde el lanzador, el selector, un botón
+`data-bcw-nivel`, `?bcw=open` / `?bcw=c1` en un enlace, o solo si la persona lo eligió antes (queda `bcw-vista=juego` en
+localStorage). `?vista=sitio` siempre arranca en el sitio. Abierto se comporta como un diálogo modal (`role="dialog"
+aria-modal`, el resto de la página `inert`, Tab atrapado, Escape cierra y el foco vuelve a quien lo abrió). A pantalla
+completa: una portada sobre un fondo animado (carrusel
 3D con los bloques reales de la cadena del navegador minándose en vivo, constelación de nodos y hashes flotando), un
-selector **Juego | Sitio convencional** que se recuerda (y `?vista=sitio` o un ancla en la URL arrancan en el sitio), y
+selector **Juego | Sitio convencional** que se recuerda, y
 **Ver por dentro**, que muestra la cadena bloque por bloque y lo que hizo el agente en la última pregunta (herramientas,
 tokens, caché, costo, tiempos). Con "reducir movimiento" activado en el sistema, el fondo se dibuja quieto.
 
@@ -37,7 +42,7 @@ visitante (EIP-191) y la ejecuta el relayer del backend, que paga el gas (ver "C
 ```
 navegador                                            servidor (FastAPI)
 ┌───────────────────────────────────────────┐        ┌──────────────────────────────────────────┐
-│ widget/main.js   flujos, chat, escenario  │  SSE   │ backend/app.py                           │
+│ widget/app.js    flujos, chat, escenario  │  SSE   │ backend/app.py                           │
 │   ├─ niveles/*.js   un módulo por nivel   │◄──────►│   POST /blockchain-dev/api/chat          │
 │   ├─ cadena.js      SHA-256, PoW, cadena  │        │     Claude + herramientas = acciones UI  │
 │   ├─ juego.js       insignias, progreso   │        │   GET  /blockchain-dev/api/estado        │
@@ -47,7 +52,7 @@ navegador                                            servidor (FastAPI)
                                                      └──────────────────────────────────────────┘
 ```
 
-**Widget** (`widget/`, módulos ES sin build). Todo nivel, tema o turno del agente corre como un *flujo*; empezar uno
+**Widget** (`widget/`, módulos ES sin build; `main.js` es solo el lanzador y carga `app.js` a pedido). Todo nivel, tema o turno del agente corre como un *flujo*; empezar uno
 nuevo cancela el anterior (su pregunta pendiente se resuelve y cualquier llamada posterior a `ctx` corta), así las
 animaciones largas se detienen solas. Los niveles usan una API chica: `ctx.bot()`, `ctx.choose()`, `ctx.ask()`,
 `ctx.until()` (esperar algo del escenario), `ctx.scene()`, `ctx.award()`, `ctx.bridge()`. Sin backend, el widget pasa
@@ -57,7 +62,7 @@ a rutear por palabras clave: la página nunca se rompe.
 `backend/llm.json` (Sonnet 5.5 con `between_tools`, igual que dev-ia), topes y registro anónimo con
 `backend/registro.py` **copiado sin cambios** de `tools/asistente-dev-ia`. Diferencias:
 
-- **Sin embeddings.** El sitio de Blockchain entero (~76 KB, ~20 mil tokens) va en la parte fija del prompt de sistema
+- **Sin embeddings.** El sitio de Blockchain entero (~113 KB) va en la parte fija del prompt de sistema
   con prompt caching; `ingesta/extraer_sitio.py` lo regenera. A partir de la segunda pregunta en cinco minutos esa parte
   se cobra al 10 %.
 - **Herramientas que manejan el escenario.** `jugar_nivel(nivel, ejemplo)`, `mostrar_sitio(tema, curso)`,
@@ -190,3 +195,28 @@ Anvil en las pruebas. Para la red de prueba pública:
    (pide la contraseña en la terminal, verifica con Sourcify y escribe `contratos/deploy/84532.json`).
 3. En la VM: `CADENA_MODO=real`, `CADENA_RPC`, `CADENA_CHAIN_ID=84532`, `CADENA_DEPLOY` y el keystore por
    `LoadCredential=` (ver `despliegue/asistente-blockchain.env.example`), y recargar nginx con el snippet nuevo.
+
+
+## Excluir las visitas del equipo de la medición
+
+Abrir cualquier página del sitio con `?bcw_equipo=1` (por ejemplo `https://licdia.unlu.edu.ar/blockchain-dev/?bcw_equipo=1`)
+deja una marca en el localStorage de ese navegador: mientras esté, el widget no manda ningún evento de medición (ni
+`visita`, ni niveles, ni `pregunta_agente`, que el servidor solo escribe si el pedido trae el id de sesión) y tampoco
+suma a «hoy los visitantes ganaron…». `?bcw_equipo=0` la saca. Hay que hacerlo una vez por navegador y perfil; los
+modos privados la pierden. Las preguntas al agente siguen en el registro de costos (`preguntas`).
+
+## Medición y registro de preguntas
+
+`pregunta_agente` lo escribe el servidor al terminar el turno (el widget manda su id de sesión en `/api/chat`), así que no
+depende de que la página siga abierta. Cada pregunta admitida deja su fila en `preguntas` en el momento de admitirla
+(`Registro.iniciar`), con `error = interrumpida` hasta que el turno cierra: el contador de topes (`uso`) y el registro
+coinciden siempre; las filas `interrumpida` son páginas cerradas a mitad de la respuesta.
+
+## Regenerar el conocimiento del chatbot
+
+```
+python3 tools/asistente-blockchain/ingesta/extraer_sitio.py        # desde la raíz del sitio (o de la copia de trabajo)
+```
+
+Escribe `conocimiento/sitio.md` con todas las páginas de `blockchain-dev` (menos `gracias-*`, `beca`, `programas-hidden`) y
+falla si aparece «Prados». Después de regenerar hay que desplegar el backend (la parte fija del prompt se lee al arrancar).

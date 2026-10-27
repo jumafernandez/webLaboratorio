@@ -16,7 +16,7 @@ const paso = async (nombre, ok) => {
   if (!(await ok)) fallas.push(nombre);
 };
 
-await b.ir("/blockchain-dev/");
+await b.ir("/blockchain-dev/?bcw=open");
 await paso("portada visible", b.esperar(`!!document.querySelector('.bcw-panel.bcw-open .bcw-hero')`));
 await sleep(1500);
 await b.captura("01-portada");
