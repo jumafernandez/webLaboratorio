@@ -1,6 +1,6 @@
 // Anonymous conversion funnel (backend/medicion.py). One random session id per tab (sessionStorage), event names
 // from a fixed list and a few short identifiers as data: never visitor text, never the address. Off when the browser
-// sends Do Not Track or /estado says "medicion": false. Events wait in memory until /estado answers, so nothing is
+// sends Do Not Track, for the team's own browsers (esEquipo) or /estado says "medicion": false. Events wait in memory until /estado answers, so nothing is
 // sent when the backend is missing. Nothing here may ever throw into the game.
 
 const URL_M = "/blockchain-dev/api/m";
@@ -15,7 +15,22 @@ const dnt = (() => {
   }
 })();
 
-let activa = dnt ? false : null; // null = waiting for /estado
+// The team's own visits stay out of the funnel: opening any page with ?bcw_equipo=1 sets a flag in this browser
+// (localStorage), ?bcw_equipo=0 clears it. While it is set the widget sends no metrics at all.
+const EQUIPO = "bcw-equipo";
+export const esEquipo = (() => {
+  try {
+    const q = new URLSearchParams(location.search).get("bcw_equipo");
+    if (q === "1") localStorage.setItem(EQUIPO, "1");
+    else if (q === "0") localStorage.removeItem(EQUIPO);
+    return localStorage.getItem(EQUIPO) === "1";
+  } catch {
+    return false;
+  }
+})();
+if (esEquipo) console.info("Diplomatura Blockchain: visita del equipo, sin medición. ?bcw_equipo=0 la vuelve a activar.");
+
+let activa = dnt || esEquipo ? false : null; // null = waiting for /estado
 let cola = [];
 let sesion = null;
 
@@ -60,6 +75,15 @@ function enviar(cuerpo) {
   }
 }
 
+// Session id to hand to the server (it writes pregunta_agente itself); null when nothing is being measured.
+export function sesionMedicion() {
+  try {
+    return activa === false ? null : idSesion();
+  } catch {
+    return null;
+  }
+}
+
 export function track(evento, datos) {
   try {
     if (activa === false) return;
@@ -74,7 +98,7 @@ export function track(evento, datos) {
 // Called once with /estado's answer (or false when /estado failed).
 export function configurarMedicion(on) {
   try {
-    activa = !dnt && !!on;
+    activa = !dnt && !esEquipo && !!on;
     const pendientes = cola;
     cola = [];
     if (activa) for (const c of pendientes) enviar(c);
@@ -87,7 +111,7 @@ export function configurarMedicion(on) {
 // page. They go out best-effort; if metrics turn out to be off, the backend answers 204 without storing anything.
 export function vaciarAlSalir() {
   try {
-    if (activa !== null || dnt || !cola.length) return;
+    if (activa !== null || dnt || esEquipo || !cola.length) return;
     const pendientes = cola;
     cola = [];
     for (const c of pendientes) enviar(c);

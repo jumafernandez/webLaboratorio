@@ -1,4 +1,8 @@
-/* Blockchain assistant widget: a game where every course of the diploma is a level.
+/* Blockchain assistant widget, the heavy part: a game where every course of the diploma is a level.
+ *
+ * Loaded on demand by main.js (the small launcher) the first time the visitor opens the game. It builds the panel,
+ * and behaves as a modal dialog while open: focus trap, Escape closes, the rest of the page is inert, and focus goes
+ * back to whatever opened it.
  *
  * Chat on the left, a live "stage" on the right. Scripted chips drive the levels; free text goes to the Claude
  * agent (backend/app.py), which answers from the site content and drives the stage through tool calls
@@ -15,9 +19,9 @@ import { buildDentro, renderAgente, renderCadena } from "./dentro.js";
 import { buildRed, contratosEnSitio, renderRed, vigilarBloque } from "./red.js";
 import { startFondo } from "./fondo.js";
 import { BADGES, LEVELS, BONUS, badgeSVG, progressEl } from "./juego.js";
-import { configurarMedicion, track, vaciarAlSalir } from "./medicion.js";
+import { configurarMedicion, esEquipo, sesionMedicion, track, vaciarAlSalir } from "./medicion.js";
 import { SITE_TOPICS, showSite, planScene } from "./sitio.js";
-import { MOBILE, POINT, REDUCE, esc, h, md, norm, randHex, short, sleep } from "./util.js";
+import { MOBILE, POINT, REDUCE, WAITLIST_URL, esc, h, md, norm, randHex, short, sleep } from "./util.js";
 import nivel1 from "./niveles/nivel1-bloques.js";
 import nivel2 from "./niveles/nivel2-token.js";
 import nivel3 from "./niveles/nivel3-red.js";
@@ -26,7 +30,6 @@ import bonusNft from "./niveles/bonus-nft.js";
 import bonusHack from "./niveles/bonus-hack.js";
 
 const API = "/blockchain-dev/api";
-const WAITLIST_URL = "/charla/blockchain/#inscripcion";
 const PLAY = { c1: nivel1, c2: nivel2, c3: nivel3, c4: nivel4, nft: bonusNft, hack: bonusHack };
 const CANCEL = Symbol("cancel");
 
@@ -51,16 +54,9 @@ const S = {
 };
 
 // ---------- DOM ----------
-// Like the dev-ia assistant: the game opens full screen; "Sitio convencional" goes back to the page and the choice
-// is remembered. ?vista=sitio, an anchor in the URL or a saved preference start on the page.
+// The game opens on demand (main.js): from the launcher, the "Juego" selector, ?bcw=open, a level link, or a saved
+// "juego" preference. "Sitio convencional" closes it and the choice is remembered.
 const PREF = "bcw-vista";
-const readPref = () => {
-  try {
-    return localStorage.getItem(PREF);
-  } catch {
-    return null;
-  }
-};
 const savePref = (v) => {
   try {
     localStorage.setItem(PREF, v);
@@ -68,13 +64,15 @@ const savePref = (v) => {
     /* no storage: the choice lasts for this visit */
   }
 };
-const askedSite = /[?&]vista=sitio/.test(location.search) || location.hash.length > 1 || readPref() === "sitio";
 
-const launcher = h("button", "bcw-launcher", '<span class="bcw-cubes">⛓️</span><span class="bcw-ltxt">Jugá a la blockchain</span>');
-launcher.type = "button";
+// The launcher belongs to main.js (it exists before this module is loaded).
+const launcher = document.querySelector(".bcw-launcher");
 const panel = h("div", "bcw-panel");
-panel.setAttribute("role", "region");
+panel.setAttribute("role", "dialog");
+panel.setAttribute("aria-modal", "true");
 panel.setAttribute("aria-label", "Juego de la Diplomatura en Blockchain");
+panel.tabIndex = -1;
+panel.inert = true; // closed: out of the keyboard order and the accessibility tree
 panel.innerHTML = `
   <canvas class="bcw-fondo" aria-hidden="true"></canvas>
   <div class="bcw-head">
@@ -89,7 +87,7 @@ panel.innerHTML = `
     </div>
   </div>
   <div class="bcw-hero">
-    <h1>No te voy a explicar blockchain.<br><span>La vas a jugar.</span></h1>
+    <h2>No te voy a explicar blockchain.<br><span>La vas a jugar.</span></h2>
     <p>Cada curso de la diplomatura es un nivel que pasa en una blockchain de verdad, corriendo en tu navegador. O preguntame lo que quieras de la cursada.</p>
     <form class="bcw-heroform"><input type="text" autocomplete="off" maxlength="300" aria-label="Tu pregunta" placeholder="${MOBILE ? "Ej: soy contador, ¿me sirve?" : "Por ejemplo: soy contador, ¿esto me sirve?"}"><button type="submit" aria-label="Enviar">→</button></form>
     <div class="bcw-herochips"></div>
@@ -109,7 +107,7 @@ const progressSlot = panel.querySelector(".bcw-progress-slot");
 const dentro = buildDentro();
 const redPop = buildRed();
 panel.append(dentro, redPop);
-document.body.append(launcher, panel);
+document.body.append(panel);
 const fondo = startFondo(panel.querySelector(".bcw-fondo"));
 fondo.stop();
 
@@ -118,10 +116,54 @@ function renderProgress() {
 }
 renderProgress();
 
+// Modal behaviour: while the game is open the rest of the page is inert (nothing behind it can take focus), Tab stays
+// inside, Escape closes, and focus returns to the element that opened it.
+let opener = null;
+let inertidos = [];
+function fondoInerte(on) {
+  if (on) {
+    inertidos = [...document.body.children].filter((el) => el !== panel && !el.inert && !/^(SCRIPT|STYLE|LINK)$/.test(el.tagName));
+    for (const el of inertidos) el.inert = true;
+  } else {
+    for (const el of inertidos) el.inert = false;
+    inertidos = [];
+  }
+}
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
+function focoVisible() {
+  return [...panel.querySelectorAll(FOCUSABLE)].filter((el) => !el.closest("[inert], [hidden]") && el.getClientRects().length > 0);
+}
+function atraparTab(e) {
+  if (e.key !== "Tab" || !panel.classList.contains("bcw-open")) return;
+  const items = focoVisible();
+  if (!items.length) {
+    e.preventDefault();
+    panel.focus({ preventScroll: true });
+    return;
+  }
+  const first = items[0];
+  const last = items[items.length - 1];
+  const dentroDelPanel = panel.contains(document.activeElement);
+  if (!dentroDelPanel || (e.shiftKey && (document.activeElement === first || document.activeElement === panel))) {
+    e.preventDefault();
+    (e.shiftKey ? last : first).focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+}
+document.addEventListener("keydown", atraparTab);
+
 function openGame(byUser) {
+  const yaAbierto = panel.classList.contains("bcw-open");
   // A return only if the game was already on screen earlier in this page view.
-  if (byUser && S.visited && !panel.classList.contains("bcw-open")) track("volver_juego");
+  if (byUser && S.visited && !yaAbierto) track("volver_juego");
   S.visited = true;
+  if (!yaAbierto) {
+    opener = document.activeElement && document.activeElement !== document.body && !panel.contains(document.activeElement) ? document.activeElement : launcher;
+    panel.inert = false;
+    fondoInerte(true);
+  }
   panel.classList.add("bcw-open");
   document.documentElement.classList.add("bcw-locked");
   launcher.style.display = "none";
@@ -129,18 +171,28 @@ function openGame(byUser) {
   if (byUser) savePref("juego");
   fondo.start();
   S.started = true;
-  if (!MOBILE) setTimeout(() => (panel.classList.contains("bcw-playing") ? input : heroInput).focus(), 250);
+  // Phones: the keyboard would cover the stage, so focus lands on the dialog itself. Elsewhere, on the input.
+  setTimeout(() => {
+    if (!panel.classList.contains("bcw-open")) return;
+    (MOBILE ? panel : panel.classList.contains("bcw-playing") ? input : heroInput).focus({ preventScroll: true });
+  }, 250);
 }
 function toSite(byUser) {
-  if (byUser && panel.classList.contains("bcw-open")) track("sitio_convencional");
+  const estabaAbierto = panel.classList.contains("bcw-open");
+  if (byUser && estabaAbierto) track("sitio_convencional");
   panel.classList.remove("bcw-open");
   document.documentElement.classList.remove("bcw-locked");
   launcher.style.display = "";
   launcher.querySelector(".bcw-ltxt").textContent = S.started ? "Volver al juego" : "Jugá a la blockchain";
   if (byUser) savePref("sitio");
   fondo.stop();
+  if (!estabaAbierto) return;
+  panel.inert = true;
+  fondoInerte(false);
+  const destino = opener && document.contains(opener) && opener.getClientRects().length ? opener : launcher;
+  opener = null;
+  destino.focus({ preventScroll: true });
 }
-launcher.addEventListener("click", () => openGame(true));
 panel.querySelector(".bcw-selector").addEventListener("click", (e) => {
   if (e.target.closest("button")?.dataset.v === "sitio") toSite(true);
 });
@@ -189,6 +241,12 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     toggleDentro(false);
     dentroBtn.focus();
+    return;
+  }
+  // Last: Escape closes the game itself, like any modal dialog.
+  if (e.key === "Escape" && panel.classList.contains("bcw-open") && !e.defaultPrevented) {
+    e.preventDefault();
+    toSite(true);
   }
 });
 // Every waitlist link of the game counts as a conversion click (origen = where it was shown).
@@ -253,7 +311,7 @@ panel.querySelector(".bcw-heroform").addEventListener("submit", (e) => {
 // Some background traffic while the hero is on screen, so the carousel shows blocks being mined.
 const AMBIENT = ["gm desde Córdoba ☀️", "Hola desde Rosario", "Probando Web3", "Saludos desde Mendoza", "Primer bloque del día"];
 setInterval(() => {
-  if (panel.classList.contains("bcw-open") && !panel.classList.contains("bcw-playing") && chain.length < 12)
+  if (!REDUCE && panel.classList.contains("bcw-open") && !panel.classList.contains("bcw-playing") && chain.length < 12)
     addBlock(AMBIENT[chain.length % AMBIENT.length], "Red");
 }, 6500);
 onBlock.add(() => {
@@ -484,6 +542,12 @@ function setLive() {
 
 // Scroll the real page to a section and spotlight it.
 function goto(sel) {
+  if (sel.startsWith("/")) {
+    // Another page of the site (the waiting list): the game closes with the navigation.
+    track("ir_seccion", { ancla: sel });
+    location.assign(sel);
+    return;
+  }
   const el = document.querySelector(sel);
   if (!el) return;
   track("ir_seccion", { ancla: sel });
@@ -987,7 +1051,7 @@ async function checkAI() {
 }
 
 function postEvent(ev) {
-  if (!S.ai) return;
+  if (!S.ai || esEquipo) return; // team visits count nowhere, not even in "hoy los visitantes ganaron…"
   fetch(`${API}/evento`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(ev) }).catch(() => {});
 }
 
@@ -1024,7 +1088,8 @@ async function* sse(resp) {
 async function agentTurn(ctx, text) {
   const history = S.history.slice(-12);
   // The last entry is the question itself (userSay already pushed it).
-  const body = { mensajes: history, estado: gameState() };
+  // `sesion` lets the server write the funnel event pregunta_agente itself (null when metrics are off for this visit).
+  const body = { mensajes: history, estado: gameState(), sesion: sesionMedicion() };
   S.lastTurn = { pregunta: text, estado: body.estado, acciones: [], fin: null };
   const bubble = typingBubble();
   let answer = "";
@@ -1070,14 +1135,13 @@ async function agentTurn(ctx, text) {
   }
   if (!answer) bubble.remove();
   else S.history.push({ rol: "asistente", texto: answer });
-  // Only the kinds of actions the agent took (never the question).
-  track("pregunta_agente", { acciones: [...new Set(S.lastTurn.acciones.map((a) => a.tipo))].join(" ").slice(0, 60) || "ninguna" });
+  // The funnel event pregunta_agente is written by the server (backend/app.py), not here.
   if (panel.classList.contains("bcw-dentro-open") && dentroTab === "agente") renderDentro();
 
   let suggested = null;
   for (const a of queued) {
     if (a.tipo === "sugerir") suggested = a.opciones;
-    else if (a.tipo === "llevar_al_sitio") ctx.actions(stage.querySelector(".bcw-scene"), [{ l: "📍 Ir a esta sección del sitio", f: () => goto(a.ancla) }]);
+    else if (a.tipo === "llevar_al_sitio") ctx.actions(stage.querySelector(".bcw-scene"), [{ l: a.ancla === WAITLIST_URL ? "✍️ Ir a la lista de espera 2027" : "📍 Ir a esta sección del sitio", f: () => goto(a.ancla) }]);
   }
   const level = queued.find((a) => a.tipo === "jugar_nivel" && PLAY[a.nivel]);
   if (level) {
@@ -1135,9 +1199,10 @@ async function keywordRoute(ctx, text) {
 }
 
 // ---------- from the page into a level ----------
-// The normal site links each course to its level: a [data-bcw-nivel] button plays it right there, and ?bcw=c1 (or any
-// level id) in a shared link opens the game on it. data-bcw-nivel="red" opens the "Base Sepolia · en vivo" card.
-function playFromPage(id) {
+// main.js loads this module and calls these when the visitor asks for the game. A [data-bcw-nivel] button on the normal
+// site plays that level right there, and ?bcw=c1 (or any level id) in a shared link opens the game on it.
+// data-bcw-nivel="red" opens the "Base Sepolia · en vivo" card.
+export function playFromPage(id) {
   openGame(true);
   if (id === "red") return toggleRed(true);
   startPlaying("sitio");
@@ -1146,32 +1211,11 @@ function playFromPage(id) {
   userSay(l ? `Nivel ${l.curso} · ${l.corto}` : (BONUS.find((b) => b.id === id)?.titulo ?? id));
   startFlow((c) => c.play(id));
 }
-document.addEventListener("click", (e) => {
-  const b = e.target.closest("[data-bcw-nivel]");
-  if (!b || panel.contains(b)) return;
-  const id = b.dataset.bcwNivel;
-  if (!PLAY[id] && id !== "red") return;
-  e.preventDefault();
-  playFromPage(id);
-});
-const linkedLevel = new URLSearchParams(location.search).get("bcw");
+export const niveles = () => Object.keys(PLAY);
+// byUser: the visitor asked (launcher, selector); otherwise it is the saved preference or a link.
+export const abrir = (byUser) => openGame(byUser);
 
-// Full screen on arrival, like dev-ia; ?vista=sitio, an anchor or a saved choice start on the page.
-const startsInGame = !askedSite || linkedLevel === "open" || !!PLAY[linkedLevel];
-// One "visita" per session, wherever it starts: it is the funnel's denominator (queued until /estado answers).
-(() => {
-  let seen = false;
-  try {
-    seen = sessionStorage.getItem("bcw-visita") === "1";
-    sessionStorage.setItem("bcw-visita", "1");
-  } catch {
-    /* no storage: one per page view */
-  }
-  if (!seen) track("visita", { vista: startsInGame ? "juego" : "sitio" });
-})();
 checkAI();
 real.onEstado.add(() => {
   if (real.REAL.on) setLive();
 });
-if (PLAY[linkedLevel]) playFromPage(linkedLevel);
-else if (startsInGame) openGame(false);

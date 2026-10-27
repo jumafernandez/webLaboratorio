@@ -2,10 +2,9 @@
 // page or open the full page. Data copied from the site (October 2026); the agent answers from the full text.
 
 import { track } from "./medicion.js";
-import { POINT, REDUCE, h } from "./util.js";
+import { POINT, REDUCE, WAITLIST_URL, h } from "./util.js";
 
 const TEAM_IMG = "/assets/img/team/";
-const WAITLIST_URL = "/charla/blockchain/#inscripcion";
 
 export const SITE_TOPICS = [
   { id: "plan", l: "📚 Plan de estudios" },
@@ -94,7 +93,6 @@ const SCENES = {
         </div>`;
       ctx.actions(s, [
         { l: "✍️ Anotarme en la lista de espera 2027", href: WAITLIST_URL, primary: true, origen: "inscripcion" },
-        { l: "📍 Ver el proceso en el sitio", f: () => ctx.goto("#proceso-inscripcion") },
       ]);
     },
   },
