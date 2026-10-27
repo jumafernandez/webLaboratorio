@@ -1,4 +1,4 @@
-## Diplomatura en Blockchain UNLu - LICDIA | Lista de espera 2027
+## Diplomatura de posgrado en Blockchain UNLu - LICDIA | Lista de espera 2027
 URL: /blockchain-dev/
 
 Diplomatura de posgrado · LICDIA · UNLu
@@ -92,7 +92,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  11 de agosto 2026
  Cursado
  A distancia 
- Dias y Horarios 
+ Días y horarios 
  Martes y Jueves 19 a 21 hs
  Duración
  4 meses (160 hs)
@@ -522,7 +522,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  ¿Quiénes son los docentes?
  Un equipo con trayectoria activa en la industria y la academia.
  La dirección está a cargo del Dr. David Petrocelli (Senior Cloud Architect en Caylent USA, doctor en Ciencias Informáticas UNLP) y la coordinación académica del Mg. Juan M. Fernández (Director de LICDIA-UNLu, profesor en UNLu, ITBA y UNTREF).
- Completan el cuerpo docente el Dr. Julián Olivares (CONICET/UNGS, historia económica y economía política), Mauricio Romero (bases de datos en el BCRA, sistemas distribuidos UNLu/UNLaM), Deiller Guevara (operador de derivados A3 Mercados Programa NOR XI, especialista en DeFi y market making) y Mauricio Romero (bases de datos en el BCRA, ayudante en Sistemas Distribuidos UNLu).
+ Completan el cuerpo docente el Dr. Julián Olivares (CONICET/UNGS, historia económica y economía política), Mauricio Romero (bases de datos en el BCRA, sistemas distribuidos UNLu/UNLaM), y Deiller Guevara (operador de derivados A3 Mercados Programa NOR XI, especialista en DeFi y market making).
  Forma parte del cuerpo docente Ciro E. Romero (Líder de I+D+i en C&S Informática, Especialista en IoT por UBA-FIUBA, docente en UNQ y FIUBA), con foco en blockchain aplicada a IoT, Zero Knowledge Proof y redes descentralizadas tipo IOTA.
  Hacé click en cada nombre para ver el perfil completo, o mirá la sección Cuerpo docente más arriba.
  ¿Qué salida laboral tiene?
@@ -600,10 +600,11 @@ Diplomatura de posgrado · LICDIA · UNLu
  * Campos obligatorios
  Lista de espera 2027
 
-## Aranceles Blockchain - LICDIA
+## Aranceles - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/aranceles/
 
-Información de Aranceles — Diplomatura en Innovación y Desarrollo de
+Diplomatura de posgrado · LICDIA · UNLu
+ Información de Aranceles — Diplomatura en Innovación y Desarrollo de
  Aplicaciones basadas en Blockchain
  💰 Estructura de aranceles
  Matrícula inicial
@@ -611,11 +612,11 @@ Información de Aranceles — Diplomatura en Innovación y Desarrollo de
  pesos argentinos
  4 cuotas mensuales
  $170.000
- c/u — una por módulo
- Módulo 1 
- Módulo 2 
- Módulo 3 
- Módulo 4 
+ c/u — una por curso
+ Curso 1 
+ Curso 2 
+ Curso 3 
+ Curso 4 
  Total
  $850.000
  matrícula + 4 cuotas
@@ -656,7 +657,8 @@ Información de Aranceles — Diplomatura en Innovación y Desarrollo de
 ## Blog de la Diplomatura en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/blog/
 
-Blog de la Diplomatura en Blockchain
+Diplomatura de posgrado · LICDIA · UNLu
+ Blog de la Diplomatura en Blockchain
  Notas cortas sobre lo que se enseña en los cuatro cursos, con código que compila y fuentes oficiales.
  Curso 1 · Fundamentos
  Qué es realmente un hash y por qué adulterar un bloque rompe la cadena 
@@ -676,10 +678,11 @@ Blog de la Diplomatura en Blockchain
  Cátedra de la Diplomatura · 27/10/2026 · 4 min 
  Las novedades generales del laboratorio están en el blog del LICDIA . Para ver el plan completo, visitá el plan de estudios , o probá el juego .
 
-## Destinatarios Blockchain - LICDIA
+## Destinatarios - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/destinatarios/
 
-Destinatarios - Diplomatura en Blockchain
+Diplomatura de posgrado · LICDIA · UNLu
+ Destinatarios - Diplomatura en Blockchain
  ¿A quién va dirigida?
  Esta diplomatura es para los que quieren construir, no especular . En particular:
  Desarrolladores y programadores
@@ -701,7 +704,41 @@ Destinatarios - Diplomatura en Blockchain
  Ver requisitos de admisión
  Volver
 
-## En vivo - Blockchain LICDIA
+## Cuerpo docente — Diplomatura de Posgrado en Blockchain | LICDIA UNLu
+URL: /blockchain-dev/docentes/
+
+Diplomatura de posgrado · LICDIA · UNLu
+ Cuerpo docente de la Diplomatura de Posgrado en Blockchain
+ Cada curso del plan lo dictan docentes que investigan o trabajan en lo que enseñan. Debajo de cada nombre, los cursos que dicta.
+ Dr. David Petrocelli
+ (Director)
+ Curso 3 Curso 4 
+ Dr. en Ciencias Informáticas (UNLP). Senior Cloud Architect en Caylent Inc. (USA). Docente e investigador en UNLu.
+ Ver perfil → 
+ Mg. Juan M. Fernández
+ (Coordinador Académico)
+ Curso 1 
+ Director de LICDIA-UNLu. Magister en Inteligencia de datos orientada a Big Data (UNLP). Profesor en UNLu, ITBA y UNTREF.
+ Ver perfil → 
+ Dr. Julián Olivares
+ Curso 2 
+ Dr. en Historia (UBA). Lic. en Historia (UNLu). Maestrando en Análisis y Generación de Información Estadística (UNTREF).
+ Ver perfil → 
+ Deiller Guevara
+ Curso 2 
+ Operador de Derivados, Programa NOR XI, A3 Mercados. Especialista en mercado de capitales, DeFi y mecánica de exchanges descentralizados.
+ Ver perfil → 
+ Ciro E. Romero
+ Curso 1 Curso 4 
+ Líder de I+D+i en C&S Informática S.A. Especialista en IoT (UBA-FIUBA). Docente en UNQ y Lab. Sistemas Embebidos FIUBA.
+ Ver perfil → 
+ Mauricio Romero
+ Curso 3 
+ Analista Coordinador de Bases de Datos en el BCRA. Ayudante en Sistemas Distribuidos (UNLu) y en Bases de Datos e Investigación Operativa (UNLaM).
+ Ver perfil → 
+ Ver el cuerpo docente en la portada
+
+## En vivo - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/en-vivo/
 
 En vivo - Diplomatura en Blockchain
@@ -727,10 +764,11 @@ En vivo - Diplomatura en Blockchain
  Jugá y mirá tu transacción acá 
  Volver
 
-## Enfoque y Metodología Blockchain - LICDIA
+## Enfoque y metodología - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/enfoque/
 
-Enfoque y Metodología
+Diplomatura de posgrado · LICDIA · UNLu
+ Enfoque y Metodología
  Enfoque y Metodología
  El carácter de esta Diplomatura es esencialmente práctico .
  Si bien se abordarán los fundamentos teóricos de la tecnología blockchain y las
@@ -799,10 +837,11 @@ Lista de espera 2027 - Diplomatura en Blockchain
  hash esperando datos 
  Este formulario no es una inscripción y no garantiza un lugar. Volver a la diplomatura
 
-## Información Inscripción Blockchain - LICDIA
+## Inscripción - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/inscripcion-blockchain-dev/
 
-Información de Inscripción - Diplomatura en Innovación y Desarrollo de
+Diplomatura de posgrado · LICDIA · UNLu
+ Información de Inscripción - Diplomatura en Innovación y Desarrollo de
  Aplicaciones basadas en Blockchain
  Información de inscripción 
  Inscripción 2026 — Cerrada
@@ -881,7 +920,7 @@ Información de Inscripción - Diplomatura en Innovación y Desarrollo de
  ¡Inscripción enviada! Te contactaremos pronto.
  Volver
 
-## Plan de Estudios Blockchain - LICDIA
+## Plan de estudios de la Diplomatura de posgrado en Blockchain UNLu - LICDIA
 URL: /blockchain-dev/plan-de-estudios/
 
 Plan de Estudios - Diplomatura en Blockchain
@@ -1014,7 +1053,7 @@ Plan de Estudios - Diplomatura en Blockchain
  "Forma final: producción real"
  Tu pasarela de pago Web3 (ERC-20 + NFT + PaymentGateway + frontend) auditada con Slither y desplegada en Base Sepolia. Live.
  Cronograma clase por clase
- Cohorte agosto 2026 — Martes y jueves de 19:00 a 21:00 hs (ARG). 32 clases en vivo distribuidas en 4 cursos consecutivos. Cada clase tiene tema y actividad práctica concreta.
+ Cohorte agosto 2026 — Martes y jueves de 19:00 a 21:00 hs (ARG). 31 clases en vivo distribuidas en 4 cursos consecutivos. Cada clase tiene tema y actividad práctica concreta.
  Cronograma de referencia — sujeto a ajustes menores antes del inicio de cohorte.
  bloque #1 
  Curso 1 — Fundamentos de Blockchain, y Frameworks y Herramientas para la Creación de DApps
@@ -1144,7 +1183,8 @@ Plan de Estudios - Diplomatura en Blockchain
 ## ¿Por qué elegirnos? — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/por-que-elegirnos/
 
-¿Por qué elegirnos?
+Diplomatura de posgrado · LICDIA · UNLu
+ ¿Por qué elegirnos?
  ¿Qué nos diferencia?
  Blockchain hoy es infraestructura de producción : sistemas financieros, identidad digital,
  cadenas de suministro, tokenización de activos. Argentina está entre los mercados de adopción tecnológica
@@ -1225,7 +1265,7 @@ URL: /blockchain-dev/por-que-elegirnos/
  Propuesta académica sujeta a las resoluciones del Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial (LICDIA), Universidad Nacional de Luján.
  Volver
 
-## Proyectos de estudiantes - Diplomatura en Blockchain - LICDIA
+## Proyectos de estudiantes - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/proyectos/
 
 proyectos de estudiantes · Base Sepolia
@@ -1247,10 +1287,11 @@ proyectos de estudiantes · Base Sepolia
  Los tipos de proyecto integrador que se pueden encarar (tokenización de activos, DeFi y otros) están en Lo que vas a construir , en la portada. Esta página es la otra mitad: lo que efectivamente se construyó.
  Ver el plan de estudios
 
-## Requisitos Blockchain - LICDIA
+## Requisitos de ingreso - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/requisitos/
 
-Requisitos - Diplomatura en Blockchain
+Diplomatura de posgrado · LICDIA · UNLu
+ Requisitos - Diplomatura en Blockchain
  Requisitos de admisión
  Requisitos formales
  Dos caminos válidos para entrar
@@ -1284,7 +1325,7 @@ Requisitos - Diplomatura en Blockchain
  Lista de espera 2027
  Volver
 
-## Verificar credenciales - LICDIA
+## Verificar credenciales - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/verificar/
 
 Diplomatura de posgrado · LICDIA · UNLu
@@ -1305,10 +1346,11 @@ Diplomatura de posgrado · LICDIA · UNLu
  Contratos consultados
  La red es una testnet: sirve para mostrar el mecanismo sin costo. Al emitir las credenciales oficiales se publicará la dirección del contrato y el código verificado en Sourcify. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.
 
-## approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog de la Diplomatura en Blockchain
+## approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog Blockchain LICDIA UNLu
 URL: /blockchain-dev/blog/approve-transferfrom-pasarela/
 
-approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo
+Diplomatura de posgrado · LICDIA · UNLu
+ approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo
  Cátedra de la Diplomatura · 27/10/2026 · 3 min de lectura 
  Pagar con un token ERC-20 no es mandar plata a un contrato: es darle permiso a un contrato para que la cobre. Ese permiso explica el patrón de dos pasos que usan casi todas las pasarelas Web3.
  Por qué hacen falta dos transacciones
@@ -1382,10 +1424,11 @@ contract Pasarela {
  Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity 
  Ver todas las notas del blog
 
-## Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog de la Diplomatura en Blockchain
+## Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog Blockchain LICDIA UNLu
 URL: /blockchain-dev/blog/hash-y-cadena/
 
-Qué es realmente un hash y por qué adulterar un bloque rompe la cadena
+Diplomatura de posgrado · LICDIA · UNLu
+ Qué es realmente un hash y por qué adulterar un bloque rompe la cadena
  Cátedra de la Diplomatura · 27/10/2026 · 4 min de lectura 
  Una cadena de bloques no es más que datos ligados entre sí por hashes. Entender qué es un hash alcanza para entender por qué reescribir el pasado en una blockchain es tan costoso.
  Qué hace una función hash
@@ -1447,10 +1490,11 @@ bloque 1: el hash previo no coincide con el bloque 0
  Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity 
  Ver todas las notas del blog
 
-## Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity | Blog de la Diplomatura en Blockchain
+## Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity | Blog Blockchain LICDIA UNLu
 URL: /blockchain-dev/blog/reentrancy-checks-effects-interactions/
 
-Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity
+Diplomatura de posgrado · LICDIA · UNLu
+ Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity
  Cátedra de la Diplomatura · 27/10/2026 · 4 min de lectura 
  Reentrancy es la vulnerabilidad en la que un contrato, al llamar a otro, le entrega el control y recibe una llamada de vuelta antes de haber terminado de actualizar su propio estado. Se previene con un orden de operaciones simple.
  Qué ocurre exactamente
@@ -1542,10 +1586,11 @@ contract BovedaConGuard is ReentrancyGuard {
  approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo 
  Ver todas las notas del blog
 
-## Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog de la Diplomatura en Blockchain
+## Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog Blockchain LICDIA UNLu
 URL: /blockchain-dev/blog/testnet-gas-base-sepolia/
 
-Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia
+Diplomatura de posgrado · LICDIA · UNLu
+ Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia
  Cátedra de la Diplomatura · 27/10/2026 · 3 min de lectura 
  Cada operación en una blockchain pública consume recursos de la red y alguien tiene que pagarlos. Ese costo se llama gas, y explica por qué se practica en redes de prueba y por qué elegimos una capa 2.
  Qué es el gas
@@ -1587,7 +1632,8 @@ Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia
 ## Ciro Edgardo Romero — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/ciro/
 
-Ciro Edgardo Romero - Docente
+Diplomatura de posgrado · LICDIA · UNLu
+ Ciro Edgardo Romero - Docente
  nodo 0x6b1c4d6f…62eb 
  valida en la cadena 
  #1 Equipo Docente 
@@ -1608,13 +1654,13 @@ Ciro Edgardo Romero - Docente
  Red IOTA 
  Sistemas distribuidos descentralizados 
  ESP32 / ESP8266 / STM32 
- Sistemas embebidos 
- Internet de las Cosas
+ S
 
 ## Mg. Juan M. Fernández — Coordinador Académico — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/fernandez/
 
-Mg. Juan M. Fernández - Cuerpo docente
+Diplomatura de posgrado · LICDIA · UNLu
+ Mg. Juan M. Fernández - Cuerpo docente
  nodo 0x81824fe1…9808 
  valida en la cadena 
  #1 Docente Responsable 
@@ -1625,12 +1671,13 @@ Mg. Juan M. Fernández - Cuerpo docente
  Egresado de la propia UNLu : Analista Programador Universitario (2009) y Licenciado en Sistemas de Información (2012). En 2023 obtuvo la Maestría en Inteligencia de Datos orientada a Big Data en la Universidad Nacional de La Plata (UNLP), cerrando una trayectoria académica de más de quince años de continuidad en el sistema universitario público argentino.
  Se desempeña simultáneamente como Profesor Adjunto Ordinario en la División Computación de UNLu (Aprendizaje Automático, Inteligencia Artificial, Programación), Profesor Instructor homologado a Profesor Asociado en el Departamento de Sistemas Digitales y Datos del ITBA (Ciencia de Datos Aplicada, Visualización de la Información — para Ingeniería en Informática, Lic. en Data Science y Lic. en Negocios y Tecnología) y Profesor Titular de Posgrado en la Maestría en Generación y Análisis de Información Estadística de UNTREF (Sistemas de Información y Bases de Datos; Análisis de Opinión Pública en Redes Sociales con NLP). Esta inserción simultánea en tres instituciones de perfil muy distinto — universidad pública de la PBA, instituto tecnológico privado de élite y universidad pública metropolitana — refleja su capacidad de comunicar tecnología compleja a audiencias diversas.
  En paralelo cursa el Doctorado en Ciencias de la Computación en la Universidad Nacional de San Luis (UNSL) , con plan tesis sobre estrategias de balanceo de clases basadas en etiquetado automático de palabras y recuperación de información para clasificación automática de textos. Director de doctorado: Dr. Marcelo L. Errecalde.
- Su línea de investigación principal se concentra en aprendizaje automático aplicado, NLP y modelos de lenguaje grandes (LLMs) : fine-tuning de LLMs abiertos sobre HPC, RAG aplicada a información académica, agentes LLM para CLI/Docker, clasificación automática de correos, IA aplicada a datos espaciales y ambientales. En 2025 fue presentado e
+ Su línea de investigación principal se concentra en aprendizaje automático aplicado, NLP y modelos de lenguaje grandes (LLMs) : fine-tuning de LLMs abiertos sobre HPC, RAG aplicada a información académica, agentes LLM para CLI/Docker, clasificación automática de correos, IA aplicada a datos espaciale
 
 ## Deiller Guevara — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/guevara/
 
-Deiller Guevara - Cuerpo docente
+Diplomatura de posgrado · LICDIA · UNLu
+ Deiller Guevara - Cuerpo docente
  nodo 0x362078ef…91c6 
  valida en la cadena 
  #2 Equipo Docente 
@@ -1652,13 +1699,13 @@ Deiller Guevara - Cuerpo docente
  Futuros y opciones 
  Gestión de riesgo 
  DeFi 
- Stablecoins 
- Exchanges descentralizados
+
 
 ## Dr. Julián Olivares — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/olivares/
 
-Dr. Julián Olivares - Cuerpo docente
+Diplomatura de posgrado · LICDIA · UNLu
+ Dr. Julián Olivares - Cuerpo docente
  nodo 0x5a486621…4124 
  valida en la cadena 
  #2 Docente Responsable 
@@ -1680,13 +1727,14 @@ Dr. Julián Olivares - Cuerpo docente
  Investigación CONICET 
  Doctorado UBA 
  ¿Qué enseña en la diplomatura?
- Módulo 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas 
- Docente Responsable. Aporta el marco histórico y económ
+ Curso 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas 
+ Docente Respons
 
 ## Dr. David Petrocelli — Director — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/petrocelli/
 
-Dr. David Petrocelli - Director Diplomatura Blockchain
+Diplomatura de posgrado · LICDIA · UNLu
+ Dr. David Petrocelli - Director Diplomatura Blockchain
  nodo 0xde2173d8…7d1e 
  valida en la cadena 
  #3 Docente Responsable 
@@ -1707,12 +1755,13 @@ Dr. David Petrocelli - Director Diplomatura Blockchain
  Despliegue Automatizado y Procesamiento en el Cloud (2022)
  En la industria se desempeña como Senior Cloud Architect en Caylent Inc. (USA, remoto) desde noviembre de 2023, dentro del Cloud Architecture & Engineering Team.
  Brinda guía técnica sobre AWS, IaC (Terraform, CloudFormation, AWS CDK), DevOps/GitOps, modernización de aplicaciones con ECS/EKS y CI/CD a clientes empresariales norteamericanos en proyectos de migración y modernización cloud.
- Previamente fue Team Leader DevOps en CloudHesive LATAM (marzo 2021 – octubre 2023), donde coordinó un equipo de 5 a 10 ingenieros DevOps, definió la hoja de ruta del área y lideró la adopción del AWS Well-Architected Framework. En 2021 obtuvo el Premio al Trabajo en 
+ Previamente fue Team Leader DevOps en CloudHesive LATAM (marzo 2021 – octubre 2023), donde coordinó un equipo de 5 a 10 ingenieros DevOps, definió la hoja de ruta del área y lideró la adopción del AWS Well-Architected Framework
 
 ## Mauricio Romero — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/romero/
 
-Mauricio Romero - Cuerpo docente
+Diplomatura de posgrado · LICDIA · UNLu
+ Mauricio Romero - Cuerpo docente
  nodo 0xa2ebb90a…f650 
  valida en la cadena 
  #3 Equipo Docente 
