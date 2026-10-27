@@ -34,7 +34,7 @@ html body.blockchain-theme header.fondoBlockchain .bb-masthead {
 }
 .bb-indice { max-width: 860px; }
 
-.bb-migas { margin: 0 0 1rem; color: var(--bb-tenue); font-size: .85rem; }
+html body.blockchain-theme .bb-migas { background: transparent !important; padding: 0 !important; box-shadow: none !important; margin: 0 0 1rem; color: var(--bb-tenue); font-size: .85rem; }
 .bb-migas a { color: var(--bb-violeta); }
 .bb-meta { display: flex; flex-wrap: wrap; gap: .35rem .6rem; margin: 0 0 1.6rem; color: var(--bb-tenue); font: 500 .8rem var(--bb-mono); letter-spacing: .02em; }
 
@@ -108,3 +108,26 @@ html body.blockchain-theme header.fondoBlockchain .bb-masthead {
     .bb-articulo, .bb-indice { font-size: 1rem; }
     .bb-articulo pre { padding: .85rem; }
 }
+
+/* ---------- Tema oscuro (data-theme="dark", lo pone el script del <head> y el botón del menú) ---------- */
+html[data-theme="dark"] body.blockchain-theme {
+    --bb-violeta: #c4a5ff;
+    --bb-violeta-osc: #e6d9ff;
+    --bb-lila: #241545;
+    --bb-tinta: #f4effc;
+    --bb-texto: #dcd3ee;
+    --bb-tenue: #a79bc2;
+    --bb-borde: #3a2766;
+    background: #0d0820 !important;
+}
+html[data-theme="dark"] body.blockchain-theme .bb-articulo a:hover,
+html[data-theme="dark"] body.blockchain-theme .bb-indice a:hover { color: #fff; }
+html[data-theme="dark"] body.blockchain-theme .bb-articulo code { background: #241545; color: #e6d9ff; }
+html[data-theme="dark"] body.blockchain-theme .bb-articulo pre { background: #090516; border-color: #3a2766; }
+html[data-theme="dark"] body.blockchain-theme .bb-articulo pre code { background: none; color: #e8defa; }
+html[data-theme="dark"] body.blockchain-theme .bb-fuentes,
+html[data-theme="dark"] body.blockchain-theme .bb-tarjeta { background: #150d2e !important; box-shadow: none; }
+html[data-theme="dark"] body.blockchain-theme .bb-btn { background: #c4a5ff; color: #1d1630 !important; }
+html[data-theme="dark"] body.blockchain-theme .bb-btn:hover { background: #e6d9ff; }
+/* enhancements.css pinta las <section> en oscuro: acá el fondo es el de la página */
+html body.blockchain-theme .bb-main, html body.blockchain-theme .bb-indice, html body.blockchain-theme .bb-mas { background: transparent !important; }
