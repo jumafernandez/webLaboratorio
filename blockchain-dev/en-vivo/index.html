@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="La Diplomatura en Blockchain de la UNLu en vivo: bloque actual, contratos, contadores y últimos eventos en Base Sepolia, leídos directo desde tu navegador." />
+    <meta name="author" content="LICDIA - UNLu" />
+    <meta property="og:title" content="En vivo - Diplomatura en Blockchain - UNLu" />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/blockchain-dev/en-vivo/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Los contratos del juego de la diplomatura, leídos en vivo desde la testnet Base Sepolia." />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/en-vivo/" />
+    <title>En vivo - Blockchain LICDIA</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link href="../../css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('licdia-theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        } catch(e){}
+      })();
+    </script>
+    <link href="../../css/enhancements.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../../css/bc-visual.css?v=2026-10-26a" rel="stylesheet" />
+    <link href="../../css/bc-en-vivo.css?v=2026-10-27a" rel="stylesheet" />
+    <script src="../../js/enhancements.min.js" defer></script>
+</head>
+
+<body id="page-top" class="blockchain-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../"><img src="../../assets/img/logo.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../"><img src="../../assets/img/depto.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="../"><img src="../../assets/img/unlu.ico" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#informacionPlan">Plan de estudios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../plan-de-estudios/#cronograma">Cronograma</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../por-que-elegirnos/">Por qué elegirnos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../aranceles/">Aranceles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/charla/blockchain/#inscripcion">Inscripción</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../">LICDIA</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="backgroundAr fondoBlockchain">
+        <div class="container">
+            <div class="masthead-heading">En vivo - Diplomatura en Blockchain</div>
+        </div>
+    </header>
+
+    <article class="bc-oscuro">
+        <div class="container mt-5 mb-5 bcv">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">En vivo</li>
+                </ol>
+            </nav>
+
+            <p class="bcv-intro">Esta página lee la cadena desde tu navegador, sin servidor intermedio: consulta un nodo público de Base Sepolia y muestra lo que hicieron quienes jugaron en la portada. Nada de lo que ves se guarda ni se calcula en nuestro sitio.</p>
+
+            <div id="bcvEstado" class="bcv-estado" role="status" aria-live="polite" hidden></div>
+
+            <section class="bcv-fila" aria-label="Estado de la red">
+                <div class="bcv-dato">
+                    <span class="bcv-etq">Bloque actual</span>
+                    <strong id="bcvBloque" class="bcv-num">...</strong>
+                    <span id="bcvLat" class="bcv-sub">Base Sepolia, chainId 84532</span>
+                </div>
+                <div class="bcv-dato">
+                    <span class="bcv-etq">Saldo del relayer</span>
+                    <strong id="bcvSaldo" class="bcv-num">...</strong>
+                    <span class="bcv-sub">ETH de prueba, paga el gas de todos</span>
+                </div>
+            </section>
+
+            <h2 class="bcv-h">Contadores</h2>
+            <section class="bcv-fila bcv-cuatro" aria-label="Contadores">
+                <div class="bcv-dato"><span class="bcv-etq">Sellos</span><strong id="cSellos" class="bcv-num">...</strong><span class="bcv-sub">mensajes sellados</span></div>
+                <div class="bcv-dato"><span class="bcv-etq">Tokens creados</span><strong id="cTokens" class="bcv-num">...</strong><span class="bcv-sub">ERC-20 de visitantes</span></div>
+                <div class="bcv-dato"><span class="bcv-etq">Insignias y NFT</span><strong id="cInsignias" class="bcv-num">...</strong><span class="bcv-sub">acuñados</span></div>
+                <div class="bcv-dato"><span class="bcv-etq">Pagos demo</span><strong id="cPagos" class="bcv-num">...</strong><span class="bcv-sub">en USDL de prueba</span></div>
+            </section>
+
+            <h2 class="bcv-h">Últimos eventos</h2>
+            <section class="bcv-feed-caja" aria-label="Últimos eventos de los contratos">
+                <p id="bcvFeedVacio" class="bcv-vacio" hidden>Todavía no hay eventos para mostrar. Cuando alguien juegue, aparece acá.</p>
+                <p id="bcvFeedCarga" class="bcv-vacio">Buscando eventos en la cadena...</p>
+                <ol id="bcvFeed" class="bcv-feed"></ol>
+            </section>
+
+            <h2 class="bcv-h">Los cinco contratos</h2>
+            <section id="bcvContratos" class="bcv-contratos" aria-label="Contratos desplegados"></section>
+
+            <h2 class="bcv-h">Qué estás mirando</h2>
+            <div class="bcv-texto">
+                <p>Base Sepolia es una <strong>testnet</strong>: una red pública que funciona igual que una blockchain real, pero cuyo ETH no vale nada. Sirve para aprender y probar contratos sin riesgo. Todo lo que ves es público y verificable por cualquiera.</p>
+                <p>El <strong>gas</strong> (la comisión de cada transacción) lo paga la cátedra desde una billetera relayer: quien juega no necesita billetera ni fondos. Por eso el saldo de arriba importa: si se agota, el juego deja de escribir en la cadena. El código fuente de los cinco contratos está verificado en Sourcify y se puede leer en el explorador.</p>
+                <p><a class="btn btn-outline-light" href="../?bcw=open"><i class="fas fa-gamepad me-2"></i>Jugá y mirá tu transacción acá</a></p>
+            </div>
+        </div>
+    </article>
+
+    <div class="container text-center my-4">
+        <a href="../" class="btn btn-outline-dark btn-lg px-4 py-2"><i class="fas fa-arrow-left me-2"></i>Volver</a>
+    </div>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-2">
+                Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia
+                Artificial de la Universidad de Luján
+                <a href="https://resoluciones.unlu.edu.ar/documento.frame.php?cod=128241" target="_blank"
+                    class="text-decoration-none text-info">[Disposición del Grupo de Investigación]</a>
+                <a href="https://drive.google.com/file/d/1AddV4FMq70bOO4REUgAVppe5i4Vw9h_W/view" target="_blank"
+                    class="text-decoration-none text-info">[Resolución del Laboratorio]</a>
+                - Argentina. Todos los derechos reservados.
+            </p>
+            <p class="mb-0">
+                Desarrollada por
+                <a href="https://www.linkedin.com/in/lucas-santill%C3%A1n-a50166263/" target="_blank" rel="noopener"
+                    class="fw-bold text-decoration-none text-info">Lucas Santillan</a>
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js" crossorigin="anonymous"></script>
+    <script src="../../js/bc-en-vivo.js?v=2026-10-27a"></script>
+</body>
+</html>
