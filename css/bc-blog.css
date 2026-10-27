@@ -131,3 +131,11 @@ html[data-theme="dark"] body.blockchain-theme .bb-btn { background: #c4a5ff; col
 html[data-theme="dark"] body.blockchain-theme .bb-btn:hover { background: #e6d9ff; }
 /* enhancements.css pinta las <section> en oscuro: acá el fondo es el de la página */
 html body.blockchain-theme .bb-main, html body.blockchain-theme .bb-indice, html body.blockchain-theme .bb-mas { background: transparent !important; }
+
+/* enhancements.css styles inline <code> with a border and background; inside <pre> that outlines every line */
+html body.blockchain-theme .bb-articulo pre code {
+    border: 0 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
