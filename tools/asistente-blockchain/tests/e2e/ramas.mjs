@@ -11,6 +11,7 @@ const sinIA = (req) => req.url.endsWith("/estado")
 const conIA = (req, pedidos) => {
   if (req.url.endsWith("/estado")) return { tipo: "application/json", cuerpo: JSON.stringify({ ok: true, modelo: "simulado", insignias_hoy: 5 }) };
   if (req.url.endsWith("/evento") || req.url.endsWith("/api/m")) return { tipo: "application/json", cuerpo: '{"ok":true}' };
+  if (!req.url.endsWith("/chat")) return { tipo: "application/json", cuerpo: "{}" };   // /revisar, /cadena/…
   const p = JSON.parse(req.postData);
   pedidos.push(p);
   const q = p.mensajes.at(-1).texto;
@@ -60,7 +61,7 @@ const realLenta = (req) => {
 
 const msg = (txt) => `[...document.querySelectorAll('.bcw-msg')].some(m=>m.textContent.includes(${JSON.stringify(txt)}))`;
 const enMapa = async (b) => {
-  await b.ir("/blockchain-dev/");
+  await b.ir("/blockchain-dev/?bcw=open");
   await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
   return b.esperar(`!!document.querySelector('.bcw-level')`);
 };
@@ -166,7 +167,7 @@ const CASOS = [
     return true;
   }],
   ["agente: rubro arranca el nivel con el ejemplo", conIA, async (b) => {
-    await b.ir("/blockchain-dev/");
+    await b.ir("/blockchain-dev/?bcw=open");
     await b.esperar(`!!document.querySelector('.bcw-ai:not([hidden])')`);
     await b.escribir("Soy contador, ¿me sirve?", true, ".bcw-heroform");
     return b.esperar(`!!document.querySelector('.bcw-ejemplo')`);
@@ -189,23 +190,72 @@ const CASOS = [
     await b.escribir("¿Quiénes son los docentes?");
     return b.esperar(`!!document.querySelector('.bcw-scene .bcw-cards')`);
   }],
-  ["selector: sitio convencional se recuerda; ?vista=sitio arranca en el sitio", sinIA, async (b) => {
+  ["selector: por defecto el sitio; el juego abre a pedido y se recuerda; ?vista=sitio gana", sinIA, async (b) => {
     await b.ir("/blockchain-dev/");
-    await b.esperar(`!!document.querySelector('.bcw-panel.bcw-open')`);
+    await sleep(1500);
+    const sitio = await b.ev(`!document.querySelector('.bcw-panel') && !!document.querySelector('.bcw-launcher')`);   // nada pesado cargado
+    await b.ev(`document.querySelector('.bcw-launcher').click()`);
+    const abre = await b.esperar(`document.querySelector('.bcw-panel')?.classList.contains('bcw-open')`);
     await b.tocar(".bcw-selector button", "Sitio convencional");
     await b.send("Page.reload");
     await sleep(2500);
-    const quedo = await b.ev(`!document.querySelector('.bcw-panel').classList.contains('bcw-open')`);
-    await b.ev(`document.querySelector('.bcw-launcher').click()`);
-    const vuelve = await b.esperar(`document.querySelector('.bcw-panel').classList.contains('bcw-open')`);
-    await b.ev(`localStorage.clear()`);
+    const quedo = await b.ev(`!document.querySelector('.bcw-panel')?.classList.contains('bcw-open')`);
+    await b.ev(`document.querySelector('.bcw-launcher').click()`);   // guarda "juego"
+    const vuelve = await b.esperar(`document.querySelector('.bcw-panel')?.classList.contains('bcw-open')`);
+    await b.send("Page.reload");
+    const recordado = await b.esperar(`document.querySelector('.bcw-panel')?.classList.contains('bcw-open')`);
     await b.ir("/blockchain-dev/?vista=sitio");
     await sleep(2000);
-    return quedo && vuelve && (await b.ev(`!document.querySelector('.bcw-panel').classList.contains('bcw-open')`));
+    const gana = await b.ev(`!document.querySelector('.bcw-panel')?.classList.contains('bcw-open')`);
+    await b.ev(`localStorage.clear()`);
+    return sitio && abre && quedo && vuelve && recordado && gana;
+  }],
+  ["modal: role dialog, Tab atrapado, fondo inerte, Escape cierra y devuelve el foco", sinIA, async (b) => {
+    await b.ir("/blockchain-dev/");
+    await sleep(1200);
+    await b.ev(`document.querySelector('.bcw-launcher').focus(); document.querySelector('.bcw-launcher').click()`);
+    await b.esperar(`document.querySelector('.bcw-panel')?.classList.contains('bcw-open')`);
+    await sleep(500);
+    const info = await b.ev(`(() => { const p = document.querySelector('.bcw-panel'); const otros = [...document.body.children].filter(e => e !== p && !/SCRIPT|STYLE|LINK/.test(e.tagName));
+      return {rol: p.getAttribute('role'), modal: p.getAttribute('aria-modal'), inertes: otros.every(e => e.inert), foco: p.contains(document.activeElement), h1: p.querySelectorAll('h1').length}; })()`);
+    // Tab 40 times: the focus never leaves the dialog
+    let siempreDentro = true;
+    for (let i = 0; i < 40 && siempreDentro; i++) {
+      await b.send("Input.dispatchKeyEvent", { type: "keyDown", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
+      await b.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
+      siempreDentro = await b.ev(`document.querySelector('.bcw-panel').contains(document.activeElement)`);
+    }
+    await b.send("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
+    await b.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
+    const cerrado = await b.esperar(`!document.querySelector('.bcw-panel').classList.contains('bcw-open')`, 3000);
+    const vuelta = await b.ev(`({foco: document.activeElement === document.querySelector('.bcw-launcher') ? 'launcher' : document.activeElement.tagName + '.' + document.activeElement.className, sinInertes: [...document.body.children].filter(e => !e.classList.contains('bcw-panel')).every(e => !e.inert), panelInerte: document.querySelector('.bcw-panel').inert})`);
+    vuelta.ok = vuelta.foco === "launcher" && vuelta.sinInertes && vuelta.panelInerte;
+    await b.ev(`localStorage.clear()`);
+    if (!(info.rol === "dialog" && info.modal === "true" && info.inertes && info.foco && info.h1 === 0 && siempreDentro && cerrado && vuelta.ok))
+      b.errores.push(JSON.stringify({ info, siempreDentro, cerrado, vuelta }));
+    return info.rol === "dialog" && info.modal === "true" && info.inertes && info.foco && info.h1 === 0 && siempreDentro && cerrado && vuelta.ok;
+  }],
+  ["equipo: ?bcw_equipo=1 apaga toda la medición hasta ?bcw_equipo=0", conMedicion, async (b) => {
+    BEACONS.length = 0;
+    await b.ir("/blockchain-dev/?bcw_equipo=1&bcw=open");
+    await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
+    await b.esperar(`!!document.querySelector('.bcw-level')`);
+    await sleep(1500);
+    const callada = BEACONS.length === 0;
+    await b.ir("/blockchain-dev/?bcw=open");               // la marca persiste sin el parámetro
+    await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
+    await sleep(1500);
+    const persiste = BEACONS.length === 0;
+    await b.ir("/blockchain-dev/?bcw_equipo=0&bcw=open");
+    await b.esperar(`!!document.querySelector('.bcw-ai:not([hidden])')`);
+    await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
+    await sleep(1500);
+    if (!(callada && persiste && hay("entro_juego"))) b.errores.push(JSON.stringify({ callada, persiste, entro: hay("entro_juego"), n: BEACONS.length }));
+    return callada && persiste && hay("entro_juego");
   }],
   ["medición: el embudo de una sesión corta llega por beacons, sin texto del visitante", conMedicion, async (b) => {
     BEACONS.length = 0;
-    await b.ir("/blockchain-dev/");
+    await b.ir("/blockchain-dev/?bcw=open");
     await b.esperar(`!!document.querySelector('.bcw-ai:not([hidden])')`);
     await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
     await b.esperar(`!!document.querySelector('.bcw-level')`);
@@ -231,13 +281,15 @@ const CASOS = [
     await sleep(1500);
     const esperados = [["visita"], ["entro_juego", { fuente: "chip" }], ["nivel_inicio", { nivel: "c1" }], ["nivel_paso", { nivel: "c1", paso: "mensaje" }],
       ["nivel_paso", { nivel: "c1", paso: "minado" }], ["nivel_fin", { nivel: "c1" }], ["insignia", { id: "c1" }], ["nivel_inicio", { nivel: "c2" }],
-      ["nivel_abandono", { nivel: "c2", paso: "inicio" }], ["pregunta_agente", { acciones: "mostrar_sitio llevar_al_sitio sugerir" }],
+      ["nivel_abandono", { nivel: "c2", paso: "inicio" }],
       ["tema_sitio", { tema: "docentes" }], ["ver_por_dentro", { tab: "agente" }], ["lista_espera_click", { origen: "recorrido" }],
       ["sitio_convencional"], ["volver_juego"]];
     const faltan = esperados.filter(([e, d]) => !hay(e, d));
     const sesiones = new Set(BEACONS.map((e) => e.sesion));
     const texto = JSON.stringify(BEACONS);
-    const ok = !faltan.length && sesiones.size === 1 && /^[0-9a-f]{32}$/.test([...sesiones][0]) && !/Zorzal|secreto|docentes\?/i.test(texto)
+    // pregunta_agente lo escribe el servidor: el widget manda su id de sesión en el pedido al agente
+    const conSesion = b.pedidos.some((p) => p.mensajes.at(-1).texto.includes("docentes") && p.sesion === [...sesiones][0]);
+    const ok = conSesion && !faltan.length && sesiones.size === 1 && /^[0-9a-f]{32}$/.test([...sesiones][0]) && !/Zorzal|secreto|docentes\?/i.test(texto)
       && !hay("nivel_abandono", { nivel: "c1" }) && cerro;
     if (!ok) b.errores.push(`faltan ${JSON.stringify(faltan)} · sesiones ${sesiones.size} · dentro cerrado ${cerro} · ${BEACONS.length} beacons`);
     return ok;
@@ -245,14 +297,14 @@ const CASOS = [
   ["medición: con Do Not Track no sale ningún beacon", conMedicion, async (b) => {
     BEACONS.length = 0;
     await b.send("Page.addScriptToEvaluateOnNewDocument", { source: "Object.defineProperty(Navigator.prototype, 'doNotTrack', { get: () => '1' })" });
-    await b.ir("/blockchain-dev/");
+    await b.ir("/blockchain-dev/?bcw=open");
     await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
     await b.esperar(`!!document.querySelector('.bcw-level')`);
     await sleep(1500);
     return BEACONS.length === 0;
   }],
   ["cadena real: tx sin confirmar se muestra como enviada, no como simulada", realLenta, async (b) => {
-    await b.ir("/blockchain-dev/");
+    await b.ir("/blockchain-dev/?bcw=open");
     await b.ev(`window.__notas = []; new MutationObserver((ms) => ms.forEach((m) => m.addedNodes.forEach((n) => n.classList?.contains('bcw-simnote') && window.__notas.push(n.textContent)))).observe(document.body, {childList: true, subtree: true}); 1`);
     if (!(await b.esperar(`document.querySelector('.bcw-badge')?.textContent.includes('Anvil local')`))) return false;
     await b.tocar(".bcw-herochips .bcw-chip", "Ver los 4 niveles");
@@ -272,7 +324,7 @@ const CASOS = [
     return ok;
   }],
   ["celular: portada sin desborde horizontal", sinIA, async (b) => {
-    await b.ir("/blockchain-dev/");
+    await b.ir("/blockchain-dev/?bcw=open");
     await b.esperar(`!!document.querySelector('.bcw-panel.bcw-open .bcw-hero')`);
     await sleep(1200);
     await b.captura("ramas-celular-portada");

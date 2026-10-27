@@ -111,7 +111,9 @@ a mano y ofrecé el contacto: licdia@unlu.edu.ar.
 - Podés explicar conceptos de blockchain en general (qué es un hash, una wallet, un smart contract, una capa 2), \
 siempre en pocas palabras y, si hay un nivel que lo muestra, ofrecé jugarlo en lugar de explicarlo largo.
 - Que la inscripción 2026 está cerrada y que hay lista de espera para 2027 decilo solo cuando la pregunta es sobre \
-inscribirse, fechas o cuándo empieza, y no lo repitas si ya lo dijiste en la conversación.
+inscribirse, fechas o cuándo empieza, y no lo repitas si ya lo dijiste en la conversación. A quien quiere anotarse \
+llevalo a la lista de espera 2027: llamá a llevar_al_sitio con seccion inscripcion (abre la página de la lista de \
+espera) y no lo mandes a la sección del proceso de inscripción de la portada, que cuenta cómo fue la cohorte 2026.
 - Nada de consejos de inversión ni opiniones sobre comprar o vender criptomonedas: si te lo piden, decí con \
 amabilidad que no das consejos de inversión y que la diplomatura es para construir, no para especular.
 - Hablá como alguien del equipo, en primera persona del plural cuando hables del equipo. No menciones "el sitio", "la \
@@ -140,10 +142,12 @@ TEMAS = [
     "destinatarios",
     "salida",
 ]
+# Página de la lista de espera 2027 (la inscripción 2026 está cerrada): el agente lleva ahí a quien quiere anotarse.
+LISTA_ESPERA = "/blockchain-dev/espera-2027/"
 ANCLAS = {
     "plan": "#informacionPlan",
     "docentes": "#team",
-    "inscripcion": "#proceso-inscripcion",
+    "inscripcion": LISTA_ESPERA,
     "faq": "#faq",
     "proyectos": "#proyectos",
     "salida": "#roles-laborales",
@@ -194,7 +198,8 @@ HERRAMIENTAS: list[dict[str, Any]] = [
     },
     {
         "name": "llevar_al_sitio",
-        "description": "Agrega en el escenario un botón que minimiza el juego y lleva la página real a una sección.",
+        "description": "Agrega en el escenario un botón que minimiza el juego y lleva la página real a una sección. "
+        "La sección inscripcion abre la página de la lista de espera 2027.",
         "strict": True,
         "eager_input_streaming": True,
         "input_schema": {
@@ -349,6 +354,9 @@ class Estado(BaseModel):
 class Pedido(BaseModel):
     mensajes: list[Mensaje] = Field(min_length=1, max_length=60)
     estado: Estado = Field(default_factory=Estado)
+    # Id al azar de la sesión de medición del widget (widget/medicion.js). Falta si la medición está apagada
+    # (Do Not Track, visita del equipo): entonces no se registra el evento pregunta_agente.
+    sesion: str | None = Field(default=None, max_length=64)
 
 
 class Evento(BaseModel):
@@ -457,6 +465,10 @@ def chat(p: Pedido, request: Request):
     sistema = [{"type": "text", "text": FIJO, "cache_control": {"type": "ephemeral"}}]
     mensajes = armar_mensajes(p)
     clave = secrets.token_urlsafe(12)
+    # La fila queda escrita ya, antes de llamar al modelo: el contador de topes y el registro no pueden diverger.
+    fila = REGISTRO.iniciar(pregunta, turno, clave)
+    sesion = (p.sesion or "").lower()
+    sesion = sesion if medicion.SESION.fullmatch(sesion) else None
 
     def eventos():
         t0 = time.perf_counter()
@@ -533,9 +545,8 @@ def chat(p: Pedido, request: Request):
             )
         finally:
             uso["usd"] = round(uso.get("usd", 0), 6)
-            REGISTRO.anotar(
-                pregunta,
-                turno,
+            REGISTRO.cerrar(
+                fila,
                 acciones,
                 respuesta=respuesta,
                 error=error,
@@ -543,8 +554,11 @@ def chat(p: Pedido, request: Request):
                 uso=uso or None,
                 ms_primer_token=round(primero * 1000) if primero else None,
                 ms_total=round((time.perf_counter() - t0) * 1000),
-                clave=clave,
             )
+            # El evento del embudo lo escribe el servidor (no depende de que el navegador siga ahí al terminar)
+            if sesion:
+                tipos = [a for a in dict.fromkeys(acciones) if a in medicion.ACCIONES_AGENTE]
+                MEDICION.anotar(origen, sesion, "pregunta_agente", {"acciones": " ".join(tipos) or "ninguna"})
         yield sse(
             "fin",
             {

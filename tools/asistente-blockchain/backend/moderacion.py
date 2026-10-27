@@ -44,6 +44,20 @@ PALABRAS = {
     "hdp", "hdps", "rape",
 }
 
+# Letras de otros alfabetos que se ven como una latina ("рuто" con r y o cirílicas): se pliegan a la latina antes de
+# comparar, para que la lista local no dependa solo del modelo. Todo en minúscula (se aplica después de casefold).
+CONFUNDIBLES = str.maketrans({
+    # cirílico
+    "а": "a", "в": "b", "е": "e", "ё": "e", "к": "k", "м": "m", "н": "h", "о": "o", "п": "n", "р": "p", "с": "c",
+    "т": "t", "у": "y", "х": "x", "і": "i", "ї": "i", "ј": "j", "ѕ": "s", "һ": "h", "ԁ": "d", "ԛ": "q", "ԝ": "w",
+    "ь": "b", "г": "r",
+    # griego
+    "α": "a", "β": "b", "γ": "y", "ε": "e", "η": "n", "ι": "i", "κ": "k", "μ": "u", "ν": "v", "ο": "o", "ρ": "p",
+    "σ": "o", "τ": "t", "υ": "u", "χ": "x", "ω": "w",
+    # latinas raras
+    "ı": "i", "ɡ": "g", "ɑ": "a", "ⅰ": "i",
+})
+
 LEET = str.maketrans({"4": "a", "@": "a", "3": "e", "1": "i", "!": "i", "0": "o", "5": "s", "$": "s", "7": "t",
                       "8": "b", "9": "g"})
 LINK = re.compile(r"(?:https?://|www\.|\b[\w-]+\.(?:com|net|org|io|xyz|ar|app|me|ly|gg|link|site|online)\b)",
@@ -80,9 +94,11 @@ HERRAMIENTA = {
 
 
 def normalizar(texto: str) -> str:
-    """Minúsculas, sin acentos, leetspeak traducido y letras repetidas colapsadas (putooo → puto)."""
-    t = unicodedata.normalize("NFKD", texto.casefold())
-    t = "".join(ch for ch in t if not unicodedata.combining(ch)).translate(LEET)
+    """Minúsculas, sin acentos, confundibles cirílicos/griegos pasados a latino, leetspeak traducido y letras repetidas
+    colapsadas (putooo → puto)."""
+    t = unicodedata.normalize("NFKD", texto.casefold()).translate(CONFUNDIBLES)
+    # sin marcas combinantes (acentos) ni invisibles (ancho cero, bidi)
+    t = "".join(ch for ch in t if not unicodedata.combining(ch) and unicodedata.category(ch) != "Cf").translate(LEET)
     return re.sub(r"([a-z])\1{2,}", r"\1", t)
 
 

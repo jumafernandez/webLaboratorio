@@ -462,11 +462,11 @@ html.bcw-locked, html.bcw-locked body { overflow: hidden !important; }
 .bcw-panel.bcw-playing .bcw-hero { display: none; }
 .bcw-panel:not(.bcw-playing) .bcw-chat, .bcw-panel:not(.bcw-playing) .bcw-stage,
 .bcw-panel:not(.bcw-playing) .bcw-home { display: none; }
-.bcw-hero h1 {
+.bcw-hero h2 {
   margin: 0; font: 800 clamp(30px, 4.3vw, 60px)/1.06 Poppins, Montserrat, sans-serif; color: #fff;
   letter-spacing: -.02em; text-shadow: 0 6px 40px rgba(76, 28, 127, .8);
 }
-.bcw-hero h1 span {
+.bcw-hero h2 span {
   background: linear-gradient(90deg, #c4b5fd, #f0abfc 45%, #ffd782); -webkit-background-clip: text; background-clip: text;
   color: transparent; text-shadow: none;
 }

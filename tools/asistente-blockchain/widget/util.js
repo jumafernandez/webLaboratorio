@@ -38,3 +38,6 @@ export function ejemploEl(ejemplo) {
   el.querySelector("span").textContent = ejemplo;
   return el;
 }
+
+// Where every "lista de espera" button of the widget goes (the cohort 2026 is closed).
+export const WAITLIST_URL = "/blockchain-dev/espera-2027/";
