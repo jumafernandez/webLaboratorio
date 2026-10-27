@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog de la Diplomatura en Blockchain</title>
+    <title>approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog Blockchain LICDIA UNLu</title>
     <meta name="description" content="Por qué pagar con un token ERC-20 requiere dos transacciones, y un contrato de pasarela en Solidity que cobra con transferFrom y emite un NFT ERC-721 como recibo." />
     <meta name="author" content="Cátedra de la Diplomatura" />
     <meta property="og:title" content="approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog de la Diplomatura en Blockchain" />
@@ -36,12 +36,38 @@
         } catch(e){}
       })();
     </script>
-    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="../../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
-    <link href="../../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <link href="../../../css/bc-visual.css?v=2026-10-27d" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27d" rel="stylesheet" />
     <script src="../../../js/enhancements.min.js" defer></script>
     <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo",
+  "description": "Por qué pagar con un token ERC-20 requiere dos transacciones, y un contrato de pasarela en Solidity que cobra con transferFrom y emite un NFT ERC-721 como recibo.",
+  "datePublished": "2026-10-27",
+  "inLanguage": "es-AR",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://licdia.unlu.edu.ar/blockchain-dev/blog/approve-transferfrom-pasarela/"
+  },
+  "url": "https://licdia.unlu.edu.ar/blockchain-dev/blog/approve-transferfrom-pasarela/",
+  "image": "https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "Cátedra de la Diplomatura",
+    "url": "https://licdia.unlu.edu.ar/blockchain-dev/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LICDIA UNLu",
+    "url": "https://licdia.unlu.edu.ar/"
+  }
+}
+    </script>
 </head>
 <body id="page-top" class="blockchain-theme">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -81,7 +107,8 @@
 
     <header class="backgroundAr fondoBlockchain">
         <div class="container">
-            <div class="masthead-heading bb-masthead">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</div>
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
+            <h1 class="masthead-heading bb-masthead">approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo</h1>
             
         </div>
     </header>
@@ -105,7 +132,7 @@
 
 <h2>La pasarela mínima</h2>
 <p>El siguiente contrato cobra en un token ERC-20 y emite un NFT como recibo. Usa OpenZeppelin 5.x, y lo compilamos y probamos con Foundry antes de publicar esta nota:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -169,11 +196,11 @@ contract Pasarela {
   <li>Revisá periódicamente a qué contratos les diste permiso.</li>
 </ul>
 
-        <aside class="bb-cta">
+        <div class="bb-cta">
             <h2>Seguí por acá</h2>
-            <p><strong>En el plan de estudios:</strong> el Curso 4, donde construís la pasarela de pago completa (ERC-20, NFT recibo y PaymentGateway). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseFour">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
+            <p><strong>En el plan de estudios:</strong> el Curso 4, donde construís la pasarela de pago completa (ERC-20, NFT recibo y PaymentGateway). Mirá el <a href="../../plan-de-estudios/#cronograma">Curso 4: Desarrollo de Aplicaciones y DApps Blockchain</a>.</p>
             <p><strong>En el juego del sitio:</strong> probalo en Nivel 4, donde firmás el approve, pagás y recibís el NFT de recibo. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
-        </aside>
+        </div>
         <section class="bb-fuentes">
             <h2>Fuentes</h2>
             <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>
