@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog de la Diplomatura en Blockchain</title>
+    <title>Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog Blockchain LICDIA UNLu</title>
     <meta name="description" content="Qué propiedades tiene una función hash y cómo el encadenamiento de hashes hace detectable cualquier cambio en un bloque, con un experimento de 20 líneas en Python." />
     <meta name="author" content="Cátedra de la Diplomatura" />
     <meta property="og:title" content="Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog de la Diplomatura en Blockchain" />
@@ -36,12 +36,38 @@
         } catch(e){}
       })();
     </script>
-    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="../../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
-    <link href="../../../css/bc-blog.css?v=2026-10-27c" rel="stylesheet" />
+    <link href="../../../css/bc-visual.css?v=2026-10-27e" rel="stylesheet" />
+    <link href="../../../css/bc-blog.css?v=2026-10-27d" rel="stylesheet" />
     <script src="../../../js/enhancements.min.js" defer></script>
-    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <script src="../../../js/bc-cadena.js?v=2026-10-27a" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Qué es realmente un hash y por qué adulterar un bloque rompe la cadena",
+  "description": "Qué propiedades tiene una función hash y cómo el encadenamiento de hashes hace detectable cualquier cambio en un bloque, con un experimento de 20 líneas en Python.",
+  "datePublished": "2026-10-27",
+  "inLanguage": "es-AR",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://licdia.unlu.edu.ar/blockchain-dev/blog/hash-y-cadena/"
+  },
+  "url": "https://licdia.unlu.edu.ar/blockchain-dev/blog/hash-y-cadena/",
+  "image": "https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "Cátedra de la Diplomatura",
+    "url": "https://licdia.unlu.edu.ar/blockchain-dev/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LICDIA UNLu",
+    "url": "https://licdia.unlu.edu.ar/"
+  }
+}
+    </script>
 </head>
 <body id="page-top" class="blockchain-theme">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -81,7 +107,8 @@
 
     <header class="backgroundAr fondoBlockchain">
         <div class="container">
-            <div class="masthead-heading bb-masthead">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</div>
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
+            <h1 class="masthead-heading bb-masthead">Qué es realmente un hash y por qué adulterar un bloque rompe la cadena</h1>
             
         </div>
     </header>
@@ -102,7 +129,7 @@
   <li><strong>Es sensible a cualquier cambio:</strong> una diferencia mínima en la entrada produce un hash que no se parece al anterior. Es el llamado efecto avalancha.</li>
 </ul>
 <p>Podés comprobarlo en una terminal. La diferencia entre las dos entradas es una sola letra:</p>
-<pre><code>$ printf 'hola' | sha256sum
+<pre tabindex="0"><code>$ printf 'hola' | sha256sum
 b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79
 $ printf 'holA' | sha256sum
 e028fa3463f8bbcb76607c0819bd85103de648004fcabb0648ce3662459956f4</code></pre>
@@ -111,7 +138,7 @@ e028fa3463f8bbcb76607c0819bd85103de648004fcabb0648ce3662459956f4</code></pre>
 <h2>De un hash a una cadena</h2>
 <p>Un bloque agrupa transacciones y un encabezado. Según la documentación de Ethereum, ese encabezado incluye, entre otros campos, el hash del bloque padre (<code>parent_hash</code>), la raíz de las transacciones (<code>transactions_root</code>) y la raíz del estado (<code>state_root</code>). El hash del bloque se deriva de esos datos, de modo que cada bloque queda atado al anterior: si cambia algo en un bloque, cambia su hash, y el bloque siguiente guardaba el hash viejo.</p>
 <p>Para verlo sin la complejidad de una red real, este programa en Python arma una cadena mínima de tres bloques. Cada uno guarda sus datos, el hash del anterior y su propio hash, calculado sobre ambos:</p>
-<pre><code>import hashlib
+<pre tabindex="0"><code>import hashlib
 
 def sha(texto):
     return hashlib.sha256(texto.encode()).hexdigest()
@@ -137,7 +164,7 @@ print(valida(cadena))
 cadena[0]["hash"] = sha(cadena[0]["previo"] + cadena[0]["datos"])  # recalculamos su hash
 print(valida(cadena))</code></pre>
 <p>La salida de esta ejecución es:</p>
-<pre><code>cadena válida
+<pre tabindex="0"><code>cadena válida
 bloque 0: su contenido no coincide con su hash
 bloque 1: el hash previo no coincide con el bloque 0</code></pre>
 
@@ -151,11 +178,11 @@ bloque 1: el hash previo no coincide con el bloque 0</code></pre>
 <h2>Lo que un hash no garantiza</h2>
 <p>El encadenamiento hace que los cambios sean <em>detectables</em>, no que la información sea <em>verdadera</em>. Un hash no dice si la transacción original era honesta, ni quién la firmó: para eso están las firmas digitales y el consenso. Tampoco oculta el contenido si es predecible; hashear un dato con pocas variantes posibles permite descubrirlo probando todas.</p>
 
-        <aside class="bb-cta">
+        <div class="bb-cta">
             <h2>Seguí por acá</h2>
-            <p><strong>En el plan de estudios:</strong> clases 1 y 2 del Curso 1 (funciones hash, estructura del bloque y hash chain). Mirá el <a href="../../plan-de-estudios/#panelsStayOpen-collapseOne">Curso 1: Fundamentos de Blockchain</a>.</p>
+            <p><strong>En el plan de estudios:</strong> clases 1 y 2 del Curso 1 (funciones hash, estructura del bloque y hash chain). Mirá el <a href="../../plan-de-estudios/#cronograma">Curso 1: Fundamentos de Blockchain</a>.</p>
             <p><strong>En el juego del sitio:</strong> probalo en Nivel 1, donde minás un bloque y probás adulterarlo para ver cómo se rompe la cadena. <a class="bb-btn" href="../../?bcw=open">Abrir el juego</a></p>
-        </aside>
+        </div>
         <section class="bb-fuentes">
             <h2>Fuentes</h2>
             <p>Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.</p>

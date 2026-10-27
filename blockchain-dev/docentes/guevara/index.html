@@ -120,7 +120,8 @@
             box-shadow: 0 12px 30px rgba(76, 28, 127, 0.25);
         }
 
-        .cta-inscribite h3 {
+        .cta-inscribite h3,
+        .cta-inscribite h2 {
             color: white;
             font-weight: 800;
             margin-bottom: 0.5rem;
@@ -192,10 +193,10 @@
         } catch(e){}
       })();
     </script>
-    <link href="../../../css/enhancements.css" rel="stylesheet" />
+    <link href="../../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../../../css/bc-visual.css?v=2026-10-27b" rel="stylesheet" />
-    <script src="../../../js/bc-cadena.js?v=2026-10-26a" defer></script>
+    <link href="../../../css/bc-visual.css?v=2026-10-27e" rel="stylesheet" />
+    <script src="../../../js/bc-cadena.js?v=2026-10-27a" defer></script>
     <script src="../../../js/enhancements.min.js" defer></script>
 
 </head>
@@ -238,9 +239,12 @@
 
     <header class="backgroundAr fondoBlockchain" data-aos="flip-up" data-aos-delay="100" data-aos-duration="1500">
         <div class="container">
+            <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
             <div class="masthead-heading">Deiller Guevara - Cuerpo docente</div>
         </div>
     </header>
+
+    <main id="contenido">
 
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
@@ -270,7 +274,7 @@
 
                         <!-- Photo column -->
                         <div class="col-12 col-md-3 docente-photo-wrap" data-aos="fade-right" data-aos-delay="200">
-                            <img class="docente-photo" src="../../../assets/img/team/guevara.jpg"
+                            <img class="docente-photo" width="200" height="200" src="../../../assets/img/team/guevara.jpg"
                                 alt="Deiller Guevara - Docente Diplomatura en Blockchain UNLu" >
                         </div>
 
@@ -341,7 +345,7 @@
                     <p class="section-label"><i class="fas fa-chalkboard-teacher me-1"></i>¿Qué enseña en la diplomatura?</p>
 
                     <div class="course-item">
-                        <strong>Módulo 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas</strong>
+                        <strong>Curso 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas</strong>
                         <p class="mb-0 mt-1" style="font-size:0.92rem; color:#4a4a4a;">
                             <em>Equipo Docente.</em> Conduce la parte aplicada del módulo financiero: funcionamiento de protocolos DeFi, mecánica de stablecoins, operación en DEX, estrategias de liquidez y gestión de riesgo on-chain. Su doble perfil — analista financiero certificado y especialista en DeFi — es exactamente lo que permite hacer este módulo sin quedarse ni en la teoría académica ni en el hype de redes sociales.
                         </p>
@@ -350,7 +354,7 @@
 
                 <!-- CTA -->
                 <div class="cta-inscribite" data-aos="fade-up" data-aos-delay="400">
-                    <h3>¿Querés sumarte a la próxima cohorte?</h3>
+                    <h2 class="h3">¿Querés sumarte a la próxima cohorte?</h2>
                     <p>Entendé DeFi con la profundidad que merece: desde la base financiera hasta los protocolos.</p>
                     <a href="/blockchain-dev/espera-2027/" class="btn-cta">
                         <i class="fas fa-clock me-2"></i>Lista de espera 2027
@@ -366,6 +370,8 @@
             <i class="fas fa-arrow-left me-2"></i>Volver al cuerpo docente
         </a>
     </div>
+
+    </main>
 
     <footer class="footer bg-dark text-white py-4 mt-2">
         <div class="container text-center small">
