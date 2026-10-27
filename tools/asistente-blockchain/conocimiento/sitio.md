@@ -229,12 +229,6 @@ Diplomatura de posgrado · LICDIA · UNLu
  Maestrando en Análisis y Generación de Información Estadística (UNTREF). 
  Aporta marco histórico, economía política y manejo riguroso de bases macro internacionales (BM, OIT, UNESCO, INDEC). 20 artículos publicados en revistas científicas.
  Ver perfil → 
- APU Nehuén Prados
- Analista Programador Universitario (UNLu). 
- Developer, DevOps y arquitecto de sistemas distribuidos. 
- Soluciones end-to-end on-chain y off-chain, con experiencia en la BFA. 
- Más de una década en el ecosistema cripto. Fundador de Craving (fintech tecnológica).
- Ver perfil → 
  Deiller Guevara
  Curso 2 
  Operador de Derivados — Programa NOR XI, A3 Mercados. 
@@ -255,6 +249,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  Ayudante en Sistemas Distribuidos (UNLu) y en Bases de Datos e Investigación Operativa (UNLaM). 
  Diplomatura en Fintech (UADE). 
  Administración y migración de motores (Oracle, SQL Server, Sybase, Teradata) y procesos ETL.
+ Ver perfil → 
  Diplomatura oficial de la Universidad Nacional de Luján 
  Dictada por el Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial (LICDIA)
  ¿Por qué elegir LICDIA?
@@ -527,7 +522,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  ¿Quiénes son los docentes?
  Un equipo con trayectoria activa en la industria y la academia.
  La dirección está a cargo del Dr. David Petrocelli (Senior Cloud Architect en Caylent USA, doctor en Ciencias Informáticas UNLP) y la coordinación académica del Mg. Juan M. Fernández (Director de LICDIA-UNLu, profesor en UNLu, ITBA y UNTREF).
- Completan el cuerpo docente el Dr. Julián Olivares (CONICET/UNGS, historia económica y economía política), el APU Nehuén Prados (smart contracts, DApps, sistemas distribuidos, fundador de Craving), Deiller Guevara (operador de derivados A3 Mercados Programa NOR XI, especialista en DeFi y market making) y Mauricio Romero (bases de datos en el BCRA, ayudante en Sistemas Distribuidos UNLu).
+ Completan el cuerpo docente el Dr. Julián Olivares (CONICET/UNGS, historia económica y economía política), Mauricio Romero (bases de datos en el BCRA, sistemas distribuidos UNLu/UNLaM), Deiller Guevara (operador de derivados A3 Mercados Programa NOR XI, especialista en DeFi y market making) y Mauricio Romero (bases de datos en el BCRA, ayudante en Sistemas Distribuidos UNLu).
  Forma parte del cuerpo docente Ciro E. Romero (Líder de I+D+i en C&S Informática, Especialista en IoT por UBA-FIUBA, docente en UNQ y FIUBA), con foco en blockchain aplicada a IoT, Zero Knowledge Proof y redes descentralizadas tipo IOTA.
  Hacé click en cada nombre para ver el perfil completo, o mirá la sección Cuerpo docente más arriba.
  ¿Qué salida laboral tiene?
@@ -569,7 +564,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  Inscripción 2026 — Cerrada
  La cohorte de agosto 2026 está en curso, con 15 estudiantes · Si querés formar parte de la cohorte 2027, dejanos tus datos que te escribimos el año que viene
  Lista de espera 2027
- Dejanos nombre, mail y teléfono · También podés escribirnos a
+ Dejanos nombre y mail · También podés escribirnos a
  licdia@unlu.edu.ar 
  o por WhatsApp
  anterior — 
@@ -603,7 +598,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  Estudiante avanzado (cursando últimas materias) 
  Quiero participar de la charla 
  * Campos obligatorios
- Inscripción
+ Lista de espera 2027
 
 ## Aranceles Blockchain - LICDIA
 URL: /blockchain-dev/aranceles/
@@ -658,6 +653,29 @@ Información de Aranceles — Diplomatura en Innovación y Desarrollo de
  La inscripción 2026 está cerrada. Dejanos tus datos para la cohorte 2027 y te escribimos el año que viene.
  Lista de espera 2027
 
+## Blog de la Diplomatura en Blockchain | LICDIA UNLu
+URL: /blockchain-dev/blog/
+
+Blog de la Diplomatura en Blockchain
+ Notas cortas sobre lo que se enseña en los cuatro cursos, con código que compila y fuentes oficiales.
+ Curso 1 · Fundamentos
+ Qué es realmente un hash y por qué adulterar un bloque rompe la cadena 
+ Qué propiedades tiene una función hash y cómo el encadenamiento de hashes hace detectable cualquier cambio en un bloque, con un experimento de 20 líneas en Python.
+ Cátedra de la Diplomatura · 27/10/2026 · 4 min 
+ Curso 1 y Curso 4
+ Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia 
+ Qué es el gas, para qué sirve una red de prueba y por qué Base Sepolia, una capa 2 de Ethereum, es la red del curso y del juego del sitio.
+ Cátedra de la Diplomatura · 27/10/2026 · 3 min 
+ Curso 4 · DApps
+ approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo 
+ Por qué pagar con un token ERC-20 requiere dos transacciones, y un contrato de pasarela en Solidity que cobra con transferFrom y emite un NFT ERC-721 como recibo.
+ Cátedra de la Diplomatura · 27/10/2026 · 3 min 
+ Curso 4 · Seguridad
+ Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity 
+ Cómo un contrato puede ser vaciado por una llamada que vuelve a entrar, y cómo el patrón Checks-Effects-Interactions y ReentrancyGuard lo evitan, con código que compila.
+ Cátedra de la Diplomatura · 27/10/2026 · 4 min 
+ Las novedades generales del laboratorio están en el blog del LICDIA . Para ver el plan completo, visitá el plan de estudios , o probá el juego .
+
 ## Destinatarios Blockchain - LICDIA
 URL: /blockchain-dev/destinatarios/
 
@@ -681,6 +699,32 @@ Destinatarios - Diplomatura en Blockchain
  La inscripción 2026 está cerrada. Si querés formar parte de la cohorte 2027, dejanos tus datos y te escribimos el año que viene.
  Lista de espera 2027
  Ver requisitos de admisión
+ Volver
+
+## En vivo - Blockchain LICDIA
+URL: /blockchain-dev/en-vivo/
+
+En vivo - Diplomatura en Blockchain
+ Esta página lee la cadena desde tu navegador, sin servidor intermedio: consulta un nodo público de Base Sepolia y muestra lo que hicieron quienes jugaron en la portada. Nada de lo que ves se guarda ni se calcula en nuestro sitio.
+ Bloque actual 
+ ... 
+ Base Sepolia, chainId 84532 
+ Saldo del relayer 
+ ... 
+ ETH de prueba, paga el gas de todos 
+ Contadores
+ Sellos ... mensajes sellados 
+ Tokens creados ... ERC-20 de visitantes 
+ Insignias y NFT ... acuñados 
+ Pagos demo ... en USDL de prueba 
+ Últimos eventos
+ Todavía no hay eventos para mostrar. Cuando alguien juegue, aparece acá.
+ Buscando eventos en la cadena...
+ Los cinco contratos
+ Qué estás mirando
+ Base Sepolia es una testnet : una red pública que funciona igual que una blockchain real, pero cuyo ETH no vale nada. Sirve para aprender y probar contratos sin riesgo. Todo lo que ves es público y verificable por cualquiera.
+ El gas (la comisión de cada transacción) lo paga la cátedra desde una billetera relayer: quien juega no necesita billetera ni fondos. Por eso el saldo de arriba importa: si se agota, el juego deja de escribir en la cadena. El código fuente de los cinco contratos está verificado en Sourcify y se puede leer en el explorador.
+ Jugá y mirá tu transacción acá 
  Volver
 
 ## Enfoque y Metodología Blockchain - LICDIA
@@ -717,6 +761,43 @@ Enfoque y Metodología
  Caylent USA , investigadores CONICET , traders certificados
  y devs Web3 activos. La 1ra cohorte 2026 está en curso, con 15 estudiantes.
  Volver
+
+## Lista de espera 2027 - Diplomatura en Blockchain UNLu - LICDIA
+URL: /blockchain-dev/espera-2027/
+
+Lista de espera 2027 - Diplomatura en Blockchain
+ La inscripción 2026 está cerrada: la cohorte de agosto está en curso. Si querés formar parte de la cohorte 2027, dejá tus datos y te avisamos cuando se abra la inscripción.
+ anterior = hash #4 0x4c1c7f…2026 
+ bloque #5 
+ Cohorte 2027: lista de espera
+ pendiente 
+ Nombre y apellido * 
+ Correo electrónico * 
+ Perfil u ocupación (opcional) 
+ Prefiero no indicarlo 
+ Desarrollador / Ingeniero IT 
+ Data / Ciberseguridad 
+ Finanzas / Economía 
+ Abogado / Contador / Administrador 
+ Funcionario público 
+ Empresario / Consultor / Emprendedor 
+ Marketing / Comunicación 
+ Docente / Investigador 
+ Estudiante avanzado 
+ Otro 
+ No completar este campo 
+ Firmá con tu wallet (opcional) 
+ Firmar es demostrar que controlás una dirección sin mover fondos: tu wallet firma un texto, no hay transacción, ni gas, ni cambio de red. Es opcional y no cuesta nada.
+ Firmar el mensaje 
+ Acepto que LICDIA me contacte por correo para avisarme sobre la inscripción de la cohorte 2027. Más información en la política de privacidad . * 
+ Anotarme en la lista de espera 
+ Quedaste en la lista de espera
+ Registramos tus datos. Te escribimos al correo que dejaste cuando se abra la inscripción de la cohorte 2027. Si tenés dudas, escribinos a licdia@unlu.edu.ar .
+ anterior 0x4c1c7f…2026 
+ datos lista de espera 
+ firma sin firmar 
+ hash esperando datos 
+ Este formulario no es una inscripción y no garantiza un lugar. Volver a la diplomatura
 
 ## Información Inscripción Blockchain - LICDIA
 URL: /blockchain-dev/inscripcion-blockchain-dev/
@@ -1144,6 +1225,28 @@ URL: /blockchain-dev/por-que-elegirnos/
  Propuesta académica sujeta a las resoluciones del Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial (LICDIA), Universidad Nacional de Luján.
  Volver
 
+## Proyectos de estudiantes - Diplomatura en Blockchain - LICDIA
+URL: /blockchain-dev/proyectos/
+
+proyectos de estudiantes · Base Sepolia
+ Proyectos de estudiantes
+ Acá se publica trabajo real de la diplomatura: contratos desplegados en la testnet Base Sepolia, con enlace al explorador para que cualquiera pueda leer el código y verificar que existe. Nada se muestra sin el consentimiento de sus autores.
+ Curso
+ Todos 
+ Etiqueta
+ Todas 
+ Verificar en vivo que cada dirección tenga código 
+ Cargando proyectos…
+ bloque pendiente 0x… sin minar 
+ Todavía no hay proyectos publicados
+ Los primeros llegan con el Curso 4, Desarrollo de Aplicaciones y DApps Blockchain , que arranca el 5 de noviembre de 2026 y tiene 7 clases hasta el 26 de noviembre. La propuesta del trabajo final se presenta el 19 de noviembre y la entrega es el 30 de enero de 2027. Recién después de eso, y con el visto bueno de cada equipo, aparecen acá.
+ Cuando estén, cada proyecto va a mostrar:
+ Contratos propios (por ejemplo un token ERC-20, un recibo ERC-721 y una pasarela de pago que los usa) desplegados en Base Sepolia.
+ Código verificado en Sourcify y visible en Blockscout .
+ Un frontend Web3 que se conecta a esos contratos y, cuando el equipo quiere, el repositorio.
+ Los tipos de proyecto integrador que se pueden encarar (tokenización de activos, DeFi y otros) están en Lo que vas a construir , en la portada. Esta página es la otra mitad: lo que efectivamente se construyó.
+ Ver el plan de estudios
+
 ## Requisitos Blockchain - LICDIA
 URL: /blockchain-dev/requisitos/
 
@@ -1181,10 +1284,314 @@ Requisitos - Diplomatura en Blockchain
  Lista de espera 2027
  Volver
 
+## Verificar credenciales - LICDIA
+URL: /blockchain-dev/verificar/
+
+Diplomatura de posgrado · LICDIA · UNLu
+ Verificar insignias y credenciales
+ Verificador en la cadena
+ Pegá una dirección , un número de token o el hash de una transacción . Esta página consulta la red pública Base Sepolia desde tu navegador, sin pasar por ningún servidor nuestro, y muestra qué insignias y credenciales existen para ese dato.
+ Dirección, token o transacción 
+ Verificar 
+ Probá con el token #1 o pegá la dirección de tu billetera después de jugar.
+ Qué se verifica y qué no
+ credencial oficial verificable 
+ Egresados de la diplomatura
+ Un token intransferible emitido solo por la universidad, con la cohorte, el alcance (diplomatura o curso) y el hash del acto administrativo. El título oficial es el diploma de la UNLu: la cadena aporta una prueba pública de que fue emitido y de si sigue vigente o fue revocado.
+ Cargando…
+ juego simbólico 
+ Insignias del recorrido
+ Las insignias y el certificado del juego de la página son piezas simbólicas, hechas para aprender cómo funciona un contrato. No acreditan estudios ni reemplazan ningún título.
+ Contratos consultados
+ La red es una testnet: sirve para mostrar el mecanismo sin costo. Al emitir las credenciales oficiales se publicará la dirección del contrato y el código verificado en Sourcify. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.
+
+## approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog de la Diplomatura en Blockchain
+URL: /blockchain-dev/blog/approve-transferfrom-pasarela/
+
+approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo
+ Cátedra de la Diplomatura · 27/10/2026 · 3 min de lectura 
+ Pagar con un token ERC-20 no es mandar plata a un contrato: es darle permiso a un contrato para que la cobre. Ese permiso explica el patrón de dos pasos que usan casi todas las pasarelas Web3.
+ Por qué hacen falta dos transacciones
+ El ETH se envía junto con la llamada a un contrato. Un token ERC-20 no: es un registro de saldos que vive dentro del contrato del token, y un contrato externo no puede tocarlo por su cuenta. El estándar EIP-20 resuelve esto con un mecanismo de autorización:
+ approve(spender, valor) autoriza a spender a retirar de tu cuenta, varias veces, hasta valor . Si lo volvés a llamar, el nuevo valor reemplaza al anterior.
+ allowance(owner, spender) devuelve cuánto le queda por retirar.
+ transferFrom(from, to, valor) mueve tokens de from a to y es la vía que usa un contrato para cobrar en tu nombre. Debe fallar si from no lo autorizó.
+ Entonces, una compra son dos firmas: primero approve sobre el token, después pagar sobre la pasarela. Es lo que ves en el Nivel 4 del juego.
+ La pasarela mínima
+ El siguiente contrato cobra en un token ERC-20 y emite un NFT como recibo. Usa OpenZeppelin 5.x, y lo compilamos y probamos con Foundry antes de publicar esta nota:
+ // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+/// NFT que hace de recibo. Solo la pasarela puede emitirlo.
+contract Recibo is ERC721 {
+ address public immutable pasarela;
+ uint256 public proximoId;
+ error SoloPasarela();
+ constructor(address _pasarela) ERC721("Recibo de pago", "RCBO") {
+ pasarela = _pasarela;
+ }
+ function emitir(address a) external returns (uint256 id) {
+ if (msg.sender != pasarela) revert SoloPasarela();
+ id = proximoId++;
+ _safeMint(a, id);
+ }
+}
+contract Pasarela {
+ using SafeERC20 for IERC20;
+ IERC20 public immutable token;
+ address public immutable comercio;
+ Recibo public immutable recibo;
+ event Pago(address indexed pagador, bytes32 indexed producto, uint256 monto, uint256 reciboId);
+ constructor(IERC20 _token, address _comercio) {
+ token = _token;
+ comercio = _comercio;
+ recibo = new Recibo(address(this));
+ }
+ /// El pagador tiene que haber hecho antes token.approve(address(this), monto).
+ function pagar(bytes32 producto, uint256 monto) external returns (uint256 reciboId) {
+ // La pasarela mueve los tokens del pagador gracias al allowance.
+ token.safeTransferFrom(msg.sender, comercio, monto);
+ // El recibo se emite al final, cuando el cobro ya se hizo.
+ reciboId = recibo.emitir(msg.sender);
+ emit Pago(msg.sender, producto, monto, reciboId);
+ }
+} 
+ Qué decisiones hay detrás
+ SafeERC20. Algunos tokens no cumplen el estándar al pie de la letra, por ejemplo no devuelven el booleano esperado. safeTransferFrom maneja esos casos y revierte si la transferencia falla, en lugar de seguir como si hubiera funcionado.
+ El recibo es un NFT. Un ERC-721 es único por identificador y queda en la wallet del pagador, así que es una prueba verificable de que el pago ocurrió. El evento Pago permite que un frontend o un indexador reconstruya el historial sin leer todo el estado.
+ Solo la pasarela emite. Si cualquiera pudiera llamar a emitir , los recibos no probarían nada. El control es una comparación contra la dirección inmutable de la pasarela.
+ _safeMint y el orden de las operaciones. Si el destinatario es un contrato, _safeMint invoca onERC721Received en él, lo cual entrega el control a código ajeno. Por eso el recibo se emite después del cobro. Es el mismo criterio de la nota sobre reentrancy: primero los efectos propios, al final las llamadas externas. En nuestras pruebas, una cuenta que es un contrato sin esa función no puede recibir el recibo y la transacción entera revierte.
+ El permiso también es un riesgo
+ Un approve es una autorización con consecuencias. Un permiso mayor al necesario, o dado a un contrato con fallas, expone tus fondos. Algunas buenas prácticas:
+ Autorizá el monto de la compra y no más. En nuestro contrato, el allowance baja a cero tras el pago, y así lo verifica nuestra prueba.
+ El estándar recomienda que las interfaces pongan el allowance en 0 antes de cambiarlo por otro valor distinto, para evitar una condición de carrera conocida.
+ Revisá periódicamente a qué contratos les diste permiso.
+ Seguí por acá
+ En el plan de estudios: el Curso 4, donde construís la pasarela de pago completa (ERC-20, NFT recibo y PaymentGateway). Mirá el Curso 4: Desarrollo de Aplicaciones y DApps Blockchain .
+ En el juego del sitio: probalo en Nivel 4, donde firmás el approve, pagás y recibís el NFT de recibo. Abrir el juego 
+ Fuentes
+ Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.
+ EIP-20: Token Standard 
+ OpenZeppelin Contracts 5.x: ERC721 (_mint y _safeMint) 
+ OpenZeppelin Contracts 5.x: Utilities (ReentrancyGuard, Address) 
+ Otras notas
+ Qué es realmente un hash y por qué adulterar un bloque rompe la cadena 
+ Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia 
+ Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity 
+ Ver todas las notas del blog
+
+## Qué es realmente un hash y por qué adulterar un bloque rompe la cadena | Blog de la Diplomatura en Blockchain
+URL: /blockchain-dev/blog/hash-y-cadena/
+
+Qué es realmente un hash y por qué adulterar un bloque rompe la cadena
+ Cátedra de la Diplomatura · 27/10/2026 · 4 min de lectura 
+ Una cadena de bloques no es más que datos ligados entre sí por hashes. Entender qué es un hash alcanza para entender por qué reescribir el pasado en una blockchain es tan costoso.
+ Qué hace una función hash
+ Una función hash criptográfica toma una entrada de cualquier tamaño y devuelve una salida de tamaño fijo. SHA-256 devuelve siempre 256 bits, que solemos escribir como 64 caracteres hexadecimales. Tres propiedades nos interesan:
+ Es determinista: la misma entrada da siempre la misma salida, en cualquier computadora.
+ Es difícil de invertir: a partir del hash no hay forma práctica de recuperar la entrada, salvo probar candidatos.
+ Es sensible a cualquier cambio: una diferencia mínima en la entrada produce un hash que no se parece al anterior. Es el llamado efecto avalancha.
+ Podés comprobarlo en una terminal. La diferencia entre las dos entradas es una sola letra:
+ $ printf 'hola' | sha256sum
+b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79
+$ printf 'holA' | sha256sum
+e028fa3463f8bbcb76607c0819bd85103de648004fcabb0648ce3662459956f4 
+ Entre esos dos hashes difieren 131 de los 256 bits, es decir, un poco más de la mitad. No hay forma de "acercarse" a un hash buscado cambiando la entrada de a poco.
+ De un hash a una cadena
+ Un bloque agrupa transacciones y un encabezado. Según la documentación de Ethereum, ese encabezado incluye, entre otros campos, el hash del bloque padre ( parent_hash ), la raíz de las transacciones ( transactions_root ) y la raíz del estado ( state_root ). El hash del bloque se deriva de esos datos, de modo que cada bloque queda atado al anterior: si cambia algo en un bloque, cambia su hash, y el bloque siguiente guardaba el hash viejo.
+ Para verlo sin la complejidad de una red real, este programa en Python arma una cadena mínima de tres bloques. Cada uno guarda sus datos, el hash del anterior y su propio hash, calculado sobre ambos:
+ import hashlib
+def sha(texto):
+ return hashlib.sha256(texto.encode()).hexdigest()
+def bloque(previo, datos):
+ return {"previo": previo, "datos": datos, "hash": sha(previo + datos)}
+cadena = [bloque("0" * 64, "Ana paga 5 a Beto")]
+cadena.append(bloque(cadena[-1]["hash"], "Beto paga 2 a Carla"))
+cadena.append(bloque(cadena[-1]["hash"], "Carla paga 1 a Ana"))
+def valida(cadena):
+ for i, b in enumerate(cadena):
+ if b["hash"] != sha(b["previo"] + b["datos"]):
+ return f"bloque {i}: su contenido no coincide con su hash"
+ if i and b["previo"] != cadena[i - 1]["hash"]:
+ return f"bloque {i}: el hash previo no coincide con el bloque {i - 1}"
+ return "cadena válida"
+print(valida(cadena))
+cadena[0]["datos"] = "Ana paga 50 a Beto" # adulteramos el bloque 0
+print(valida(cadena))
+cadena[0]["hash"] = sha(cadena[0]["previo"] + cadena[0]["datos"]) # recalculamos su hash
+print(valida(cadena)) 
+ La salida de esta ejecución es:
+ cadena válida
+bloque 0: su contenido no coincide con su hash
+bloque 1: el hash previo no coincide con el bloque 0 
+ Por qué el atacante no puede "arreglarlo"
+ Mirá la tercera línea de salida. Después de modificar el bloque 0 recalculamos su hash para que sea consistente, y aun así la cadena sigue rota: ahora el que no cierra es el bloque 1, que conserva el hash viejo de su padre. Para repararlo habría que recalcular el bloque 1, lo que cambia su hash y rompe el bloque 2, y así hasta el final de la cadena.
+ En una red real el problema es mayor, porque no hay un único dueño de la cadena. Cada nodo mantiene su copia y verifica los bloques que recibe, así que una versión adulterada simplemente no es aceptada por el resto. En las redes con prueba de trabajo, además, cada bloque reescrito exigía repetir el trabajo computacional que lo respaldaba, y la red daba por válida la cadena con más trabajo acumulado. Ethereum dejó de usar prueba de trabajo en 2022 y hoy usa prueba de participación (proof of stake), con otro mecanismo de consenso, pero el encadenamiento por hashes sigue siendo la base de la detección de cambios.
+ Una salvedad sobre el algoritmo
+ El ejemplo usa SHA-256. Solidity ofrece como funciones integradas tanto sha256 como keccak256 , y esta última es la que se usa habitualmente en contratos de Ethereum. Son funciones distintas: no esperes obtener el mismo valor de una y de otra para la misma entrada. Tené presente también que Solidity eliminó en la versión 0.5.0 el alias sha3 de keccak256 , así que conviene leer siempre el nombre exacto de la función que usa cada herramienta.
+ Lo que un hash no garantiza
+ El encadenamiento hace que los cambios sean detectables , no que la información sea verdadera . Un hash no dice si la transacción original era honesta, ni quién la firmó: para eso están las firmas digitales y el consenso. Tampoco oculta el contenido si es predecible; hashear un dato con pocas variantes posibles permite descubrirlo probando todas.
+ Seguí por acá
+ En el plan de estudios: clases 1 y 2 del Curso 1 (funciones hash, estructura del bloque y hash chain). Mirá el Curso 1: Fundamentos de Blockchain .
+ En el juego del sitio: probalo en Nivel 1, donde minás un bloque y probás adulterarlo para ver cómo se rompe la cadena. Abrir el juego 
+ Fuentes
+ Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.
+ ethereum.org: Blocks 
+ ethereum.org: Proof-of-work (PoW) 
+ Documentación de Solidity: funciones integradas (keccak256, sha256) 
+ Otras notas
+ Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia 
+ approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo 
+ Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity 
+ Ver todas las notas del blog
+
+## Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity | Blog de la Diplomatura en Blockchain
+URL: /blockchain-dev/blog/reentrancy-checks-effects-interactions/
+
+Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity
+ Cátedra de la Diplomatura · 27/10/2026 · 4 min de lectura 
+ Reentrancy es la vulnerabilidad en la que un contrato, al llamar a otro, le entrega el control y recibe una llamada de vuelta antes de haber terminado de actualizar su propio estado. Se previene con un orden de operaciones simple.
+ Qué ocurre exactamente
+ Según la documentación de Solidity, cuando un contrato llama a otro o le envía ETH, el contrato receptor toma el control y puede volver a llamar al contrato original antes de que la primera llamada termine. Si el original todavía no actualizó su estado, el atacante lo explota con datos viejos. Y no se limita a enviar ETH: cualquier llamada a otro contrato puede dar esa oportunidad.
+ Una bóveda vulnerable
+ Una bóveda guarda saldos por dirección. Su función retirar envía el dinero y recién después pone el saldo en cero:
+ // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+contract BovedaVulnerable {
+ mapping(address => uint256) public saldo;
+ function depositar() external payable {
+ saldo[msg.sender] += msg.value;
+ }
+ function retirar() external {
+ uint256 monto = saldo[msg.sender];
+ require(monto > 0, "sin saldo");
+ (bool ok, ) = msg.sender.call{value: monto}(""); // interacción
+ require(ok, "fallo el envio");
+ saldo[msg.sender] = 0; // efecto, demasiado tarde
+ }
+} 
+ El atacante despliega un contrato cuya función receive se ejecuta cada vez que le llega ETH, y desde ahí vuelve a llamar a retirar :
+ interface IBoveda {
+ function depositar() external payable;
+ function retirar() external;
+}
+contract Atacante {
+ IBoveda public immutable boveda;
+ constructor(IBoveda _boveda) {
+ boveda = _boveda;
+ }
+ function atacar() external payable {
+ boveda.depositar{value: msg.value}();
+ boveda.retirar();
+ }
+ receive() external payable {
+ if (address(boveda).balance >= 1 ether) {
+ boveda.retirar();
+ }
+ }
+} 
+ La secuencia es: el atacante deposita 1 ETH y llama a retirar . La bóveda lee su saldo (1 ETH) y le envía el ETH. En ese envío se ejecuta receive , que llama a retirar otra vez. El saldo sigue siendo 1 ETH porque la línea que lo pone en cero todavía no corrió, así que la bóveda paga de nuevo. Se repite hasta vaciarla. En la prueba que escribimos, la bóveda tenía 10 ETH de otras personas y el atacante depositó 1: terminó con 11 ETH.
+ Checks-Effects-Interactions
+ La solución que recomienda la documentación de Solidity es el patrón Checks-Effects-Interactions: primero se validan las condiciones, después se actualiza el estado y recién al final se hacen las llamadas externas.
+ contract BovedaSegura {
+ mapping(address => uint256) public saldo;
+ function depositar() external payable {
+ saldo[msg.sender] += msg.value;
+ }
+ function retirar() external {
+ uint256 monto = saldo[msg.sender];
+ require(monto > 0, "sin saldo"); // 1. Checks
+ saldo[msg.sender] = 0; // 2. Effects
+ (bool ok, ) = msg.sender.call{value: monto}(""); // 3. Interactions
+ require(ok, "fallo el envio");
+ }
+} 
+ Ahora, cuando el atacante vuelve a entrar desde receive , su saldo ya es cero. El require falla, el envío interno revierte y toda la transacción se deshace: la bóveda conserva sus 10 ETH. Es lo que comprobamos con una prueba en Foundry.
+ Una segunda barrera: ReentrancyGuard
+ OpenZeppelin ofrece el módulo ReentrancyGuard , cuyo modificador nonReentrant impide que una función se llame a sí misma, directa o indirectamente, mientras se está ejecutando:
+ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+contract BovedaConGuard is ReentrancyGuard {
+ // ... saldo y depositar iguales ...
+ function retirar() external nonReentrant {
+ uint256 monto = saldo[msg.sender];
+ require(monto > 0, "sin saldo");
+ saldo[msg.sender] = 0;
+ (bool ok, ) = msg.sender.call{value: monto}("");
+ require(ok, "fallo el envio");
+ }
+} 
+ Tiene límites que conviene conocer. La documentación aclara que dos funciones nonReentrant no pueden llamarse entre sí; la solución sugerida es mover la lógica a funciones private y dejar el modificador solo en los puntos de entrada. Tampoco reemplaza al patrón: el guard es una protección adicional, no una excusa para ordenar mal el código. Existe además una variante, ReentrancyGuardTransient , que usa almacenamiento transitorio (EIP-1153), y la documentación de OpenZeppelin indica que la versión basada en storage está marcada como deprecada para la v6.0.
+ Reglas prácticas
+ Ordená cada función pública: condiciones, estado, llamadas externas.
+ Considerá "externa" cualquier llamada a otro contrato, incluso a uno que creas confiable, y también la emisión de un NFT con _safeMint , que invoca código del receptor.
+ Pensá en varios contratos a la vez: la documentación advierte que un contrato puede cambiar el estado de otro del que dependés.
+ Auditá con herramientas de análisis estático, como Slither, y escribí una prueba que intente el ataque.
+ Seguí por acá
+ En el plan de estudios: la clase 4 del Curso 4 (patrones de seguridad: reentrancy, CEI, ReentrancyGuard y auditoría con Slither y Aderyn). Mirá el Curso 4: Desarrollo de Aplicaciones y DApps Blockchain .
+ En el juego del sitio: probalo en el desafío «Robá la bóveda», donde atacás un contrato vulnerable. Abrir el juego 
+ Fuentes
+ Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.
+ Documentación de Solidity: Security Considerations (Reentrancy) 
+ OpenZeppelin Contracts 5.x: Utilities (ReentrancyGuard) 
+ OpenZeppelin Contracts 5.x: ERC721 
+ Otras notas
+ Qué es realmente un hash y por qué adulterar un bloque rompe la cadena 
+ Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia 
+ approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo 
+ Ver todas las notas del blog
+
+## Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia | Blog de la Diplomatura en Blockchain
+URL: /blockchain-dev/blog/testnet-gas-base-sepolia/
+
+Testnet, gas y quién paga: por qué el sitio y el curso usan Base Sepolia
+ Cátedra de la Diplomatura · 27/10/2026 · 3 min de lectura 
+ Cada operación en una blockchain pública consume recursos de la red y alguien tiene que pagarlos. Ese costo se llama gas, y explica por qué se practica en redes de prueba y por qué elegimos una capa 2.
+ Qué es el gas
+ El gas mide el esfuerzo computacional de una operación en Ethereum. Una transferencia simple de ETH consume 21.000 unidades de gas, y un contrato inteligente consume más cuanto más cómputo y almacenamiento use. Lo que pagás es esa cantidad multiplicada por un precio por unidad. La documentación de ethereum.org lo resume así:
+ fee = unidades de gas usadas × (base fee + priority fee) 
+ El base fee lo fija el protocolo según qué tan lleno estuvo el bloque anterior, y se quema (sale de circulación). El priority fee es una propina para quien valida el bloque. Con una transferencia de 21.000 unidades, un base fee de 10 gwei y una propina de 2 gwei, el costo es 252.000 gwei, o 0,000252 ETH. Es el ejemplo que usa la propia documentación.
+ Una testnet es una red de práctica
+ Una testnet funciona igual que la red principal, pero su moneda no tiene valor económico oficial. Ethereum.org recomienda Sepolia como la red de prueba por defecto para el desarrollo de aplicaciones. El ETH de prueba se obtiene en una faucet, una web donde ingresás tu dirección y recibís fondos para probar. Equivocarte no te cuesta dinero.
+ Un matiz que vale la pena conocer: la documentación aclara que el ETH de prueba no debería tener valor, pero que en la práctica a veces escasea y se han formado mercados para conseguirlo. Por eso las faucets suelen limitar los montos.
+ Por qué Base Sepolia
+ Base es una capa 2 (L2) de Ethereum, incubada por Coinbase y construida sobre el OP Stack. Sus transacciones se ejecutan en Base y se publican en Ethereum para heredar su seguridad. La documentación de Base describe que cada transacción tiene dos costos: una tarifa de ejecución en la L2 y una tarifa de seguridad por publicar los datos en la L1. Base Sepolia es su red de pruebas: identificador de cadena 84532, frente a 8453 de la red principal.
+ Elegimos Base Sepolia en el curso y en el sitio por razones prácticas y didácticas:
+ Es la red donde va a vivir el trabajo final. El Curso 4 despliega la pasarela de pago en Base Sepolia, con contratos verificados y una comparativa de gas contra la red principal.
+ No cuesta dinero. El gas se paga con ETH de prueba.
+ Reproduce el entorno de producción. El mismo código de Solidity, las mismas herramientas (Foundry, wagmi, un explorador de bloques) y el mismo modelo de costos que una L2 real.
+ Quién paga el gas en el sitio
+ En el juego del sitio no necesitás tener ETH, ni instalar una wallet. Tu wallet de juego vive en el navegador y firma lo que querés hacer, y un relayer de la diplomatura verifica esa firma y paga el gas con ETH de prueba. El contrato registra tu dirección como autora. Es una decisión de diseño de la actividad: en una aplicación real, esa tarifa la pone el usuario o la absorbe quien ofrece el servicio, y diseñar esa política es parte del trabajo de un equipo de producto.
+ Qué hay que recordar al pasar a producción
+ Que algo sea barato en una testnet o en una L2 no significa que sea gratuito en producción. Las pruebas de gas se hacen para comparar , no para suponer costo cero.
+ La tarifa de una L2 depende también de la actividad de Ethereum, porque incluye el costo de publicar datos en la L1. Por eso conviene medir en la red real antes de fijar precios.
+ Las claves de una testnet nunca deberían reutilizarse en la red principal.
+ Seguí por acá
+ En el plan de estudios: la clase 7 del Curso 4 (Layer 2 con foco en Base, testnet vs mainnet y comparativa de gas). Mirá el Curso 4: Desarrollo de Aplicaciones y DApps Blockchain .
+ En el juego del sitio: probalo en Nivel 3 y la tarjeta «Base Sepolia · en vivo», donde ves la red de prueba funcionando. Abrir el juego 
+ Fuentes
+ Verificadas el 27/10/2026. Los ejemplos de código se compilaron y probaron con Foundry (Solidity 0.8.33, OpenZeppelin Contracts 5.7.0) y Python 3.
+ ethereum.org: Gas and fees 
+ ethereum.org: Networks (Sepolia y faucets) 
+ Base: Connecting to Base (Base Sepolia, chain ID 84532) 
+ Base: Network fees 
+ Base: Guide to Base 
+ Optimism: OP Stack 
+ Otras notas
+ Qué es realmente un hash y por qué adulterar un bloque rompe la cadena 
+ approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo 
+ Reentrancy y el patrón Checks-Effects-Interactions, con un ejemplo mínimo en Solidity 
+ Ver todas las notas del blog
+
 ## Ciro Edgardo Romero — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/ciro/
 
 Ciro Edgardo Romero - Docente
+ nodo 0x6b1c4d6f…62eb 
+ valida en la cadena 
+ #1 Equipo Docente 
+ #4 Equipo Docente 
  Perfil docente
  Ciro Edgardo Romero
  Docente — Blockchain aplicada a IoT y sistemas distribuidos
@@ -1202,17 +1609,15 @@ Ciro Edgardo Romero - Docente
  Sistemas distribuidos descentralizados 
  ESP32 / ESP8266 / STM32 
  Sistemas embebidos 
- Internet de las Cosas 
- Logística inteligente 
- I+D+i 
- Metodologías ágiles 
- Scrum (CSM) 
- Python / Flask
+ Internet de las Cosas
 
 ## Mg. Juan M. Fernández — Coordinador Académico — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/fernandez/
 
 Mg. Juan M. Fernández - Cuerpo docente
+ nodo 0x81824fe1…9808 
+ valida en la cadena 
+ #1 Docente Responsable 
  Perfil docente
  Mg. Juan Manuel Fernández
  Coordinador Académico — Diplomatura en Blockchain
@@ -1220,12 +1625,15 @@ Mg. Juan M. Fernández - Cuerpo docente
  Egresado de la propia UNLu : Analista Programador Universitario (2009) y Licenciado en Sistemas de Información (2012). En 2023 obtuvo la Maestría en Inteligencia de Datos orientada a Big Data en la Universidad Nacional de La Plata (UNLP), cerrando una trayectoria académica de más de quince años de continuidad en el sistema universitario público argentino.
  Se desempeña simultáneamente como Profesor Adjunto Ordinario en la División Computación de UNLu (Aprendizaje Automático, Inteligencia Artificial, Programación), Profesor Instructor homologado a Profesor Asociado en el Departamento de Sistemas Digitales y Datos del ITBA (Ciencia de Datos Aplicada, Visualización de la Información — para Ingeniería en Informática, Lic. en Data Science y Lic. en Negocios y Tecnología) y Profesor Titular de Posgrado en la Maestría en Generación y Análisis de Información Estadística de UNTREF (Sistemas de Información y Bases de Datos; Análisis de Opinión Pública en Redes Sociales con NLP). Esta inserción simultánea en tres instituciones de perfil muy distinto — universidad pública de la PBA, instituto tecnológico privado de élite y universidad pública metropolitana — refleja su capacidad de comunicar tecnología compleja a audiencias diversas.
  En paralelo cursa el Doctorado en Ciencias de la Computación en la Universidad Nacional de San Luis (UNSL) , con plan tesis sobre estrategias de balanceo de clases basadas en etiquetado automático de palabras y recuperación de información para clasificación automática de textos. Director de doctorado: Dr. Marcelo L. Errecalde.
- Su línea de investigación principal se concentra en aprendizaje automático aplicado, NLP y modelos de lenguaje grandes (LLMs) : fine-tuning de LLMs abiertos sobre HPC, RAG aplicada a información académica, agentes LLM para CLI/Docker, clasificación automática de correos, IA aplicada a datos espaciales y ambientales. En 2025 fue presentado en CACIC, WICC y publicó como editor el volumen Springer CCIS Computer 
+ Su línea de investigación principal se concentra en aprendizaje automático aplicado, NLP y modelos de lenguaje grandes (LLMs) : fine-tuning de LLMs abiertos sobre HPC, RAG aplicada a información académica, agentes LLM para CLI/Docker, clasificación automática de correos, IA aplicada a datos espaciales y ambientales. En 2025 fue presentado e
 
 ## Deiller Guevara — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/guevara/
 
 Deiller Guevara - Cuerpo docente
+ nodo 0x362078ef…91c6 
+ valida en la cadena 
+ #2 Equipo Docente 
  Perfil docente
  Deiller Guevara
  Docente — Diplomatura en Blockchain
@@ -1245,15 +1653,15 @@ Deiller Guevara - Cuerpo docente
  Gestión de riesgo 
  DeFi 
  Stablecoins 
- Exchanges descentralizados (DEX) 
- AMM / Liquidez 
- Lending descentralizado 
- Análisis de d
+ Exchanges descentralizados
 
 ## Dr. Julián Olivares — Docente — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/olivares/
 
 Dr. Julián Olivares - Cuerpo docente
+ nodo 0x5a486621…4124 
+ valida en la cadena 
+ #2 Docente Responsable 
  Perfil docente
  Dr. Julián Olivares
  Docente — Diplomatura en Blockchain
@@ -1273,12 +1681,16 @@ Dr. Julián Olivares - Cuerpo docente
  Doctorado UBA 
  ¿Qué enseña en la diplomatura?
  Módulo 2 — Fundamentos Financieros y Blockchain para Finanzas Descentralizadas 
- Docente Responsable. Aporta el marco histórico y económico-político del módulo: cómo se inserta la economía cripto y las fina
+ Docente Responsable. Aporta el marco histórico y económ
 
 ## Dr. David Petrocelli — Director — Diplomatura Blockchain LICDIA-UNLu
 URL: /blockchain-dev/docentes/petrocelli/
 
 Dr. David Petrocelli - Director Diplomatura Blockchain
+ nodo 0xde2173d8…7d1e 
+ valida en la cadena 
+ #3 Docente Responsable 
+ #4 Docente Responsable 
  Perfil docente
  Dr. David Petrocelli
  Director y docente — Diplomatura en Blockchain
@@ -1295,5 +1707,34 @@ Dr. David Petrocelli - Director Diplomatura Blockchain
  Despliegue Automatizado y Procesamiento en el Cloud (2022)
  En la industria se desempeña como Senior Cloud Architect en Caylent Inc. (USA, remoto) desde noviembre de 2023, dentro del Cloud Architecture & Engineering Team.
  Brinda guía técnica sobre AWS, IaC (Terraform, CloudFormation, AWS CDK), DevOps/GitOps, modernización de aplicaciones con ECS/EKS y CI/CD a clientes empresariales norteamericanos en proyectos de migración y modernización cloud.
- Previamente fue Team Leader DevOps en CloudHesive LATAM (marzo 2021 – octubre 2023), donde coordinó un equipo de 5 a 10 ingenieros DevOps, definió la hoja de ruta del área y lideró la adopción del AWS Well-Architected Framework. En 2021 obtuvo el Premio al Trabajo en Equipo de la compañía.
- Antes ocupó por casi seis años el cargo de Asistente IT en la Gerencia 
+ Previamente fue Team Leader DevOps en CloudHesive LATAM (marzo 2021 – octubre 2023), donde coordinó un equipo de 5 a 10 ingenieros DevOps, definió la hoja de ruta del área y lideró la adopción del AWS Well-Architected Framework. En 2021 obtuvo el Premio al Trabajo en 
+
+## Mauricio Romero — Docente — Diplomatura Blockchain LICDIA-UNLu
+URL: /blockchain-dev/docentes/romero/
+
+Mauricio Romero - Cuerpo docente
+ nodo 0xa2ebb90a…f650 
+ valida en la cadena 
+ #3 Equipo Docente 
+ Perfil docente
+ Mauricio Romero
+ Docente — Diplomatura en Blockchain
+ Analista Coordinador de Bases de Datos en el Banco Central de la República Argentina (BCRA). Trabaja en la administración y migración de motores de bases de datos (Oracle, SQL Server, Sybase y Teradata) y en procesos ETL.
+ Es ayudante en Sistemas Distribuidos en la Universidad Nacional de Luján y en Bases de Datos e Investigación Operativa en la UNLaM . Tiene además una Diplomatura en Fintech (UADE) .
+ Áreas de especialidad
+ Bases de datos 
+ Sistemas distribuidos 
+ Oracle 
+ SQL Server 
+ Sybase 
+ Teradata 
+ Migración de motores 
+ Procesos ETL 
+ Fintech 
+ ¿Qué enseña en la diplomatura?
+ Curso 3 — Automatización de Infraestructura y Arquitectura Tecnológica para Blockchain 
+ Equipo Docente, junto al Dr. David Petrocelli.
+ ¿Querés sumarte a la próxima cohorte?
+ Dejá tus datos y te avisamos cuando se abra la inscripción de la cohorte 2027.
+ Lista de espera 2027
+ Volver al cuerpo docente

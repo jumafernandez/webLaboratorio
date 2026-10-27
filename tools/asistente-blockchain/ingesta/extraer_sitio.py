@@ -2,9 +2,13 @@
 
 El agente lleva este archivo entero en la parte fija del prompt de sistema (con prompt caching), así responde sobre
 toda la diplomatura sin índice de embeddings: el sitio de Blockchain entra holgado en el contexto. Se vuelve a correr
-cuando cambia el sitio:
+cuando cambia el sitio. Un solo comando, desde cualquier carpeta; sin argumento usa la raíz del sitio de esta copia de
+trabajo (dos niveles arriba de tools/asistente-blockchain):
 
-    python3 ingesta/extraer_sitio.py [ruta/al/sitio]  (por defecto la raíz de webLaboratorio)
+    python3 tools/asistente-blockchain/ingesta/extraer_sitio.py [ruta/al/sitio]
+
+Incluye todas las páginas de blockchain-dev (portada, plan, docentes, en-vivo, verificar, proyectos, espera-2027,
+notas del blog...) menos las de EXCLUIR. Falla si en el resultado aparece alguien de NO_DEBE_APARECER.
 """
 
 import html
@@ -18,7 +22,11 @@ BASE = SITIO / "blockchain-dev"
 SALIDA = RAIZ / "conocimiento" / "sitio.md"
 
 # Páginas que no aportan (agradecimientos, formulario de beca con código, borradores ocultos)
-EXCLUIR = ("gracias-", "programas-hidden", "beca", "blog", "docentes/prados")
+# Se compara contra los tramos de la ruta dentro de blockchain-dev ("gracias-" por prefijo, el resto exacto).
+EXCLUIR_PREFIJOS = ("gracias-",)
+EXCLUIR = ("programas-hidden", "beca", "prados")
+# Nadie de esta lista forma parte del equipo: si aparece en el texto extraído, hay que corregir la página fuente.
+NO_DEBE_APARECER = ("Prados",)
 # Las páginas de docentes traen el CV completo: alcanza con el comienzo
 TOPE_DOCENTE = 2500
 
@@ -39,14 +47,20 @@ def main() -> None:
     paginas = sorted(BASE.rglob("index.html"), key=lambda p: (len(p.parts), str(p)))
     for p in paginas:
         rel = p.relative_to(SITIO).parent.as_posix()
-        if any(x in rel for x in EXCLUIR):
+        tramos = p.relative_to(BASE).parent.parts
+        if any(t in EXCLUIR or t.startswith(EXCLUIR_PREFIJOS) for t in tramos):
             continue
         titulo, cuerpo = texto(p)
         if "/docentes/" in f"/{rel}/":
             cuerpo = cuerpo[:TOPE_DOCENTE]
         partes.append(f"## {titulo}\nURL: /{rel}/\n\n{cuerpo}")
+    contenido = "\n\n".join(partes) + "\n"
+    for nombre in NO_DEBE_APARECER:
+        if nombre in contenido:
+            lineas = [i + 1 for i, linea in enumerate(contenido.splitlines()) if nombre in linea]
+            sys.exit(f"'{nombre}' aparece en el texto extraído (líneas {lineas[:5]}); corregir la página fuente.")
     SALIDA.parent.mkdir(parents=True, exist_ok=True)
-    SALIDA.write_text("\n\n".join(partes) + "\n", encoding="utf-8")
+    SALIDA.write_text(contenido, encoding="utf-8")
     print(f"{len(partes)} páginas, {SALIDA.stat().st_size // 1024} KB → {SALIDA.relative_to(RAIZ)}")
 
 
