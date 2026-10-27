@@ -1,0 +1,6 @@
+{
+ "_nota": "Modelo de lenguaje (API de Anthropic, SDK oficial). Va en el repo para poder cambiarlo con un despliegue común; la clave queda en .env. Una variable de entorno LLM_MODEL del proceso tiene prioridad (sirve para probar otro modelo en local). Elegido Sonnet 5.5 el 21/10/2026: en 9 respuestas de prueba, mejor criterio y completitud que Haiku 5.5, con ~0,5 s más hasta el primer token. pensamiento between_tools = sin razonamiento previo (respuestas cortas, primer token más rápido). Los precios (USD por millón de tokens) son los de ese modelo y alimentan el tope de gasto diario: si se cambia de modelo, actualizarlos.",
+ "modelo": "claude-sonnet-5-5",
+ "pensamiento": "between_tools",
+ "precios_usd_por_millon": {"entrada": 2.0, "cache_escritura": 2.5, "cache_lectura": 0.2, "salida": 10.0}
+}
