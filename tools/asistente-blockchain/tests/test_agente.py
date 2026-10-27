@@ -160,3 +160,68 @@ def test_sin_clave_no_llama_al_modelo(cliente, monkeypatch):
     monkeypatch.setattr(modulo, "LLM_API_KEY", "")
     evs = pedir(tc, "hola")
     assert evs[0][0] == "error" and not falso.pedidos
+
+
+SESION = "0123456789abcdef0123456789abcdef"
+
+
+def filas(consulta, *args):
+    return modulo.REGISTRO.db.execute(consulta, args).fetchall()
+
+
+def test_lista_de_espera_es_la_pagina_nueva(cliente):
+    tc, _ = cliente([respuesta([bloque_texto("Anotate."), bloque_herramienta("llevar_al_sitio", {"seccion": "inscripcion"})],
+                               stop="tool_use")])
+    accion = next(d for e, d in pedir(tc, "quiero anotarme") if e == "accion")
+    assert accion == {"tipo": "llevar_al_sitio", "ancla": "/blockchain-dev/espera-2027/"}
+    assert "lista de espera 2027" in modulo.REGLAS and "charla/blockchain" not in modulo.REGLAS
+
+
+def test_cada_pregunta_admitida_deja_su_fila(cliente):
+    """El contador de topes (uso) y el registro coinciden: la fila se escribe al admitir, antes del modelo."""
+    tc, _ = cliente([respuesta([bloque_texto("Hola.")])])
+    antes_filas = filas("SELECT COUNT(*) FROM preguntas")[0][0]
+    antes_uso = filas("SELECT COALESCE(SUM(preguntas), 0) FROM uso WHERE clave = 'global'")[0][0]
+    pedir(tc, "una pregunta cualquiera")
+    assert filas("SELECT COUNT(*) FROM preguntas")[0][0] == antes_filas + 1
+    assert filas("SELECT COALESCE(SUM(preguntas), 0) FROM uso WHERE clave = 'global'")[0][0] == antes_uso + 1
+    ultima = filas("SELECT error, modelo, usd FROM preguntas ORDER BY id DESC LIMIT 1")[0]
+    assert ultima[0] is None and ultima[1] == modulo.LLM_MODEL and ultima[2] > 0
+
+
+def test_flujo_cortado_queda_como_interrumpida(cliente):
+    """Si la persona cierra la página y el flujo nunca corre, la fila admitida igual existe."""
+    tc, _ = cliente([respuesta([bloque_texto("Hola.")])])
+    fila = modulo.REGISTRO.iniciar("pregunta que no llegó a responderse", 1, "clave-x")
+    error = filas("SELECT error FROM preguntas WHERE id = ?", fila)[0][0]
+    assert error == "interrumpida"
+
+
+def pedir_con_sesion(tc, texto, sesion):
+    r = tc.post("/blockchain-dev/api/chat", json={"mensajes": [{"rol": "usuario", "texto": texto}], "sesion": sesion})
+    assert r.status_code == 200
+    return eventos(r.text)
+
+
+def eventos_agente(sesion):
+    return filas("SELECT datos FROM medicion WHERE sesion = ? AND evento = 'pregunta_agente'", sesion)
+
+
+def test_pregunta_agente_queda_en_la_medicion(cliente):
+    tc, _ = cliente([respuesta([bloque_texto("Dale."), bloque_herramienta("mostrar_sitio", {"tema": "plan", "curso": 0}),
+                                bloque_herramienta("sugerir", {"opciones": [{"etiqueta": "x", "tipo": "nivel", "valor": "c1"}]},
+                                                   i="tu_2")], stop="tool_use")])
+    pedir_con_sesion(tc, "¿qué se ve?", SESION)
+    datos = [json.loads(d[0]) for d in eventos_agente(SESION)]
+    assert datos == [{"acciones": "mostrar_sitio sugerir"}]
+
+
+def test_pregunta_agente_sin_acciones_y_sin_sesion(cliente):
+    tc, _ = cliente([respuesta([bloque_texto("Hola.")]) for _ in range(3)])
+    pedir_con_sesion(tc, "hola", "fedcba9876543210fedcba9876543210")
+    assert [json.loads(d[0]) for d in eventos_agente("fedcba9876543210fedcba9876543210")] == [{"acciones": "ninguna"}]
+    # visita del equipo / Do Not Track: el widget no manda sesión y no queda ningún evento
+    antes = filas("SELECT COUNT(*) FROM medicion WHERE evento = 'pregunta_agente'")[0][0]
+    pedir(tc, "otra cosa")
+    pedir_con_sesion(tc, "sesión inválida", "no-es-hex")
+    assert filas("SELECT COUNT(*) FROM medicion WHERE evento = 'pregunta_agente'")[0][0] == antes

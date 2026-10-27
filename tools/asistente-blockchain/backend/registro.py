@@ -49,6 +49,9 @@ NUMERO = re.compile(r"\+?\d[\d\s.-]{5,}\d")          # teléfonos, DNI, CUIT, ta
 DERIVA = re.compile(r"licdia@unlu\.edu\.ar|whats ?app|no (?:lo )?tengo a mano", re.IGNORECASE)
 
 
+INTERRUMPIDA = "interrumpida"      # fila admitida cuyo flujo no llegó a cerrarse (página cerrada, corte)
+
+
 def hoy() -> str:
     return time.strftime("%Y-%m-%d")
 
@@ -123,6 +126,34 @@ class Registro:
                  int(bool(DERIVA.search(respuesta))) if respuesta else None, bloqueo, error, modelo,
                  uso.get("entrada"), uso.get("cache_lectura"), uso.get("cache_escritura"), uso.get("salida"),
                  uso.get("usd"), ms_primer_token, ms_total, clave))
+            if uso.get("usd"):
+                self.db.execute("INSERT INTO uso (dia, clave, usd) VALUES (?, 'global', ?) ON CONFLICT (dia, clave) "
+                                "DO UPDATE SET usd = usd + excluded.usd", (dia, uso["usd"]))
+
+    def iniciar(self, pregunta: str, turno: int, clave: str | None = None) -> int:
+        """Deja la fila de una pregunta ya admitida apenas se admite, antes de llamar al modelo: así el contador de
+        topes (`uso`) y el registro coinciden aunque la persona cierre la página a mitad de la respuesta o el flujo
+        nunca llegue a correr. La fila queda con error "interrumpida" hasta que `cerrar` la completa."""
+        with self.cerrojo:
+            c = self.db.execute(
+                "INSERT INTO preguntas (momento, pregunta, turno, secciones, error, clave) VALUES (?, ?, ?, '[]', ?, ?)",
+                (time.strftime("%Y-%m-%d %H:%M"), limpiar(pregunta), turno, INTERRUMPIDA, clave))
+            return c.lastrowid
+
+    def cerrar(self, fila: int, secciones: list[str], respuesta: str = "", error: str | None = None,
+               modelo: str | None = None, uso: dict | None = None, ms_primer_token: int | None = None,
+               ms_total: int | None = None) -> None:
+        """Completa la fila que dejó `iniciar` y suma el costo al gasto del día."""
+        uso = uso or {}
+        dia = hoy()
+        with self.cerrojo:
+            self.db.execute(
+                "UPDATE preguntas SET secciones = ?, deriva = ?, error = ?, modelo = ?, tokens_entrada = ?, "
+                "tokens_cache_lectura = ?, tokens_cache_escritura = ?, tokens_salida = ?, usd = ?, "
+                "ms_primer_token = ?, ms_total = ? WHERE id = ?",
+                (json.dumps(secciones), int(bool(DERIVA.search(respuesta))) if respuesta else None, error, modelo,
+                 uso.get("entrada"), uso.get("cache_lectura"), uso.get("cache_escritura"), uso.get("salida"),
+                 uso.get("usd"), ms_primer_token, ms_total, fila))
             if uso.get("usd"):
                 self.db.execute("INSERT INTO uso (dia, clave, usd) VALUES (?, 'global', ?) ON CONFLICT (dia, clave) "
                                 "DO UPDATE SET usd = usd + excluded.usd", (dia, uso["usd"]))

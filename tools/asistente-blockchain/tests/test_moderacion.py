@@ -26,6 +26,17 @@ def test_lista_aprueba(texto):
     assert revisar_lista(texto) is None
 
 
+@pytest.mark.parametrize("texto", [
+    "рuто",          # r, u, t, o con r/o/t cirílicas
+    "ρυτο",          # griego
+    "ｐｕｔｏ",       # ancho completo
+    "pu\u200bto",    # con un invisible en el medio
+    "f\u043err\u043e",   # forro con las dos o cirílicas
+])
+def test_lista_pliega_confundibles(texto):
+    assert revisar_lista(texto) == "insulto"
+
+
 class ClienteFalso:
     """Imita client.messages.create con un veredicto fijo y cuenta las llamadas."""
 
@@ -93,3 +104,31 @@ def test_moderar_levanta_rechazos(tmp_path):
     with pytest.raises(cadena.Rechazo) as e:
         c.moderar("forro")
     assert e.value.cuerpo == {"error": "texto_rechazado", "motivo": "insulto"}
+
+
+def test_token_modera_nombre_y_simbolo_juntos(tmp_path):
+    """Cada parte sola pasa la lista; leídas seguidas forman un insulto."""
+    c = _cadena(tmp_path, None)
+    c.moderar("pu")
+    c.moderar("to")
+    for nombre, simbolo in (("pu", "to"), ("p", "uto"), ("Mate pu", "to")):
+        with pytest.raises(cadena.Rechazo) as e:
+            c.moderar(nombre, simbolo, juntos=True)
+        assert e.value.cuerpo["error"] == "texto_rechazado"
+    c.moderar("Mate Coin", "MATE", juntos=True)          # lo inocente sigue pasando
+
+
+def test_token_juntos_tambien_consulta_al_modelo(tmp_path):
+    vistos = []
+
+    class SoloLaUnion(ClienteFalso):
+        def create(self, **kw):
+            texto = kw["messages"][0]["content"]
+            vistos.append(texto)
+            bloque = SimpleNamespace(type="tool_use", input={"ok": "alfa beta" not in texto, "motivo": "odio"})
+            return SimpleNamespace(content=[bloque])
+
+    c = _cadena(tmp_path, SoloLaUnion())
+    with pytest.raises(cadena.Rechazo) as e:
+        c.moderar("alfa", "beta", juntos=True)
+    assert e.value.cuerpo["motivo"] == "odio" and len(vistos) == 3
