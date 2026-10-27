@@ -1122,3 +1122,10 @@ html[data-theme="dark"] .bc-cadena-tarjetas .licdia-card::after { color: var(--b
 @media (max-width: 575.98px) {
     .bc-nodo { padding: .8rem 1rem; }
 }
+
+/* Nested sections (cards/rows inside a page block) must not inherit the theme's 9rem section padding.
+   Zero extra specificity so any class-level padding still wins. */
+:where(html body.blockchain-theme :not(body)) > section {
+    padding-top: 0;
+    padding-bottom: 0;
+}
