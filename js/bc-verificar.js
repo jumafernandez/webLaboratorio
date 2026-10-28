@@ -458,6 +458,35 @@
         item('CredencialLICDIA (oficial)', cfg.credenciales.address, 'sin desplegar: se publica cuando se emita la primera credencial');
     }
 
+    // Totales desde el lanzamiento: bloques, insignias y recorridos los cuenta el backend del juego (/api/estado);
+    // los NFTs en la cadena salen del contrato. Si alguna fuente no responde, se muestra lo que haya.
+    async function pintarCifras() {
+        var caja = document.getElementById('bcv-cifras');
+        if (!caja) return;
+        var res = await Promise.allSettled([
+            fetch('/blockchain-dev/api/estado', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : {}; }),
+            insignias.totalAcunadas()
+        ]);
+        var d = res[0].status === 'fulfilled' ? res[0].value : {};
+        var nft = res[1].status === 'fulfilled' ? Number(res[1].value) : 0;
+        var partes = [
+            [d.bloques_total, 'bloques minados'],
+            [d.insignias_total, 'insignias ganadas'],
+            [d.certificados_total, 'recorridos completos'],
+            [nft, 'NFTs del juego en ' + cfg.red]
+        ].filter(function (p) { return p[0] > 0; });
+        if (!partes.length) return;
+        vaciar(caja);
+        caja.appendChild(el('span', 'bcv-cifras-t', 'Desde el lanzamiento'));
+        partes.forEach(function (p) {
+            var c = el('span', 'bcv-cifra');
+            c.appendChild(el('strong', null, Number(p[0]).toLocaleString('es-AR')));
+            c.appendChild(document.createTextNode(' ' + p[1]));
+            caja.appendChild(c);
+        });
+        caja.hidden = false;
+    }
+
     async function iniciar() {
         try {
             var r = await fetch(raiz.getAttribute('data-config') || 'config.json', { cache: 'no-cache' });
@@ -487,6 +516,7 @@
         insignias = new E.Contract(cfg.insignias.address, ABI_INSIGNIAS, provider);
         credenciales = cfg.credenciales.address ? new E.Contract(cfg.credenciales.address, ABI_CRED, provider) : null;
         pintarContratos();
+        pintarCifras().catch(function () { /* las cifras son un extra */ });
         var red = document.getElementById('bcv-red');
         if (red) red.textContent = cfg.red;
         if (avisoCred) {

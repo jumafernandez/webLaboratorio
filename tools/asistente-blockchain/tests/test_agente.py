@@ -142,6 +142,16 @@ def test_parte_fija_cacheada_y_estado_al_final(cliente):
     assert ultimo[1]["text"] == "hola"
 
 
+def test_perfil_en_el_estado(cliente):
+    tc, falso = cliente([respuesta([bloque_texto("Hola.")]), respuesta([bloque_texto("Hola.")])])
+    pedir(tc, "hola", {"perfil": "legal"})
+    assert "Perfil elegido: derecho o contabilidad" in falso.pedidos[0]["messages"][-1]["content"][0]["text"]
+    pedir(tc, "hola")
+    assert "Perfil elegido: no eligió" in falso.pedidos[1]["messages"][-1]["content"][0]["text"]
+    with pytest.raises(Exception):
+        modulo.Estado(perfil="hacker")
+
+
 def test_mensajes_seguidos_del_mismo_rol_se_juntan():
     p = modulo.Pedido(mensajes=[
         {"rol": "asistente", "texto": "¡Hola!"},

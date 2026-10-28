@@ -343,12 +343,18 @@ class Mensaje(BaseModel):
     texto: str = Field(min_length=1, max_length=4000)
 
 
+PERFILES = {"dev": "desarrollo / IT", "legal": "derecho o contabilidad", "finanzas": "finanzas o economía",
+            "otro": "estudia u otra cosa"}
+
+
 class Estado(BaseModel):
     insignias: list[str] = Field(default_factory=list, max_length=10)
     nivel_actual: str | None = None
     wallet: bool = False
     nfts: int = 0
     pendientes: list[str] = Field(default_factory=list, max_length=10)
+    # Perfil elegido en la portada del juego (widget/perfil.js)
+    perfil: Literal["dev", "legal", "finanzas", "otro"] | None = None
 
 
 class Pedido(BaseModel):
@@ -360,7 +366,7 @@ class Pedido(BaseModel):
 
 
 class Evento(BaseModel):
-    tipo: Literal["insignia", "certificado"]
+    tipo: Literal["insignia", "certificado", "bloque"]
     id: str = Field(default="", max_length=10)
 
 
@@ -400,7 +406,7 @@ def armar_mensajes(p: Pedido) -> list[dict]:
         f"<estado_del_juego>Hoy es {hoy()}. Insignias ganadas: {', '.join(e.insignias) or 'ninguna'}. "
         f"Niveles de cursos pendientes: {', '.join(e.pendientes) or 'ninguno'}. "
         f"Nivel en juego: {e.nivel_actual or 'ninguno'}. Wallet creada: {'sí' if e.wallet else 'no'}. "
-        f"NFTs en la wallet: {e.nfts}.</estado_del_juego>"
+        f"NFTs en la wallet: {e.nfts}. Perfil elegido: {PERFILES.get(e.perfil, 'no eligió')}.</estado_del_juego>"
     )
     ultimo = juntos[-1]
     ultimo["content"] = [

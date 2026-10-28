@@ -61,11 +61,14 @@ EVENTOS: dict[str, frozenset[str]] = {
     "volver_juego": frozenset(),
     "ir_seccion": frozenset({"ancla"}),
     "lista_espera_click": frozenset({"origen"}),
+    "lista_espera_enviada": frozenset({"origen"}),
     "ver_por_dentro": frozenset({"tab"}),
     "wallet_creada": frozenset({"real"}),
     "tx_real": frozenset({"accion", "ok"}),
     "texto_rechazado": frozenset({"motivo"}),
     "ver_red": frozenset(),
+    "compartir": frozenset({"red", "id"}),
+    "perfil": frozenset({"perfil"}),
 }
 
 SESION = re.compile(r"[0-9a-f]{16,32}")
@@ -93,9 +96,11 @@ VALORES: dict[str, frozenset] = {
     "ancla": frozenset({"#informacionPlan", "#team", "#proceso-inscripcion", "#faq", "#proyectos", "#roles-laborales",
                         "#comparativa", "#prerequisitos-check", "#por-que-licdia", "/blockchain-dev/espera-2027/"}),
     "id": NIVELES | {"cert"},
-    "origen": frozenset({"certificado", "recorrido", "inscripcion", "otro"}),
+    "origen": frozenset({"certificado", "recorrido", "inscripcion", "sitio", "otro"}),
     "accion": frozenset({"sellar", "token", "fondear", "pagar", "insignia"}),
     "vista": frozenset({"juego", "sitio"}),
+    "red": frozenset({"linkedin", "x", "whatsapp", "copiar"}),
+    "perfil": frozenset({"dev", "legal", "finanzas", "otro"}),
     # backend/moderacion.py HERRAMIENTA + datos_personales/texto_invalido de cadena._texto
     "motivo": frozenset({"insulto", "odio", "sexual", "violencia", "politica", "publicidad", "datos_personales",
                          "texto_invalido", "otro"}),

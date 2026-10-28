@@ -34,7 +34,12 @@ class Estadisticas:
                 (time.strftime("%Y-%m-%d"),),
             )
         )
+        totales = dict(self.db.execute("SELECT tipo, SUM(n) FROM eventos GROUP BY tipo"))
         return {
             "insignias_hoy": filas.get("insignia", 0),
             "certificados_hoy": filas.get("certificado", 0),
+            # Since the counters started: they only grow, so a quiet day does not show "0".
+            "bloques_total": totales.get("bloque", 0),
+            "insignias_total": totales.get("insignia", 0),
+            "certificados_total": totales.get("certificado", 0),
         }
