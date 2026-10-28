@@ -172,9 +172,78 @@ export const sellar = (_direccion, mensaje) => firmadoYEnviado("sellar", { mensa
 export const crearToken = (_direccion, nombre, simbolo, supply) => firmadoYEnviado("token", { nombre, simbolo, supply });
 export const fondear = () => firmadoYEnviado("fondear", {});
 export const pagar = (_direccion, producto, monto) => firmadoYEnviado("pagar", { producto, monto });
-// Only the bonus NFT (tipo 4) takes a name; the backend fixes the name of every other badge.
-export const insignia = (_direccion, tipo, nombre) =>
-  firmadoYEnviado("insignia", tipo === TIPOS.nft ? { tipo, nombre } : { tipo });
+// Only the bonus NFT (tipo 4) takes a name; the backend fixes the name of every other badge. With an own wallet linked
+// (vincularWalletPropia) the badge is minted there instead of in the game wallet.
+export const insignia = (_direccion, tipo, nombre) => {
+  const d = destino();
+  const extra = d ? { destino: d.destino, vinculo: d.vinculo } : {};
+  return firmadoYEnviado("insignia", { ...(tipo === TIPOS.nft ? { tipo, nombre } : { tipo }), ...extra });
+};
+
+// ---------- own wallet ----------
+// A visitor who already has a wallet (MetaMask, Coinbase Wallet, Rabby…) can receive the badges there. Their wallet
+// signs once (EIP-191, no gas, no network change) the text below, the same as backend/cadena.py texto_vinculo, so
+// nobody can mint badges to someone else's address. The relayer still pays; the game wallet still signs each action.
+const DESTINO_KEY = "bcw-destino";
+let memoriaDestino = null; // when localStorage is blocked
+
+export function textoVinculo(juego, destino) {
+  return [
+    "Recibir las insignias del juego de la Diplomatura en Blockchain (LICDIA, UNLu)",
+    `red: ${REAL.chainId}`,
+    `contrato: ${REAL.contratos.insignia}`,
+    `wallet del juego: ${juego}`,
+    `mi wallet: ${destino}`,
+  ].join("\n");
+}
+
+// The linked own wallet for the current game wallet and network, or null.
+export function destino() {
+  try {
+    const d = memoriaDestino || JSON.parse(localStorage.getItem(DESTINO_KEY) || "null");
+    return d && wallet && d.juego === wallet.address && d.red === REAL.chainId ? d : null;
+  } catch {
+    return null;
+  }
+}
+
+export const hayWalletDelNavegador = () => !!window.ethereum?.request;
+
+// Asks the browser wallet for an account and the link signature. Returns {destino} or {error} (never throws).
+export async function vincularWalletPropia() {
+  const eth = window.ethereum;
+  if (!eth?.request) return { error: "sin_wallet" };
+  if (!wallet) return { error: "sin_wallet_juego" };
+  try {
+    const [cuenta] = await eth.request({ method: "eth_requestAccounts" });
+    if (!cuenta) return { error: "sin_cuenta" };
+    const { getAddress } = await cargarEthers();
+    const dir = getAddress(cuenta);
+    if (dir === wallet.address) return { error: "misma_wallet" };
+    const texto = textoVinculo(wallet.address, dir);
+    const hexTexto = `0x${[...new TextEncoder().encode(texto)].map((b) => b.toString(16).padStart(2, "0")).join("")}`;
+    const vinculo = await eth.request({ method: "personal_sign", params: [hexTexto, cuenta] });
+    const d = { juego: wallet.address, red: REAL.chainId, destino: dir, vinculo };
+    try {
+      localStorage.setItem(DESTINO_KEY, JSON.stringify(d));
+    } catch {
+      /* no storage: it lasts for this visit */
+      memoriaDestino = d;
+    }
+    return { destino: dir };
+  } catch (e) {
+    return { error: e?.code === 4001 ? "rechazado" : "fallo" };
+  }
+}
+
+export function desvincularWalletPropia() {
+  memoriaDestino = null;
+  try {
+    localStorage.removeItem(DESTINO_KEY);
+  } catch {
+    /* idem */
+  }
+}
 
 // GET /cadena/estado: latest block number of the network, or null. Three failures in a row mark the node as down
 // (header and live boxes say so); the next success brings it back.

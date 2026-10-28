@@ -253,6 +253,37 @@ def test_insignia(cliente):
     assert uri.startswith("data:application/json;base64,")
 
 
+def test_insignia_en_wallet_propia(cliente):
+    from eth_account.messages import encode_defunct
+    c, cad = cliente
+    juego, propia, otra = VISITANTES[4], VISITANTES[5], VISITANTES[6]
+    enviar(c, cad, "insignia", {"direccion": juego, "tipo": 0})          # carga CLAVES con la primera firma
+    contrato = cad.contratos["InsigniasLICDIA"].address
+
+    def vinculo(firmante, destino):
+        texto = cadena.texto_vinculo(cad.chain_id, contrato, juego, destino)
+        return "0x" + CLAVES[firmante.lower()].sign_message(encode_defunct(text=texto)).signature.hex().removeprefix("0x")
+
+    i = anotar("insignia", enviar(c, cad, "insignia", {"direccion": juego, "tipo": 1, "destino": propia,
+                                                      "vinculo": vinculo(propia, propia)}))
+    insignias = cad.contratos["InsigniasLICDIA"]
+    assert i["destino"] == propia and insignias.functions.ownerOf(i["token_id"]).call() == propia
+    assert not insignias.functions.tieneInsignia(juego, 1).call()
+    # la wallet propia ya la tiene: no se acuña de nuevo
+    r = enviar(c, cad, "insignia", {"direccion": juego, "tipo": 1, "destino": propia, "vinculo": vinculo(propia, propia)})
+    assert r.json()["ya_tenia"] is True and r.json()["token_id"] == i["token_id"]
+    # sin el vínculo, o firmado por otra cuenta, nadie le acuña a un tercero
+    for v in (None, vinculo(propia, otra), vinculo(juego, otra)):
+        cuerpo = {"direccion": juego, "tipo": 2, "destino": otra} | ({"vinculo": v} if v else {})
+        r = enviar(c, cad, "insignia", cuerpo)
+        assert r.status_code == 401 and r.json()["error"] == "vinculo_invalido", r.json()
+    assert not insignias.functions.tieneInsignia(otra, 2).call()
+    r = enviar(c, cad, "insignia", {"direccion": juego, "tipo": 2, "destino": juego, "vinculo": vinculo(juego, juego)})
+    assert r.status_code == 400 and r.json()["error"] == "destino_invalido"
+    r = enviar(c, cad, "insignia", {"direccion": juego, "tipo": 2, "vinculo": vinculo(propia, propia)})
+    assert r.status_code == 400 and r.json()["error"] == "cuerpo_invalido"
+
+
 # ---------- errores de entrada ----------
 
 @pytest.mark.parametrize(("ruta", "cuerpo", "error"), [

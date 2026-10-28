@@ -140,6 +140,20 @@ await paso("insignia 1 acuñada", b.esperar(`[...document.querySelectorAll('.bcw
 await b.captura("real-03-insignia");
 await b.sinPremio();
 
+// Own wallet: a browser wallet (mocked with Anvil's public dev account #8) links once and from then on every badge,
+// the one already won included, is minted there. The certificate later checks the four course badges at that address.
+const PROPIA = "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f";
+await b.ev(`(async () => {
+  const { Wallet, getBytes } = await import("https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.min.js");
+  const w = new Wallet("0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97");
+  window.ethereum = { request: async ({ method, params }) =>
+    method === "eth_requestAccounts" ? [w.address.toLowerCase()] : w.signMessage(getBytes(params[0])) };
+})()`);
+await paso("abrir wallet", b.chip("Mi wallet", 20000));
+await paso("vincular wallet propia", b.tocar(".bcw-propia .bcw-cta"));
+await paso("insignia 1 en la wallet propia", b.esperar(`[...document.querySelectorAll('.bcw-propia .bcw-wnote')].some(e=>e.textContent.includes('1 de 1'))`, 30000));
+await b.captura("real-03b-wallet-propia");
+
 // Level 2: real ERC-20 through the factory
 await paso("nivel 2", b.chip("Nivel 2", 20000));
 await paso("nivel 2 pide nombre", b.esperarPregunta("moneda"));
@@ -233,6 +247,15 @@ const simuladas = await b.ev("window.__simnotes");
 
 // Nobody else can act for this wallet: without the visitor's signature the relayer sends nothing.
 if (!direccion) fallas.push("no encontré la dirección de la wallet");
+try {
+  const insig = (await (await fetch(`${BASE}/blockchain-dev/api/estado`)).json()).cadena?.contratos?.insignia;
+  for (const tipo of [0, 1, 2, 3, 6]) {
+    const { stdout } = await run("cast", ["call", insig, "tieneInsignia(address,uint8)(bool)", PROPIA, String(tipo), "--rpc-url", RPC]);
+    if (stdout.trim() !== "true") fallas.push(`wallet propia sin la insignia tipo ${tipo}`);
+  }
+} catch (e) {
+  fallas.push(`chequeo de la wallet propia: ${e.message}`);
+}
 for (const [accion, cuerpo] of [["pagar", { direccion, producto: "entrada" }], ["insignia", { direccion, tipo: 4, nombre: "ESTAFADOR" }],
   ["fondear", { direccion }]]) {
   const r = await fetch(`${BASE}/blockchain-dev/api/cadena/${accion}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) });

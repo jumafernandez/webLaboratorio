@@ -70,6 +70,7 @@ EVENTOS: dict[str, frozenset[str]] = {
     "compartir": frozenset({"red", "id"}),
     "perfil": frozenset({"perfil"}),
     "fragmento": frozenset({"curso"}),
+    "wallet_propia": frozenset({"ok"}),
 }
 
 SESION = re.compile(r"[0-9a-f]{16,32}")
