@@ -14,7 +14,9 @@ Router de FastAPI con prefijo /blockchain-dev/api/cadena:
     POST /pagar    {"direccion", "producto", "monto"}      → tx, bloque, pago_id, recibo_id, saldo_usdl
                                                              (409 saldo_insuficiente sin mandar la tx)
     POST /insignia {"direccion", "tipo", "nombre"}         → tx, bloque, token_id (o "ya_tenia": true y el nombre
-                                                             que quedó en la cadena, sin tx)
+                                                             que quedó en la cadena, sin tx). Con "destino" y
+                                                             "vinculo" (firma de texto_vinculo hecha por la wallet
+                                                             propia) se acuña en esa wallet.
     POST /revisar  {"texto"}                               → ok, motivo (también en modo simulado; no firma ni manda)
 
 Los textos libres (mensaje del sello, nombre y símbolo del token, nombre del NFT) pasan por backend/moderacion.py antes
@@ -183,6 +185,13 @@ def avisar_variables_desconocidas() -> list[str]:
     for k in raras:
         print(f"cadena: AVISO: la variable {k} no existe (ver .env.example); se ignora", flush=True)
     return raras
+
+
+def texto_vinculo(chain_id: int, contrato: str, juego: str, destino: str) -> str:
+    """Lo que firma (EIP-191, una sola vez) la wallet propia del visitante para recibir las insignias del juego.
+    widget/cadena-real.js arma exactamente el mismo. Sin vencimiento: vale para ese par de direcciones."""
+    return "\n".join(["Recibir las insignias del juego de la Diplomatura en Blockchain (LICDIA, UNLu)", f"red: {chain_id}",
+                      f"contrato: {contrato}", f"wallet del juego: {juego}", f"mi wallet: {destino}"])
 
 
 def mensaje_a_firmar(accion: str, chain_id: int, contrato: str, direccion: str, campos: dict, expira: int,
@@ -709,8 +718,23 @@ class Cadena:
             return {**self._base(recibo), "pago_id": pago, "recibo_id": recibo_id,
                     "saldo_usdl": self.saldo_usdl(direccion), "explorador_nft": self._nft(recibo_id), "ms": round(ms)}
 
+    def verificar_vinculo(self, juego: str, destino: str, vinculo) -> None:
+        """La wallet propia aceptó recibir las insignias de esta wallet del juego: nadie le acuña nada a un tercero."""
+        from eth_account import Account
+        from eth_account.messages import encode_defunct
+
+        if not isinstance(vinculo, str) or not FIRMA.fullmatch(vinculo):
+            raise Rechazo(401, "vinculo_invalido")
+        texto = texto_vinculo(self.chain_id, self.contratos["InsigniasLICDIA"].address, juego, destino)
+        try:
+            firmante = Account.recover_message(encode_defunct(text=texto), signature=vinculo)
+        except Exception:  # noqa: BLE001 — firma mal formada
+            raise Rechazo(401, "vinculo_invalido") from None
+        if firmante != destino:
+            raise Rechazo(401, "vinculo_invalido")
+
     def insignia(self, origen: str, cuerpo) -> dict:
-        c = self._preparar(cuerpo, {"direccion", "tipo", "nombre"})
+        c = self._preparar(cuerpo, {"direccion", "tipo", "nombre", "destino", "vinculo"})
         direccion = _direccion(c.get("direccion"))
         tipo = _entero(c.get("tipo"), "tipo_invalido", TIPOS_INSIGNIA.start, TIPOS_INSIGNIA.stop - 1)
         if tipo == TIPO_NFT:
@@ -719,19 +743,31 @@ class Cadena:
             raise Rechazo(400, "nombre_no_admitido")      # el de las insignias lo fija el servidor
         else:
             nombre = NOMBRES_FIJOS[tipo]
+        # Optional own wallet: the badge goes there instead of the game wallet. The game wallet signs `destino` (and
+        # the link signature) inside its usual signature; the own wallet proves it accepted with `vinculo`.
+        destino = direccion
+        if c.get("destino") is not None:
+            destino = _direccion(c.get("destino"))
+            if destino == direccion:
+                raise Rechazo(400, "destino_invalido")
+        elif c.get("vinculo") is not None:
+            raise Rechazo(400, "cuerpo_invalido")
         self.verificar_firma("insignia", c, direccion)
+        if destino != direccion:
+            self.verificar_vinculo(direccion, destino, c.get("vinculo"))
         if tipo == TIPO_NFT:
             self.moderar(nombre)
         insignias = self.contratos["InsigniasLICDIA"]
-        with self._cerrojo_de(direccion):
-            if insignias.functions.tieneInsignia(direccion, tipo).call():
-                token_id = insignias.functions.insigniaDe(direccion, tipo).call()
+        with self._cerrojo_de(destino):
+            extra = {"destino": destino} if destino != direccion else {}
+            if insignias.functions.tieneInsignia(destino, tipo).call():
+                token_id = insignias.functions.insigniaDe(destino, tipo).call()
                 return {"ya_tenia": True, "token_id": token_id, "nombre": insignias.functions.nombreDe(token_id).call(),
-                        "explorador_nft": self._nft(token_id)}
-            recibo, ms = self.enviar(origen, "insignia", insignias.functions.acunar(direccion, tipo, nombre))
+                        "explorador_nft": self._nft(token_id), **extra}
+            recibo, ms = self.enviar(origen, "insignia", insignias.functions.acunar(destino, tipo, nombre))
             token_id = self._evento("InsigniasLICDIA", "Acunada", recibo)["tokenId"]
             return {**self._base(recibo), "token_id": token_id, "nombre": nombre,
-                    "explorador_nft": self._nft(token_id), "ms": round(ms)}
+                    "explorador_nft": self._nft(token_id), "ms": round(ms), **extra}
 
 
 class _Cerrojo:

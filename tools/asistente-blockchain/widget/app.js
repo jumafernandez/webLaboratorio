@@ -878,6 +878,61 @@ function makeCtx(token) {
   return ctx;
 }
 
+// Own wallet (cadena-real.js vincularWalletPropia): only on the real chain. The relayer keeps paying; the badges are
+// minted in the visitor's own address, and the ones already won are minted there too.
+function walletPropiaEl() {
+  if (!real.REAL.on || !S.walletReal) return null;
+  const box = h("div", "bcw-propia");
+  const pinta = () => {
+    const d = real.destino();
+    box.replaceChildren();
+    if (d) {
+      const link = real.linkDir(d.destino);
+      box.innerHTML = `<b>📥 Tus insignias van a tu propia wallet</b><span class="bcw-addr">${link ? real.linkHTML(link, d.destino) : esc(d.destino)}</span>`;
+      const x = h("button", "bcw-share-open", "Dejar de usarla");
+      x.type = "button";
+      x.addEventListener("click", () => {
+        real.desvincularWalletPropia();
+        S.realTipos = new Map();
+        pinta();
+      });
+      box.append(x);
+    } else if (real.hayWalletDelNavegador()) {
+      box.innerHTML = `<b>¿Ya tenés una wallet?</b><span>Recibí las insignias en tu MetaMask, Coinbase Wallet o Rabby. Tu wallet solo firma un permiso: sin gas y sin cambiar de red.</span>`;
+      const b = h("button", "bcw-cta bcw-primary", "📥 Recibirlas en mi wallet");
+      b.type = "button";
+      b.addEventListener("click", async () => {
+        b.disabled = true;
+        b.textContent = "Esperando a tu wallet…";
+        const r = await real.vincularWalletPropia();
+        track("wallet_propia", { ok: !r.error });
+        if (r.error) {
+          b.disabled = false;
+          b.textContent = "📥 Recibirlas en mi wallet";
+          const msg = { rechazado: "Cancelaste la firma en tu wallet.", misma_wallet: "Esa es la wallet del juego: elegí otra cuenta." }[r.error];
+          box.append(h("p", "bcw-wnote", esc(msg || "No pudimos conectar tu wallet. Probá de nuevo.")));
+          return;
+        }
+        S.realTipos = new Map(); // the badges are looked up again at the new address
+        pinta();
+        const estado = h("p", "bcw-wnote", "⏳ Acuñando en tu wallet las insignias que ya ganaste…");
+        box.append(estado);
+        const ganadas = S.nfts.filter((n) => n.kind === "badge" && real.TIPOS[n.id] != null);
+        // Course badges first: the certificate needs the four of them at the same address.
+        ganadas.sort((a, b) => real.TIPOS[a.id] - real.TIPOS[b.id]);
+        const hechas = await Promise.all(ganadas.map((n) => mintReal(n.id, n.id === "nft" ? S.nftNombre || n.name : n.name, null, n, null)));
+        const ok = hechas.filter(Boolean).length;
+        estado.textContent = ganadas.length ? `✓ ${ok} de ${ganadas.length} insignias ya están en tu wallet.` : "Las próximas insignias que ganes van directo a tu wallet.";
+      });
+      box.append(b);
+    } else {
+      box.innerHTML = `<b>¿Ya tenés una wallet?</b><span>Abrí esta página con la extensión de tu wallet instalada (o desde el navegador de la app de tu wallet) y vas a poder recibir las insignias ahí.</span>`;
+    }
+  };
+  pinta();
+  return box;
+}
+
 function walletCard() {
   const w = h("div", "bcw-wallet");
   const bal = Object.entries(S.balances)
@@ -1063,6 +1118,8 @@ async function walletFlow(ctx) {
       }
       s.append(grid, share);
     }
+    const propia = walletPropiaEl();
+    if (propia) s.append(propia);
   });
   await ctx.bot(`Tenés **${S.nfts.length} NFT${S.nfts.length === 1 ? "" : "s"}** en tu wallet.`, 400);
   menuChips(nextChips());
