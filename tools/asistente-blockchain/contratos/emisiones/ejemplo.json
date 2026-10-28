@@ -1,0 +1,19 @@
+{
+  "cohorte": 2026,
+  "egresados": [
+    {
+      "direccion": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "alcance": 0,
+      "actoHash": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "nombre": "Egresada de ejemplo",
+      "mencion": ""
+    },
+    {
+      "direccion": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "alcance": 2,
+      "actoHash": "0x0000000000000000000000000000000000000000000000000000000000000002",
+      "nombre": "Egresado de ejemplo",
+      "mencion": "Con distinción"
+    }
+  ]
+}
