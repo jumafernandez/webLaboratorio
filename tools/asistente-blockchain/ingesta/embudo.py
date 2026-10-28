@@ -27,7 +27,7 @@ import sqlite3
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 CURSOS = ("c1", "c2", "c3", "c4")
-NIVELES = CURSOS + ("nft", "hack")
+NIVELES = CURSOS + ("nft", "hack", "firmas")
 PASOS = (
     ("visitas", "Visitas"),
     ("juego", "Entraron al juego"),

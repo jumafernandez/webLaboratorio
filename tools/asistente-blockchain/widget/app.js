@@ -30,9 +30,10 @@ import nivel3 from "./niveles/nivel3-red.js";
 import nivel4 from "./niveles/nivel4-pasarela.js";
 import bonusNft from "./niveles/bonus-nft.js";
 import bonusHack from "./niveles/bonus-hack.js";
+import bonusFirmas from "./niveles/bonus-firmas.js";
 
 const API = "/blockchain-dev/api";
-const PLAY = { c1: nivel1, c2: nivel2, c3: nivel3, c4: nivel4, nft: bonusNft, hack: bonusHack };
+const PLAY = { c1: nivel1, c2: nivel2, c3: nivel3, c4: nivel4, nft: bonusNft, hack: bonusHack, firmas: bonusFirmas };
 const CANCEL = Symbol("cancel");
 
 // ---------- state ----------
@@ -847,7 +848,7 @@ function makeCtx(token) {
       renderProgress();
       addLog(b.emoji, `Insignia ${b.etiqueta}`, `NFT en ${S.wallet.slice(0, 10)}…`);
       // The bonus NFT was already minted (or tried) with the visitor's own name: no second mint with a generic one.
-      const live = real.REAL.on && S.walletReal && !(id === "nft" && S.nftIntentado && !S.realTipos?.has(real.TIPOS.nft));
+      const live = real.REAL.on && S.walletReal && real.TIPOS[id] != null && !(id === "nft" && S.nftIntentado && !S.realTipos?.has(real.TIPOS.nft));
       const fx = h("div", "bcw-award", `<div class="bcw-award-card">${badgeSVG(id)}<div class="bcw-award-t">¡Insignia ${esc(b.etiqueta)}!</div><div class="bcw-award-s">${live ? `⏳ Acuñándose como NFT en ${esc(real.nombreRed())}…` : "Se acuñó como NFT en tu wallet"}</div></div>`);
       stage.append(fx);
       // The mint runs in the background: the game never waits for it.
@@ -922,6 +923,7 @@ function levelChips() {
   list.push(
     { l: "🎨 Bonus: tu NFT", f: (ctx) => ctx.play("nft") },
     { l: "😈 Desafío: hackeá un contrato", f: (ctx) => ctx.play("hack") },
+    { l: "🔑 Desafío: firmá sin mostrar tu clave", f: (ctx) => ctx.play("firmas") },
     { l: "🎓 La diplomatura", f: topicDiplo },
   );
   return list;
@@ -1267,6 +1269,7 @@ async function keywordRoute(ctx, text) {
   if (is(/pagar|pasarela|pago con|cobrar|recibo|comprar/)) return ctx.play("c4");
   if (is(/nft|coleccionable|arte digital/)) return ctx.play("nft");
   if (is(/hack|reentran|robar|seguridad|auditor/)) return ctx.play("hack");
+  if (is(/firma|clave privada|clave publica|llave|ecdsa/)) return ctx.play("firmas");
   if (is(/wallet|billetera/)) return walletFlow(ctx);
   if (is(/docente|profe|quien|director|coordin|ensena/)) return showSite(ctx, "docentes").then(() => menuChips(nextChips()));
   if (is(/cuesta|cuanto sale|cuanto es|arancel|precio|cuota|matricula|costo|vale/)) return showSite(ctx, "aranceles").then(() => menuChips(nextChips()));

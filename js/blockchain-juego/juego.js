@@ -12,6 +12,7 @@ export const LEVELS = [
 export const BONUS = [
   { id: "nft", emoji: "🎨", titulo: "Hacete un NFT", sub: "Diseño y nombre tuyos" },
   { id: "hack", emoji: "😈", titulo: "Hackeá un contrato", sub: "Robá una bóveda y después arreglala" },
+  { id: "firmas", emoji: "🔑", titulo: "Firmá sin mostrar tu clave", sub: "Claves, firmas y dos falsificaciones" },
 ];
 
 export const BADGES = {
@@ -21,6 +22,7 @@ export const BADGES = {
   c4: { emoji: "🧾", etiqueta: "Curso 4 · DApps", nombre: "Insignia DApps", c1: "#5b1d6e", c2: "#ff7eb6", top: "CURSO 4" },
   nft: { emoji: "🎨", etiqueta: "Bonus · Artista NFT", nombre: "Bonus NFT", c1: "#374151", c2: "#a78bfa", top: "BONUS" },
   hack: { emoji: "🛡️", etiqueta: "Bonus · Auditoría", nombre: "Bonus Auditoría", c1: "#3b0a0a", c2: "#ff5a6e", top: "BONUS" },
+  firmas: { emoji: "🔑", etiqueta: "Bonus · Firmas", nombre: "Bonus Firmas", c1: "#0f3b3a", c2: "#5eead4", top: "BONUS" },
   cert: { emoji: "🏆", etiqueta: "Recorrido completo", nombre: "Recorrido completo", c1: "#261951", c2: "#ffc857", top: "LICDIA · UNLu" },
 };
 

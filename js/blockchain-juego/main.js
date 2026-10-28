@@ -11,7 +11,7 @@ import { configurarMedicion, track, vaciarAlSalir } from "./medicion.js";
 
 const API = "/blockchain-dev/api";
 const PREF = "bcw-vista";
-const LEVELS = ["c1", "c2", "c3", "c4", "nft", "hack"];
+const LEVELS = ["c1", "c2", "c3", "c4", "nft", "hack", "firmas"];
 
 const readPref = () => {
   try {
