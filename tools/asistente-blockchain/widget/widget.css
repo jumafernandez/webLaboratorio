@@ -234,6 +234,12 @@
 }
 .bcw-share-slot:empty { display: none; }
 
+/* A short real class of the highlighted course (sitio.js FRAGMENTOS) */
+.bcw-clase { margin-top: 14px; border-radius: 14px; border: 1px solid rgba(196, 181, 253, .35); background: rgba(255, 255, 255, .05); overflow: hidden; }
+.bcw-clase summary { cursor: pointer; padding: 10px 14px; font: 700 13px Montserrat, sans-serif; color: #fff; }
+.bcw-clase summary:focus-visible { outline: 2px solid var(--bcw-cian); outline-offset: -2px; }
+.bcw-clase video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
+
 .bcw-loglist { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .bcw-loglist li { display: flex; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
 .bcw-loglist .bcw-ic { font-size: 22px; }

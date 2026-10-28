@@ -69,6 +69,7 @@ EVENTOS: dict[str, frozenset[str]] = {
     "ver_red": frozenset(),
     "compartir": frozenset({"red", "id"}),
     "perfil": frozenset({"perfil"}),
+    "fragmento": frozenset({"curso"}),
 }
 
 SESION = re.compile(r"[0-9a-f]{16,32}")
@@ -96,11 +97,12 @@ VALORES: dict[str, frozenset] = {
     "ancla": frozenset({"#informacionPlan", "#team", "#proceso-inscripcion", "#faq", "#proyectos", "#roles-laborales",
                         "#comparativa", "#prerequisitos-check", "#por-que-licdia", "/blockchain-dev/espera-2027/"}),
     "id": NIVELES | {"cert"},
-    "origen": frozenset({"certificado", "recorrido", "inscripcion", "sitio", "otro"}),
+    "origen": frozenset({"certificado", "recorrido", "inscripcion", "programa", "sitio", "otro"}),
     "accion": frozenset({"sellar", "token", "fondear", "pagar", "insignia"}),
     "vista": frozenset({"juego", "sitio"}),
     "red": frozenset({"linkedin", "x", "whatsapp", "copiar"}),
     "perfil": frozenset({"dev", "legal", "finanzas", "otro"}),
+    "curso": frozenset({"c1", "c2", "c3", "c4"}),
     # backend/moderacion.py HERRAMIENTA + datos_personales/texto_invalido de cadena._texto
     "motivo": frozenset({"insulto", "odio", "sexual", "violencia", "politica", "publicidad", "datos_personales",
                          "texto_invalido", "otro"}),

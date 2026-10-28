@@ -11,7 +11,7 @@
     // Atribución: el juego llega con ?desde=<botón>&s=<sesión del embudo>&utm_*=… (ver enlaceEspera en
     // js/blockchain-juego/app.js). Un enlace directo o de campaña trae solo las UTM, o nada.
     var params = new URLSearchParams(location.search);
-    var DESDES = ['certificado', 'recorrido', 'inscripcion', 'otro'];
+    var DESDES = ['certificado', 'recorrido', 'inscripcion', 'programa', 'otro'];
     var DESDE = DESDES.indexOf(params.get('desde')) >= 0 ? params.get('desde') : 'sitio';
     // Perfil elegido en el juego (js/blockchain-juego/perfil.js) → opción del formulario, si la persona no eligió otra
     var PERFIL_OPCION = { dev: 'Desarrollador / Ingeniero IT', legal: 'Abogado / Contador / Administrador', finanzas: 'Finanzas / Economía' };

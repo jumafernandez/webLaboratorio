@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.880
+Entonces, para tratar de solucionar esto, y encima de que si no existe un order
+
+2
+00:00:06.880 --> 00:00:09.160
+book, o sea, si no existe un libro de órdenes,
+
+3
+00:00:09.460 --> 00:00:15.220
+no hay formación de precio, entonces no sé cuánto vale el activo, y te genera el
+
+4
+00:00:15.220 --> 00:00:22.600
+problema también de, entonces, cómo hago que descubriera el precio?
+
+5
+00:00:22.600 --> 00:00:29.480
+O sea, cómo igual la oferta con la demanda para saber cuánto vale este token, por
+
+6
+00:00:29.480 --> 00:00:38.780
+ejemplo, y ahí es donde nacen los AMMS, que son los market maker automatizados,
+
+7
+00:00:41.020 --> 00:00:50.520
+que de alguna forma se conecta a los que quieren hacer de market makers con los que
+
+8
+00:00:50.520 --> 00:00:55.950
+quieren comprar o vender a través de lo que se llama un pool de liquidez.
+
+9
+00:00:57.050 --> 00:01:04.470
+De esta forma, no tiene que existir un order book en el que haya o exista una
+
+10
+00:01:04.470 --> 00:01:12.850
+formación de precios, y solucione el tema de la escala o de los costos que tendrían
+
+11
+00:01:12.850 --> 00:01:18.290
+que asumir si yo quiero ser un market maker en blockchain.
+
+12
+00:01:18.290 --> 00:01:26.570
+Sino que el que viene quiere comprar o vender y paga el fee de la transacción, y ya
+
+13
+00:01:26.570 --> 00:01:33.790
+está, hace su transacción, y a través de ese, en el mismo pool, se va, llamémosle
+
+14
+00:01:33.790 --> 00:01:35.590
+descubriendo el precio.
+
+15
+00:01:35.590 --> 00:01:39.990
+Vamos a ver las dos posturas, tanto de los que se encuentren del lado del market
+
+16
+00:01:39.990 --> 00:01:46.010
+maker, de los que ponen la liquidez, y la postura de el que simplemente va y compra
+
+17
+00:01:46.010 --> 00:01:56.410
+o vende en ese, a través de ese DEX, de ese exchange descentralizado.

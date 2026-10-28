@@ -132,6 +132,36 @@
             font-family: 'Poppins', sans-serif !important;
             font-weight: 700 !important;
         }
+        /* Próxima charla informativa (js/bc-charla.js) */
+        .bc-charla { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem 1rem; max-width: 760px; margin: 1.2rem auto 0; padding: .9rem 1.2rem; border: 1px dashed var(--brand); border-radius: 14px; background: var(--brand-soft); }
+        .bc-charla-k { width: 100%; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); }
+        .bc-charla-f { font-size: 1.15rem; color: var(--brand-dark); }
+        .bc-charla-t { color: #4a4458; font-size: .92rem; }
+        .bc-charla-b { display: inline-block; padding: .45rem 1rem; border-radius: 999px; border: 1.5px solid var(--brand); color: var(--brand) !important; font-weight: 700; font-size: .88rem; text-decoration: none !important; }
+        .bc-charla-b:hover, .bc-charla-b:focus-visible, .bc-charla-prim { background: var(--brand); color: #fff !important; }
+        html[data-theme="dark"] .bc-charla { background: rgba(196, 165, 255, .08); border-color: #c4a5ff; }
+        html[data-theme="dark"] .bc-charla-k, html[data-theme="dark"] .bc-charla-b { color: #c4a5ff !important; border-color: #c4a5ff; }
+        html[data-theme="dark"] .bc-charla-f { color: #fff !important; }
+        html[data-theme="dark"] .bc-charla-t { color: #d4c9ea !important; }
+
+        /* Fragmentos de clase en el plan */
+        .bc-plan-clase { margin: .2rem 0; border: 1px solid rgba(196, 165, 255, .35); border-radius: 10px; background: rgba(196, 165, 255, .06); }
+        .bc-plan-clase summary { cursor: pointer; padding: .55rem .8rem; font-weight: 700; font-size: .9rem; color: #e9defc; list-style: none; }
+        .bc-plan-clase summary::-webkit-details-marker { display: none; }
+        .bc-plan-clase summary:focus-visible { outline: 2px solid #c4a5ff; outline-offset: 2px; }
+        .bc-plan-clase[open] summary { border-bottom: 1px solid rgba(196, 165, 255, .25); }
+        .bc-plan-clase video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
+        .bc-plan-clase p { margin: 0; padding: .5rem .8rem .65rem; font-size: .8rem; color: #cfc6f3; }
+        .bc-plan-clase p strong { color: #fff; }
+
+        /* Voces de la cohorte (js/bc-voces.js) */
+        .voces-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+        .voz { margin: 0; padding: 1.1rem 1.2rem; border: 1px solid #e3dcef; border-radius: 14px; background: #fff; display: flex; flex-direction: column; gap: .8rem; }
+        .voz-texto { margin: 0; } .voz-texto p { margin: 0; font-size: .98rem; line-height: 1.55; }
+        .voz-quien { display: flex; flex-direction: column; font-size: .85rem; color: #5d5470; } .voz-quien strong { color: var(--brand); }
+        .voz-curso { font-family: ui-monospace, monospace; font-size: .75rem; }
+        html[data-theme="dark"] .voz { background: rgba(255, 255, 255, .04); border-color: rgba(196, 165, 255, .25); }
+
         /* Item 12: link visible en barra morada */
         .blockchain-theme .alert a.text-white {
             color: #ffffff !important;
@@ -551,6 +581,8 @@
             <p class="text-muted" style="max-width:680px; margin:0 auto;">
                 Mirá las grabaciones de las charlas informativas con presentación del programa, plan de estudios y respuestas a preguntas frecuentes.
             </p>
+            <!-- Filled by js/bc-charla.js from charla-proxima.json ("fecha a confirmar" while there is no date) -->
+            <div id="bc-charla-proxima" class="bc-charla" role="region" aria-label="Próxima charla informativa" hidden></div>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-12 col-lg-6">
@@ -991,6 +1023,14 @@
                                     <a href="https://drive.google.com/file/d/1Q-N7jwTl8uJG8VtwRX3_wVyEWjiL4Zpk/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
                                         Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                                     </a>
+                                    <details class="bc-plan-clase">
+                                        <summary><span aria-hidden="true">🎬</span> Mirá un fragmento de clase · 2:08</summary>
+                                        <video controls preload="none" playsinline poster="fragmentos/curso1-ciro-como-se-encadenan-los-bloques.jpg" aria-label="Cómo se encadenan los bloques y por qué no se pueden borrar, Esp. Ciro Edgardo Romero">
+                                            <source src="fragmentos/curso1-ciro-como-se-encadenan-los-bloques.mp4" type="video/mp4" />
+                                            <track kind="captions" srclang="es" label="Español" src="fragmentos/curso1-ciro-como-se-encadenan-los-bloques.vtt" default />
+                                        </video>
+                                        <p><strong>Cómo se encadenan los bloques y por qué no se pueden borrar</strong> · Esp. Ciro Edgardo Romero · Curso 1 · Clase 2, cohorte 2026</p>
+                                    </details>
                                     <button type="button" class="bc-plan-jugar" data-bcw-nivel="c1"><span aria-hidden="true">▶</span> Probalo jugando: Nivel 1 · Que nada se pueda borrar</button>
                                 </div>
                             </div>
@@ -1050,6 +1090,14 @@
                                     <a href="https://drive.google.com/file/d/1C8kqt3Z111b1hI_5Svx54ZXIuFzzx9_C/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
                                         Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                                     </a>
+                                    <details class="bc-plan-clase">
+                                        <summary><span aria-hidden="true">🎬</span> Mirá un fragmento de clase · 1:57</summary>
+                                        <video controls preload="none" playsinline poster="fragmentos/curso2-deiller-por-que-nacen-los-amm.jpg" aria-label="Por qué nacen los AMM y qué es un pool de liquidez, Deiller Guevara">
+                                            <source src="fragmentos/curso2-deiller-por-que-nacen-los-amm.mp4" type="video/mp4" />
+                                            <track kind="captions" srclang="es" label="Español" src="fragmentos/curso2-deiller-por-que-nacen-los-amm.vtt" default />
+                                        </video>
+                                        <p><strong>Por qué nacen los AMM y qué es un pool de liquidez</strong> · Deiller Guevara · Curso 2 · Clase 4, cohorte 2026</p>
+                                    </details>
                                     <button type="button" class="bc-plan-jugar" data-bcw-nivel="c2"><span aria-hidden="true">▶</span> Probalo jugando: Nivel 2 · Creá tu propia moneda</button>
                                 </div>
                             </div>
@@ -1108,6 +1156,14 @@
                                     <a href="https://drive.google.com/file/d/1MF09yPS-uZcD7KgLDP0N2_nkhvJrjyFQ/view?usp=sharing" class="bc-plan-programa" target="_blank" rel="noopener">
                                         Accede al programa <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                                     </a>
+                                    <details class="bc-plan-clase">
+                                        <summary><span aria-hidden="true">🎬</span> Mirá un fragmento de clase · 1:37</summary>
+                                        <video controls preload="none" playsinline poster="fragmentos/curso3-david-infraestructura-como-codigo.jpg" aria-label="Qué es la infraestructura como código, Dr. David Petrocelli">
+                                            <source src="fragmentos/curso3-david-infraestructura-como-codigo.mp4" type="video/mp4" />
+                                            <track kind="captions" srclang="es" label="Español" src="fragmentos/curso3-david-infraestructura-como-codigo.vtt" default />
+                                        </video>
+                                        <p><strong>Qué es la infraestructura como código</strong> · Dr. David Petrocelli · Curso 3 · Clase 2, cohorte 2026</p>
+                                    </details>
                                     <button type="button" class="bc-plan-jugar" data-bcw-nivel="c3"><span aria-hidden="true">▶</span> Probalo jugando: Nivel 3 · Intentá tirar la red</button>
                                 </div>
                             </div>
@@ -1178,9 +1234,12 @@
                     </p>
                 </div>
 
-                <div class="text-center mt-4">
+                <div class="text-center mt-4 d-flex flex-wrap justify-content-center gap-2">
                     <a href="plan-de-estudios/#cronograma" class="bc-boton-borde">
                         <i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Ver cronograma clase por clase
+                    </a>
+                    <a href="/blockchain-dev/espera-2027/?desde=programa" class="bc-boton-borde">
+                        <i class="fas fa-file-pdf me-2" aria-hidden="true"></i>Programa completo en PDF
                     </a>
                 </div>
             </div><!-- /bc-plan -->
@@ -1312,6 +1371,17 @@
 <!-- terminacion de cuerpo -->
 
 <!-- RESPALDO INSTITUCIONAL -->
+    <!-- Voces de la cohorte 2026: js/bc-voces.js la muestra solo con entradas con consentimiento en voces-2026.json -->
+    <section class="page-section" id="voces" hidden>
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="section-heading text-uppercase">Voces de la cohorte 2026</h2>
+                <h3 class="section-subheading text-muted">Lo que cuentan quienes están cursando</h3>
+            </div>
+            <div id="voces-lista" class="voces-lista"></div>
+        </div>
+    </section>
+
     <section class="py-4 bg-light">
         <div class="container">
             <div class="row align-items-center justify-content-center text-center">
@@ -2667,6 +2737,8 @@
     })();
     </script>
     <script defer src="https://unpkg.com/aos@3.0.0-beta.6/dist/aos.js"></script>
+    <script defer src="../js/bc-charla.js?v=2026-10-28a"></script>
+    <script defer src="../js/bc-voces.js?v=2026-10-28a"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if (window.AOS) AOS.init({ disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } });
@@ -2744,11 +2816,11 @@
         "/js/blockchain-juego/niveles/nivel4-pasarela.js": "/js/blockchain-juego/niveles/nivel4-pasarela.js?v=2026-10-27a",
         "/js/blockchain-juego/perfil.js": "/js/blockchain-juego/perfil.js?v=2026-10-28c",
         "/js/blockchain-juego/red.js": "/js/blockchain-juego/red.js?v=2026-10-27a",
-        "/js/blockchain-juego/sitio.js": "/js/blockchain-juego/sitio.js?v=2026-10-27a",
+        "/js/blockchain-juego/sitio.js": "/js/blockchain-juego/sitio.js?v=2026-10-28d",
         "/js/blockchain-juego/util.js": "/js/blockchain-juego/util.js?v=2026-10-27a"
       }
     }
     </script>
-    <link href="../css/blockchain-juego.css?v=2026-10-28c" rel="stylesheet" />
+    <link href="../css/blockchain-juego.css?v=2026-10-28d" rel="stylesheet" />
     <script type="module" src="../js/blockchain-juego/main.js?v=2026-10-28a"></script>
 </body>

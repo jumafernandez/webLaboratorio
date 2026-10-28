@@ -4,6 +4,19 @@
 import { track } from "./medicion.js";
 import { POINT, REDUCE, WAITLIST_URL, h } from "./util.js";
 
+// Next informative talk from blockchain-dev/charla-proxima.json (the same file the landing page reads); null while the
+// date is not set, so nothing invented ever shows.
+async function proximaCharla() {
+  try {
+    const d = await (await fetch("/blockchain-dev/charla-proxima.json", { cache: "no-cache" })).json();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d?.fecha || "")) return null;
+    const dia = new Date(`${d.fecha}T12:00:00-03:00`).toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" });
+    return `${dia}, ${d.hora || "19:00"} h (ARG)`;
+  } catch {
+    return null;
+  }
+}
+
 const TEAM_IMG = "/assets/img/team/";
 
 export const SITE_TOPICS = [
@@ -32,6 +45,29 @@ const TEAM = [
   ["mromero.jpg", "Mauricio Romero", "Cuerpo docente", "Bases de datos en el BCRA. Ayudante en Sistemas Distribuidos (UNLu)."],
 ];
 
+// One short real class per course (blockchain-dev/fragmentos/), shown when a level's bridge highlights its course.
+const FRAGMENTOS = {
+  1: ["curso1-ciro-como-se-encadenan-los-bloques", "Cómo se encadenan los bloques", "Ciro Romero", "2:08"],
+  2: ["curso2-deiller-por-que-nacen-los-amm", "Por qué nacen los AMM", "Deiller Guevara", "1:57"],
+  3: ["curso3-david-infraestructura-como-codigo", "Infraestructura como código", "David Petrocelli", "1:37"],
+};
+const FRAG_DIR = "/blockchain-dev/fragmentos/";
+
+function fragmentoEl(n) {
+  const f = FRAGMENTOS[n];
+  if (!f) return null;
+  const [archivo, tema, docente, dur] = f;
+  const d = h("details", "bcw-clase");
+  d.innerHTML = `<summary>🎬 Mirá ${dur} de una clase real: ${tema} · ${docente}</summary>
+    <video controls preload="none" playsinline poster="${FRAG_DIR}${archivo}.jpg">
+      <source src="${FRAG_DIR}${archivo}.mp4" type="video/mp4">
+      <track kind="captions" srclang="es" label="Español" src="${FRAG_DIR}${archivo}.vtt" default>
+    </video>`;
+  d.querySelector("video").setAttribute("aria-label", `${tema}, ${docente}`);
+  d.addEventListener("toggle", () => d.open && track("fragmento", { curso: `c${n}` }), { once: true });
+  return d;
+}
+
 export function planScene(s, ctx, hi) {
   const done = ctx.S.badges;
   s.innerHTML = `<div class="bcw-kicker">Del sitio · Plan de estudios</div><h3>4 cursos, 160 horas, 4 meses</h3>
@@ -42,6 +78,8 @@ export function planScene(s, ctx, hi) {
     m.innerHTML = `<div class="bcw-num">${n}</div><div><h4>Curso ${n} · ${t}</h4><p>${l}</p>${done.has(`c${n}`) ? '<span class="bcw-you">✓ Ganaste la insignia de este curso</span>' : ""}</div>`;
     s.append(m);
   });
+  const frag = fragmentoEl(hi);
+  if (frag) s.append(frag);
   ctx.actions(s, [
     { l: "📍 Ir al plan en el sitio", f: () => ctx.goto("#informacionPlan") },
     { l: "📄 Plan completo", href: "/blockchain-dev/plan-de-estudios/" },
@@ -91,8 +129,12 @@ const SCENES = {
           <div class="bcw-fact"><b>160 horas</b><span>4 cursos en 4 meses</span></div>
           <div class="bcw-fact"><b>Posgrado universitario</b><span>título de la UNLu</span></div>
         </div>`;
+      const charla = h("p", "bcw-stat", "📅 Próxima charla informativa: fecha a confirmar.");
+      s.append(charla);
+      proximaCharla().then((t) => t && (charla.textContent = `📅 Próxima charla informativa: ${t}.`));
       ctx.actions(s, [
         { l: "✍️ Anotarme en la lista de espera 2027", href: WAITLIST_URL, primary: true, origen: "inscripcion" },
+        { l: "📄 Programa completo (PDF)", href: `${WAITLIST_URL}?desde=programa`, origen: "programa" },
       ]);
     },
   },

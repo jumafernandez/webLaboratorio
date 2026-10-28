@@ -78,6 +78,9 @@ html body.blockchain-theme .bc-espera .bc-espera-consent label { font: 400 .85re
 .bc-espera-global { margin: 1rem 0 0; padding: .7rem .9rem; border: 1px solid rgba(255, 120, 120, .6); border-radius: 8px; color: #ffc2c2; font-size: .9rem; }
 .bc-espera-ok h2 { margin: 0 0 .5rem; color: #fff; font: 600 1.15rem "Space Grotesk", Montserrat, sans-serif; text-transform: none; }
 .bc-espera-ok p { color: var(--bc-tenue); line-height: 1.6; }
+.bc-espera-programa { margin: 1rem 0 0; }
+html body.blockchain-theme .bc-espera a.bc-espera-pdf { display: inline-flex; align-items: center; padding: .6rem 1.1rem; border-radius: 999px; background: #c4a5ff; color: #1a0d30 !important; font-weight: 700; text-decoration: none; }
+html body.blockchain-theme .bc-espera a.bc-espera-pdf:hover, html body.blockchain-theme .bc-espera a.bc-espera-pdf:focus-visible { background: #fff; color: #1a0d30 !important; }
 .bc-espera .bc-plan-bloque.minado { border-style: solid; border-color: rgba(196, 165, 255, .6); box-shadow: 0 0 22px rgba(196, 165, 255, .18); }
 .bc-espera .bc-plan-bloque.minado .bc-plan-estado { border-color: rgba(196, 165, 255, .55); color: var(--bc-lila); animation: none; }
 .bc-espera-pie { margin-top: 2rem; text-align: center; color: var(--bc-tenue); font-size: .82rem; }
