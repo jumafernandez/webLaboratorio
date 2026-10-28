@@ -53,6 +53,8 @@ LLM_CONF = json.loads((RAIZ / "backend" / "llm.json").read_text(encoding="utf-8"
 LLM_MODEL = os.environ.get("LLM_MODEL") or LLM_CONF["modelo"]
 LLM_API_KEY = os.environ.get("LLM_API_KEY") or ENV.get("LLM_API_KEY") or ""
 PRECIOS = LLM_CONF["precios_usd_por_millon"]
+# Para probar otro modelo en local (LLM_MODEL): Haiku no acepta between_tools, se le pasa LLM_PENSAMIENTO=disabled
+LLM_PENSAMIENTO = os.environ.get("LLM_PENSAMIENTO") or LLM_CONF["pensamiento"]
 DEV = (os.environ.get("DEV") or ENV.get("DEV")) == "1"
 MAX_HISTORIA = 12
 MAX_VUELTAS = 3
@@ -102,7 +104,9 @@ destinatarios, salida laboral). Usala siempre que respondas sobre esos temas, ju
 - mostrar_fragmento: muestra en el escenario un fragmento de clase real (un video de uno o dos minutos donde habla el \
 docente, con subtítulos). Usala cuando la persona pregunta por un tema que explica alguno de los fragmentos de abajo: \
 contestá en una o dos oraciones y ofrecé el video ("esto lo explicó Ciro en la clase 2, miralo"). No la uses dos veces \
-seguidas para el mismo fragmento.
+seguidas para el mismo fragmento. Si además un nivel muestra eso (qué es un hash, un pool, un nodo...), el nivel va \
+primero: llamá a jugar_nivel y ofrecé el fragmento como botón de sugerir de tipo pregunta (por ejemplo "🎬 Ver la \
+clase de Ciro sobre hashes").
 - llevar_al_sitio: agrega un botón que lleva a una sección de la página real. Usala cuando la persona quiere ver \
 algo en la página o cuando el detalle completo está ahí.
 - sugerir: hasta 4 botones con los próximos pasos. Usala al final de casi todas tus respuestas; preferí niveles que \
@@ -120,6 +124,11 @@ los docentes.
 clase. Podés contar lo que se vio en una clase, quién la dio y con qué herramientas, y citar lo que dijo un docente en \
 un fragmento ("como contaba Deiller…"), pero no inventes contenidos de clases que no figuran ahí. Si la persona ya vio \
 un fragmento (viene en el estado del juego), partí de lo que dijo el docente y profundizá a partir de ahí, sin repetirlo.
+- Hay registro de las clases que ya se dictaron. De una clase que todavía no se dio (mirá la fecha de hoy y las fechas \
+de cada curso en el plan) contá lo que dice el plan y aclará en pocas palabras que todavía no se dictó; no digas \
+"empezó" ni "se vio" de algo futuro, ni cuentes qué registros tenés.
+- Nunca des nombres ni datos de estudiantes, ni ofrezcas conseguirlos por mail: si preguntan quién participó o qué \
+preguntó un alumno, decí que eso no lo compartimos y contá qué se vio en esa clase.
 - La próxima charla informativa es la de la sección "Próxima charla informativa"; las charlas de mayo de 2026 ya \
 pasaron y están grabadas en la portada.
 - Si te preguntan algo de la diplomatura que no está en esa información, decí en una oración que ese dato no lo tenés \
@@ -127,7 +136,7 @@ a mano y ofrecé el contacto: licdia@unlu.edu.ar.
 - Podés explicar conceptos de blockchain en general (qué es un hash, una wallet, un smart contract, una capa 2), \
 siempre en pocas palabras y, si hay un nivel que lo muestra, ofrecé jugarlo en lugar de explicarlo largo.
 - Que la inscripción 2026 está cerrada y que hay lista de espera para 2027 decilo solo cuando la pregunta es sobre \
-inscribirse, fechas o cuándo empieza, y no lo repitas si ya lo dijiste en la conversación. A quien quiere anotarse \
+inscribirse, fechas o cuándo empieza (no cuando preguntan el costo, la modalidad, los docentes o los contenidos), y no lo repitas si ya lo dijiste en la conversación. A quien quiere anotarse \
 llevalo a la lista de espera 2027: llamá a llevar_al_sitio con seccion inscripcion (abre la página de la lista de \
 espera) y no lo mandes a la sección del proceso de inscripción de la portada, que cuenta cómo fue la cohorte 2026.
 - Nada de consejos de inversión ni opiniones sobre comprar o vender criptomonedas: si te lo piden, decí con \
@@ -549,7 +558,7 @@ def chat(p: Pedido, request: Request):
                     system=sistema,
                     messages=mensajes,
                     tools=HERRAMIENTAS,
-                    thinking={"type": LLM_CONF["pensamiento"]},
+                    thinking={"type": LLM_PENSAMIENTO},
                 ) as flujo:
                     for ev in flujo:
                         if ev.type == "text":
