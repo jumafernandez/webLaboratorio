@@ -126,6 +126,8 @@ Diplomatura de posgrado · LICDIA · UNLu
  Tu primer contrato Solidity propio desplegado y verificado en Sepolia, con tests y CI en repo público.
  📌 Lente estratégica: selección de use case — cuándo conviene blockchain (y cuándo no), qué tipo elegir (pública / privada / consorcio) según el problema a resolver.
  Accede al programa 
+ 🎬 Mirá un fragmento de clase · 2:08 
+ Cómo se encadenan los bloques y por qué no se pueden borrar · Esp. Ciro Edgardo Romero · Curso 1 · Clase 2, cohorte 2026
  ▶ Probalo jugando: Nivel 1 · Que nada se pueda borrar 
  anterior = hash #1 — 
  bloque #2 
@@ -152,6 +154,8 @@ Diplomatura de posgrado · LICDIA · UNLu
  Artículo financiero de un token propio (tokenomics + encuadre PSAV) y el ERC-20 desplegado en Sepolia siguiendo ese diseño.
  📌 Lente estratégica: criptoeconomía aplicada — diseño de tokenomics, evaluación de modelos DeFi (lending, AMMs, derivados) y lectura crítica de proyectos reales del ecosistema.
  Accede al programa 
+ 🎬 Mirá un fragmento de clase · 1:57 
+ Por qué nacen los AMM y qué es un pool de liquidez · Deiller Guevara · Curso 2 · Clase 4, cohorte 2026
  ▶ Probalo jugando: Nivel 2 · Creá tu propia moneda 
  anterior = hash #2 — 
  bloque #3 
@@ -177,6 +181,8 @@ Diplomatura de posgrado · LICDIA · UNLu
  El "andamio Web2" completo para sostener tu proyecto Web3 en producción — contenedores, IaC con Terraform, GKE, observabilidad y pipelines, más proxy RPC propio sobre Base Sepolia, gateway IPFS dedicado e indexer self-hosted. La capa sobre la que el DApp del Curso 4 va a correr en producción.
  📌 Lente estratégica: trade-offs de implementación — costos, performance y seguridad al elegir Layer 1 vs Layer 2, nodo propio vs servicio gestionado, on-chain vs off-chain.
  Accede al programa 
+ 🎬 Mirá un fragmento de clase · 1:37 
+ Qué es la infraestructura como código · Dr. David Petrocelli · Curso 3 · Clase 2, cohorte 2026
  ▶ Probalo jugando: Nivel 3 · Intentá tirar la red 
  anterior = hash #3 — 
  bloque #4 
@@ -203,6 +209,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  ¿Y la estrategia?
  Está distribuida en los 4 módulos, no aislada en una capa para directivos. La criptoeconomía vive en el módulo de DeFi, el business case en el de DApps, la selección de use case en los fundamentos, los trade-offs de implementación en infraestructura. Lo que en otros programas son slides, acá son decisiones que el alumno toma mientras construye.
  Ver cronograma clase por clase
+ Programa completo en PDF
  Cuerpo docente
  Cada bloque del plan lo dictan docentes que investigan o trabajan en lo que enseñan. Debajo de cada nombre, los cursos que dicta.
  Dr. David Petrocelli
@@ -250,6 +257,8 @@ Diplomatura de posgrado · LICDIA · UNLu
  Diplomatura en Fintech (UADE). 
  Administración y migración de motores (Oracle, SQL Server, Sybase, Teradata) y procesos ETL.
  Ver perfil → 
+ Voces de la cohorte 2026
+ Lo que cuentan quienes están cursando
  Diplomatura oficial de la Universidad Nacional de Luján 
  Dictada por el Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial (LICDIA)
  ¿Por qué elegir LICDIA?
@@ -804,7 +813,7 @@ Diplomatura de posgrado · LICDIA · UNLu
 URL: /blockchain-dev/espera-2027/
 
 Lista de espera 2027 - Diplomatura en Blockchain
- La inscripción 2026 está cerrada: la cohorte de agosto está en curso. Si querés formar parte de la cohorte 2027, dejá tus datos y te avisamos cuando se abra la inscripción.
+ La inscripción 2026 está cerrada: la cohorte de agosto está en curso. Si querés formar parte de la cohorte 2027, dejá tus datos: te avisamos cuando se abra la inscripción y ya podés descargar el programa completo.
  anterior = hash #4 0x4c1c7f…2026 
  bloque #5 
  Cohorte 2027: lista de espera
@@ -831,6 +840,7 @@ Lista de espera 2027 - Diplomatura en Blockchain
  Anotarme en la lista de espera 
  Quedaste en la lista de espera
  Registramos tus datos. Te escribimos al correo que dejaste cuando se abra la inscripción de la cohorte 2027. Si tenés dudas, escribinos a licdia@unlu.edu.ar .
+ Descargar el programa completo (PDF, 29 páginas)
  anterior 0x4c1c7f…2026 
  datos lista de espera 
  firma sin firmar 
@@ -1325,26 +1335,22 @@ Diplomatura de posgrado · LICDIA · UNLu
  Lista de espera 2027
  Volver
 
-## Verificar credenciales - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
+## Verificar insignias - Diplomatura de Posgrado en Blockchain | LICDIA UNLu
 URL: /blockchain-dev/verificar/
 
 Diplomatura de posgrado · LICDIA · UNLu
- Verificar insignias y credenciales
+ Verificar insignias
  Verificador en la cadena
- Pegá una dirección , un número de token o el hash de una transacción . Esta página consulta la red pública Base Sepolia desde tu navegador, sin pasar por ningún servidor nuestro, y muestra qué insignias y credenciales existen para ese dato.
+ Pegá una dirección , un número de token o el hash de una transacción . Esta página consulta la red pública Base Sepolia desde tu navegador, sin pasar por ningún servidor nuestro, y muestra qué insignias del juego existen para ese dato.
  Dirección, token o transacción 
  Verificar 
  Probá con el token #1 o pegá la dirección de tu billetera después de jugar.
  Qué se verifica y qué no
- credencial oficial verificable 
- Egresados de la diplomatura
- Un token intransferible emitido solo por la universidad, con la cohorte, el alcance (diplomatura o curso) y el hash del acto administrativo. El título oficial es el diploma de la UNLu: la cadena aporta una prueba pública de que fue emitido y de si sigue vigente o fue revocado.
- Cargando…
  juego simbólico 
  Insignias del recorrido
  Las insignias y el certificado del juego de la página son piezas simbólicas, hechas para aprender cómo funciona un contrato. No acreditan estudios ni reemplazan ningún título.
  Contratos consultados
- La red es una testnet: sirve para mostrar el mecanismo sin costo. Al emitir las credenciales oficiales se publicará la dirección del contrato y el código verificado en Sourcify. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.
+ La red es una testnet: sirve para mostrar el mecanismo sin costo. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.
 
 ## approve + transferFrom: cómo funciona una pasarela de pago con ERC-20 y un NFT como recibo | Blog Blockchain LICDIA UNLu
 URL: /blockchain-dev/blog/approve-transferfrom-pasarela/

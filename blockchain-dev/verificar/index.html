@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Verificador de insignias y credenciales de la Diplomatura de Posgrado en Blockchain de la UNLu: pegá una dirección, un token o una transacción y leé la cadena directo desde tu navegador." />
+    <meta name="description" content="Verificador de las insignias del juego de la Diplomatura de Posgrado en Blockchain de la UNLu: pegá una dirección, un token o una transacción y leé la cadena directo desde tu navegador." />
     <meta name="author" content="LICDIA - UNLu" />
-    <meta property="og:title" content="Verificar credenciales - Diplomatura en Blockchain - UNLu" />
-    <meta property="og:description" content="Comprobá en la cadena qué insignias y credenciales tiene una dirección, sin intermediarios." />
+    <meta property="og:title" content="Verificar insignias - Diplomatura en Blockchain - UNLu" />
+    <meta property="og:description" content="Comprobá en la cadena qué insignias del juego tiene una dirección, sin intermediarios." />
     <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -17,7 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg" />
     <link rel="canonical" href="https://licdia.unlu.edu.ar/blockchain-dev/verificar/" />
-    <title>Verificar credenciales - Diplomatura de Posgrado en Blockchain | LICDIA UNLu</title>
+    <title>Verificar insignias - Diplomatura de Posgrado en Blockchain | LICDIA UNLu</title>
     <link rel="icon" type="image/x-icon" href="../../assets/img/logo.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -37,7 +37,7 @@
     <link href="../../css/enhancements.css?v=2026-10-27e" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="../../css/bc-visual.css?v=2026-10-27e" rel="stylesheet" />
-    <link href="../../css/bc-verificar.css?v=2026-10-28a" rel="stylesheet" />
+    <link href="../../css/bc-verificar.css?v=2026-10-28b" rel="stylesheet" />
     <script src="../../js/enhancements.min.js" defer></script>
 </head>
 
@@ -79,7 +79,7 @@
     <header class="backgroundAr fondoBlockchain">
         <div class="container">
             <p class="bc-rotulo">Diplomatura de posgrado · LICDIA · UNLu</p>
-            <h1 class="masthead-heading">Verificar insignias y credenciales</h1>
+            <h1 class="masthead-heading">Verificar insignias</h1>
         </div>
     </header>
 
@@ -98,7 +98,7 @@
             </nav>
 
             <div class="bcv-intro">
-                <p>Pegá una <strong>dirección</strong>, un <strong>número de token</strong> o el <strong>hash de una transacción</strong>. Esta página consulta la red pública <span id="bcv-red">Base Sepolia</span> desde tu navegador, sin pasar por ningún servidor nuestro, y muestra qué insignias y credenciales existen para ese dato.</p>
+                <p>Pegá una <strong>dirección</strong>, un <strong>número de token</strong> o el <strong>hash de una transacción</strong>. Esta página consulta la red pública <span id="bcv-red">Base Sepolia</span> desde tu navegador, sin pasar por ningún servidor nuestro, y muestra qué insignias del juego existen para ese dato.</p>
             </div>
 
             <p id="bcv-cifras" class="bcv-cifras" hidden></p>
@@ -119,12 +119,6 @@
                 <h3 id="bcv-que" class="bcv-grupo-t">Qué se verifica y qué no</h3>
                 <div class="bcv-cols">
                     <div class="bc-bloque minado bcv-caja">
-                        <div class="bc-bloque-cab"><span>credencial oficial</span><span class="bcv-sello bcv-sello-ok">verificable</span></div>
-                        <p class="bcv-caja-t">Egresados de la diplomatura</p>
-                        <p>Un token intransferible emitido solo por la universidad, con la cohorte, el alcance (diplomatura o curso) y el hash del acto administrativo. El título oficial es el diploma de la UNLu: la cadena aporta una prueba pública de que fue emitido y de si sigue vigente o fue revocado.</p>
-                        <p id="bcv-cred-estado" class="bcv-estado-cred">Cargando…</p>
-                    </div>
-                    <div class="bc-bloque minado bcv-caja">
                         <div class="bc-bloque-cab"><span>juego</span><span class="bcv-sello bcv-sello-simb">simbólico</span></div>
                         <p class="bcv-caja-t">Insignias del recorrido</p>
                         <p>Las insignias y el certificado del juego de la página son piezas simbólicas, hechas para aprender cómo funciona un contrato. No acreditan estudios ni reemplazan ningún título.</p>
@@ -132,7 +126,7 @@
                 </div>
                 <h3 class="bcv-grupo-t">Contratos consultados</h3>
                 <ul id="bcv-contratos" class="bcv-contratos"></ul>
-                <p class="bcv-nota">La red es una testnet: sirve para mostrar el mecanismo sin costo. Al emitir las credenciales oficiales se publicará la dirección del contrato y el código verificado en Sourcify. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.</p>
+                <p class="bcv-nota">La red es una testnet: sirve para mostrar el mecanismo sin costo. Cada tarjeta enlaza al explorador Blockscout para que compruebes los datos por tu cuenta.</p>
             </div>
         </div>
     </article>
@@ -161,6 +155,6 @@
     <script src="../../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"
         integrity="sha384-6Zl0Pc8zjSz8KvmNeXRvUQgY4ryFb+BwDvKCmLYcBME0joAaru491tQgi9B7zsMM" crossorigin="anonymous"></script>
-    <script src="../../js/bc-verificar.js?v=2026-10-28a"></script>
+    <script src="../../js/bc-verificar.js?v=2026-10-28b"></script>
 </body>
 </html>

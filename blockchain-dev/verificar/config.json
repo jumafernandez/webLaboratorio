@@ -7,9 +7,5 @@
     "address": "0x6d6712D67E15D38D30e6380608801d2C6c00B82c",
     "bloque": 50515114
   },
-  "credenciales": {
-    "address": "",
-    "bloque": 0
-  },
   "ejemplo": { "tokenId": 1 }
 }

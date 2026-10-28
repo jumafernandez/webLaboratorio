@@ -1,7 +1,6 @@
-/* Verificador de insignias y credenciales de la Diplomatura en Blockchain (LICDIA, UNLu).
-   Lee la cadena directo desde el navegador con ethers v6 (sin backend). La configuración (red, contratos) está en
-   blockchain-dev/verificar/config.json: mientras credenciales.address esté vacío, la página informa que todavía no
-   se emitieron credenciales oficiales. Todo lo que viene de la cadena se escribe con textContent. */
+/* Verificador de las insignias del juego de la Diplomatura en Blockchain (LICDIA, UNLu).
+   Lee la cadena directo desde el navegador con ethers v6 (sin backend). La configuración (red, contrato) está en
+   blockchain-dev/verificar/config.json. Todo lo que viene de la cadena se escribe con textContent. */
 (function () {
     'use strict';
 
@@ -17,7 +16,6 @@
         'Insignia Curso 4 · DApps', 'NFT propio del juego', 'Bonus · Hackeá un contrato', 'Certificado simbólico del recorrido',
         'Recibo de pago (demo)'
     ];
-    var ALCANCES = ['Diplomatura completa', 'Curso 1 · Fundamentos', 'Curso 2 · DeFi', 'Curso 3 · Infraestructura', 'Curso 4 · DApps'];
     var CERO = '0x0000000000000000000000000000000000000000';
     var MAX_ESCANEO = 1500;
 
@@ -32,25 +30,13 @@
         'event Acunada(uint256 indexed tokenId, address indexed a, uint8 tipo, string nombre)',
         'event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)'
     ];
-    var ABI_CRED = [
-        'function balanceOf(address) view returns (uint256)',
-        'function ownerOf(uint256) view returns (address)',
-        'function tokenURI(uint256) view returns (string)',
-        'function tokenOfOwnerByIndex(address,uint256) view returns (uint256)',
-        'function totalEmitidas() view returns (uint256)',
-        'function verify(uint256) view returns (bool vigente, address titular, tuple(uint16 cohorte, uint8 alcance, uint64 emitidaEn, bool revocada, bytes32 actoHash, string nombre, string mencion, string motivoRevocacion) datos)',
-        'event Emitida(uint256 indexed tokenId, address indexed a, uint16 cohorte, uint8 alcance, bytes32 actoHash, string nombre)',
-        'event Revocada(uint256 indexed tokenId, string motivo)',
-        'event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)'
-    ];
 
     var form = document.getElementById('bcv-form');
     var campo = document.getElementById('bcv-q');
     var boton = document.getElementById('bcv-ir');
     var salida = document.getElementById('bcv-salida');
     var estado = document.getElementById('bcv-estado');
-    var avisoCred = document.getElementById('bcv-cred-estado');
-    var cfg, provider, insignias, credenciales, secuencia = 0;
+    var cfg, provider, insignias, secuencia = 0;
 
     // ------------------------------------------------------------------ utilidades de DOM
 
@@ -212,31 +198,7 @@
             rotulo: 'insignia del juego',
             etiquetaEstado: tipo === 7 ? 'recibo demo' : 'simbólico',
             claseEstado: 'bcv-sello-simb', filas: filas, txConocida: txConocida,
-            nota: simb ? 'Pieza del juego de la página. No es un título ni una credencial oficial.' : 'Recibo de la pasarela de pagos de demostración, sin valor real.'
-        });
-    }
-
-    async function tarjetaCredencial(id, txConocida) {
-        var v = await credenciales.verify(id);
-        var d = v[2], vigente = v[0];
-        var meta = await leerMetadata(await credenciales.tokenURI(id));
-        var filas = [
-            fila('titular', corto(v[1])),
-            fila('nombre', d.nombre, false),
-            fila('alcance', ALCANCES[Number(d.alcance)] || ('alcance ' + d.alcance), false),
-            fila('cohorte', String(d.cohorte), false),
-            fila('emitida', new Date(Number(d.emitidaEn) * 1000).toLocaleDateString('es-AR'), false)
-        ];
-        if (d.mencion) filas.push(fila('mención', d.mencion, false));
-        filas.push(fila('hash del acto', corto(d.actoHash)));
-        if (!vigente) filas.push(fila('motivo', d.motivoRevocacion, false));
-        return tarjeta({
-            contrato: cfg.credenciales.address, tokenId: id, meta: meta,
-            titulo: 'Credencial #' + id + ' · ' + (ALCANCES[Number(d.alcance)] || ''),
-            rotulo: 'credencial oficial',
-            etiquetaEstado: vigente ? 'vigente' : 'revocada', claseEstado: vigente ? 'bcv-sello-ok' : 'bcv-sello-rev',
-            claseCard: vigente ? '' : 'bcv-card-rev', filas: filas, txConocida: txConocida,
-            nota: 'El documento oficial es el acto de la UNLu. Para comprobarlo, calculá el SHA-256 del PDF (sha256sum archivo.pdf) y comparalo con el hash del acto.'
+            nota: simb ? 'Pieza del juego de la página. No acredita estudios ni es un título.' : 'Recibo de la pasarela de pagos de demostración, sin valor real.'
         });
     }
 
@@ -276,59 +238,39 @@
         return ids.sort(function (x, y) { return x - y; });
     }
 
-    async function idsCredenciales(a) {
-        if (!credenciales) return [];
-        var bal = Number(await credenciales.balanceOf(a));
-        var idx = [];
-        for (var i = 0; i < bal; i++) idx.push(i);
-        return (await porLotes(idx, function (i) { return credenciales.tokenOfOwnerByIndex(a, i); }, 20)).map(Number);
-    }
-
     async function buscarDireccion(a) {
-        var r = await Promise.all([idsInsignias(a), idsCredenciales(a)]);
+        var ids = await idsInsignias(a);
         var cont = document.createDocumentFragment();
-        cont.appendChild(resumen('Dirección', a, r[1].length, r[0].length));
-        var gcred = el('div', 'bcv-grupo');
-        gcred.appendChild(el('h3', 'bcv-grupo-t', 'Credenciales oficiales'));
-        if (!credenciales) gcred.appendChild(aviso('bcv-aviso-info', 'Todavía no se emitieron credenciales: la primera cohorte egresa en 2027.', ''));
-        else if (!r[1].length) gcred.appendChild(aviso('bcv-aviso-info', 'Esta dirección no tiene credenciales oficiales.', ''));
-        else (await Promise.all(r[1].map(function (i) { return tarjetaCredencial(i); }))).forEach(function (c) { gcred.appendChild(c); });
-        cont.appendChild(gcred);
+        cont.appendChild(resumen('Dirección', a, ids.length));
 
         var gjuego = el('div', 'bcv-grupo');
         gjuego.appendChild(el('h3', 'bcv-grupo-t', 'Insignias y certificado del juego (simbólicos)'));
-        if (!r[0].length) gjuego.appendChild(aviso('bcv-aviso-info', 'Esta dirección no tiene insignias del juego.', 'Se obtienen jugando en la página de la diplomatura.'));
+        if (!ids.length) gjuego.appendChild(aviso('bcv-aviso-info', 'Esta dirección no tiene insignias del juego.', 'Se obtienen jugando en la página de la diplomatura.'));
         else {
             var lista = el('div', 'bcv-lista');
-            (await Promise.all(r[0].map(function (i) { return tarjetaInsignia(i, null, a); }))).forEach(function (c) { lista.appendChild(c); });
+            (await Promise.all(ids.map(function (i) { return tarjetaInsignia(i, null, a); }))).forEach(function (c) { lista.appendChild(c); });
             gjuego.appendChild(lista);
         }
         cont.appendChild(gjuego);
         return cont;
     }
 
-    function resumen(tipo, valor, nCred, nJuego) {
+    function resumen(tipo, valor, nJuego) {
         var d = el('div', 'bcv-resumen');
         d.appendChild(el('span', 'bcv-resumen-t', tipo));
         d.appendChild(el('code', 'bcv-mono', valor));
-        d.appendChild(el('span', 'bcv-resumen-c', nCred + ' credencial(es) oficial(es) · ' + nJuego + ' pieza(s) del juego'));
+        d.appendChild(el('span', 'bcv-resumen-c', nJuego + ' pieza(s) del juego'));
         return d;
     }
 
     async function buscarToken(id) {
-        var cont = document.createDocumentFragment(), hallo = false;
-        var jobs = [];
-        jobs.push(insignias.ownerOf(id).then(function () { return tarjetaInsignia(id); }, sinToken));
-        if (credenciales) jobs.push(credenciales.ownerOf(id).then(function () { return tarjetaCredencial(id); }, sinToken));
-        var cards = await Promise.all(jobs);
-        var orden = credenciales ? [cards[1], cards[0]] : [cards[0]];
-        orden.forEach(function (c) { if (c) { hallo = true; cont.appendChild(c); } });
-        if (!hallo) {
+        var card = await insignias.ownerOf(id).then(function () { return tarjetaInsignia(id); }, sinToken);
+        if (!card) {
             return aviso('bcv-aviso-info', 'No existe el token #' + id + '.',
-                'Ni en el contrato de insignias' + (credenciales ? ' ni en el de credenciales' : '') + ', o fue quemado por su dueño.', 'status');
+                'No está en el contrato de insignias, o fue quemado por su dueño.', 'status');
         }
         var g = el('div', 'bcv-lista');
-        g.appendChild(cont);
+        g.appendChild(card);
         return g;
     }
 
@@ -347,22 +289,19 @@
 
         var piezas = [];
         rec.logs.forEach(function (lg) {
-            var addr = lg.address.toLowerCase();
-            [[insignias, cfg.insignias.address, 'i'], [credenciales, cfg.credenciales.address, 'c']].forEach(function (par) {
-                if (!par[0] || !par[1] || addr !== par[1].toLowerCase()) return;
-                var ev;
-                try { ev = par[0].interface.parseLog({ topics: lg.topics, data: lg.data }); } catch (e) { return; }
-                if (ev && ev.name === 'Transfer' && ev.args.from === CERO) piezas.push({ k: par[2], id: Number(ev.args.tokenId) });
-            });
+            if (lg.address.toLowerCase() !== cfg.insignias.address.toLowerCase()) return;
+            var ev;
+            try { ev = insignias.interface.parseLog({ topics: lg.topics, data: lg.data }); } catch (e) { return; }
+            if (ev && ev.name === 'Transfer' && ev.args.from === CERO) piezas.push(Number(ev.args.tokenId));
         });
         if (!piezas.length) {
-            cont.appendChild(aviso('bcv-aviso-info', 'Esta transacción no emitió insignias ni credenciales de la diplomatura.',
-                'Solo se muestran las emisiones de los contratos configurados.', 'status'));
+            cont.appendChild(aviso('bcv-aviso-info', 'Esta transacción no emitió insignias del juego.',
+                'Solo se muestran las emisiones del contrato de insignias.', 'status'));
             return cont;
         }
         var lista = el('div', 'bcv-lista');
         for (var k = 0; k < piezas.length; k++) {
-            lista.appendChild(piezas[k].k === 'i' ? await tarjetaInsignia(piezas[k].id, h) : await tarjetaCredencial(piezas[k].id, h));
+            lista.appendChild(await tarjetaInsignia(piezas[k], h));
         }
         cont.appendChild(lista);
         return cont;
@@ -455,7 +394,6 @@
             lista.appendChild(li);
         }
         item('InsigniasLICDIA (juego, simbólico)', cfg.insignias.address, '');
-        item('CredencialLICDIA (oficial)', cfg.credenciales.address, 'sin desplegar: se publica cuando se emita la primera credencial');
     }
 
     // Totales desde el lanzamiento: bloques, insignias y recorridos los cuenta el backend del juego (/api/estado);
@@ -514,16 +452,10 @@
         })(E.JsonRpcProvider);
         provider = new Limitado(cfg.rpc, cfg.chainId, { staticNetwork: true });
         insignias = new E.Contract(cfg.insignias.address, ABI_INSIGNIAS, provider);
-        credenciales = cfg.credenciales.address ? new E.Contract(cfg.credenciales.address, ABI_CRED, provider) : null;
         pintarContratos();
         pintarCifras().catch(function () { /* las cifras son un extra */ });
         var red = document.getElementById('bcv-red');
         if (red) red.textContent = cfg.red;
-        if (avisoCred) {
-            avisoCred.textContent = credenciales
-                ? 'Contrato de credenciales oficiales: ' + cfg.credenciales.address
-                : 'Todavía no se emitieron credenciales: la primera cohorte egresa en 2027.';
-        }
         form.addEventListener('submit', function (ev) { ev.preventDefault(); buscar(campo.value, true); });
         var ej = document.getElementById('bcv-ejemplo');
         if (ej && cfg.ejemplo && cfg.ejemplo.tokenId) {
