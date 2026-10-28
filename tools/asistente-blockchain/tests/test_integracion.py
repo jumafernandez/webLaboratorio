@@ -40,6 +40,18 @@ def test_estado_en_modo_simulado(tc):
     assert {"ok", "modelo"} <= set(e)
 
 
+def test_contadores_acumulados(tc):
+    antes = tc.get("/blockchain-dev/api/estado").json()
+    for tipo in ("bloque", "bloque", "insignia", "certificado"):
+        assert tc.post("/blockchain-dev/api/evento", json={"tipo": tipo}).status_code == 200
+    assert tc.post("/blockchain-dev/api/evento", json={"tipo": "inventado"}).status_code == 422
+    e = tc.get("/blockchain-dev/api/estado").json()
+    assert e["bloques_total"] == antes["bloques_total"] + 2
+    assert e["insignias_total"] == antes["insignias_total"] + 1
+    assert e["certificados_total"] == antes["certificados_total"] + 1
+    assert e["insignias_hoy"] == antes["insignias_hoy"] + 1
+
+
 def test_cadena_simulada_responde_409(tc):
     assert tc.get("/blockchain-dev/api/cadena/estado").status_code == 409
     r = tc.post("/blockchain-dev/api/cadena/sellar", json={"direccion": VISITANTE, "mensaje": "hola"})

@@ -1,16 +1,17 @@
 # Asistente-juego de la Diplomatura en Blockchain
 
-Demo local de un asistente para https://licdia.unlu.edu.ar/blockchain-dev/ que, en vez de explicar blockchain, la hace
+Asistente de https://licdia.unlu.edu.ar/blockchain-dev/ que, en vez de explicar blockchain, la hace
 jugar. Es un widget embebido en la portada: a la izquierda el chat, a la derecha un **escenario** donde pasan cosas en
 una blockchain que corre en el navegador del visitante. Cada curso de la diplomatura es un **nivel**; cada nivel
 completo da una **insignia** (un NFT en la wallet del visitante); con las cuatro llega un certificado simbólico del
 recorrido. Por el chat se puede preguntar cualquier cosa de la diplomatura: responde un agente con Claude que conoce
 todo el sitio y que maneja el escenario (arranca niveles, muestra partes del sitio, lleva a secciones de la página).
 
-El sitio convencional carga primero: el juego **no se abre solo** (el lanzador es lo único que carga de entrada; `main.js`
-trae el resto, `app.js` y los niveles, la primera vez que se pide). Se abre desde el lanzador, el selector, un botón
-`data-bcw-nivel`, `?bcw=open` / `?bcw=c1` en un enlace, o solo si la persona lo eligió antes (queda `bcw-vista=juego` en
-localStorage). `?vista=sitio` siempre arranca en el sitio. Abierto se comporta como un diálogo modal (`role="dialog"
+Como dev-ia, el juego se abre a pantalla completa al entrar (`main.js` trae `app.js` y los niveles en ese momento),
+salvo que la URL traiga un ancla o que la persona haya elegido antes el sitio convencional (queda `bcw-vista=sitio`
+en localStorage). También se abre
+desde el lanzador, el selector, un botón `data-bcw-nivel` o `?bcw=open` / `?bcw=c1` en un enlace. `?vista=sitio` siempre
+arranca en el sitio. Abierto se comporta como un diálogo modal (`role="dialog"
 aria-modal`, el resto de la página `inert`, Tab atrapado, Escape cierra y el foco vuelve a quien lo abrió). A pantalla
 completa: una portada sobre un fondo animado (carrusel
 3D con los bloques reales de la cadena del navegador minándose en vivo, constelación de nodos y hashes flotando), un
@@ -18,7 +19,9 @@ selector **Juego | Sitio convencional** que se recuerda, y
 **Ver por dentro**, que muestra la cadena bloque por bloque y lo que hizo el agente en la última pregunta (herramientas,
 tokens, caché, costo, tiempos). Con "reducir movimiento" activado en el sistema, el fondo se dibuja quieto.
 
-Todavía no está publicado ni toca el repositorio del sitio: corre aparte, sirviendo el sitio real con el widget inyectado.
+Está publicado en el sitio: `widget/` se copia a `js/blockchain-juego/` y `css/blockchain-juego.css` con
+`despliegue/exportar_widget.sh`, y el backend corre en la VM con la cadena en Base Sepolia (`CADENA_MODO=real`). Con `DEV=1`
+también corre aparte, sirviendo el sitio real con el widget inyectado.
 
 ## Los niveles
 
@@ -137,8 +140,7 @@ El embudo anónimo se ve en `http://127.0.0.1:<puerto>/blockchain-dev/api/panel`
 
 ## Producción
 
-Todo lo necesario está en `despliegue/`, armado igual que `tools/asistente-dev-ia/despliegue/`. Está preparado, no
-desplegado: nada de esto se corrió en la VM ni en el repo del sitio.
+Todo lo necesario está en `despliegue/`, armado igual que `tools/asistente-dev-ia/despliegue/`, y está en uso en la VM.
 
 | Archivo | Qué es |
 |---|---|

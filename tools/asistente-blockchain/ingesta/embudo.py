@@ -35,6 +35,7 @@ PASOS = (
     ("completaron_1", "Completaron al menos un nivel"),
     ("completaron_4", "Completaron los cuatro cursos"),
     ("lista_espera", "Clic en la lista de espera"),
+    ("lista_espera_enviada", "Se anotó en la lista de espera"),
 )
 
 
@@ -84,6 +85,7 @@ def calcular(db: sqlite3.Connection, dias: int = 30, hasta: str | None = None) -
         conteo["completaron_1"] += bool(fin)
         conteo["completaron_4"] += set(CURSOS) <= fin or "certificado" in tipos
         conteo["lista_espera"] += "lista_espera_click" in tipos
+        conteo["lista_espera_enviada"] += "lista_espera_enviada" in tipos
         conteo["sitio_convencional"] += "sitio_convencional" in tipos
         n_preguntas = sum(e == "pregunta_agente" for e, _ in lista)
         preguntas_total += n_preguntas

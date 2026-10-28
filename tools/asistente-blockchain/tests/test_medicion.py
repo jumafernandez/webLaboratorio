@@ -68,6 +68,7 @@ def test_eventos_admitidos(entorno):
     {"sesion": SESION, "evento": "nivel_paso", "datos": {"nivel": "c1", "paso": 3}},
     {"sesion": SESION, "evento": "wallet_creada", "datos": {"real": "si"}},
     {"sesion": SESION, "evento": "visita", "datos": {"vista": "otra"}},
+    {"sesion": SESION, "evento": "compartir", "datos": {"red": "facebook", "id": "c1"}},
     {"sesion": SESION, "evento": "nivel_paso", "datos": "c1"},
     ["no", "es", "objeto"],
 ])
@@ -121,10 +122,12 @@ def test_valores_admitidos(entorno):
     for evento, datos in [("visita", {"vista": "sitio"}), ("ir_seccion", {"ancla": "#team"}),
                           ("pregunta_agente", {"acciones": "mostrar_sitio sugerir"}), ("insignia", {"id": "cert"}),
                           ("nivel_paso", {"nivel": "c4", "paso": "revert"}), ("ver_por_dentro", {"tab": "agente"}),
-                          ("lista_espera_click", {"origen": "certificado"}), ("wallet_creada", {"real": True})]:
+                          ("lista_espera_click", {"origen": "certificado"}), ("wallet_creada", {"real": True}),
+                          ("compartir", {"red": "linkedin", "id": "cert"}), ("perfil", {"perfil": "finanzas"}),
+                          ("lista_espera_enviada", {"origen": "sitio"})]:
         assert c.post("/blockchain-dev/api/m", json={"sesion": SESION, "evento": evento,
                                                      "datos": datos}).status_code == 204, (evento, datos)
-    assert len(filas(m)) == 8
+    assert len(filas(m)) == 11
 
 
 def test_pasos_del_widget_admitidos():
@@ -174,7 +177,8 @@ def sinteticos(db: sqlite3.Connection, hoy: str):
     for n in embudo.CURSOS:
         ev += [("s1", "nivel_inicio", {"nivel": n}), ("s1", "nivel_fin", {"nivel": n})]
     ev += [("s1", "certificado", {}), ("s1", "pregunta_agente", {"acciones": 1}),
-           ("s1", "pregunta_agente", {"acciones": 0}), ("s1", "lista_espera_click", {"origen": "certificado"})]
+           ("s1", "pregunta_agente", {"acciones": 0}), ("s1", "lista_espera_click", {"origen": "certificado"}),
+           ("s1", "lista_espera_enviada", {"origen": "certificado"})]
     ev += [("s2", "visita", {}), ("s2", "entro_juego", {"fuente": "texto"}), ("s2", "nivel_inicio", {"nivel": "c1"}),
            ("s2", "nivel_fin", {"nivel": "c1"}), ("s2", "nivel_inicio", {"nivel": "c2"}),
            ("s2", "nivel_abandono", {"nivel": "c2", "paso": "pool"}), ("s2", "pregunta_agente", {"acciones": 2})]
@@ -195,7 +199,8 @@ def test_embudo_sintetico(entorno, tmp_path):
     sinteticos(m.db, hoy)
     r = embudo.calcular(m.db, dias=30)
     assert {k: v["n"] for k, v in r["embudo"].items()} == {"visitas": 4, "juego": 3, "empezaron": 2,
-                                                          "completaron_1": 2, "completaron_4": 1, "lista_espera": 1}
+                                                          "completaron_1": 2, "completaron_4": 1, "lista_espera": 1,
+                                                          "lista_espera_enviada": 1}
     assert r["embudo"]["juego"]["pct"] == 75.0 and r["embudo"]["completaron_4"]["pct"] == 25.0
     assert r["niveles"]["c2"] == {"inicios": 2, "finales": 1, "abandonos": 1, "pct_completan": 50.0,
                                   "paso_abandono": "pool", "abandonos_en_ese_paso": 1}

@@ -8,6 +8,15 @@
     var ORIGEN = 'espera-2027-blockchain';
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+    // Atribución: el juego llega con ?desde=<botón>&s=<sesión del embudo>&utm_*=… (ver enlaceEspera en
+    // js/blockchain-juego/app.js). Un enlace directo o de campaña trae solo las UTM, o nada.
+    var params = new URLSearchParams(location.search);
+    var DESDES = ['certificado', 'recorrido', 'inscripcion', 'otro'];
+    var DESDE = DESDES.indexOf(params.get('desde')) >= 0 ? params.get('desde') : 'sitio';
+    // Perfil elegido en el juego (js/blockchain-juego/perfil.js) → opción del formulario, si la persona no eligió otra
+    var PERFIL_OPCION = { dev: 'Desarrollador / Ingeniero IT', legal: 'Abogado / Contador / Administrador', finanzas: 'Finanzas / Economía' };
+    var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].filter(function (k) { return params.get(k); });
+
     var $ = function (id) { return document.getElementById(id); };
     var form = $('formEspera');
     if (!form) return;
@@ -134,6 +143,28 @@
         $(id).addEventListener('change', actualizarBloque);
     });
 
+    // ---------- medición ----------
+    // El mismo embudo anónimo del juego (backend/medicion.py): solo el evento y de qué botón vino, nunca los datos del
+    // formulario. Sin medir si el navegador pide no rastrear o es una visita del equipo (?bcw_equipo=1).
+    function medirEnvio() {
+        try {
+            if (navigator.doNotTrack === '1' || localStorage.getItem('bcw-equipo') === '1') return;
+            var sesion = params.get('s');
+            if (!/^[0-9a-f]{16,32}$/.test(sesion || '')) {
+                sesion = sessionStorage.getItem('bcw-sesion');
+                if (!/^[0-9a-f]{16,32}$/.test(sesion || '')) {
+                    sesion = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function (x) {
+                        return (x < 16 ? '0' : '') + x.toString(16);
+                    }).join('');
+                }
+            }
+            var cuerpo = JSON.stringify({ sesion: sesion, evento: 'lista_espera_enviada', datos: { origen: DESDE } });
+            if (!(navigator.sendBeacon && navigator.sendBeacon('/blockchain-dev/api/m', cuerpo))) {
+                fetch('/blockchain-dev/api/m', { method: 'POST', body: cuerpo, keepalive: true }).catch(function () {});
+            }
+        } catch (e) { /* medir es opcional */ }
+    }
+
     // ---------- envío ----------
     function mostrarOk() {
         form.hidden = true;
@@ -158,6 +189,8 @@
         data.append('Correo', emailLimpio());
         if ($('esp-perfil').value) data.append('Perfil profesional', $('esp-perfil').value);
         data.append('Origen', ORIGEN);
+        data.append('Desde', DESDE);
+        UTM.forEach(function (k) { data.append(k, params.get(k).slice(0, 60)); });
         data.append('Consentimiento', 'Sí');
         data.append('Fecha', new Date().toISOString());
         if (firma.firma) {
@@ -181,6 +214,7 @@
             .then(function (resp) {
                 if (resp && resp.event_id) { try { sessionStorage.setItem('lead_event_id', resp.event_id); } catch (x) {} }
                 mostrarOk();
+                medirEnvio();
             })
             .catch(function (err) {
                 clearTimeout(timeoutId);
@@ -192,6 +226,9 @@
                     : 'No pudimos enviar tus datos. Probá de nuevo o escribinos a licdia@unlu.edu.ar.';
             });
     });
+
+    var perfilSel = $('esp-perfil');
+    if (perfilSel && !perfilSel.value && PERFIL_OPCION[params.get('perfil')]) perfilSel.value = PERFIL_OPCION[params.get('perfil')];
 
     actualizarBloque();
 })();

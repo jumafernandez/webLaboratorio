@@ -71,19 +71,39 @@
       "courseMode": "online",
       "timeRequired": "PT160H",
       "isAccessibleForFree": false,
+      "offers": {
+        "@type": "Offer",
+        "category": "Paid",
+        "price": "850000",
+        "priceCurrency": "ARS",
+        "url": "https://licdia.unlu.edu.ar/blockchain-dev/aranceles/"
+      },
       "url": "https://licdia.unlu.edu.ar/blockchain-dev/",
       "image": "https://licdia.unlu.edu.ar/assets/img/og-blockchain.jpg",
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "startDate": "2026-08-11",
-        "endDate": "2026-11-26",
-        "courseWorkload": "PT160H",
-        "location": {
-          "@type": "VirtualLocation",
-          "url": "https://licdia.unlu.edu.ar/blockchain-dev/"
+      "hasCourseInstance": [
+        {
+          "@type": "CourseInstance",
+          "courseMode": "online",
+          "startDate": "2026-08-11",
+          "endDate": "2026-11-26",
+          "courseWorkload": "PT160H",
+          "location": {
+            "@type": "VirtualLocation",
+            "url": "https://licdia.unlu.edu.ar/blockchain-dev/"
+          }
+        },
+        {
+          "@type": "CourseInstance",
+          "name": "Cohorte 2027 (fecha tentativa)",
+          "courseMode": "online",
+          "startDate": "2027-09",
+          "courseWorkload": "PT160H",
+          "location": {
+            "@type": "VirtualLocation",
+            "url": "https://licdia.unlu.edu.ar/blockchain-dev/espera-2027/"
+          }
         }
-      }
+      ]
     }
     </script>
 
@@ -99,7 +119,7 @@
     <link href="../css/styles.css" rel="stylesheet" />
     <link href="../css/style2.css" rel="stylesheet" />
     <!-- AOS ANIMACIONES -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@3.0.0-beta.6/dist/aos.css" />
     <!-- Poppins bold para títulos -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -436,9 +456,9 @@
     <!-- Barra de Navegación, imagenes de logos, etc.-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand efect" href="#page-top"><img src="../assets/img/logo.ico" alt="..." /></a>
-            <a class="navbar-brand efect" href="#page-top"><img src="../assets/img/depto.ico" alt="..." /></a>
-            <a class="navbar-brand efect" href="#page-top"><img src="../assets/img/unlu.ico" alt="..." /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../assets/img/logo.ico" alt="LICDIA" /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../assets/img/depto.ico" alt="Departamento de Ciencias Básicas" /></a>
+            <a class="navbar-brand efect" href="#page-top"><img src="../assets/img/unlu.ico" alt="Universidad Nacional de Luján" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -458,7 +478,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navCadena" role="button" data-bs-toggle="dropdown" aria-expanded="false">En la cadena</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navCadena">
                             <li><a class="dropdown-item" href="/blockchain-dev/en-vivo/">En vivo</a></li>
-                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar credenciales</a></li>
+                            <li><a class="dropdown-item" href="/blockchain-dev/verificar/">Verificar insignias</a></li>
                             <li><a class="dropdown-item" href="/blockchain-dev/proyectos/">Proyectos de alumnos</a></li>
                             <li><a class="dropdown-item" href="/blockchain-dev/blog/">Notas de la cátedra</a></li>
                             <li><a class="dropdown-item" href="/blockchain-dev/espera-2027/">Lista de espera 2027</a></li>
@@ -2646,7 +2666,7 @@
         update();
     })();
     </script>
-    <script defer src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script defer src="https://unpkg.com/aos@3.0.0-beta.6/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if (window.AOS) AOS.init({ disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } });
@@ -2708,9 +2728,10 @@
     <script type="importmap">
     {
       "imports": {
-        "/js/blockchain-juego/app.js": "/js/blockchain-juego/app.js?v=2026-10-28b",
+        "/js/blockchain-juego/app.js": "/js/blockchain-juego/app.js?v=2026-10-28c",
         "/js/blockchain-juego/cadena-real.js": "/js/blockchain-juego/cadena-real.js?v=2026-10-27a",
         "/js/blockchain-juego/cadena.js": "/js/blockchain-juego/cadena.js?v=2026-10-27a",
+        "/js/blockchain-juego/compartir.js": "/js/blockchain-juego/compartir.js?v=2026-10-28c",
         "/js/blockchain-juego/dentro.js": "/js/blockchain-juego/dentro.js?v=2026-10-27a",
         "/js/blockchain-juego/fondo.js": "/js/blockchain-juego/fondo.js?v=2026-10-27a",
         "/js/blockchain-juego/juego.js": "/js/blockchain-juego/juego.js?v=2026-10-27a",
@@ -2721,12 +2742,13 @@
         "/js/blockchain-juego/niveles/nivel2-token.js": "/js/blockchain-juego/niveles/nivel2-token.js?v=2026-10-27a",
         "/js/blockchain-juego/niveles/nivel3-red.js": "/js/blockchain-juego/niveles/nivel3-red.js?v=2026-10-27a",
         "/js/blockchain-juego/niveles/nivel4-pasarela.js": "/js/blockchain-juego/niveles/nivel4-pasarela.js?v=2026-10-27a",
+        "/js/blockchain-juego/perfil.js": "/js/blockchain-juego/perfil.js?v=2026-10-28c",
         "/js/blockchain-juego/red.js": "/js/blockchain-juego/red.js?v=2026-10-27a",
         "/js/blockchain-juego/sitio.js": "/js/blockchain-juego/sitio.js?v=2026-10-27a",
         "/js/blockchain-juego/util.js": "/js/blockchain-juego/util.js?v=2026-10-27a"
       }
     }
     </script>
-    <link href="../css/blockchain-juego.css?v=2026-10-28b" rel="stylesheet" />
+    <link href="../css/blockchain-juego.css?v=2026-10-28c" rel="stylesheet" />
     <script type="module" src="../js/blockchain-juego/main.js?v=2026-10-28a"></script>
 </body>

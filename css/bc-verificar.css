@@ -92,6 +92,9 @@ html body.blockchain-theme #bcv a.bcv-enlace:not(#_):hover { color: #fff !import
 .bcv-caja p { margin: 0; color: var(--bc-tinta); font-size: .86rem; line-height: 1.55; }
 .bcv-caja .bcv-caja-t { color: #fff; font: 600 1rem "Space Grotesk", Montserrat, sans-serif; }
 .bcv-caja .bcv-estado-cred { margin-top: .3rem; padding-top: .6rem; border-top: 1px solid rgba(196, 165, 255, .2); color: var(--bc-ambar); font: 500 .8rem var(--bc-mono); overflow-wrap: anywhere; }
+.bcv-cifras { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; margin: 0 0 1.2rem; padding: .7rem 1rem; border-radius: .6rem; border: 1px solid rgba(196, 165, 255, .25); background: rgba(196, 165, 255, .06); color: var(--bc-tinta); font-size: .9rem; }
+.bcv-cifras-t { color: var(--bc-tenue); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+.bcv-cifra strong { color: #fff; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
 .bcv-contratos { margin: 0 0 1rem; padding: 0; list-style: none; display: grid; gap: .6rem; }
 .bcv-contratos li { display: flex; flex-wrap: wrap; gap: .2rem .8rem; align-items: baseline; color: var(--bc-tinta); font-size: .86rem; }
 .bcv-contratos strong { color: #fff; font-weight: 600; }

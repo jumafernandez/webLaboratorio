@@ -15,6 +15,8 @@
 
 import { addBlock, chain, onBlock, ready } from "./cadena.js";
 import * as real from "./cadena-real.js";
+import { compartirEl } from "./compartir.js";
+import { PERFILES, ejemploPerfil, elegirPerfil, perfil } from "./perfil.js";
 import { buildDentro, renderAgente, renderCadena } from "./dentro.js";
 import { buildRed, contratosEnSitio, renderRed, vigilarBloque } from "./red.js";
 import { startFondo } from "./fondo.js";
@@ -90,6 +92,7 @@ panel.innerHTML = `
     <h2>No te voy a explicar blockchain.<br><span>La vas a jugar.</span></h2>
     <p>Cada curso de la diplomatura es un nivel que pasa en una blockchain de verdad, corriendo en tu navegador. O preguntame lo que quieras de la cursada.</p>
     <form class="bcw-heroform"><input type="text" autocomplete="off" maxlength="300" aria-label="Tu pregunta" placeholder="${MOBILE ? "Ej: soy contador, ¿me sirve?" : "Por ejemplo: soy contador, ¿esto me sirve?"}"><button type="submit" aria-label="Enviar">→</button></form>
+    <div class="bcw-heroperfil" role="group" aria-label="¿A qué te dedicás?"><span>¿A qué te dedicás?</span></div>
     <div class="bcw-herochips"></div>
     <p class="bcw-aviso">Respuestas generadas con IA a partir del contenido de este sitio: pueden tener errores. La cadena del juego es real; wallet, transacciones y NFTs son simulados. Guardamos las preguntas, sin datos de quién las hace, para mejorar el sitio.</p>
   </div>
@@ -253,7 +256,7 @@ document.addEventListener("keydown", (e) => {
 });
 // Every waitlist link of the game counts as a conversion click (origen = where it was shown).
 panel.addEventListener("click", (e) => {
-  const a = e.target.closest?.(`a[href="${WAITLIST_URL}"]`);
+  const a = e.target.closest?.(`a[href^="${WAITLIST_URL}"]`);
   if (a) track("lista_espera_click", { origen: a.dataset.origen || "otro" });
 });
 // Leaving the page in the middle of a level is an abandon too (sendBeacon survives pagehide).
@@ -301,6 +304,22 @@ for (const c of HERO_CHIPS) {
   const text = c.l.replace(/^\S+\s/, "");
   b.addEventListener("click", () => heroGo(c.q ? text : c.l, c.q ? (ctx) => route(ctx, text) : c.f, "chip"));
   panel.querySelector(".bcw-herochips").append(b);
+}
+// One click on the profile orders the levels and tailors their examples (perfil.js).
+for (const [id, p] of Object.entries(PERFILES)) {
+  const b = h("button", "bcw-chip bcw-perfil", esc(p.l));
+  b.type = "button";
+  b.setAttribute("aria-pressed", String(perfil() === id));
+  b.addEventListener("click", () => {
+    elegirPerfil(id);
+    panel.querySelectorAll(".bcw-perfil").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    track("perfil", { perfil: id });
+    heroGo(p.l.replace(/^\S+\s/, ""), async (ctx) => {
+      await ctx.bot(p.intro);
+      menuChips(levelChips());
+    }, "chip");
+  });
+  panel.querySelector(".bcw-heroperfil").append(b);
 }
 panel.querySelector(".bcw-heroform").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -571,13 +590,25 @@ function goto(sel) {
   launcher.classList.add("bcw-pulse");
 }
 
+// The waitlist page is another tab (target=_blank drops sessionStorage): carry where the click came from, the funnel
+// session (a random id, nothing personal) and the visit's UTM tags, so bc-espera.js can attribute the sign-up.
+function enlaceEspera(origen) {
+  const q = new URLSearchParams();
+  q.set("desde", origen || "otro");
+  const sesion = sesionMedicion();
+  if (sesion) q.set("s", sesion);
+  if (perfil()) q.set("perfil", perfil());
+  for (const [k, v] of new URLSearchParams(location.search)) if (k.startsWith("utm_")) q.set(k, v.slice(0, 60));
+  return `${WAITLIST_URL}?${q}`;
+}
+
 function actions(s, list) {
   const row = h("div", "bcw-actions");
   for (const a of list) {
     const cls = `bcw-cta${a.primary ? " bcw-primary" : ""}`;
     const el = a.href ? h("a", cls, a.l) : h("button", cls, a.l);
     if (a.href) {
-      el.href = a.href;
+      el.href = a.href === WAITLIST_URL ? enlaceEspera(a.origen) : a.href;
       el.target = "_blank";
       el.rel = "noopener";
       if (a.origen) el.dataset.origen = a.origen;
@@ -721,6 +752,11 @@ function makeCtx(token) {
       if (!S.run || S.run.fin) return;
       S.run.paso = paso;
       track("nivel_paso", { nivel: S.run.id, paso });
+      // The visitor's first mined block feeds the public "bloques minados" counter (once per visit).
+      if (S.run.id === "c1" && paso === "minado" && !S.bloqueContado) {
+        S.bloqueContado = true;
+        postEvent({ tipo: "bloque" });
+      }
     },
     chipsMenu: menuChips,
     escape() {
@@ -867,6 +903,8 @@ async function playLevel(ctx, id, opts = {}) {
   S.current = id;
   S.run = { id, paso: "inicio", fin: false };
   track("nivel_inicio", { nivel: id });
+  // The agent's example wins; without one, the level speaks to the profile picked on the hero.
+  if (!opts.ejemplo && ejemploPerfil(id)) opts = { ...opts, ejemplo: ejemploPerfil(id) };
   try {
     await PLAY[id](ctx, opts);
     levelDone(id);
@@ -877,7 +915,10 @@ async function playLevel(ctx, id, opts = {}) {
 
 // ---------- map ----------
 function levelChips() {
-  const list = LEVELS.map((l) => ({ l: `${S.badges.has(l.id) ? "✅" : "▶️"} Nivel ${l.curso} · ${l.corto}`, f: (ctx) => ctx.play(l.id) }));
+  // With a profile, its suggested level goes first (while it is still pending).
+  const primero = perfil() && !S.badges.has(PERFILES[perfil()].primero) ? PERFILES[perfil()].primero : null;
+  const orden = primero ? [LEVELS.find((l) => l.id === primero), ...LEVELS.filter((l) => l.id !== primero)] : LEVELS;
+  const list = orden.map((l) => ({ l: `${S.badges.has(l.id) ? "✅" : "▶️"} Nivel ${l.curso} · ${l.corto}`, f: (ctx) => ctx.play(l.id), primary: l.id === primero }));
   list.push(
     { l: "🎨 Bonus: tu NFT", f: (ctx) => ctx.play("nft") },
     { l: "😈 Desafío: hackeá un contrato", f: (ctx) => ctx.play("hack") },
@@ -923,7 +964,8 @@ function mapScene(ctx) {
       bonus.append(el);
     }
     s.append(bonus);
-    if (S.stats?.insignias_hoy) s.append(h("p", "bcw-stat", `🔥 Hoy los visitantes ganaron <b>${S.stats.insignias_hoy}</b> insignias`));
+    const stat = statEl(S.stats);
+    if (stat) s.append(stat);
   });
 }
 
@@ -956,6 +998,7 @@ function nextChips() {
   for (const b of BONUS) if (!S.badges.has(b.id)) list.push({ l: `${b.emoji} ${b.titulo}`, f: (ctx) => ctx.play(b.id) });
   list.push({ l: "🎓 La diplomatura", f: topicDiplo });
   if (S.wallet) list.push({ l: "👛 Mi wallet", f: walletFlow });
+  if (S.nfts.some((n) => n.kind === "badge")) list.push({ l: "📣 Compartir mis insignias", f: walletFlow });
   return list;
 }
 
@@ -972,14 +1015,15 @@ async function closingOrNext(ctx) {
 async function certificate(ctx) {
   await ctx.sleep(500);
   await ctx.bot("🏆 **¡Completaste los 4 niveles!** Jugaste en un rato lo que en la diplomatura aprendés a **programar**: bloques, tokens, redes y una DApp de pagos.");
+  const nft = { kind: "badge", id: "cert", name: "Recorrido completo", svg: badgeSVG("cert") };
   ctx.scene((s) => {
     s.innerHTML = `<div class="bcw-kicker">Recorrido completo</div><h3>Tu certificado del recorrido</h3>`;
     s.append(h("div", "bcw-nft bcw-nftbig bcw-cert", badgeSVG("cert")));
     s.append(h("p", "bcw-lead", "Es un NFT simbólico del juego, no un título. El título de posgrado se gana cursando 😉"));
     if (real.REAL.on && S.walletReal) s.append(h("p", "bcw-certtx", `⏳ Acuñándose en ${esc(real.nombreRed())}…`));
     actions(s, [{ l: "✍️ Anotarme en la lista de espera 2027", href: WAITLIST_URL, primary: true, origen: "certificado" }, { l: "👛 Ver mi wallet", f: () => startFlow(walletFlow) }]);
+    s.append(compartirEl(nft));
   });
-  const nft = { kind: "badge", id: "cert", name: "Recorrido completo", svg: badgeSVG("cert") };
   S.nfts.push(nft);
   addLog("🏆", "Certificado del recorrido completo", "NFT simbólico del juego");
   if (real.REAL.on && S.walletReal) mintReal("cert", "Recorrido completo", S.log.at(-1), nft, stage.querySelector(".bcw-certtx"));
@@ -1001,11 +1045,21 @@ async function walletFlow(ctx) {
     s.append(walletCard());
     if (S.nfts.length) {
       const grid = h("div", "bcw-designs");
+      // One share row under the grid, for the badge whose "Compartir" was pressed last.
+      const share = h("div", "bcw-share-slot");
       for (const n of S.nfts) {
         const cap = n.href ? real.linkHTML(n.href, n.name) : esc(n.name);
-        grid.append(h("div", "bcw-nft", `${n.svg}<div class="bcw-cap">${cap}</div>`));
+        const card = h("div", "bcw-nft", `${n.svg}<div class="bcw-cap">${cap}</div>`);
+        if (n.kind === "badge" && BADGES[n.id]) {
+          const b = h("button", "bcw-share-open", "Compartir");
+          b.type = "button";
+          b.setAttribute("aria-label", `Compartir ${n.name}`);
+          b.addEventListener("click", () => share.replaceChildren(compartirEl(n)));
+          card.querySelector(".bcw-cap").append(b);
+        }
+        grid.append(card);
       }
-      s.append(grid);
+      s.append(grid, share);
     }
   });
   await ctx.bot(`Tenés **${S.nfts.length} NFT${S.nfts.length === 1 ? "" : "s"}** en tu wallet.`, 400);
@@ -1053,12 +1107,24 @@ async function checkAI() {
     contratosEnSitio();
     panel.querySelector(".bcw-ai").hidden = !S.ai;
     const map = stage.querySelector(".bcw-levels");
-    if (map && d.insignias_hoy && !stage.querySelector(".bcw-stat"))
-      map.parentElement.append(h("p", "bcw-stat", `🔥 Hoy los visitantes ganaron <b>${d.insignias_hoy}</b> insignias`));
+    const stat = map && !stage.querySelector(".bcw-stat") ? statEl(d) : null;
+    if (stat) map.parentElement.append(stat);
   } catch {
     S.ai = false;
     configurarMedicion(false);
   }
+}
+
+// Running totals from /estado (since the counters started), so the map never shows a lonely "0 today".
+function statEl(d) {
+  const partes = [
+    [d?.bloques_total, "⛏️", "bloques minados"],
+    [d?.insignias_total, "🏅", "insignias ganadas"],
+    [d?.certificados_total, "🏆", "recorridos completos"],
+  ].filter(([n]) => n > 0);
+  if (!partes.length) return null;
+  const txt = partes.map(([n, ic, l]) => `${ic} <b>${n.toLocaleString("es-AR")}</b> ${l}`).join(" · ");
+  return h("p", "bcw-stat", `${txt} <span class="bcw-stat-s">por visitantes de este sitio</span>`);
 }
 
 function postEvent(ev) {
@@ -1073,6 +1139,7 @@ function gameState() {
     wallet: !!S.wallet,
     nfts: S.nfts.length,
     pendientes: LEVELS.filter((l) => !S.badges.has(l.id)).map((l) => l.id),
+    perfil: perfil(),
   };
 }
 
