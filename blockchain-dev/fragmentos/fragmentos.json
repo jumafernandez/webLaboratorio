@@ -1,0 +1,50 @@
+{
+  "_ayuda": "Catálogo de fragmentos de clase (solo habla el docente). archivo = nombre sin extensión de los .mp4/.jpg/.vtt de esta carpeta. nivel = nivel del juego que muestra el tema (c1..c4, nft, hack, firmas) o vacío. preguntas = 2 o 3 repreguntas que se responden con lo que dice el fragmento. Después de cambiarlo: python3 tools/asistente-blockchain/ingesta/extraer_sitio.py",
+  "fragmentos": [
+    {
+      "id": "c1-ciro-encadenan",
+      "curso": 1,
+      "clase": 2,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Cómo se encadenan los bloques y por qué no se pueden borrar",
+      "archivo": "curso1-ciro-como-se-encadenan-los-bloques",
+      "duracion": "2:08",
+      "nivel": "c1",
+      "preguntas": [
+        "¿Por qué cambiar un bloque viejo rompe todos los siguientes?",
+        "¿Qué guarda el header de un bloque?",
+        "¿Por qué modificar la cadena es económicamente inviable?"
+      ]
+    },
+    {
+      "id": "c2-deiller-amm",
+      "curso": 2,
+      "clase": 4,
+      "docente": "Deiller Guevara",
+      "tema": "Por qué nacen los AMM y qué es un pool de liquidez",
+      "archivo": "curso2-deiller-por-que-nacen-los-amm",
+      "duracion": "1:57",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Por qué un libro de órdenes no escala en blockchain?",
+        "¿Cómo se descubre el precio en un pool de liquidez?",
+        "¿Qué gana el que pone la liquidez?"
+      ]
+    },
+    {
+      "id": "c3-david-iac",
+      "curso": 3,
+      "clase": 2,
+      "docente": "David Petrocelli",
+      "tema": "Qué es la infraestructura como código",
+      "archivo": "curso3-david-infraestructura-como-codigo",
+      "duracion": "1:37",
+      "nivel": "c3",
+      "preguntas": [
+        "¿Qué recursos se pueden crear con infraestructura como código?",
+        "¿Por qué hace falta Git para la infraestructura?",
+        "¿Qué problema tiene crear todo a clics en la consola?"
+      ]
+    }
+  ]
+}

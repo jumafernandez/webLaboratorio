@@ -18,11 +18,11 @@ en el dibujo que veníamos haciendo, tiene que ver con todos estos conceptos
 
 5
 00:00:21.320 --> 00:00:27.580
-balancear de carga, rate limiting, CDNs, firewall, todo esto son recursos de RAC
+balanceador de carga, rate limiting, CDNs, firewall, todo esto son recursos de red
 
 6
 00:00:29.360 --> 00:00:33.460
-Entonces, volvo para acá, mediante archivos de código
+Entonces, vuelvo para acá, mediante archivos de código
 
 7
 00:00:34.800 --> 00:00:37.800
@@ -34,7 +34,7 @@ automatización
 
 9
 00:00:38.500 --> 00:00:43.380
-o sea, en términos criollo, voy a poder crear recursos de infraestructura
+o sea, en términos criollos, voy a poder crear recursos de infraestructura
 
 10
 00:00:43.380 --> 00:00:48.580

@@ -4,6 +4,7 @@ URL: /blockchain-dev/
 Diplomatura de posgrado · LICDIA · UNLu
  Diplomatura de Posgrado en Innovación y Desarrollo de
  Aplicaciones basadas en Blockchain
+ ⛓️ Jugá a la blockchain 
  Lista de espera 2027 
  Ver el plan de estudios 
  Modalidad: Virtual
@@ -1793,3 +1794,7 @@ Diplomatura de posgrado · LICDIA · UNLu
  Dejá tus datos y te avisamos cuando se abra la inscripción de la cohorte 2027.
  Lista de espera 2027
  Volver al cuerpo docente
+
+## Próxima charla informativa
+
+Próxima charla informativa de la diplomatura (virtual, para la cohorte 2027): mayo de 2027; el día y la hora todavía no están confirmados. Quien está en la lista de espera recibe el aviso con la fecha.

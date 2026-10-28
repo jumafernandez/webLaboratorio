@@ -2,6 +2,7 @@
 // page or open the full page. Data copied from the site (October 2026); the agent answers from the full text.
 
 import { track } from "./medicion.js";
+import { FRAG_DIR, catalogo, seguir } from "./fragmentos.js";
 import { POINT, REDUCE, WAITLIST_URL, h } from "./util.js";
 
 // Next informative talk from blockchain-dev/charla-proxima.json (the same file the landing page reads); null while the
@@ -50,27 +51,39 @@ const TEAM = [
   ["mromero.jpg", "Mauricio Romero", "Cuerpo docente", "Bases de datos en el BCRA. Ayudante en Sistemas Distribuidos (UNLu)."],
 ];
 
-// One short real class per course (blockchain-dev/fragmentos/), shown when a level's bridge highlights its course.
-const FRAGMENTOS = {
-  1: ["curso1-ciro-como-se-encadenan-los-bloques", "Cómo se encadenan los bloques", "Ciro Romero", "2:08"],
-  2: ["curso2-deiller-por-que-nacen-los-amm", "Por qué nacen los AMM", "Deiller Guevara", "1:57"],
-  3: ["curso3-david-infraestructura-como-codigo", "Infraestructura como código", "David Petrocelli", "1:37"],
-};
-const FRAG_DIR = "/blockchain-dev/fragmentos/";
-
-function fragmentoEl(n) {
-  const f = FRAGMENTOS[n];
-  if (!f) return null;
-  const [archivo, tema, docente, dur] = f;
+// Short real classes (blockchain-dev/fragmentos/fragmentos.json, fragmentos.js): the plan scene shows the first one of
+// the highlighted course, and the agent can put any of them on stage (fragmentoScene).
+function fragmentoEl(f, abierto) {
   const d = h("details", "bcw-clase");
-  d.innerHTML = `<summary>🎬 Mirá ${dur} de una clase real: ${tema} · ${docente}</summary>
-    <video controls preload="none" playsinline poster="${FRAG_DIR}${archivo}.jpg">
-      <source src="${FRAG_DIR}${archivo}.mp4" type="video/mp4">
-      <track kind="captions" srclang="es" label="Español" src="${FRAG_DIR}${archivo}.vtt" default>
+  d.innerHTML = `<summary>🎬 Mirá ${f.duracion} de una clase real: ${f.tema} · ${f.docente}</summary>
+    <video controls preload="none" playsinline poster="${FRAG_DIR}${f.archivo}.jpg">
+      <source src="${FRAG_DIR}${f.archivo}.mp4" type="video/mp4">
+      <track kind="captions" srclang="es" label="Español" src="${FRAG_DIR}${f.archivo}.vtt" default>
     </video>`;
-  d.querySelector("video").setAttribute("aria-label", `${tema}, ${docente}`);
-  d.addEventListener("toggle", () => d.open && track("fragmento", { curso: `c${n}` }), { once: true });
+  const v = d.querySelector("video");
+  v.setAttribute("aria-label", `${f.tema}, ${f.docente}`);
+  v.dataset.frag = f.id;
+  seguir(v, f.id);
+  d.addEventListener("toggle", () => d.open && track("fragmento", { curso: `c${f.curso}` }), { once: true });
+  d.open = !!abierto;
   return d;
+}
+
+export const nivelEtiqueta = (nivel) => (/^c\d$/.test(nivel) ? `🎮 Probalo en el Nivel ${nivel.slice(1)}` : "🎮 Probalo en el nivel bonus");
+
+export function fragmentoScene(s, ctx, id) {
+  s.innerHTML = `<div class="bcw-kicker">Fragmento de clase</div><h3>Una clase real de la cohorte 2026</h3>`;
+  catalogo().then((todos) => {
+    const f = todos.find((x) => x.id === id);
+    if (!f) return;
+    s.querySelector("h3").textContent = f.tema;
+    s.append(h("p", "bcw-lead", `Curso ${f.curso} · clase ${f.clase} · ${f.docente}. Con subtítulos.`));
+    s.append(fragmentoEl(f, true));
+    ctx.actions(s, [
+      ...(f.nivel ? [{ l: nivelEtiqueta(f.nivel), f: () => ctx.jugar(f.nivel) }] : []),
+      { l: "📍 Ver el plan en el sitio", f: () => ctx.goto("#informacionPlan") },
+    ]);
+  });
 }
 
 export function planScene(s, ctx, hi) {
@@ -83,8 +96,12 @@ export function planScene(s, ctx, hi) {
     m.innerHTML = `<div class="bcw-num">${n}</div><div><h4>Curso ${n} · ${t}</h4><p>${l}</p>${done.has(`c${n}`) ? '<span class="bcw-you">✓ Ganaste la insignia de este curso</span>' : ""}</div>`;
     s.append(m);
   });
-  const frag = fragmentoEl(hi);
-  if (frag) s.append(frag);
+  const lugar = h("div");
+  s.append(lugar);
+  if (hi) catalogo().then((todos) => {
+    const f = todos.find((x) => x.curso === hi);
+    if (f) lugar.replaceWith(fragmentoEl(f));
+  });
   ctx.actions(s, [
     { l: "📍 Ir al plan en el sitio", f: () => ctx.goto("#informacionPlan") },
     { l: "📄 Plan completo", href: "/blockchain-dev/plan-de-estudios/" },

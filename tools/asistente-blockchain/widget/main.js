@@ -8,6 +8,7 @@
  */
 
 import { configurarMedicion, track, vaciarAlSalir } from "./medicion.js";
+import { seguirPagina } from "./fragmentos.js";
 
 const API = "/blockchain-dev/api";
 const PREF = "bcw-vista";
@@ -70,6 +71,9 @@ document.addEventListener("click", (e) => {
   e.preventDefault();
   conJuego((app) => app.playFromPage(id));
 });
+
+// Class clips of the normal site count as watched for the agent (fragmentos.js)
+seguirPagina();
 
 // ---------- how this visit starts ----------
 const linked = new URLSearchParams(location.search).get("bcw");

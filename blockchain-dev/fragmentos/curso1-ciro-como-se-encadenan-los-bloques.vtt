@@ -38,7 +38,7 @@ Esto forma una cadena verificable desde el bloque génesis hasta el último bloq
 
 10
 00:00:37.920 --> 00:00:42.600
-Modificar un bloque contiguo cambia el hash, lo que rompe la cadena hacia delante,
+Modificar un bloque antiguo cambia el hash, lo que rompe la cadena hacia delante,
 
 11
 00:00:43.040 --> 00:00:46.860
@@ -58,7 +58,7 @@ Entonces, si así funciona una cadena de bloques, una blockchain,
 
 15
 00:01:04.560 --> 00:01:10.620
-podemos llegar a intuir que alterar un bloque contiguo obliga a recalcular el hash
+podemos llegar a intuir que alterar un bloque antiguo obliga a recalcular el hash
 
 16
 00:01:10.620 --> 00:01:13.540

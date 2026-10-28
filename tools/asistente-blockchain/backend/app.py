@@ -66,6 +66,12 @@ CADENA = cadena.Cadena(REGISTRO.db, REGISTRO.cerrojo)
 CADENA.moderador = moderacion.Moderador(CLIENTE if LLM_API_KEY else None)
 MEDICION = medicion.Medicion(REGISTRO.db, REGISTRO.cerrojo)
 SITIO_MD = (RAIZ / "conocimiento" / "sitio.md").read_text(encoding="utf-8")
+# Fragmentos de clase con su texto (ingesta/extraer_sitio.py) y lo que se dio en cada clase (ingesta/extraer_clases.py).
+# clases.md sale de material privado y no se versiona: si falta, el agente responde solo con el sitio.
+FRAGMENTOS: list[dict] = json.loads((RAIZ / "conocimiento" / "fragmentos.json").read_text(encoding="utf-8"))
+FRAGMENTO = {f["id"]: f for f in FRAGMENTOS}
+_CLASES = RAIZ / "conocimiento" / "clases.md"
+CLASES_MD = _CLASES.read_text(encoding="utf-8") if _CLASES.exists() else ""
 
 REGLAS = """Sos el asistente de la Diplomatura de Posgrado en Innovación y Desarrollo de Aplicaciones basadas en \
 Blockchain, del Laboratorio de Investigación en Ciencia de Datos e IA (LICDIA) de la Universidad Nacional de Luján. \
@@ -93,6 +99,10 @@ factura y probar que nadie la tocó"). Antes de llamarla escribí una sola oraci
 guía los pasos, no los expliques vos.
 - mostrar_sitio: muestra en el escenario una parte del sitio (plan, docentes, aranceles, inscripción, requisitos, \
 destinatarios, salida laboral). Usala siempre que respondas sobre esos temas, junto con tu respuesta.
+- mostrar_fragmento: muestra en el escenario un fragmento de clase real (un video de uno o dos minutos donde habla el \
+docente, con subtítulos). Usala cuando la persona pregunta por un tema que explica alguno de los fragmentos de abajo: \
+contestá en una o dos oraciones y ofrecé el video ("esto lo explicó Ciro en la clase 2, miralo"). No la uses dos veces \
+seguidas para el mismo fragmento.
 - llevar_al_sitio: agrega un botón que lleva a una sección de la página real. Usala cuando la persona quiere ver \
 algo en la página o cuando el detalle completo está ahí.
 - sugerir: hasta 4 botones con los próximos pasos. Usala al final de casi todas tus respuestas; preferí niveles que \
@@ -106,6 +116,12 @@ fechas, requisitos, docentes ni datos de cohortes; copiá montos y fechas tal co
 estado del juego.
 - Nehuén Prados ya no forma parte del equipo docente aunque aparezca en el texto del sitio: no lo nombres entre \
 los docentes.
+- Qué se da en cada curso y en cada clase sale de "Qué se dio en cada clase" (cohorte 2026) y de los fragmentos de \
+clase. Podés contar lo que se vio en una clase, quién la dio y con qué herramientas, y citar lo que dijo un docente en \
+un fragmento ("como contaba Deiller…"), pero no inventes contenidos de clases que no figuran ahí. Si la persona ya vio \
+un fragmento (viene en el estado del juego), partí de lo que dijo el docente y profundizá a partir de ahí, sin repetirlo.
+- La próxima charla informativa es la de la sección "Próxima charla informativa"; las charlas de mayo de 2026 ya \
+pasaron y están grabadas en la portada.
 - Si te preguntan algo de la diplomatura que no está en esa información, decí en una oración que ese dato no lo tenés \
 a mano y ofrecé el contacto: licdia@unlu.edu.ar.
 - Podés explicar conceptos de blockchain en general (qué es un hash, una wallet, un smart contract, una capa 2), \
@@ -126,10 +142,21 @@ botones de sugerir. Español rioplatense, con voseo, cordial y con energía de j
 """
 
 # Parte fija del prompt: igual byte a byte en todas las consultas, así la caché la reutiliza
+def texto_fragmentos() -> str:
+    return "\n\n".join(
+        f"### {f['id']} · Curso {f['curso']}, clase {f['clase']} · {f['docente']} · {f['tema']} ({f['duracion']})\n"
+        f"Lo que dice: {f['texto']}"
+        for f in FRAGMENTOS
+    )
+
+
 FIJO = (
     REGLAS
     + "\n\nInformación del sitio de la diplomatura (texto de cada página):\n\n"
     + SITIO_MD
+    + "\n\nFragmentos de clase (videos reales de la cohorte 2026; el id es el que usa mostrar_fragmento):\n\n"
+    + texto_fragmentos()
+    + (f"\n\nQué se dio en cada clase (cohorte 2026):\n\n{CLASES_MD}" if CLASES_MD else "")
 )
 
 NIVELES = ["c1", "c2", "c3", "c4", "nft", "hack", "firmas"]
@@ -197,6 +224,18 @@ HERRAMIENTAS: list[dict[str, Any]] = [
         },
     },
     {
+        "name": "mostrar_fragmento",
+        "description": "Muestra en el escenario un fragmento de clase real (video corto del docente, con subtítulos).",
+        "strict": True,
+        "eager_input_streaming": True,
+        "input_schema": {
+            "type": "object",
+            "properties": {"id": {"type": "string", "enum": [f["id"] for f in FRAGMENTOS]}},
+            "required": ["id"],
+            "additionalProperties": False,
+        },
+    },
+    {
         "name": "llevar_al_sitio",
         "description": "Agrega en el escenario un botón que minimiza el juego y lleva la página real a una sección. "
         "La sección inscripcion abre la página de la lista de espera 2027.",
@@ -248,6 +287,7 @@ HERRAMIENTAS: list[dict[str, Any]] = [
 RESULTADOS = {
     "jugar_nivel": "El nivel arrancó en el escenario y el juego guía a la persona paso a paso.",
     "mostrar_sitio": "El escenario muestra esa parte del sitio.",
+    "mostrar_fragmento": "El fragmento está en el escenario, listo para reproducir.",
     "llevar_al_sitio": "El botón está en el escenario.",
     "sugerir": "Los botones están debajo de tu respuesta.",
 }
@@ -320,6 +360,8 @@ def validar(nombre: str, args: Any) -> dict | None:
             "tema": args["tema"],
             "curso": curso if isinstance(curso, int) and 1 <= curso <= 4 else None,
         }
+    if nombre == "mostrar_fragmento" and args.get("id") in FRAGMENTO:
+        return {"tipo": "mostrar_fragmento", "id": args["id"]}
     if nombre == "llevar_al_sitio" and args.get("seccion") in ANCLAS:
         return {"tipo": "llevar_al_sitio", "ancla": ANCLAS[args["seccion"]]}
     if nombre == "sugerir" and isinstance(args.get("opciones"), list):
@@ -347,6 +389,12 @@ PERFILES = {"dev": "desarrollo / IT", "legal": "derecho o contabilidad", "finanz
             "otro": "estudia u otra cosa"}
 
 
+class FragmentoVisto(BaseModel):
+    id: str = Field(pattern=r"^[a-z0-9-]{1,40}$")
+    segundos: int = Field(default=0, ge=0, le=3600)
+    completo: bool = False
+
+
 class Estado(BaseModel):
     insignias: list[str] = Field(default_factory=list, max_length=10)
     nivel_actual: str | None = None
@@ -355,6 +403,8 @@ class Estado(BaseModel):
     pendientes: list[str] = Field(default_factory=list, max_length=10)
     # Perfil elegido en la portada del juego (widget/perfil.js)
     perfil: Literal["dev", "legal", "finanzas", "otro"] | None = None
+    # Fragmentos de clase que reprodujo (en el juego o en la portada), con hasta dónde llegó
+    fragmentos: list[FragmentoVisto] = Field(default_factory=list, max_length=20)
 
 
 class Pedido(BaseModel):
@@ -382,6 +432,16 @@ def flujo_sse(eventos):
     )
 
 
+def vistos(fragmentos: list[FragmentoVisto]) -> str:
+    """Los fragmentos que la persona reprodujo, con el docente y hasta dónde llegó. Ids desconocidos se ignoran."""
+    return "; ".join(
+        f"{v.id} ({FRAGMENTO[v.id]['docente']}, {FRAGMENTO[v.id]['tema']}: "
+        f"{'lo vio completo' if v.completo else f'vio {v.segundos} s'})"
+        for v in fragmentos
+        if v.id in FRAGMENTO
+    )
+
+
 def armar_mensajes(p: Pedido) -> list[dict]:
     """Historial en formato de la API. El estado del juego va como bloque aparte del último mensaje de la persona,
     después del punto de caché, para no invalidar la parte fija."""
@@ -406,7 +466,8 @@ def armar_mensajes(p: Pedido) -> list[dict]:
         f"<estado_del_juego>Hoy es {hoy()}. Insignias ganadas: {', '.join(e.insignias) or 'ninguna'}. "
         f"Niveles de cursos pendientes: {', '.join(e.pendientes) or 'ninguno'}. "
         f"Nivel en juego: {e.nivel_actual or 'ninguno'}. Wallet creada: {'sí' if e.wallet else 'no'}. "
-        f"NFTs en la wallet: {e.nfts}. Perfil elegido: {PERFILES.get(e.perfil, 'no eligió')}.</estado_del_juego>"
+        f"NFTs en la wallet: {e.nfts}. Perfil elegido: {PERFILES.get(e.perfil, 'no eligió')}. "
+        f"Fragmentos de clase que vio: {vistos(e.fragmentos) or 'ninguno'}.</estado_del_juego>"
     )
     ultimo = juntos[-1]
     ultimo["content"] = [
