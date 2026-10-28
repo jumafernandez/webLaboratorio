@@ -68,8 +68,14 @@ a rutear por palabras clave: la página nunca se rompe.
 - **Sin embeddings.** El sitio de Blockchain entero (~113 KB) va en la parte fija del prompt de sistema
   con prompt caching; `ingesta/extraer_sitio.py` lo regenera. A partir de la segunda pregunta en cinco minutos esa parte
   se cobra al 10 %.
+- **Sabe qué se da en clase.** En la misma parte fija van los fragmentos de clase con lo que dice el docente
+  (`conocimiento/fragmentos.json`, de `blockchain-dev/fragmentos/fragmentos.json` y sus `.vtt`) y un resumen de cada
+  clase de la cohorte 2026 (`conocimiento/clases.md`, de `ingesta/extraer_clases.py`). `clases.md` sale de las planillas
+  y los `claseN.json` de `/temas-por-clase`, que son privados: no se versiona, y el script se corta si aparece un nombre
+  de alumno. El juego manda en el estado qué fragmentos vio la persona (en el juego o en la portada), y cuando uno
+  termina pregunta qué le pareció y ofrece las repreguntas del catálogo.
 - **Herramientas que manejan el escenario.** `jugar_nivel(nivel, ejemplo)`, `mostrar_sitio(tema, curso)`,
-  `llevar_al_sitio(seccion)`, `sugerir(opciones)`. No se ejecutan en el servidor: cada llamada se valida contra su
+  `mostrar_fragmento(id)`, `llevar_al_sitio(seccion)`, `sugerir(opciones)`. No se ejecutan en el servidor: cada llamada se valida contra su
   esquema y viaja al navegador como evento `accion`. Con `ejemplo`, el agente adapta el nivel al rubro de la persona
   ("soy contador" → Nivel 1 con "lo mismo sirve para sellar una factura y probar que nadie la tocó").
 - **Una vuelta casi siempre.** El prompt pide texto y herramientas en el mismo turno; solo si el modelo llamó
@@ -91,6 +97,7 @@ node tests/e2e/jugar_todo.mjs 1440 900   # partida completa en Chrome headless (
 node tests/e2e/ramas.mjs                 # 15 ramas alternativas, cada una en un navegador limpio
 uv run python ingesta/evaluar_respuestas.py   # 24 preguntas al agente real (~US$ 0,37) → ingesta/evaluacion.md
 python3 ingesta/extraer_sitio.py         # cuando cambia el sitio
+uv run --with openpyxl python -I ingesta/extraer_clases.py --planilla 1 X.xlsx --carpeta 3 DIR/clases --roster R.txt
 ```
 
 Con `DEV=1` el backend sirve también el sitio (la raíz de este repo, `../..`), inyecta el widget en `/blockchain-dev/` y saca el

@@ -1,0 +1,50 @@
+[
+ {
+  "id": "c1-ciro-encadenan",
+  "curso": 1,
+  "clase": 2,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Cómo se encadenan los bloques y por qué no se pueden borrar",
+  "archivo": "curso1-ciro-como-se-encadenan-los-bloques",
+  "duracion": "2:08",
+  "nivel": "c1",
+  "preguntas": [
+   "¿Por qué cambiar un bloque viejo rompe todos los siguientes?",
+   "¿Qué guarda el header de un bloque?",
+   "¿Por qué modificar la cadena es económicamente inviable?"
+  ],
+  "texto": "Recopiemos todo lo que vimos para saber que los bloques de una cadena o de una blockchain se vinculan mediante este tipo de estructuras. Utilizan los hashes criptográficos y se van concatenando para generar una cadena de bloques. Cada bloque tiene una huella digital única de su propio contenido y además incluye el código del hash del bloque anterior. Cada header incluye el hash del header del bloque anterior. Esto forma una cadena verificable desde el bloque génesis hasta el último bloque. Modificar un bloque antiguo cambia el hash, lo que rompe la cadena hacia delante, o lo que es lo mismo que cambia todos los valores finales, porque como sabemos lo que son las funciones hash, una entrada produce una única salida. Si se cambia la entrada, se cambia la salida. Entonces, si así funciona una cadena de bloques, una blockchain, podemos llegar a intuir que alterar un bloque antiguo obliga a recalcular el hash y a todos los siguientes. Entonces, en una red que requiere un consenso, hace que sea computacionalmente difícil o si se quiere económicamente inviable alterar cualquier elemento. Porque si tenemos una cadena de elementos que dependen entre sí, alterar cualquiera de sus componentes requiere que todos los componentes de esa cadena sean modificados para validar que es efectivamente una modificación querible. Entonces, cuanto más bloques se agregan, más profundamente arraigada es la seguridad de esa cadena. Y es así que las blockchain obtienen esta característica de inmutabilidad por ser computacionalmente muy costosa de modificar y dando un historial irrefutable sobre las modificaciones de esa cadena."
+ },
+ {
+  "id": "c2-deiller-amm",
+  "curso": 2,
+  "clase": 4,
+  "docente": "Deiller Guevara",
+  "tema": "Por qué nacen los AMM y qué es un pool de liquidez",
+  "archivo": "curso2-deiller-por-que-nacen-los-amm",
+  "duracion": "1:57",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Por qué un libro de órdenes no escala en blockchain?",
+   "¿Cómo se descubre el precio en un pool de liquidez?",
+   "¿Qué gana el que pone la liquidez?"
+  ],
+  "texto": "Entonces, para tratar de solucionar esto, y encima de que si no existe un order book, o sea, si no existe un libro de órdenes, no hay formación de precio, entonces no sé cuánto vale el activo, y te genera el problema también de, entonces, cómo hago que descubriera el precio? O sea, cómo igualo la oferta con la demanda para saber cuánto vale este token, por ejemplo, y ahí es donde nacen los AMM, que son los market makers automatizados, que de alguna forma conectan a los que quieren hacer de market makers con los que quieren comprar o vender a través de lo que se llama un pool de liquidez. De esta forma, no tiene que existir un order book en el que haya o exista una formación de precios, y solucione el tema de la escala o de los costos que tendrían que asumir si yo quiero ser un market maker en blockchain. Sino que el que viene quiere comprar o vender y paga el fee de la transacción, y ya está, hace su transacción, y a través de ese, en el mismo pool, se va, llamémosle descubriendo el precio. Vamos a ver las dos posturas, tanto de los que se encuentren del lado del market maker, de los que ponen la liquidez, y la postura de el que simplemente va y compra o vende en ese, a través de ese DEX, de ese exchange descentralizado."
+ },
+ {
+  "id": "c3-david-iac",
+  "curso": 3,
+  "clase": 2,
+  "docente": "David Petrocelli",
+  "tema": "Qué es la infraestructura como código",
+  "archivo": "curso3-david-infraestructura-como-codigo",
+  "duracion": "1:37",
+  "nivel": "c3",
+  "preguntas": [
+   "¿Qué recursos se pueden crear con infraestructura como código?",
+   "¿Por qué hace falta Git para la infraestructura?",
+   "¿Qué problema tiene crear todo a clics en la consola?"
+  ],
+  "texto": "Entonces, fíjense que habla de gestión y aprovisionamiento de infraestructura TI y fíjense que no habla solo de la máquina virtual ¿Qué habla también? Redes. ¿Por qué? Porque parte de lo que mencionamos hoy en el dibujo que veníamos haciendo, tiene que ver con todos estos conceptos balanceador de carga, rate limiting, CDNs, firewall, todo esto son recursos de red Entonces, vuelvo para acá, mediante archivos de código aplicando principios de desarrollo de software, control de versiones y automatización o sea, en términos criollos, voy a poder crear recursos de infraestructura de forma automatizada, siguiendo las buenas prácticas o los procesos que seguimos en una aplicación o cuando construimos una aplicación Imagínense, cuando ustedes construyen una aplicación, hay un conjunto de pasos digo, voy agregando funcionalidades, voy haciendo cambios, si se rompe algo tengo que poder volver para atrás todo lo mismo que vamos haciendo en el código, lo deberíamos poder hacer en la aplicación y lo deberíamos poder hacer en la infraestructura Entonces, empiezan a marcar ciertas características como manejo de control de versiones por eso vieron que cuando yo les mencioné los requisitos del curso les pedí que tengan Git, porque vamos a utilizar Git para poder versionar el código que ustedes hagan es decir, hoy vamos a crear las máquinas, mañana las agregamos a red bueno, si se rompe algo, tengo que poder volver para atrás todo ese proceso que hacemos, lo tienen que poder representar acá también"
+ }
+]

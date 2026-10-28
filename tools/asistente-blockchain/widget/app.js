@@ -22,7 +22,8 @@ import { buildRed, contratosEnSitio, renderRed, vigilarBloque } from "./red.js";
 import { startFondo } from "./fondo.js";
 import { BADGES, LEVELS, BONUS, badgeSVG, progressEl } from "./juego.js";
 import { configurarMedicion, esEquipo, sesionMedicion, track, vaciarAlSalir } from "./medicion.js";
-import { SITE_TOPICS, showSite, planScene } from "./sitio.js";
+import { SITE_TOPICS, showSite, planScene, fragmentoScene, nivelEtiqueta } from "./sitio.js";
+import { alTerminar, catalogo, vistos } from "./fragmentos.js";
 import { MOBILE, POINT, REDUCE, WAITLIST_URL, esc, h, md, norm, randHex, short, sleep } from "./util.js";
 import nivel1 from "./niveles/nivel1-bloques.js";
 import nivel2 from "./niveles/nivel2-token.js";
@@ -747,6 +748,8 @@ function makeCtx(token) {
     actions,
     addLog,
     goto,
+    // A level started from a button on the stage (the clip scene): same as a [data-bcw-nivel] button on the page
+    jugar: (id) => playFromPage(id),
     // A meaningful step of the running level, for the funnel (where people drop off). `paso` is a fixed id.
     paso(paso) {
       guard();
@@ -1199,6 +1202,7 @@ function gameState() {
     nfts: S.nfts.length,
     pendientes: LEVELS.filter((l) => !S.badges.has(l.id)).map((l) => l.id),
     perfil: perfil(),
+    fragmentos: vistos(),
   };
 }
 
@@ -1253,6 +1257,7 @@ async function agentTurn(ctx, text) {
         S.lastTurn.acciones.push(data);
         // Stage changes show right away; a level waits until the text is done.
         if (data.tipo === "mostrar_sitio") showSite(ctx, data.tema, { curso: data.curso, quiet: true }).catch(() => {});
+        else if (data.tipo === "mostrar_fragmento") ctx.scene((s) => fragmentoScene(s, ctx, data.id));
         else if (data.tipo === "llevar_al_sitio") queued.push(data);
         else queued.push(data);
       } else if (event === "fin") {
@@ -1352,6 +1357,24 @@ export function playFromPage(id) {
 export const niveles = () => Object.keys(PLAY);
 // byUser: the visitor asked (launcher, selector); otherwise it is the saved preference or a link.
 export const abrir = (byUser) => openGame(byUser);
+
+// When a class clip inside the game ends (or is paused past half), the agent asks what they thought and offers the
+// follow-up questions of that clip. Those go to the agent, which knows what the teacher said (backend FRAGMENTOS).
+alTerminar(async (id, video) => {
+  if (!video.closest(".bcw-panel") || !panel.classList.contains("bcw-open")) return;
+  const f = (await catalogo()).find((x) => x.id === id);
+  if (!f) return;
+  track("fragmento_fin", { curso: `c${f.curso}` });
+  const quien = f.docente.split(" ")[0];
+  startFlow(async (ctx) => {
+    clearChips();
+    await ctx.bot(`¿Qué te pareció lo que contó **${quien}**? Si te quedó alguna duda, preguntame: sé lo que se dio en esa clase y en todo el curso.`, 300);
+    menuChips([
+      ...(f.preguntas || []).slice(0, 3).map((q) => ({ l: `💬 ${q}`, f: (c) => route(c, q, true) })),
+      ...(f.nivel && PLAY[f.nivel] ? [{ l: nivelEtiqueta(f.nivel), f: (c) => c.play(f.nivel) }] : []),
+    ]);
+  });
+});
 
 checkAI();
 real.onEstado.add(() => {

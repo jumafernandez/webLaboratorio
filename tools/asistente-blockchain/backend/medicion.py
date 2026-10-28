@@ -70,6 +70,7 @@ EVENTOS: dict[str, frozenset[str]] = {
     "compartir": frozenset({"red", "id"}),
     "perfil": frozenset({"perfil"}),
     "fragmento": frozenset({"curso"}),
+    "fragmento_fin": frozenset({"curso"}),
     "wallet_propia": frozenset({"ok"}),
 }
 
@@ -89,7 +90,7 @@ PASOS = frozenset({
     "ataque", "ataque_bloqueado", "arreglo",                                           # bonus hack
     "firma", "adulterar", "impostor",                                                  # bonus firmas
 })
-ACCIONES_AGENTE = frozenset({"jugar_nivel", "mostrar_sitio", "llevar_al_sitio", "sugerir", "ninguna"})
+ACCIONES_AGENTE = frozenset({"jugar_nivel", "mostrar_sitio", "mostrar_fragmento", "llevar_al_sitio", "sugerir", "ninguna"})
 VALORES: dict[str, frozenset] = {
     "nivel": NIVELES,
     "paso": PASOS,

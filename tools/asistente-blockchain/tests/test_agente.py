@@ -235,3 +235,39 @@ def test_pregunta_agente_sin_acciones_y_sin_sesion(cliente):
     pedir(tc, "otra cosa")
     pedir_con_sesion(tc, "sesión inválida", "no-es-hex")
     assert filas("SELECT COUNT(*) FROM medicion WHERE evento = 'pregunta_agente'")[0][0] == antes
+
+
+def test_fragmentos_en_la_parte_fija_y_herramienta(cliente):
+    tc, falso = cliente([respuesta([bloque_texto("Hola.")])])
+    pedir(tc, "hola")
+    fijo = falso.pedidos[0]["system"][0]["text"]
+    assert "Fragmentos de clase" in fijo and "c1-ciro-encadenan" in fijo
+    assert "bloque antiguo" in fijo  # el texto corregido de los subtítulos, no "contiguo"
+    assert "Próxima charla informativa" in fijo
+    herramienta = next(h for h in falso.pedidos[0]["tools"] if h["name"] == "mostrar_fragmento")
+    assert herramienta["input_schema"]["properties"]["id"]["enum"] == [f["id"] for f in modulo.FRAGMENTOS]
+
+
+def test_mostrar_fragmento_valida_el_id():
+    assert modulo.validar("mostrar_fragmento", {"id": "c1-ciro-encadenan"}) == {
+        "tipo": "mostrar_fragmento", "id": "c1-ciro-encadenan"}
+    assert modulo.validar("mostrar_fragmento", {"id": "c9-nadie"}) is None
+
+
+def test_fragmentos_vistos_en_el_estado(cliente):
+    tc, falso = cliente([respuesta([bloque_texto("Hola.")]), respuesta([bloque_texto("Hola.")])])
+    pedir(tc, "¿qué es el header?", {"fragmentos": [
+        {"id": "c1-ciro-encadenan", "segundos": 128, "completo": True},
+        {"id": "c2-deiller-amm", "segundos": 40, "completo": False},
+        {"id": "inventado", "segundos": 10, "completo": True},
+    ]})
+    estado = falso.pedidos[0]["messages"][-1]["content"][0]["text"]
+    assert "c1-ciro-encadenan (Ciro Edgardo Romero" in estado and "lo vio completo" in estado
+    assert "c2-deiller-amm" in estado and "vio 40 s" in estado
+    assert "inventado" not in estado
+    pedir(tc, "hola")
+    assert "Fragmentos de clase que vio: ninguno" in falso.pedidos[1]["messages"][-1]["content"][0]["text"]
+    with pytest.raises(Exception):
+        modulo.Estado(fragmentos=[{"id": "<script>", "segundos": 1}])
+    with pytest.raises(Exception):
+        modulo.Estado(fragmentos=[{"id": "c1-ciro-encadenan", "segundos": 99999}])
