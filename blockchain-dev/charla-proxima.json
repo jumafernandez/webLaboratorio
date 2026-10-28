@@ -1,6 +1,6 @@
 {
-  "_ayuda": "Próxima charla informativa. Mientras fecha sea null, la portada y el juego muestran 'fecha a confirmar'. fecha: AAAA-MM-DD, hora: HH:MM (hora de Argentina), enlace: URL de inscripción o de la sala (opcional).",
-  "fecha": null,
+  "_ayuda": "Próxima charla informativa. Mientras fecha sea null, la portada y el juego muestran 'fecha a confirmar'. fecha: AAAA-MM-DD, o AAAA-MM si solo se sabe el mes (muestra el mes, sin día ni calendario), hora: HH:MM (hora de Argentina), enlace: URL de inscripción o de la sala (opcional).",
+  "fecha": "2027-05",
   "hora": "19:00",
   "duracion_min": 60,
   "enlace": null

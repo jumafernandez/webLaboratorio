@@ -9,6 +9,11 @@ import { POINT, REDUCE, WAITLIST_URL, h } from "./util.js";
 async function proximaCharla() {
   try {
     const d = await (await fetch("/blockchain-dev/charla-proxima.json", { cache: "no-cache" })).json();
+    if (/^\d{4}-\d{2}$/.test(d?.fecha || "")) {
+      // Only the month is known
+      const mes = new Date(`${d.fecha}-15T12:00:00-03:00`).toLocaleDateString("es-AR", { month: "long", year: "numeric" });
+      return `${mes} (día y hora a confirmar)`;
+    }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(d?.fecha || "")) return null;
     const dia = new Date(`${d.fecha}T12:00:00-03:00`).toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" });
     return `${dia}, ${d.hora || "19:00"} h (ARG)`;
