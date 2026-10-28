@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.660
+Es necesario que asimilemos el concepto de función hash. Una función hash es un
+
+2
+00:00:07.660 --> 00:00:12.040
+algoritmo, otro algoritmo matemático, que transforma cualquier entrada de datos,
+
+3
+00:00:12.660 --> 00:00:18.160
+sin importar su tamaño o dimensión, en una secuencia de caracteres alfanuméricos
+
+4
+00:00:18.160 --> 00:00:24.160
+única y de longitud fija, llamada valor hash o simplemente el hash.
+
+5
+00:00:25.760 --> 00:00:35.280
+Si cambias un solo dato de entrada, la función hash da como resultado final una
+
+6
+00:00:35.280 --> 00:00:41.340
+salida completamente diferente. Este comportamiento es el que le da una de las
+
+7
+00:00:41.340 --> 00:00:47.340
+cualidades más fuertes a lo que es la función hash, que es el determinismo, misma
+
+8
+00:00:47.340 --> 00:00:48.940
+entrada, misma salida.
+
+9
+00:00:50.040 --> 00:00:53.780
+Este comportamiento también provoca lo que se llama efecto avalancha, en el que el
+
+10
+00:00:53.780 --> 00:00:58.860
+más mínimo cambio en la entrada altera completamente la salida. Tengan presente ese
+
+11
+00:00:58.860 --> 00:01:03.860
+comportamiento, porque es el que más nos va a importar para entender el valor de
+
+12
+00:01:03.860 --> 00:01:04.580
+hacer una blockchain.
+
+13
+00:01:05.460 --> 00:01:12.940
+También se suele ver en la bibliografía que es una función unidireccional, o sea, que
+
+14
+00:01:12.940 --> 00:01:18.140
+es imposible recuperar la información de entrada a partir de la información de
+
+15
+00:01:18.140 --> 00:01:23.140
+salida, es decir, es seguro compartir la información de salida, ya que a través de
+
+16
+00:01:23.140 --> 00:01:26.600
+ingeniería inversa no es posible recuperar la información de entrada.
+
+17
+00:01:26.600 --> 00:01:32.260
+También suele verse como un algoritmo resistente a colisiones, haciendo que sea
+
+18
+00:01:32.260 --> 00:01:37.260
+prácticamente imposible que dos entradas den el mismo resultado de salida.

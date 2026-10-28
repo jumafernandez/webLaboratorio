@@ -1,0 +1,105 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.780
+Mango Markets necesitaba una información externa sobre el precio de los activos
+
+2
+00:00:03.780 --> 00:00:07.320
+para calcular el valor de las posiciones de sus usuarios, ¿no?
+
+3
+00:00:07.980 --> 00:00:11.040
+Según los precios de los activos, se calculaba la posición de las personas que
+
+4
+00:00:11.040 --> 00:00:11.740
+estaban metidas en la red.
+
+5
+00:00:12.460 --> 00:00:17.700
+En octubre de 2022, Avraham Eisenberg realizó operaciones importantes con el token
+
+6
+00:00:17.700 --> 00:00:18.700
+MNGO
+
+7
+00:00:18.700 --> 00:00:22.360
+en distintos mercados, elevando artificialmente su precio.
+
+8
+00:00:25.260 --> 00:00:29.800
+Justamente, el precio de ese token era el que utilizaba el oráculo de Mango
+
+9
+00:00:29.800 --> 00:00:30.440
+Markets.
+
+10
+00:00:30.800 --> 00:00:34.000
+Entonces, ¿qué es lo que pasó? Que este tipo de Avraham, ¿sí?
+
+11
+00:00:34.220 --> 00:00:39.080
+El valor de determinadas posiciones aumentó artificialmente y Eisenberg pudo
+
+12
+00:00:39.080 --> 00:00:40.220
+utilizar esas posiciones
+
+13
+00:00:40.220 --> 00:00:45.580
+para pedir prestado y retirar alrededor de 116 millones de dólares en
+
+14
+00:00:45.580 --> 00:00:46.460
+criptoactivos.
+
+15
+00:00:47.420 --> 00:00:54.540
+O sea, no es que necesariamente hizo algo ilegal, pero bueno, de alguna manera él,
+
+16
+00:00:55.160 --> 00:01:01.300
+al manipular la referencia que toma el oráculo de este Mango Markets,
+
+17
+00:01:01.960 --> 00:01:05.220
+como el tipo sabía que la referencia de Mango Markets se basaba en tal token,
+
+18
+00:01:05.440 --> 00:01:10.160
+él jugó con el precio de ese token afuera, para que después adentro pudiera sacar
+
+19
+00:01:10.160 --> 00:01:10.960
+un montón de dinero.
+
+20
+00:01:12.840 --> 00:01:13.960
+¿Es ilegal?
+
+21
+00:01:15.680 --> 00:01:21.340
+Y qué sé yo, habría que ver la letra chica, pero evidentemente tipo utilizó,
+
+22
+00:01:21.340 --> 00:01:21.940
+digamos,
+
+23
+00:01:22.500 --> 00:01:24.960
+cuestiones externas sabiendo que podía manipular un...
+
+24
+00:01:25.540 --> 00:01:29.700
+Esto también es un exploit, o sea, manipuló cómo Mango Markets funciona con su
+
+25
+00:01:29.700 --> 00:01:30.180
+oráculo
+
+26
+00:01:30.180 --> 00:01:31.960
+a partir de cuestiones externas.

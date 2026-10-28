@@ -1,0 +1,113 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.980
+Vamos a mostrar Foundry, que es un kit de herramientas bastante portátil y rápida,
+
+2
+00:00:07.140 --> 00:00:12.340
+pero que está desarrollado en Rust. Sirve para crear, probar y desplegar y también
+
+3
+00:00:12.340 --> 00:00:17.900
+para auditar contratos inteligentes en todas las redes que sean compatibles con la
+
+4
+00:00:17.900 --> 00:00:18.520
+EVM.
+
+5
+00:00:20.100 --> 00:00:27.140
+El ecosistema de Foundry incluye cuatro herramientas que son clave para todo el
+
+6
+00:00:27.140 --> 00:00:27.760
+funcionamiento.
+
+7
+00:00:27.760 --> 00:00:33.040
+Son herramientas que se utilizan a través del CLI, a través del sistema de línea
+
+8
+00:00:33.040 --> 00:00:33.720
+de comando,
+
+9
+00:00:34.040 --> 00:00:41.520
+y son Forge, Anvil, Cast y Chisel. Vamos a ver una por una.
+
+10
+00:00:44.220 --> 00:00:49.640
+Forge permite compilar, desplegar y ejecutar pruebas unitarias de los smart
+
+11
+00:00:49.640 --> 00:00:50.020
+contracts.
+
+12
+00:00:50.720 --> 00:00:56.740
+La mayor ventaja en el uso de esta herramienta es que las pruebas que van a
+
+13
+00:00:56.740 --> 00:00:57.440
+ejecutarse,
+
+14
+00:00:57.440 --> 00:01:02.320
+se van a escribir directamente en Solidity, por lo que todo es retrocompatible con
+
+15
+00:01:02.320 --> 00:01:02.560
+las
+
+16
+00:01:02.560 --> 00:01:08.340
+tecnologías que ya fueron aprendiendo. Después está Anvil, que crea un nodo local
+
+17
+00:01:08.340 --> 00:01:09.320
+de pruebas
+
+18
+00:01:09.320 --> 00:01:14.680
+de Ethereum para simular transacciones y manipular estados sin gastar criptomonedas
+
+19
+00:01:14.680 --> 00:01:15.340
+reales,
+
+20
+00:01:15.400 --> 00:01:20.400
+sean de Testnet o Mainnet. Después está Cast, que funciona como un set de
+
+21
+00:01:20.400 --> 00:01:21.120
+herramientas para
+
+22
+00:01:21.120 --> 00:01:26.300
+interactuar con la blockchain. Envía transacciones, realiza llamadas RPC o incluso
+
+23
+00:01:26.300 --> 00:01:27.320
+sirve para decodificar
+
+24
+00:01:27.320 --> 00:01:34.660
+datos. Por último está Chisel, que es una consola interactiva conocida como REPL
+
+25
+00:01:34.660 --> 00:01:35.100
+para
+
+26
+00:01:35.100 --> 00:01:40.940
+probar expresiones en Solidity línea por línea. Es el equivalente de la consola de
+
+27
+00:01:40.940 --> 00:01:41.920
+Python o de Node.
+
+28
+00:01:41.920 --> 00:01:45.960
+Pero en este caso es el lenguaje Solidity.

@@ -1,0 +1,93 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.420
+El trilema de la blockchain es un concepto popularizado por el creador de Ethereum,
+
+2
+00:00:05.700 --> 00:00:09.600
+donde señala que una red solo puede lograr de forma óptima
+
+3
+00:00:09.600 --> 00:00:12.100
+dos de tres características clave.
+
+4
+00:00:12.560 --> 00:00:15.080
+Descentralización, seguridad y escalabilidad.
+
+5
+00:00:17.540 --> 00:00:20.060
+En esta problemática pensamos en la descentralización
+
+6
+00:00:20.060 --> 00:00:23.620
+porque la red no depende de una sola autoridad o servidor central.
+
+7
+00:00:24.000 --> 00:00:26.340
+Muchos usuarios validan las reglas del sistema.
+
+8
+00:00:26.860 --> 00:00:29.620
+Respecto a la seguridad, el sistema es fuerte y resistente
+
+9
+00:00:29.620 --> 00:00:33.120
+a ataques informáticos o alteraciones maliciosas.
+
+10
+00:00:33.260 --> 00:00:35.680
+Mientras que si pensamos en la escalabilidad,
+
+11
+00:00:36.040 --> 00:00:38.600
+la red puede procesar una gran cantidad de transacciones
+
+12
+00:00:38.600 --> 00:00:40.420
+de forma rápida y barata.
+
+13
+00:00:40.620 --> 00:00:44.520
+El conflicto es que si mejoras mucho dos características,
+
+14
+00:00:45.360 --> 00:00:48.220
+siempre es en detrimento de una tercera.
+
+15
+00:00:51.420 --> 00:00:55.740
+Al momento de estudiar la manera de resolver este trilema,
+
+16
+00:00:55.740 --> 00:01:00.680
+es que aparecen los conceptos de redes de capa 1 y de capa 2,
+
+17
+00:01:00.940 --> 00:01:02.880
+o layer 1 y layer 2.
+
+18
+00:01:03.540 --> 00:01:06.480
+Las redes de capa 1 y 2 existen en definitiva
+
+19
+00:01:06.480 --> 00:01:08.360
+para resolver el trilema de la blockchain.
+
+20
+00:01:09.160 --> 00:01:12.500
+Busca equilibrar la seguridad, descentralización y velocidad.
+
+21
+00:01:13.080 --> 00:01:15.880
+La capa 1 es la red base que aporta seguridad total,
+
+22
+00:01:16.120 --> 00:01:20.140
+mientras que la capa 2 procesa operaciones más rápidas y baratas
+
+23
+00:01:20.140 --> 00:01:22.660
+por fuera para no saturar la principal.

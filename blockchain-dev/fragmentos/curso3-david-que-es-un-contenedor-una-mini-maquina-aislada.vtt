@@ -1,0 +1,53 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.600
+Empecemos a verlo como una mini máquina, una mini máquina aislada que va a correr
+
+2
+00:00:07.600 --> 00:00:16.300
+adentro de una máquina grande, pero para esa cajita no existen, no existen los
+
+3
+00:00:16.300 --> 00:00:24.360
+otros, yo soy solito, esto es como, a ver, fíjense que acá va a empezar a hablar de
+
+4
+00:00:24.360 --> 00:00:28.500
+virtualización de hardware con un hypervisor, bueno, vamos a ir viéndolo,
+
+5
+00:00:28.500 --> 00:00:33.140
+los conceptos, yo les voy a dejar las slides, lo van a ir viendo, pero básicamente
+
+6
+00:00:33.140 --> 00:00:38.780
+lo que quiero que entiendan es que deja algunas cosas por fuera para que sea
+
+7
+00:00:38.780 --> 00:00:42.760
+pequeño y tengo aislamiento para que los demás no vean,
+
+8
+00:00:43.060 --> 00:00:46.100
+va a tener un montón de ventajas porque al no virtualizar toda la máquina, es
+
+9
+00:00:46.100 --> 00:00:48.840
+decir, yo tengo un Windows, quiero instalar un Linux, tengo que instalar el Linux,
+
+10
+00:00:48.900 --> 00:00:51.380
+ponerle todas las cosas, no, no, esto es,
+
+11
+00:00:51.380 --> 00:00:56.460
+defino lo que necesita la aplicación y de alguna manera utilizo las librerías del
+
+12
+00:00:56.460 --> 00:01:00.440
+sistema operativo, no es que creo una mini máquina virtual adentro de esa máquina
+
+13
+00:01:00.440 --> 00:01:02.300
+completa, no, es un pedacito.

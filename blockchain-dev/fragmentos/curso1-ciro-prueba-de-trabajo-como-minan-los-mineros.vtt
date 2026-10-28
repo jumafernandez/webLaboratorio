@@ -1,0 +1,77 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.960
+Básicamente existen nodos llamados mineros que incrementan una y otra vez el nonce,
+
+2
+00:00:05.220 --> 00:00:07.060
+recalculando el hash del header,
+
+3
+00:00:07.420 --> 00:00:11.260
+hasta encontrar uno que cumpla con una dificultad exigida.
+
+4
+00:00:11.540 --> 00:00:14.560
+Esto, resumidamente, sería el desafío matemático.
+
+5
+00:00:15.060 --> 00:00:19.440
+Los mineros compiten para encontrar un nonce que produzca un hash por debajo de un
+
+6
+00:00:19.440 --> 00:00:20.920
+umbral de dificultad.
+
+7
+00:00:21.020 --> 00:00:24.260
+Esa búsqueda requiere mucho poder de cómputo real.
+
+8
+00:00:24.620 --> 00:00:28.480
+No hay manera de conseguir atajos, no hay forma de saltearse.
+
+9
+00:00:28.480 --> 00:00:32.960
+Es solo prueba y error, pura fuerza bruta.
+
+10
+00:00:33.500 --> 00:00:38.660
+El primero en encontrarlo transmite el bloque, lo sella y gana una recompensa.
+
+11
+00:00:39.480 --> 00:00:44.720
+La prueba de haber gastado trabajo computacional es lo que le da nombre a este
+
+12
+00:00:44.720 --> 00:00:45.480
+mecanismo.
+
+13
+00:00:47.660 --> 00:00:53.760
+Ahora bien, si bien fue el primer algoritmo de consenso y probablemente por eso el
+
+14
+00:00:53.760 --> 00:00:54.520
+más popular,
+
+15
+00:00:54.520 --> 00:00:58.760
+tiene algunas limitaciones y problemas hoy en día.
+
+16
+00:00:59.380 --> 00:01:04.820
+Se gasta un alto consumo energético para poder lograr este tipo de mecanismo.
+
+17
+00:01:04.980 --> 00:01:10.320
+Hoy se necesita un hardware especializado corriendo las 24 horas todos los días.
+
+18
+00:01:10.860 --> 00:01:15.880
+Antes se usaba casi cualquier PC, pero ahora con el gran incremento de la red se
+
+19
+00:01:15.880 --> 00:01:17.900
+necesitan equipos muy poderosos.

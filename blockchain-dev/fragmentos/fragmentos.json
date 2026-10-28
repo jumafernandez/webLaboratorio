@@ -2,6 +2,36 @@
   "_ayuda": "Catálogo de fragmentos de clase (solo habla el docente). archivo = nombre sin extensión de los .mp4/.jpg/.vtt de esta carpeta. nivel = nivel del juego que muestra el tema (c1..c4, nft, hack, firmas) o vacío. preguntas = 2 o 3 repreguntas que se responden con lo que dice el fragmento. Después de cambiarlo: python3 tools/asistente-blockchain/ingesta/extraer_sitio.py",
   "fragmentos": [
     {
+      "id": "c1-ciro-funcion-hash-determinismo",
+      "curso": 1,
+      "clase": 1,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Función hash: determinismo y efecto avalancha",
+      "archivo": "curso1-ciro-funcion-hash-determinismo-y-efecto-avalancha",
+      "duracion": "1:38",
+      "nivel": "c1",
+      "preguntas": [
+        "¿Qué es una función hash?",
+        "¿Por qué cambiar un solo dato cambia todo el hash?",
+        "¿Se puede recuperar el dato original desde el hash?"
+      ]
+    },
+    {
+      "id": "c1-ciro-claves-firma-digital",
+      "curso": 1,
+      "clase": 1,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Claves, firma digital y curva elíptica secp256k1",
+      "archivo": "curso1-ciro-claves-firma-digital-y-curva-eliptica",
+      "duracion": "2:06",
+      "nivel": "firmas",
+      "preguntas": [
+        "¿Por qué en blockchain no hay usuario y contraseña?",
+        "¿Por qué se usan dos claves, una privada y una pública?",
+        "¿Qué es secp256k1?"
+      ]
+    },
+    {
       "id": "c1-ciro-encadenan",
       "curso": 1,
       "clase": 2,
@@ -14,6 +44,231 @@
         "¿Por qué cambiar un bloque viejo rompe todos los siguientes?",
         "¿Qué guarda el header de un bloque?",
         "¿Por qué modificar la cadena es económicamente inviable?"
+      ]
+    },
+    {
+      "id": "c1-ciro-arbol-merkle-prueba",
+      "curso": 1,
+      "clase": 2,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Árbol de Merkle y prueba de inclusión (Merkle proof)",
+      "archivo": "curso1-ciro-arbol-de-merkle-y-prueba-de-inclusion-merkle",
+      "duracion": "2:09",
+      "nivel": "c1",
+      "preguntas": [
+        "¿Cómo se arma un árbol de Merkle?",
+        "¿Cómo se prueba que una transacción está en un bloque sin bajar todo?",
+        "¿Qué pasa si hay un número impar de hojas?"
+      ]
+    },
+    {
+      "id": "c1-ciro-nonce-bloque-vs",
+      "curso": 1,
+      "clase": 2,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Nonce de bloque vs nonce de cuenta",
+      "archivo": "curso1-ciro-nonce-de-bloque-vs-nonce-de-cuenta",
+      "duracion": "1:06",
+      "nivel": "c1",
+      "preguntas": [
+        "¿Para qué sirve el nonce en Bitcoin?",
+        "¿Qué es el nonce en Ethereum?",
+        "¿Es lo mismo el nonce de bloque que el de cuenta?"
+      ]
+    },
+    {
+      "id": "c1-ciro-prueba-trabajo-minan",
+      "curso": 1,
+      "clase": 3,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Prueba de trabajo: cómo minan los mineros",
+      "archivo": "curso1-ciro-prueba-de-trabajo-como-minan-los-mineros",
+      "duracion": "1:19",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Cómo funciona la minería en Proof of Work?",
+        "¿Qué es la dificultad?",
+        "¿Qué limitaciones tiene Proof of Work?"
+      ]
+    },
+    {
+      "id": "c1-ciro-proof-of-stake",
+      "curso": 1,
+      "clase": 3,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Proof of Stake: staking y castigo al validador",
+      "archivo": "curso1-ciro-proof-of-stake-staking-y-castigo-al-validador",
+      "duracion": "1:33",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Cómo funciona Proof of Stake?",
+        "¿Qué es el slashing y cuándo se aplica?",
+        "¿Por qué PoS gasta menos energía que PoW?"
+      ]
+    },
+    {
+      "id": "c1-ciro-trilema-blockchain-capas",
+      "curso": 1,
+      "clase": 4,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Trilema de blockchain y capas 1 y 2",
+      "archivo": "curso1-ciro-trilema-de-blockchain-y-capas-1-y-2",
+      "duracion": "1:23",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Qué es el trilema de blockchain?",
+        "¿Qué diferencia hay entre capa 1 y capa 2?",
+        "¿Por qué existen las redes de capa 2?"
+      ]
+    },
+    {
+      "id": "c1-ciro-smart-contract-puede",
+      "curso": 1,
+      "clase": 4,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Por qué un smart contract no se puede modificar",
+      "archivo": "curso1-ciro-por-que-un-smart-contract-no-se-puede",
+      "duracion": "1:09",
+      "nivel": "c3",
+      "preguntas": [
+        "¿Se puede modificar un smart contract ya desplegado?",
+        "¿Qué pasa si vuelvo a desplegar el contrato?",
+        "¿Por qué se prueba tanto antes del despliegue?"
+      ]
+    },
+    {
+      "id": "c1-ciro-eventos-solidity-event",
+      "curso": 1,
+      "clase": 5,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Eventos en Solidity: event y emit",
+      "archivo": "curso1-ciro-eventos-en-solidity-event-y-emit",
+      "duracion": "1:30",
+      "nivel": "c3",
+      "preguntas": [
+        "¿Para qué sirven los eventos en un contrato?",
+        "¿Cómo se declara un evento en Solidity?",
+        "¿Cómo se dispara un evento?"
+      ]
+    },
+    {
+      "id": "c1-ciro-visibilidad-internal-herencia",
+      "curso": 1,
+      "clase": 5,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Visibilidad internal y herencia de contratos",
+      "archivo": "curso1-ciro-visibilidad-internal-y-herencia-de-contratos",
+      "duracion": "1:06",
+      "nivel": "c3",
+      "preguntas": [
+        "¿Qué diferencia hay entre internal y private?",
+        "¿Qué funciones puede llamar un contrato que hereda?",
+        "¿Para qué sirve heredar un contrato?"
+      ]
+    },
+    {
+      "id": "c1-ciro-hardhat-ventajas-tiene",
+      "curso": 1,
+      "clase": 6,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Qué es Hardhat y qué ventajas tiene",
+      "archivo": "curso1-ciro-que-es-hardhat-y-que-ventajas-tiene",
+      "duracion": "2:06",
+      "nivel": "c4",
+      "preguntas": [
+        "¿Qué es Hardhat?",
+        "¿Qué comandos principales tiene Hardhat?",
+        "¿Qué ventajas tiene Hardhat?"
+      ]
+    },
+    {
+      "id": "c1-ciro-testear-antes-desplegar",
+      "curso": 1,
+      "clase": 6,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Testear antes de desplegar con Hardhat",
+      "archivo": "curso1-ciro-testear-antes-de-desplegar-con-hardhat",
+      "duracion": "1:50",
+      "nivel": "c4",
+      "preguntas": [
+        "¿Por qué conviene testear antes de desplegar?",
+        "¿Qué tipos de test se hacen?",
+        "¿Cómo se ve que los tests pasaron en Hardhat?"
+      ]
+    },
+    {
+      "id": "c1-ciro-foundry-forge-anvil",
+      "curso": 1,
+      "clase": 7,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Foundry: Forge, Anvil, Cast y Chisel",
+      "archivo": "curso1-ciro-foundry-forge-anvil-cast-y-chisel",
+      "duracion": "1:46",
+      "nivel": "c4",
+      "preguntas": [
+        "¿Qué es Foundry?",
+        "¿Para qué sirve cada herramienta de Foundry?",
+        "¿Qué diferencia hay con Hardhat?"
+      ]
+    },
+    {
+      "id": "c1-ciro-fuzzing-probar-cientos",
+      "curso": 1,
+      "clase": 7,
+      "docente": "Ciro Edgardo Romero",
+      "tema": "Fuzzing: probar con cientos de valores aleatorios",
+      "archivo": "curso1-ciro-fuzzing-probar-con-cientos-de-valores",
+      "duracion": "1:17",
+      "nivel": "c4",
+      "preguntas": [
+        "¿Qué es el fuzzing?",
+        "¿Cuántas veces ejecuta Foundry un test fuzz por defecto?",
+        "¿Qué verifica el assert en un test fuzz?"
+      ]
+    },
+    {
+      "id": "c2-olivares-dinero-mismo-moneda",
+      "curso": 2,
+      "clase": 1,
+      "docente": "Julián Olivares",
+      "tema": "Dinero no es lo mismo que moneda ni medio de pago",
+      "archivo": "curso2-olivares-dinero-no-es-lo-mismo-que-moneda-ni-medio-de",
+      "duracion": "1:34",
+      "nivel": "",
+      "preguntas": [
+        "¿Qué diferencia hay entre dinero, moneda y medio de pago?",
+        "¿Por qué pagar con débito o una billetera virtual sigue siendo usar dinero?",
+        "¿Por qué los países suelen tener su propia moneda?"
+      ]
+    },
+    {
+      "id": "c2-olivares-sistema-financiero-hace",
+      "curso": 2,
+      "clase": 3,
+      "docente": "Julián Olivares",
+      "tema": "Qué es el sistema financiero y qué hace el intermediario",
+      "archivo": "curso2-olivares-que-es-el-sistema-financiero-y-que-hace-el",
+      "duracion": "2:13",
+      "nivel": "",
+      "preguntas": [
+        "¿Para qué sirve el sistema financiero?",
+        "¿Qué hace un intermediario entre ahorradores y quienes piden financiamiento?",
+        "¿Por qué los intermediarios evalúan información y riesgos?"
+      ]
+    },
+    {
+      "id": "c2-olivares-cripto-dinero-digital",
+      "curso": 2,
+      "clase": 3,
+      "docente": "Julián Olivares",
+      "tema": "Cripto no es dinero digital: finanzas sin intermediario",
+      "archivo": "curso2-olivares-cripto-no-es-dinero-digital-finanzas-sin",
+      "duracion": "1:44",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Es lo mismo cripto que dinero digital?",
+        "¿Qué aporta DeFi respecto de las finanzas tradicionales?",
+        "¿Quién verifica operaciones y administra el riesgo si no hay intermediario?"
       ]
     },
     {
@@ -32,6 +287,110 @@
       ]
     },
     {
+      "id": "c2-deiller-slippage-costo-oculto",
+      "curso": 2,
+      "clase": 4,
+      "docente": "Deiller Guevara",
+      "tema": "Slippage: el costo oculto de comprar en un AMM",
+      "archivo": "curso2-deiller-slippage-el-costo-oculto-de-comprar-en-un-amm",
+      "duracion": "1:44",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Qué es el slippage y por qué aparece al comprar en un exchange descentralizado?",
+        "¿Cómo me protejo de pagar más de lo esperado?"
+      ]
+    },
+    {
+      "id": "c2-olivares-defi-hacen-smart",
+      "curso": 2,
+      "clase": 5,
+      "docente": "Julián Olivares",
+      "tema": "Qué es DeFi y qué hacen los smart contracts",
+      "archivo": "curso2-olivares-que-es-defi-y-que-hacen-los-smart-contracts",
+      "duracion": "1:43",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Qué son las finanzas descentralizadas (DeFi)?",
+        "¿Qué es un smart contract y por qué puede fallar?",
+        "¿DeFi es lo mismo que criptomonedas?"
+      ]
+    },
+    {
+      "id": "c2-olivares-existen-bancos-intermediacion",
+      "curso": 2,
+      "clase": 5,
+      "docente": "Julián Olivares",
+      "tema": "Por qué existen los bancos: intermediación",
+      "archivo": "curso2-olivares-por-que-existen-los-bancos-intermediacion",
+      "duracion": "1:54",
+      "nivel": "",
+      "preguntas": [
+        "¿Cuándo aparecieron los primeros bancos?",
+        "¿Qué función cumple un banco como intermediario?",
+        "¿Por qué conviene centralizar préstamos en una institución?"
+      ]
+    },
+    {
+      "id": "c2-olivares-burbujas-financieras-ferrocarril",
+      "curso": 2,
+      "clase": 7,
+      "docente": "Julián Olivares",
+      "tema": "Burbujas financieras: del ferrocarril a las cripto",
+      "archivo": "curso2-olivares-burbujas-financieras-del-ferrocarril-a-las",
+      "duracion": "2:12",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Qué es una burbuja financiera y cómo se infla?",
+        "¿Por qué las burbujas no son algo nuevo de las criptomonedas?",
+        "¿Qué pasó con las acciones de los ferrocarriles en el siglo XIX?"
+      ]
+    },
+    {
+      "id": "c2-olivares-mango-markets-manipular",
+      "curso": 2,
+      "clase": 7,
+      "docente": "Julián Olivares",
+      "tema": "Mango Markets: manipular el oráculo de precios",
+      "archivo": "curso2-olivares-mango-markets-manipular-el-oraculo-de-precios",
+      "duracion": "1:32",
+      "nivel": "hack",
+      "preguntas": [
+        "¿Cómo se puede atacar un protocolo DeFi manipulando su oráculo?",
+        "¿Qué pasó en Mango Markets en octubre de 2022?",
+        "¿Por qué un oráculo es un punto de riesgo?"
+      ]
+    },
+    {
+      "id": "c2-deiller-cbdc-frente-stablecoins",
+      "curso": 2,
+      "clase": 8,
+      "docente": "Deiller Guevara",
+      "tema": "CBDC frente a stablecoins",
+      "archivo": "curso2-deiller-cbdc-frente-a-stablecoins",
+      "duracion": "1:46",
+      "nivel": "c2",
+      "preguntas": [
+        "¿Qué diferencia hay entre una CBDC y una stablecoin?",
+        "¿Quién respalda a una CBDC y a una stablecoin?",
+        "¿Por qué un banco central quiere llegar directo al consumidor?"
+      ]
+    },
+    {
+      "id": "c2-deiller-payback-simple-descontado",
+      "curso": 2,
+      "clase": 8,
+      "docente": "Deiller Guevara",
+      "tema": "Payback simple y descontado",
+      "archivo": "curso2-deiller-payback-simple-y-descontado",
+      "duracion": "1:48",
+      "nivel": "",
+      "preguntas": [
+        "¿Cómo se calcula el payback simple?",
+        "¿Cómo se redondea el resultado del payback?",
+        "¿Qué cambia en el payback descontado?"
+      ]
+    },
+    {
       "id": "c3-david-iac",
       "curso": 3,
       "clase": 2,
@@ -44,6 +403,36 @@
         "¿Qué recursos se pueden crear con infraestructura como código?",
         "¿Por qué hace falta Git para la infraestructura?",
         "¿Qué problema tiene crear todo a clics en la consola?"
+      ]
+    },
+    {
+      "id": "c3-david-contenedor-mini-maquina",
+      "curso": 3,
+      "clase": 3,
+      "docente": "David Petrocelli",
+      "tema": "Qué es un contenedor: una mini máquina aislada",
+      "archivo": "curso3-david-que-es-un-contenedor-una-mini-maquina-aislada",
+      "duracion": "1:03",
+      "nivel": "c3",
+      "preguntas": [
+        "¿En qué se diferencia un contenedor de una máquina virtual?",
+        "¿Por qué un contenedor es más liviano que virtualizar toda la máquina?",
+        "¿Un contenedor ve a los otros contenedores de la misma máquina?"
+      ]
+    },
+    {
+      "id": "c3-david-nodos-estado-kubernetes",
+      "curso": 3,
+      "clase": 5,
+      "docente": "David Petrocelli",
+      "tema": "Nodos con estado en Kubernetes: StatefulSet y etcd",
+      "archivo": "curso3-david-nodos-con-estado-en-kubernetes-statefulset-y",
+      "duracion": "1:24",
+      "nivel": "c3",
+      "preguntas": [
+        "¿Por qué las bases de datos y colas no van con un Deployment normal?",
+        "¿Qué es un StatefulSet y cuándo se usa?",
+        "¿Qué es etcd y por qué el control plane tiene al menos tres nodos?"
       ]
     }
   ]

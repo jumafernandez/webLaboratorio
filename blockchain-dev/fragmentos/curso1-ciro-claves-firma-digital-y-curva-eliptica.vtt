@@ -1,0 +1,97 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.040
+Tenemos que saber que en blockchain no hay usuarios y contraseñas, hay un par de
+
+2
+00:00:06.040 --> 00:00:11.720
+claves matemáticamente vinculadas, el que tiene las claves controla los fondos y
+
+3
+00:00:11.720 --> 00:00:16.580
+las transacciones sin excepción ni recuperación por terceros.
+
+4
+00:00:16.820 --> 00:00:23.340
+Esto es así y aparece el concepto de clave más fuertemente que nunca relacionado a
+
+5
+00:00:23.340 --> 00:00:25.620
+todo lo que se puede hacer dentro de la blockchain.
+
+6
+00:00:25.620 --> 00:00:31.200
+Una clave utiliza criptografía, pero necesita mecanismos para ser compartida. Una
+
+7
+00:00:31.200 --> 00:00:35.480
+sola clave compartida tiene el problema de distribución segura, es decir, no se
+
+8
+00:00:35.480 --> 00:00:42.480
+puede compartir una llave de manera segura, evitando que actores malintencionados
+
+9
+00:00:42.480 --> 00:00:47.320
+se apoderen de esa clave y puedan controlar las transacciones.
+
+10
+00:00:49.280 --> 00:00:55.080
+Por eso necesitamos dos claves y que no sean simétricas, aunque sean asimétricas,
+
+11
+00:00:55.420 --> 00:01:00.440
+para que sean una de uso privado y la otra de uso público.
+
+12
+00:01:02.740 --> 00:01:08.560
+Ahora es cuando aparecen las primeras ideas de algoritmos y sobre todo cuando
+
+13
+00:01:08.560 --> 00:01:11.260
+aparece la idea de firma digital.
+
+14
+00:01:12.080 --> 00:01:16.640
+Puntualmente está basado en el problema de los logaritmos discretos sobre curva
+
+15
+00:01:16.640 --> 00:01:21.620
+elíptica, los que nosotros vamos a utilizar como un estándar para lo que es la
+
+16
+00:01:21.620 --> 00:01:22.760
+firma digital.
+
+17
+00:01:23.880 --> 00:01:29.360
+La firma digital y más puntualmente estos mecanismos de firma digital son
+
+18
+00:01:29.360 --> 00:01:35.520
+estándares utilizados y aceptados por la industria para poder manipular la
+
+19
+00:01:35.520 --> 00:01:36.820
+información de manera segura.
+
+20
+00:01:37.280 --> 00:01:44.380
+Existe puntualmente el concepto de secp256k1, que es la curva específica que usa
+
+21
+00:01:44.380 --> 00:01:50.600
+Bitcoin y Ethereum como mecanismo matemático que permite derivar claves públicas y
+
+22
+00:01:50.600 --> 00:01:55.240
+firmas digitales a partir de claves privadas de forma eficiente.
+
+23
+00:01:56.040 --> 00:02:02.540
+A través de estos mecanismos es que empieza todo el proceso de segurización atrás
+
+24
+00:02:02.540 --> 00:02:05.400
+de la criptografía y más puntualmente de blockchain.

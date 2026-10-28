@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.860
+Pero antes recordemos uno de los campos que pertenecen al header, el nonce.
+
+2
+00:00:06.340 --> 00:00:09.380
+El elemento lo vamos a utilizar en varios momentos durante la cursada.
+
+3
+00:00:09.960 --> 00:00:14.580
+En Bitcoin lo utilizan para estandarizar la complejidad necesaria para minar un
+
+4
+00:00:14.580 --> 00:00:14.800
+bloque.
+
+5
+00:00:15.340 --> 00:00:21.360
+La minería en Bitcoin tiene que ser difícil para regular la emisión controlada de
+
+6
+00:00:21.360 --> 00:00:21.960
+monedas
+
+7
+00:00:21.960 --> 00:00:23.720
+y garantizar la seguridad de la red.
+
+8
+00:00:24.800 --> 00:00:29.160
+Ethereum también utiliza el concepto de nonce, pero cumple otras funciones.
+
+9
+00:00:29.160 --> 00:00:33.680
+Primero, que se usa para el conteo de los usuarios en las cuentas y la
+
+10
+00:00:33.680 --> 00:00:34.460
+transaccionalidad.
+
+11
+00:00:34.980 --> 00:00:39.480
+Y también, aunque ya está en desuso, se utiliza para la creación de bloques.
+
+12
+00:00:39.960 --> 00:00:43.060
+Tenemos que siempre recordar que un nonce de bloque,
+
+13
+00:00:43.860 --> 00:00:47.420
+en lo que puede ser el algoritmo de consenso de un proof of work de Bitcoin,
+
+14
+00:00:48.080 --> 00:00:50.300
+es totalmente diferente a un nonce de cuenta,
+
+15
+00:00:50.760 --> 00:00:54.340
+que es el mecanismo utilizado por anti-replay en transacciones de Ethereum.
+
+16
+00:00:55.140 --> 00:00:58.160
+Son conceptos diferentes que comparten nombre,
+
+17
+00:00:58.160 --> 00:01:02.640
+pero saber eso sirve para evitar futuras confusiones
+
+18
+00:01:02.640 --> 00:01:05.200
+cuando vamos a ver otros elementos del curso.

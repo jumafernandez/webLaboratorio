@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.980
+Tenemos que saber que las funciones privadas en el smart contract
+
+2
+00:00:03.980 --> 00:00:08.780
+tienen dos tipos de modificadores de visibilidad.
+
+3
+00:00:09.820 --> 00:00:13.620
+Uno se llama internal y el otro es private.
+
+4
+00:00:14.620 --> 00:00:18.960
+La diferencia de internal con private es sutil,
+
+5
+00:00:19.380 --> 00:00:20.700
+pero es bastante importante.
+
+6
+00:00:21.340 --> 00:00:24.480
+Primero hay que entender que internal significa
+
+7
+00:00:24.480 --> 00:00:29.320
+que va a ser una función accesible desde el contrato,
+
+8
+00:00:29.320 --> 00:00:34.760
+pero también desde contratos futuros que hereden de ese contrato.
+
+9
+00:00:35.040 --> 00:00:38.880
+Muy importante, podemos heredar contratos a futuro
+
+10
+00:00:38.880 --> 00:00:42.840
+para continuar y extender su funcionalidad.
+
+11
+00:00:44.560 --> 00:00:50.020
+Si mañana desarrollamos un contrato que se llame Voting con auditoría,
+
+12
+00:00:50.360 --> 00:00:55.320
+is Voting, o sea, un contrato de Voting con auditoría
+
+13
+00:00:55.320 --> 00:01:00.240
+que hereda Voting, vamos a poder llamar las funciones
+
+14
+00:01:00.240 --> 00:01:05.220
+que estén declaradas bajo el modificador de internal.

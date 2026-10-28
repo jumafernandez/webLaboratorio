@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.320
+Recordemos que los eventos son interacciones que el contrato va a tener
+
+2
+00:00:05.320 --> 00:00:08.160
+eventualmente con aplicaciones externas
+
+3
+00:00:08.160 --> 00:00:16.480
+y que van a servir para poder enviar logs a los diferentes programas que
+
+4
+00:00:16.480 --> 00:00:18.920
+interactúen con nuestro contrato.
+
+5
+00:00:19.240 --> 00:00:26.700
+En definitiva, estos eventos van a verse reflejados en las transacciones que
+
+6
+00:00:26.700 --> 00:00:28.400
+realicen otros usuarios
+
+7
+00:00:28.400 --> 00:00:33.820
+y que también, en definitiva, sirven para poder darle más información a las
+
+8
+00:00:33.820 --> 00:00:38.920
+aplicaciones que van a consumir los datos que nosotros dejemos inmutado en la
+
+9
+00:00:38.920 --> 00:00:39.200
+blockchain.
+
+10
+00:00:39.840 --> 00:00:47.320
+Para este programa en particular, vamos a establecer tres eventos.
+
+11
+00:00:47.580 --> 00:00:53.560
+Eso lo vamos a hacer con la palabra reservada event y vamos a hacer un evento para
+
+12
+00:00:53.560 --> 00:00:56.340
+cuando el voto sea emitido
+
+13
+00:00:58.400 --> 00:01:06.080
+otro evento para cuando la votación esté cerrada
+
+14
+00:01:06.080 --> 00:01:17.800
+y otro evento que va a ocurrir cuando se extienda la votación.
+
+15
+00:01:18.060 --> 00:01:23.320
+Recordemos que esta palabra reservada event y el nombre pertinente a cada uno de
+
+16
+00:01:23.320 --> 00:01:24.080
+los eventos
+
+17
+00:01:24.080 --> 00:01:29.220
+es lo que después va a ser invocado a través de la palabra reservada emit.
