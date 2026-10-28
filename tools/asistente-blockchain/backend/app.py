@@ -132,7 +132,7 @@ FIJO = (
     + SITIO_MD
 )
 
-NIVELES = ["c1", "c2", "c3", "c4", "nft", "hack"]
+NIVELES = ["c1", "c2", "c3", "c4", "nft", "hack", "firmas"]
 TEMAS = [
     "plan",
     "docentes",
@@ -161,7 +161,7 @@ HERRAMIENTAS: list[dict[str, Any]] = [
         "name": "jugar_nivel",
         "description": "Arranca un nivel del juego en el escenario. c1 bloques y hash, c2 token y pool de liquidez, "
         "c3 nodos, consenso y capa 2, c4 pasarela de pago con NFT recibo, nft bonus de NFT propio, "
-        "hack bonus de reentrancy.",
+        "hack bonus de reentrancy, firmas bonus de claves y firmas digitales.",
         "strict": True,
         "eager_input_streaming": True,
         "input_schema": {

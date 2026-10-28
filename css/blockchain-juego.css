@@ -408,6 +408,15 @@
 
 /* bonus hack */
 .bcw-hackgrid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; }
+.bcw-firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.bcw-firmas .bcw-wide, .bcw-firmas .bcw-veredicto { grid-column: 1 / -1; }
+.bcw-firmas .bcw-mono { font-family: var(--bcw-mono); font-size: 12px; color: var(--bcw-cian); word-break: break-all; }
+.bcw-firmas .bcw-dirf { color: #fff; margin-top: 4px; }
+.bcw-firmas .bcw-msgf { color: #fff; font-size: 15px; word-break: break-word; }
+.bcw-veredicto { min-height: 1.5em; padding: 10px 14px; border-radius: 12px; font-weight: 700; }
+.bcw-veredicto:empty { display: none; }
+.bcw-veredicto.bcw-ok { background: rgba(46, 229, 157, .14); color: #7ff0c3; }
+.bcw-veredicto.bcw-bad { background: rgba(255, 90, 110, .14); color: #ff9aa6; }
 .bcw-code { margin: 4px 0 8px; padding: 10px 12px; border-radius: 10px; background: #0a0618; color: #d9d0ff; font: 11.5px/1.55 var(--bcw-mono); white-space: pre; overflow-x: auto; }
 .bcw-code mark { display: block; background: transparent; color: inherit; }
 .bcw-code mark.bcw-m1 { background: rgba(255, 90, 110, .16); color: #ffd3d9; }
@@ -443,7 +452,7 @@
   .bcw-price .bcw-card { padding: 10px 6px; }
   .bcw-chart { height: 80px; }
   .bcw-shop { gap: 6px; }
-  .bcw-hackgrid { grid-template-columns: 1fr; }
+  .bcw-hackgrid, .bcw-firmas { grid-template-columns: 1fr; }
   .bcw-code { font-size: 10px; }
 }
 

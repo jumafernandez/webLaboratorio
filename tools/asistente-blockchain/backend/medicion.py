@@ -77,7 +77,7 @@ SESION = re.compile(r"[0-9a-f]{16,32}")
 # Valores admitidos por clave: identificadores fijos del widget, nunca texto de la persona. Tienen que coincidir con
 # widget/juego.js (niveles e insignias), widget/sitio.js (temas), backend/app.py (ANCLAS y tipos de acción del agente)
 # y los ctx.paso() de widget/niveles/*.js. Un valor fuera de la lista es 400.
-NIVELES = frozenset({"c1", "c2", "c3", "c4", "nft", "hack"})
+NIVELES = frozenset({"c1", "c2", "c3", "c4", "nft", "hack", "firmas"})
 PASOS = frozenset({
     "inicio",
     "mensaje", "minado", "bloque_encima", "cadena_rota",                               # nivel 1
@@ -86,6 +86,7 @@ PASOS = frozenset({
     "faucet", "producto", "approve", "pago", "recibo", "revert",                      # nivel 4
     "diseno", "nombre", "minteo",                                                      # bonus NFT
     "ataque", "ataque_bloqueado", "arreglo",                                           # bonus hack
+    "firma", "adulterar", "impostor",                                                  # bonus firmas
 })
 ACCIONES_AGENTE = frozenset({"jugar_nivel", "mostrar_sitio", "llevar_al_sitio", "sugerir", "ninguna"})
 VALORES: dict[str, frozenset] = {
