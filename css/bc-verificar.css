@@ -1,4 +1,4 @@
-/* Verificador de credenciales (blockchain-dev/verificar). Reutiliza .bc-oscuro, .bc-bloque, .bc-campo y .bc-eslabon de
+/* Verificador de insignias (blockchain-dev/verificar). Reutiliza .bc-oscuro, .bc-bloque, .bc-campo y .bc-eslabon de
    bc-visual.css; acá solo lo propio del formulario y las tarjetas de resultado. :not(#_) gana a style2.css, que pinta
    con !important los links dentro de article y .container. */
 
@@ -44,7 +44,6 @@ html body.blockchain-theme #bcv { max-width: 1040px; }
 .bcv-card.bc-bloque { cursor: default; opacity: 1; backdrop-filter: none; }
 .bcv-card.bc-bloque:hover { transform: none; }
 .bcv-card.bc-bloque::after { display: none !important; }
-.bcv-card-rev.bc-bloque { border-color: rgba(231, 111, 81, .7); }
 .bcv-card-cuerpo { display: flex; gap: 1rem; align-items: flex-start; }
 .bcv-img {
     flex: 0 0 132px; width: 132px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
@@ -65,7 +64,6 @@ html body.blockchain-theme #bcv { max-width: 1040px; }
 .bcv-sello { font: 500 .66rem var(--bc-mono); letter-spacing: .05em; padding: .12rem .5rem; border-radius: 999px; border: 1px solid currentColor; }
 .bcv-sello-ok { color: #7ee2a8; }
 .bcv-sello-simb { color: var(--bc-ambar); }
-.bcv-sello-rev { color: #ff8f73; }
 
 html body.blockchain-theme #bcv a.bcv-enlace:not(#_) { color: var(--bc-lila) !important; text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
 html body.blockchain-theme #bcv a.bcv-enlace:not(#_):hover { color: #fff !important; }
@@ -85,13 +83,12 @@ html body.blockchain-theme #bcv a.bcv-enlace:not(#_):hover { color: #fff !import
 
 /* Explicación */
 .bcv-explica { margin-top: 2.6rem; }
-.bcv-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-bottom: 1.8rem; }
+.bcv-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; margin-bottom: 1.8rem; }
 .bcv-caja.bc-bloque { cursor: default; opacity: 1; }
 .bcv-caja.bc-bloque:hover { transform: none; }
 .bcv-caja.bc-bloque::after { display: none !important; }
 .bcv-caja p { margin: 0; color: var(--bc-tinta); font-size: .86rem; line-height: 1.55; }
 .bcv-caja .bcv-caja-t { color: #fff; font: 600 1rem "Space Grotesk", Montserrat, sans-serif; }
-.bcv-caja .bcv-estado-cred { margin-top: .3rem; padding-top: .6rem; border-top: 1px solid rgba(196, 165, 255, .2); color: var(--bc-ambar); font: 500 .8rem var(--bc-mono); overflow-wrap: anywhere; }
 .bcv-cifras { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; margin: 0 0 1.2rem; padding: .7rem 1rem; border-radius: .6rem; border: 1px solid rgba(196, 165, 255, .25); background: rgba(196, 165, 255, .06); color: var(--bc-tinta); font-size: .9rem; }
 .bcv-cifras-t { color: var(--bc-tenue); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
 .bcv-cifra strong { color: #fff; font-size: 1.05rem; font-variant-numeric: tabular-nums; }

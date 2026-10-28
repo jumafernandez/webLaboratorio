@@ -13,8 +13,8 @@ remappings = [
     "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
     "forge-std/=lib/forge-std/src/",
 ]
-# The deploy scripts write deploy/<chainid>.json; EmitirCredenciales reads emisiones/*.json
-fs_permissions = [{ access = "read-write", path = "./deploy" }, { access = "read", path = "./emisiones" }]
+# The deploy script writes deploy/<chainid>.json
+fs_permissions = [{ access = "read-write", path = "./deploy" }]
 
 [fmt]
 line_length = 120
