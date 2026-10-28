@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.640
+Para completar y terminar de entender qué es Hardhat,
+
+2
+00:00:03.920 --> 00:00:08.140
+tenemos que saber que es una herramienta que permite compilar,
+
+3
+00:00:08.360 --> 00:00:11.060
+testear, depurar, desplegar contratos,
+
+4
+00:00:11.400 --> 00:00:13.440
+todo desde línea de comandos.
+
+5
+00:00:13.660 --> 00:00:17.220
+Se organizan en tareas ejecutables a lo largo de comandos
+
+6
+00:00:17.220 --> 00:00:19.960
+como compile, test, run, node,
+
+7
+00:00:20.180 --> 00:00:24.340
+que en definitiva son comandos que vamos a utilizar por consola,
+
+8
+00:00:24.500 --> 00:00:27.980
+además de que agrega algunas otras utilidades,
+
+9
+00:00:27.980 --> 00:00:32.220
+como, por ejemplo, la capacidad de extender estas funcionalidades
+
+10
+00:00:32.220 --> 00:00:33.940
+mediante plugins.
+
+11
+00:00:38.300 --> 00:00:41.000
+En este curso vamos a ver un paso a paso
+
+12
+00:00:41.000 --> 00:00:43.100
+para desarrollar contratos con Hardhat,
+
+13
+00:00:43.320 --> 00:00:47.020
+pero eso lo vamos a ver en posteriores videos.
+
+14
+00:00:49.160 --> 00:00:52.580
+Lo que nosotros tenemos que tratar de entender en principio
+
+15
+00:00:52.580 --> 00:00:56.380
+es que utilizar un framework como Hardhat
+
+16
+00:00:56.380 --> 00:01:02.260
+nos da algunas ventajas al momento de comenzar a desarrollar
+
+17
+00:01:02.260 --> 00:01:03.180
+nuestro Smart Contract.
+
+18
+00:01:03.660 --> 00:01:06.940
+En principio sabemos que tenemos un ecosistema que puede llegar
+
+19
+00:01:06.940 --> 00:01:11.560
+a complementarse con un montón de herramientas a través de plugins.
+
+20
+00:01:12.240 --> 00:01:15.600
+Además, la cercanía con otro lenguaje de programación de alto nivel
+
+21
+00:01:15.600 --> 00:01:18.900
+para el desarrollo de aplicaciones como es Javascript
+
+22
+00:01:18.900 --> 00:01:22.440
+permite generar estructuras en este lenguaje
+
+23
+00:01:22.440 --> 00:01:26.240
+que sirve muchísimo para el desarrollo de otras partes de lo que puede ser.
+
+24
+00:01:26.380 --> 00:01:28.100
+Una aplicación completa,
+
+25
+00:01:28.680 --> 00:01:32.270
+además de que también los test automatizados que se hacen
+
+26
+00:01:33.200 --> 00:01:36.000
+en este tipo de frameworks, los que se aprovechan para poder llegar
+
+27
+00:01:36.000 --> 00:01:38.780
+a generar algún poco de intento de calidad,
+
+28
+00:01:39.260 --> 00:01:40.940
+también están escritos en Javascript.
+
+29
+00:01:41.460 --> 00:01:45.600
+Los errores son mucho más legibles en este framework
+
+30
+00:01:45.600 --> 00:01:50.000
+y también tienen la capacidad de utilizar detalles de trace
+
+31
+00:01:50.000 --> 00:01:52.440
+en Solidity para poder avanzar.
+
+32
+00:01:52.620 --> 00:01:55.100
+Además, tiene otras simulaciones, como por ejemplo,
+
+33
+00:01:55.100 --> 00:01:58.840
+el uso de una red local de simulación
+
+34
+00:01:58.840 --> 00:02:03.180
+que permite crear una manera más fácil de llevar adelante
+
+35
+00:02:03.180 --> 00:02:06.000
+proyectos de una complejidad mayor.

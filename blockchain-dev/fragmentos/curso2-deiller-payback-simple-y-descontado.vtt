@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.720
+El payback, tiene que calcular las dos formas, tanto el simple como el descontado.
+
+2
+00:00:09.100 --> 00:00:16.900
+El simple es mucho más fácil, es simplemente ir sumándole el flujo que proyectamos
+
+3
+00:00:16.900 --> 00:00:17.900
+de cada año
+
+4
+00:00:17.900 --> 00:00:25.420
+a la inversión inicial, hasta que quede positivo
+
+5
+00:00:27.020 --> 00:00:38.740
+y allí en ese año que quede positivo, ya te da el resultado de cuántos años demoras
+
+6
+00:00:38.740 --> 00:00:42.880
+en tener de vuelta el capital inicial.
+
+7
+00:00:43.380 --> 00:00:52.080
+Esto siempre se redondea hacia arriba, y por lo general el resultado que te dé, por
+
+8
+00:00:52.080 --> 00:00:54.500
+ejemplo acá queda 2,92 años,
+
+9
+00:00:54.500 --> 00:01:02.180
+no se deja en 2,92, sino que se deja como dos años y tantos meses.
+
+10
+00:01:03.280 --> 00:01:07.840
+Ese mes siempre se redondea por arriba, por ejemplo que te hubiera dado algo como
+
+11
+00:01:07.840 --> 00:01:10.880
+que 10 meses y medio se redondea a 11,
+
+12
+00:01:11.300 --> 00:01:13.080
+siempre para arriba, nunca para abajo.
+
+13
+00:01:14.840 --> 00:01:22.520
+Y después el descontado, tiene la misma lógica, lo único es que lo que vamos a
+
+14
+00:01:22.520 --> 00:01:24.680
+estar sumándole a cada...
+
+15
+00:01:26.820 --> 00:01:30.320
+O sea, el flujo que vamos a estar sumando va a ser el descontado.
+
+16
+00:01:31.280 --> 00:01:38.420
+Cuando digo el descontado, es el que utilizamos para el VAN, o sea, es el que
+
+17
+00:01:38.420 --> 00:01:38.680
+estaba.
+
+18
+00:01:38.680 --> 00:01:44.500
+El flujo dividido, uno más la tasa elevado al periodo.

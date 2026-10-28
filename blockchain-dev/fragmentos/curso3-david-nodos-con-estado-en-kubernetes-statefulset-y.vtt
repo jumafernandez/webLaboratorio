@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.760
+es que las bases de datos tenés dos opciones, o las dejás fuera de lo que es
+
+2
+00:00:05.760 --> 00:00:09.580
+Kubernetes, con un servicio normal de clustering, o con un servicio administrado
+
+3
+00:00:09.580 --> 00:00:13.980
+que te dé la nube, o lo pones adentro del cluster como StatefulSet, que ya vamos a
+
+4
+00:00:13.980 --> 00:00:17.980
+ver un poquito cómo se levanta, digo, no solo las bases de datos, los sistemas de
+
+5
+00:00:17.980 --> 00:00:23.600
+colas, los sistemas de caché, no van con Deployment normalito, sino que van con
+
+6
+00:00:23.600 --> 00:00:29.480
+StatefulSet, o capas más arriba de eso que no las vamos a ver, como Operators y
+
+7
+00:00:29.480 --> 00:00:29.980
+demás que hacen
+
+8
+00:00:29.980 --> 00:00:34.380
+como una capa de administración más alta, bien? Cierro con bases de datos,
+
+9
+00:00:34.820 --> 00:00:41.140
+Kubernetes tiene una base de datos, la etcd que es donde se guarda, es una base de
+
+10
+00:00:41.140 --> 00:00:46.620
+datos clave-valor, que es donde se guarda cada recurso y cuánto vale ese recurso,
+
+11
+00:00:47.080 --> 00:00:53.760
+y en un sistema productivo, la etcd, o sea, el control plane, que elegimos la
+
+12
+00:00:53.760 --> 00:00:59.960
+cabeza, normalmente está formado por más de un nodo virtual, no importa, no tiene
+
+13
+00:00:59.960 --> 00:01:05.180
+porque ser físico, es más de un nodo, al menos tres, porque siempre tienen que
+
+14
+00:01:05.180 --> 00:01:10.840
+estar atendiendo la cabeza, y detrás, la etcd también tiene un cluster, está
+
+15
+00:01:10.840 --> 00:01:16.300
+separado de esa cabeza, es una cabecita, y ahí se guarda, digamos, porque no se
+
+16
+00:01:16.300 --> 00:01:21.660
+puede perder los recursos, ni en qué estado están los recursos, cualquier recurso
+
+17
+00:01:21.660 --> 00:01:23.720
+correspondiente a un Kubernetes.

@@ -1,0 +1,145 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.660
+Concepto que forma parte del génesis de la blockchain es el árbol de Merkle o
+
+2
+00:00:06.660 --> 00:00:07.120
+Merkle
+
+3
+00:00:07.120 --> 00:00:12.540
+Tree. Un árbol de Merkle es una estructura de datos jerárquica donde cada nodo,
+
+4
+00:00:12.540 --> 00:00:13.340
+hoja,
+
+5
+00:00:13.560 --> 00:00:19.360
+es un hash de un bloque de datos y cada nodo superior padre es el hash de la
+
+6
+00:00:19.360 --> 00:00:20.080
+combinación
+
+7
+00:00:20.080 --> 00:00:26.120
+de sus nodos hijos. Esto resume grandes volúmenes de información en un único valor
+
+8
+00:00:26.120 --> 00:00:27.200
+final llamado
+
+9
+00:00:27.200 --> 00:00:31.680
+raíz de Merkle, ese famoso Merkle root que vimos anteriormente.
+
+10
+00:00:34.300 --> 00:00:41.460
+Vamos a ver la construcción paso a paso de un árbol Merkle. El paso 1 es hashar
+
+11
+00:00:41.460 --> 00:00:41.680
+cada
+
+12
+00:00:41.680 --> 00:00:48.120
+transacción individualmente, lo que sería esta hoja. Paso 2, agrupar estas hojas
+
+13
+00:00:48.120 --> 00:00:48.420
+de
+
+14
+00:00:48.420 --> 00:00:55.460
+a pares y hashar la concatenación de estos pares. El paso 3 es repetir el
+
+15
+00:00:55.460 --> 00:00:56.040
+agrupamiento
+
+16
+00:00:56.040 --> 00:01:02.160
+nivel por nivel hasta que quede una sola hoja raíz, un solo resumen de toda la
+
+17
+00:01:02.160 --> 00:01:02.700
+información.
+
+18
+00:01:03.740 --> 00:01:08.540
+Si este número de hojas es impar, la última se
+
+19
+00:01:08.540 --> 00:01:15.660
+duplica para en definitiva completar los pares. Una vez entendido el mecanismo
+
+20
+00:01:15.660 --> 00:01:16.520
+ahora tenemos
+
+21
+00:01:16.520 --> 00:01:24.320
+que ver por qué tiene valor. Es importante estudiar este tipo de estructuras porque
+
+22
+00:01:24.320 --> 00:01:24.660
+en
+
+23
+00:01:24.660 --> 00:01:30.520
+definitiva son las estructuras algorítmicas básicas y matemáticas los fundamentos
+
+24
+00:01:30.520 --> 00:01:30.760
+por
+
+25
+00:01:30.760 --> 00:01:36.600
+los que las blockchain funcionan. Existe un concepto conocido como la Merkle proof,
+
+26
+00:01:37.080 --> 00:01:41.040
+la prueba de árbol Merkle, que permite demostrar que una transacción pertenece a un
+
+27
+00:01:41.040 --> 00:01:41.220
+bloque,
+
+28
+00:01:42.180 --> 00:01:47.020
+sin necesidad de descargar todas las demás transacciones del bloque. Solo se
+
+29
+00:01:47.020 --> 00:01:47.760
+necesitan
+
+30
+00:01:47.760 --> 00:01:53.900
+los hashes hermanos del camino hacia la raíz. Con miles de transacciones este
+
+31
+00:01:53.900 --> 00:01:54.920
+formato de
+
+32
+00:01:54.920 --> 00:02:01.100
+búsqueda sigue siendo muy barato computacionalmente. Este es el mecanismo que
+
+33
+00:02:01.100 --> 00:02:01.940
+utilizan por ejemplo
+
+34
+00:02:01.940 --> 00:02:06.840
+las wallets para verificar transacciones sin correr todos los elementos de un nodo
+
+35
+00:02:06.840 --> 00:02:07.100
+completo
+
+36
+00:02:07.100 --> 00:02:08.260
+que tienen que buscarse.

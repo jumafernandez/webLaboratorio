@@ -1,0 +1,105 @@
+WEBVTT
+
+1
+00:00:00.740 --> 00:00:07.680
+Toma los test automatizados que están dentro de la carpeta test
+
+2
+00:00:07.680 --> 00:00:12.840
+y nos da en definitiva un resumen de lo que fue ejecutando.
+
+3
+00:00:13.200 --> 00:00:18.520
+También toma los test de Solidity y verifica que todos sean pasados.
+
+4
+00:00:18.920 --> 00:00:22.140
+Una buena práctica y algo que vamos a ver en clases más avanzadas
+
+5
+00:00:22.140 --> 00:00:25.680
+es que una vez que nosotros tenemos test de Solidity escrito
+
+6
+00:00:25.680 --> 00:00:29.800
+y test automatizados de los del tipo hecho con Mocha
+
+7
+00:00:29.800 --> 00:00:35.240
+y Chai, va a ser necesario que sigamos un flujo
+
+8
+00:00:35.240 --> 00:00:37.460
+en el que una vez compilado un proyecto,
+
+9
+00:00:37.980 --> 00:00:42.000
+chequeemos que todos los test hayan sido pasados.
+
+10
+00:00:42.180 --> 00:00:47.420
+Existen diferentes tipos de test como los de inicialización en cero,
+
+11
+00:00:47.560 --> 00:00:51.100
+los de validación de datos, los fuzzing
+
+12
+00:00:51.100 --> 00:00:54.020
+y también test de comprobación de datos
+
+13
+00:00:54.020 --> 00:00:58.440
+que en definitiva forman parte de una batería de pruebas
+
+14
+00:00:58.440 --> 00:01:02.060
+que está bueno realizar mucho antes de cualquier despliegue
+
+15
+00:01:02.060 --> 00:01:05.480
+por más de que sea un despliegue local.
+
+16
+00:01:06.080 --> 00:01:10.660
+El flujo completo de desarrollo para cualquier tipo de devs
+
+17
+00:01:10.660 --> 00:01:14.600
+es el comprobar que el código que nosotros hicimos
+
+18
+00:01:14.600 --> 00:01:17.380
+pase todos los test de manera correcta
+
+19
+00:01:17.380 --> 00:01:19.820
+antes de pasar a la instancia siguiente.
+
+20
+00:01:22.860 --> 00:01:27.260
+Vemos que una vez terminado todo lo que es el test unitario
+
+21
+00:01:27.260 --> 00:01:30.980
+y el test automatizado, la propia herramienta nos dice
+
+22
+00:01:30.980 --> 00:01:35.260
+que todos los test pasaron, en este caso 3 de Solidity y 2 de Node.js
+
+23
+00:01:35.260 --> 00:01:39.880
+y que estamos en condiciones de continuar con el flujo de trabajo.
+
+24
+00:01:40.220 --> 00:01:44.360
+Repito, esto es una buena práctica, se supone que si un test está bien hecho
+
+25
+00:01:44.360 --> 00:01:47.820
+les tiene que indicar si hay algo que tienen que modificar
+
+26
+00:01:47.820 --> 00:01:49.320
+dentro de su contrato.

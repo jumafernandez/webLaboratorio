@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:07.060 --> 00:00:12.860
+En principio, los validadores bloquean una cantidad de dinero como garantía. Este
+
+2
+00:00:12.860 --> 00:00:17.900
+dinero está representado en activos propios de la red, conocidos como tokens o
+
+3
+00:00:17.900 --> 00:00:18.720
+criptomonedas.
+
+4
+00:00:18.720 --> 00:00:25.020
+El protocolo selecciona al validador que propone el próximo bloque y ponderado de
+
+5
+00:00:25.020 --> 00:00:32.240
+manera tal que su garantía o su stake es el dato que se utiliza como punto de
+
+6
+00:00:32.240 --> 00:00:33.780
+inflexión para esta validación.
+
+7
+00:00:34.200 --> 00:00:40.560
+Si un validador actúa maliciosamente, hace trampa o falla, la red confisca o quema
+
+8
+00:00:40.560 --> 00:00:43.840
+parte de esas criptomonedas bloqueadas.
+
+9
+00:00:44.960 --> 00:00:48.980
+Algunos motivos de esta penalización pueden ser una doble firma, es decir que el
+
+10
+00:00:48.980 --> 00:00:53.920
+validador firma dos bloques distintos al mismo tiempo, con algún intento de engañar
+
+11
+00:00:53.920 --> 00:00:59.000
+a la red, o una inactividad prolongada, que el nodo en definitiva se apague o se
+
+12
+00:00:59.000 --> 00:01:03.400
+desconecte por mucho tiempo, o varios validadores que intenten manipular el
+
+13
+00:01:03.400 --> 00:01:07.140
+consenso de la red a través de algún mecanismo sofisticado y malicioso.
+
+14
+00:01:07.940 --> 00:01:13.560
+Resumidamente, Proof of Stake es un algoritmo de consenso que no requiere gasto
+
+15
+00:01:13.560 --> 00:01:20.020
+energético masivo. La garantía es económica, no computacional, y eso le ha dado una
+
+16
+00:01:20.020 --> 00:01:26.560
+gran alternativa a lo que es Proof of Work por ser un algoritmo de consenso un poco
+
+17
+00:01:26.560 --> 00:01:31.660
+más amigable y sobre todo escalable en lo que respecta a soluciones del tipo
+
+18
+00:01:31.660 --> 00:01:32.000
+blockchain.

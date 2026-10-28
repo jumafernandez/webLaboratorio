@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.120
+Es bueno marcar una diferencia importante
+
+2
+00:00:05.120 --> 00:00:07.800
+entre un smart contract y cualquier otro programa.
+
+3
+00:00:08.780 --> 00:00:10.900
+La inmutabilidad propia de blockchain.
+
+4
+00:00:12.320 --> 00:00:16.480
+Una vez publicado, el código del contrato no se puede cambiar.
+
+5
+00:00:17.200 --> 00:00:20.840
+A diferencia de otros programas que podríamos llegar a desplegarlo en una máquina
+
+6
+00:00:20.840 --> 00:00:21.220
+virtual
+
+7
+00:00:21.220 --> 00:00:25.880
+y después eventualmente pisar líneas de código para modificarlo,
+
+8
+00:00:25.880 --> 00:00:30.600
+en el caso de un smart contract, esto es imposible.
+
+9
+00:00:31.000 --> 00:00:33.900
+Si desplegamos un contrato, no existe forma de modificarlo.
+
+10
+00:00:34.240 --> 00:00:38.600
+Incluso si volviéramos a desplegarlo, tendríamos dos contratos parecidos,
+
+11
+00:00:38.840 --> 00:00:41.460
+pero en direcciones totalmente diferentes.
+
+12
+00:00:42.120 --> 00:00:46.800
+Por eso el desarrollo de smart contract requiere muchísimas pruebas
+
+13
+00:00:46.800 --> 00:00:50.560
+antes de su despliegue final en una red productiva.
+
+14
+00:00:50.920 --> 00:00:55.400
+Y es también la razón por la que nosotros vamos a trabajar con redes de prueba
+
+15
+00:00:55.400 --> 00:01:01.180
+y antes incluso con redes locales para poder asegurarnos de que el smart contract
+
+16
+00:01:01.180 --> 00:01:05.740
+cumple con todos los requisitos necesarios antes de quedar inmutado
+
+17
+00:01:05.740 --> 00:01:08.540
+definitivamente y para siempre en una blockchain.

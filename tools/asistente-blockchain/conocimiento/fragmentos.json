@@ -1,5 +1,37 @@
 [
  {
+  "id": "c1-ciro-funcion-hash-determinismo",
+  "curso": 1,
+  "clase": 1,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Función hash: determinismo y efecto avalancha",
+  "archivo": "curso1-ciro-funcion-hash-determinismo-y-efecto-avalancha",
+  "duracion": "1:38",
+  "nivel": "c1",
+  "preguntas": [
+   "¿Qué es una función hash?",
+   "¿Por qué cambiar un solo dato cambia todo el hash?",
+   "¿Se puede recuperar el dato original desde el hash?"
+  ],
+  "texto": "Es necesario que asimilemos el concepto de función hash. Una función hash es un algoritmo, otro algoritmo matemático, que transforma cualquier entrada de datos, sin importar su tamaño o dimensión, en una secuencia de caracteres alfanuméricos única y de longitud fija, llamada valor hash o simplemente el hash. Si cambias un solo dato de entrada, la función hash da como resultado final una salida completamente diferente. Este comportamiento es el que le da una de las cualidades más fuertes a lo que es la función hash, que es el determinismo, misma entrada, misma salida. Este comportamiento también provoca lo que se llama efecto avalancha, en el que el más mínimo cambio en la entrada altera completamente la salida. Tengan presente ese comportamiento, porque es el que más nos va a importar para entender el valor de hacer una blockchain. También se suele ver en la bibliografía que es una función unidireccional, o sea, que es imposible recuperar la información de entrada a partir de la información de salida, es decir, es seguro compartir la información de salida, ya que a través de ingeniería inversa no es posible recuperar la información de entrada. También suele verse como un algoritmo resistente a colisiones, haciendo que sea prácticamente imposible que dos entradas den el mismo resultado de salida."
+ },
+ {
+  "id": "c1-ciro-claves-firma-digital",
+  "curso": 1,
+  "clase": 1,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Claves, firma digital y curva elíptica secp256k1",
+  "archivo": "curso1-ciro-claves-firma-digital-y-curva-eliptica",
+  "duracion": "2:06",
+  "nivel": "firmas",
+  "preguntas": [
+   "¿Por qué en blockchain no hay usuario y contraseña?",
+   "¿Por qué se usan dos claves, una privada y una pública?",
+   "¿Qué es secp256k1?"
+  ],
+  "texto": "Tenemos que saber que en blockchain no hay usuarios y contraseñas, hay un par de claves matemáticamente vinculadas, el que tiene las claves controla los fondos y las transacciones sin excepción ni recuperación por terceros. Esto es así y aparece el concepto de clave más fuertemente que nunca relacionado a todo lo que se puede hacer dentro de la blockchain. Una clave utiliza criptografía, pero necesita mecanismos para ser compartida. Una sola clave compartida tiene el problema de distribución segura, es decir, no se puede compartir una llave de manera segura, evitando que actores malintencionados se apoderen de esa clave y puedan controlar las transacciones. Por eso necesitamos dos claves y que no sean simétricas, aunque sean asimétricas, para que sean una de uso privado y la otra de uso público. Ahora es cuando aparecen las primeras ideas de algoritmos y sobre todo cuando aparece la idea de firma digital. Puntualmente está basado en el problema de los logaritmos discretos sobre curva elíptica, los que nosotros vamos a utilizar como un estándar para lo que es la firma digital. La firma digital y más puntualmente estos mecanismos de firma digital son estándares utilizados y aceptados por la industria para poder manipular la información de manera segura. Existe puntualmente el concepto de secp256k1, que es la curva específica que usa Bitcoin y Ethereum como mecanismo matemático que permite derivar claves públicas y firmas digitales a partir de claves privadas de forma eficiente. A través de estos mecanismos es que empieza todo el proceso de segurización atrás de la criptografía y más puntualmente de blockchain."
+ },
+ {
   "id": "c1-ciro-encadenan",
   "curso": 1,
   "clase": 2,
@@ -14,6 +46,246 @@
    "¿Por qué modificar la cadena es económicamente inviable?"
   ],
   "texto": "Recopiemos todo lo que vimos para saber que los bloques de una cadena o de una blockchain se vinculan mediante este tipo de estructuras. Utilizan los hashes criptográficos y se van concatenando para generar una cadena de bloques. Cada bloque tiene una huella digital única de su propio contenido y además incluye el código del hash del bloque anterior. Cada header incluye el hash del header del bloque anterior. Esto forma una cadena verificable desde el bloque génesis hasta el último bloque. Modificar un bloque antiguo cambia el hash, lo que rompe la cadena hacia delante, o lo que es lo mismo que cambia todos los valores finales, porque como sabemos lo que son las funciones hash, una entrada produce una única salida. Si se cambia la entrada, se cambia la salida. Entonces, si así funciona una cadena de bloques, una blockchain, podemos llegar a intuir que alterar un bloque antiguo obliga a recalcular el hash y a todos los siguientes. Entonces, en una red que requiere un consenso, hace que sea computacionalmente difícil o si se quiere económicamente inviable alterar cualquier elemento. Porque si tenemos una cadena de elementos que dependen entre sí, alterar cualquiera de sus componentes requiere que todos los componentes de esa cadena sean modificados para validar que es efectivamente una modificación querible. Entonces, cuanto más bloques se agregan, más profundamente arraigada es la seguridad de esa cadena. Y es así que las blockchain obtienen esta característica de inmutabilidad por ser computacionalmente muy costosa de modificar y dando un historial irrefutable sobre las modificaciones de esa cadena."
+ },
+ {
+  "id": "c1-ciro-arbol-merkle-prueba",
+  "curso": 1,
+  "clase": 2,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Árbol de Merkle y prueba de inclusión (Merkle proof)",
+  "archivo": "curso1-ciro-arbol-de-merkle-y-prueba-de-inclusion-merkle",
+  "duracion": "2:09",
+  "nivel": "c1",
+  "preguntas": [
+   "¿Cómo se arma un árbol de Merkle?",
+   "¿Cómo se prueba que una transacción está en un bloque sin bajar todo?",
+   "¿Qué pasa si hay un número impar de hojas?"
+  ],
+  "texto": "Concepto que forma parte del génesis de la blockchain es el árbol de Merkle o Merkle Tree. Un árbol de Merkle es una estructura de datos jerárquica donde cada nodo, hoja, es un hash de un bloque de datos y cada nodo superior padre es el hash de la combinación de sus nodos hijos. Esto resume grandes volúmenes de información en un único valor final llamado raíz de Merkle, ese famoso Merkle root que vimos anteriormente. Vamos a ver la construcción paso a paso de un árbol Merkle. El paso 1 es hashar cada transacción individualmente, lo que sería esta hoja. Paso 2, agrupar estas hojas de a pares y hashar la concatenación de estos pares. El paso 3 es repetir el agrupamiento nivel por nivel hasta que quede una sola hoja raíz, un solo resumen de toda la información. Si este número de hojas es impar, la última se duplica para en definitiva completar los pares. Una vez entendido el mecanismo ahora tenemos que ver por qué tiene valor. Es importante estudiar este tipo de estructuras porque en definitiva son las estructuras algorítmicas básicas y matemáticas los fundamentos por los que las blockchain funcionan. Existe un concepto conocido como la Merkle proof, la prueba de árbol Merkle, que permite demostrar que una transacción pertenece a un bloque, sin necesidad de descargar todas las demás transacciones del bloque. Solo se necesitan los hashes hermanos del camino hacia la raíz. Con miles de transacciones este formato de búsqueda sigue siendo muy barato computacionalmente. Este es el mecanismo que utilizan por ejemplo las wallets para verificar transacciones sin correr todos los elementos de un nodo completo que tienen que buscarse."
+ },
+ {
+  "id": "c1-ciro-nonce-bloque-vs",
+  "curso": 1,
+  "clase": 2,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Nonce de bloque vs nonce de cuenta",
+  "archivo": "curso1-ciro-nonce-de-bloque-vs-nonce-de-cuenta",
+  "duracion": "1:06",
+  "nivel": "c1",
+  "preguntas": [
+   "¿Para qué sirve el nonce en Bitcoin?",
+   "¿Qué es el nonce en Ethereum?",
+   "¿Es lo mismo el nonce de bloque que el de cuenta?"
+  ],
+  "texto": "Pero antes recordemos uno de los campos que pertenecen al header, el nonce. El elemento lo vamos a utilizar en varios momentos durante la cursada. En Bitcoin lo utilizan para estandarizar la complejidad necesaria para minar un bloque. La minería en Bitcoin tiene que ser difícil para regular la emisión controlada de monedas y garantizar la seguridad de la red. Ethereum también utiliza el concepto de nonce, pero cumple otras funciones. Primero, que se usa para el conteo de los usuarios en las cuentas y la transaccionalidad. Y también, aunque ya está en desuso, se utiliza para la creación de bloques. Tenemos que siempre recordar que un nonce de bloque, en lo que puede ser el algoritmo de consenso de un proof of work de Bitcoin, es totalmente diferente a un nonce de cuenta, que es el mecanismo utilizado por anti-replay en transacciones de Ethereum. Son conceptos diferentes que comparten nombre, pero saber eso sirve para evitar futuras confusiones cuando vamos a ver otros elementos del curso."
+ },
+ {
+  "id": "c1-ciro-prueba-trabajo-minan",
+  "curso": 1,
+  "clase": 3,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Prueba de trabajo: cómo minan los mineros",
+  "archivo": "curso1-ciro-prueba-de-trabajo-como-minan-los-mineros",
+  "duracion": "1:19",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Cómo funciona la minería en Proof of Work?",
+   "¿Qué es la dificultad?",
+   "¿Qué limitaciones tiene Proof of Work?"
+  ],
+  "texto": "Básicamente existen nodos llamados mineros que incrementan una y otra vez el nonce, recalculando el hash del header, hasta encontrar uno que cumpla con una dificultad exigida. Esto, resumidamente, sería el desafío matemático. Los mineros compiten para encontrar un nonce que produzca un hash por debajo de un umbral de dificultad. Esa búsqueda requiere mucho poder de cómputo real. No hay manera de conseguir atajos, no hay forma de saltearse. Es solo prueba y error, pura fuerza bruta. El primero en encontrarlo transmite el bloque, lo sella y gana una recompensa. La prueba de haber gastado trabajo computacional es lo que le da nombre a este mecanismo. Ahora bien, si bien fue el primer algoritmo de consenso y probablemente por eso el más popular, tiene algunas limitaciones y problemas hoy en día. Se gasta un alto consumo energético para poder lograr este tipo de mecanismo. Hoy se necesita un hardware especializado corriendo las 24 horas todos los días. Antes se usaba casi cualquier PC, pero ahora con el gran incremento de la red se necesitan equipos muy poderosos."
+ },
+ {
+  "id": "c1-ciro-proof-of-stake",
+  "curso": 1,
+  "clase": 3,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Proof of Stake: staking y castigo al validador",
+  "archivo": "curso1-ciro-proof-of-stake-staking-y-castigo-al-validador",
+  "duracion": "1:33",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Cómo funciona Proof of Stake?",
+   "¿Qué es el slashing y cuándo se aplica?",
+   "¿Por qué PoS gasta menos energía que PoW?"
+  ],
+  "texto": "En principio, los validadores bloquean una cantidad de dinero como garantía. Este dinero está representado en activos propios de la red, conocidos como tokens o criptomonedas. El protocolo selecciona al validador que propone el próximo bloque y ponderado de manera tal que su garantía o su stake es el dato que se utiliza como punto de inflexión para esta validación. Si un validador actúa maliciosamente, hace trampa o falla, la red confisca o quema parte de esas criptomonedas bloqueadas. Algunos motivos de esta penalización pueden ser una doble firma, es decir que el validador firma dos bloques distintos al mismo tiempo, con algún intento de engañar a la red, o una inactividad prolongada, que el nodo en definitiva se apague o se desconecte por mucho tiempo, o varios validadores que intenten manipular el consenso de la red a través de algún mecanismo sofisticado y malicioso. Resumidamente, Proof of Stake es un algoritmo de consenso que no requiere gasto energético masivo. La garantía es económica, no computacional, y eso le ha dado una gran alternativa a lo que es Proof of Work por ser un algoritmo de consenso un poco más amigable y sobre todo escalable en lo que respecta a soluciones del tipo blockchain."
+ },
+ {
+  "id": "c1-ciro-trilema-blockchain-capas",
+  "curso": 1,
+  "clase": 4,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Trilema de blockchain y capas 1 y 2",
+  "archivo": "curso1-ciro-trilema-de-blockchain-y-capas-1-y-2",
+  "duracion": "1:23",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Qué es el trilema de blockchain?",
+   "¿Qué diferencia hay entre capa 1 y capa 2?",
+   "¿Por qué existen las redes de capa 2?"
+  ],
+  "texto": "El trilema de la blockchain es un concepto popularizado por el creador de Ethereum, donde señala que una red solo puede lograr de forma óptima dos de tres características clave. Descentralización, seguridad y escalabilidad. En esta problemática pensamos en la descentralización porque la red no depende de una sola autoridad o servidor central. Muchos usuarios validan las reglas del sistema. Respecto a la seguridad, el sistema es fuerte y resistente a ataques informáticos o alteraciones maliciosas. Mientras que si pensamos en la escalabilidad, la red puede procesar una gran cantidad de transacciones de forma rápida y barata. El conflicto es que si mejoras mucho dos características, siempre es en detrimento de una tercera. Al momento de estudiar la manera de resolver este trilema, es que aparecen los conceptos de redes de capa 1 y de capa 2, o layer 1 y layer 2. Las redes de capa 1 y 2 existen en definitiva para resolver el trilema de la blockchain. Busca equilibrar la seguridad, descentralización y velocidad. La capa 1 es la red base que aporta seguridad total, mientras que la capa 2 procesa operaciones más rápidas y baratas por fuera para no saturar la principal."
+ },
+ {
+  "id": "c1-ciro-smart-contract-puede",
+  "curso": 1,
+  "clase": 4,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Por qué un smart contract no se puede modificar",
+  "archivo": "curso1-ciro-por-que-un-smart-contract-no-se-puede",
+  "duracion": "1:09",
+  "nivel": "c3",
+  "preguntas": [
+   "¿Se puede modificar un smart contract ya desplegado?",
+   "¿Qué pasa si vuelvo a desplegar el contrato?",
+   "¿Por qué se prueba tanto antes del despliegue?"
+  ],
+  "texto": "Es bueno marcar una diferencia importante entre un smart contract y cualquier otro programa. La inmutabilidad propia de blockchain. Una vez publicado, el código del contrato no se puede cambiar. A diferencia de otros programas que podríamos llegar a desplegarlo en una máquina virtual y después eventualmente pisar líneas de código para modificarlo, en el caso de un smart contract, esto es imposible. Si desplegamos un contrato, no existe forma de modificarlo. Incluso si volviéramos a desplegarlo, tendríamos dos contratos parecidos, pero en direcciones totalmente diferentes. Por eso el desarrollo de smart contract requiere muchísimas pruebas antes de su despliegue final en una red productiva. Y es también la razón por la que nosotros vamos a trabajar con redes de prueba y antes incluso con redes locales para poder asegurarnos de que el smart contract cumple con todos los requisitos necesarios antes de quedar inmutado definitivamente y para siempre en una blockchain."
+ },
+ {
+  "id": "c1-ciro-eventos-solidity-event",
+  "curso": 1,
+  "clase": 5,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Eventos en Solidity: event y emit",
+  "archivo": "curso1-ciro-eventos-en-solidity-event-y-emit",
+  "duracion": "1:30",
+  "nivel": "c3",
+  "preguntas": [
+   "¿Para qué sirven los eventos en un contrato?",
+   "¿Cómo se declara un evento en Solidity?",
+   "¿Cómo se dispara un evento?"
+  ],
+  "texto": "Recordemos que los eventos son interacciones que el contrato va a tener eventualmente con aplicaciones externas y que van a servir para poder enviar logs a los diferentes programas que interactúen con nuestro contrato. En definitiva, estos eventos van a verse reflejados en las transacciones que realicen otros usuarios y que también, en definitiva, sirven para poder darle más información a las aplicaciones que van a consumir los datos que nosotros dejemos inmutado en la blockchain. Para este programa en particular, vamos a establecer tres eventos. Eso lo vamos a hacer con la palabra reservada event y vamos a hacer un evento para cuando el voto sea emitido otro evento para cuando la votación esté cerrada y otro evento que va a ocurrir cuando se extienda la votación. Recordemos que esta palabra reservada event y el nombre pertinente a cada uno de los eventos es lo que después va a ser invocado a través de la palabra reservada emit."
+ },
+ {
+  "id": "c1-ciro-visibilidad-internal-herencia",
+  "curso": 1,
+  "clase": 5,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Visibilidad internal y herencia de contratos",
+  "archivo": "curso1-ciro-visibilidad-internal-y-herencia-de-contratos",
+  "duracion": "1:06",
+  "nivel": "c3",
+  "preguntas": [
+   "¿Qué diferencia hay entre internal y private?",
+   "¿Qué funciones puede llamar un contrato que hereda?",
+   "¿Para qué sirve heredar un contrato?"
+  ],
+  "texto": "Tenemos que saber que las funciones privadas en el smart contract tienen dos tipos de modificadores de visibilidad. Uno se llama internal y el otro es private. La diferencia de internal con private es sutil, pero es bastante importante. Primero hay que entender que internal significa que va a ser una función accesible desde el contrato, pero también desde contratos futuros que hereden de ese contrato. Muy importante, podemos heredar contratos a futuro para continuar y extender su funcionalidad. Si mañana desarrollamos un contrato que se llame Voting con auditoría, is Voting, o sea, un contrato de Voting con auditoría que hereda Voting, vamos a poder llamar las funciones que estén declaradas bajo el modificador de internal."
+ },
+ {
+  "id": "c1-ciro-hardhat-ventajas-tiene",
+  "curso": 1,
+  "clase": 6,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Qué es Hardhat y qué ventajas tiene",
+  "archivo": "curso1-ciro-que-es-hardhat-y-que-ventajas-tiene",
+  "duracion": "2:06",
+  "nivel": "c4",
+  "preguntas": [
+   "¿Qué es Hardhat?",
+   "¿Qué comandos principales tiene Hardhat?",
+   "¿Qué ventajas tiene Hardhat?"
+  ],
+  "texto": "Para completar y terminar de entender qué es Hardhat, tenemos que saber que es una herramienta que permite compilar, testear, depurar, desplegar contratos, todo desde línea de comandos. Se organizan en tareas ejecutables a lo largo de comandos como compile, test, run, node, que en definitiva son comandos que vamos a utilizar por consola, además de que agrega algunas otras utilidades, como, por ejemplo, la capacidad de extender estas funcionalidades mediante plugins. En este curso vamos a ver un paso a paso para desarrollar contratos con Hardhat, pero eso lo vamos a ver en posteriores videos. Lo que nosotros tenemos que tratar de entender en principio es que utilizar un framework como Hardhat nos da algunas ventajas al momento de comenzar a desarrollar nuestro Smart Contract. En principio sabemos que tenemos un ecosistema que puede llegar a complementarse con un montón de herramientas a través de plugins. Además, la cercanía con otro lenguaje de programación de alto nivel para el desarrollo de aplicaciones como es Javascript permite generar estructuras en este lenguaje que sirve muchísimo para el desarrollo de otras partes de lo que puede ser. Una aplicación completa, además de que también los test automatizados que se hacen en este tipo de frameworks, los que se aprovechan para poder llegar a generar algún poco de intento de calidad, también están escritos en Javascript. Los errores son mucho más legibles en este framework y también tienen la capacidad de utilizar detalles de trace en Solidity para poder avanzar. Además, tiene otras simulaciones, como por ejemplo, el uso de una red local de simulación que permite crear una manera más fácil de llevar adelante proyectos de una complejidad mayor."
+ },
+ {
+  "id": "c1-ciro-testear-antes-desplegar",
+  "curso": 1,
+  "clase": 6,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Testear antes de desplegar con Hardhat",
+  "archivo": "curso1-ciro-testear-antes-de-desplegar-con-hardhat",
+  "duracion": "1:50",
+  "nivel": "c4",
+  "preguntas": [
+   "¿Por qué conviene testear antes de desplegar?",
+   "¿Qué tipos de test se hacen?",
+   "¿Cómo se ve que los tests pasaron en Hardhat?"
+  ],
+  "texto": "Toma los test automatizados que están dentro de la carpeta test y nos da en definitiva un resumen de lo que fue ejecutando. También toma los test de Solidity y verifica que todos sean pasados. Una buena práctica y algo que vamos a ver en clases más avanzadas es que una vez que nosotros tenemos test de Solidity escrito y test automatizados de los del tipo hecho con Mocha y Chai, va a ser necesario que sigamos un flujo en el que una vez compilado un proyecto, chequeemos que todos los test hayan sido pasados. Existen diferentes tipos de test como los de inicialización en cero, los de validación de datos, los fuzzing y también test de comprobación de datos que en definitiva forman parte de una batería de pruebas que está bueno realizar mucho antes de cualquier despliegue por más de que sea un despliegue local. El flujo completo de desarrollo para cualquier tipo de devs es el comprobar que el código que nosotros hicimos pase todos los test de manera correcta antes de pasar a la instancia siguiente. Vemos que una vez terminado todo lo que es el test unitario y el test automatizado, la propia herramienta nos dice que todos los test pasaron, en este caso 3 de Solidity y 2 de Node.js y que estamos en condiciones de continuar con el flujo de trabajo. Repito, esto es una buena práctica, se supone que si un test está bien hecho les tiene que indicar si hay algo que tienen que modificar dentro de su contrato."
+ },
+ {
+  "id": "c1-ciro-foundry-forge-anvil",
+  "curso": 1,
+  "clase": 7,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Foundry: Forge, Anvil, Cast y Chisel",
+  "archivo": "curso1-ciro-foundry-forge-anvil-cast-y-chisel",
+  "duracion": "1:46",
+  "nivel": "c4",
+  "preguntas": [
+   "¿Qué es Foundry?",
+   "¿Para qué sirve cada herramienta de Foundry?",
+   "¿Qué diferencia hay con Hardhat?"
+  ],
+  "texto": "Vamos a mostrar Foundry, que es un kit de herramientas bastante portátil y rápida, pero que está desarrollado en Rust. Sirve para crear, probar y desplegar y también para auditar contratos inteligentes en todas las redes que sean compatibles con la EVM. El ecosistema de Foundry incluye cuatro herramientas que son clave para todo el funcionamiento. Son herramientas que se utilizan a través del CLI, a través del sistema de línea de comando, y son Forge, Anvil, Cast y Chisel. Vamos a ver una por una. Forge permite compilar, desplegar y ejecutar pruebas unitarias de los smart contracts. La mayor ventaja en el uso de esta herramienta es que las pruebas que van a ejecutarse, se van a escribir directamente en Solidity, por lo que todo es retrocompatible con las tecnologías que ya fueron aprendiendo. Después está Anvil, que crea un nodo local de pruebas de Ethereum para simular transacciones y manipular estados sin gastar criptomonedas reales, sean de Testnet o Mainnet. Después está Cast, que funciona como un set de herramientas para interactuar con la blockchain. Envía transacciones, realiza llamadas RPC o incluso sirve para decodificar datos. Por último está Chisel, que es una consola interactiva conocida como REPL para probar expresiones en Solidity línea por línea. Es el equivalente de la consola de Python o de Node. Pero en este caso es el lenguaje Solidity."
+ },
+ {
+  "id": "c1-ciro-fuzzing-probar-cientos",
+  "curso": 1,
+  "clase": 7,
+  "docente": "Ciro Edgardo Romero",
+  "tema": "Fuzzing: probar con cientos de valores aleatorios",
+  "archivo": "curso1-ciro-fuzzing-probar-con-cientos-de-valores",
+  "duracion": "1:17",
+  "nivel": "c4",
+  "preguntas": [
+   "¿Qué es el fuzzing?",
+   "¿Cuántas veces ejecuta Foundry un test fuzz por defecto?",
+   "¿Qué verifica el assert en un test fuzz?"
+  ],
+  "texto": "Estas pruebas son para verificar que nuestra función, en este caso el increment, realmente incremente en uno. Esto que parece demasiado obvio ante la presencia literal de una función que hace eso, empieza a tomar más complejidad cuando hacemos tests un poquito más avanzados. Y por último, el fuzzing, que es algo más avanzado que lo van a ver adelante, es de alguna manera el mayor valor que tiene Foundry en lo que respecta a pruebas automatizadas. En lugar de que ustedes escriban pruebas para ver si setNumber funciona, o si otras en definitiva están haciendo lo correcto, Foundry toma la función y la ejecuta cientos de veces, 256 por defecto, y de esta forma ejecuta, inyectando diferentes valores de variable X, en este caso, con números aleatorios para ver en definitiva qué es lo que pasa 256 veces. Lo que hace el código es poner el contador aleatorio en X, verificar a través del assert que el número guardado del contrato sea efectivamente el número X, y si el contrato sobrevive a la aserción, esta es verdadera para todos los números aleatorios, y eso les da un panorama de diferentes situaciones que se va a dar sobre el test."
+ },
+ {
+  "id": "c2-olivares-dinero-mismo-moneda",
+  "curso": 2,
+  "clase": 1,
+  "docente": "Julián Olivares",
+  "tema": "Dinero no es lo mismo que moneda ni medio de pago",
+  "archivo": "curso2-olivares-dinero-no-es-lo-mismo-que-moneda-ni-medio-de",
+  "duracion": "1:34",
+  "nivel": "",
+  "preguntas": [
+   "¿Qué diferencia hay entre dinero, moneda y medio de pago?",
+   "¿Por qué pagar con débito o una billetera virtual sigue siendo usar dinero?",
+   "¿Por qué los países suelen tener su propia moneda?"
+  ],
+  "texto": "Bien, les decía antes entonces que dinero no es sinónimo de billetes. Ojo con esto, dinero es lo que hablábamos antes, dinero como referente universal que permite ser una unidad de valor, una forma de preservar valor, una medida de intercambio, una unidad de medida, dinero entonces cumple funciones monetarias dentro de la sociedad en la que vivimos, por eso una sociedad determinada, el dinero es una expresión que no estuvo siempre como decía, y en la sociedad capitalista en la que vivimos cumple determinadas funciones. No depende necesariamente de una forma física como hablábamos, yo me manejo con débito, sigue siendo dinero, yo me manejo con una aplicación virtual, sigue siendo dinero, no es el billete, después billete es otra cosa, billete, moneda, e incluso moneda, la moneda como moneda nacional no es equivalente de dinero, los países después acuñan una moneda, usualmente tienen su propia moneda porque eso les permite desarrollar políticas económicas, algunos países abandonan la moneda y toman como referente una moneda como puede ser el dólar, pero lo normal es que cada uno tenga su moneda porque eso es lo que permite justamente jugar con políticas económicas y que eso favorezca digamos su desarrollo en términos sobre todo de intercambio. Y tampoco es sinónimo de medios de pago, medios de pago son instrumentos que justamente como dice ahí, permiten realizar pagos o transferir fondos, una tarjeta, una transferencia, una billetera digital es un medio de pago. Son tres cosas que van vinculadas pero no son para nada sinónimos y es importantísimo que ustedes no confundan dinero con medio de pago o con moneda."
+ },
+ {
+  "id": "c2-olivares-sistema-financiero-hace",
+  "curso": 2,
+  "clase": 3,
+  "docente": "Julián Olivares",
+  "tema": "Qué es el sistema financiero y qué hace el intermediario",
+  "archivo": "curso2-olivares-que-es-el-sistema-financiero-y-que-hace-el",
+  "duracion": "2:13",
+  "nivel": "",
+  "preguntas": [
+   "¿Para qué sirve el sistema financiero?",
+   "¿Qué hace un intermediario entre ahorradores y quienes piden financiamiento?",
+   "¿Por qué los intermediarios evalúan información y riesgos?"
+  ],
+  "texto": "pero básicamente es lo que este sistema financiero, la función que tiene, o el sentido de ser del sistema financiero, es ir canalizando justamente los recursos de los que hablábamos antes. Como van pasando los recursos entre diferentes sujetos de la economía, digo sujetos en un término individual y digo sujetos en términos colectivos, ¿no? Como una persona va a pedir un crédito, se lo pide un banco, ese banco presta por ejemplo con depósitos de otras personas, entre otras cosas. Como lo que hablábamos antes, ¿no? La riqueza de un país, el excedente de un país generado a partir de su economía, bueno, se puede trasladar a otro país para que se organicen inversiones, y esas inversiones permiten dejar una ganancia, es eso, un sistema financiero que lo que permite justamente que los recursos pasen de un lado a otro, de un sujeto a otro, de un constante movimiento, donde obviamente el sistema financiero supone necesariamente, esto que hablábamos antes, de ahorro, de crédito, de inversiones, de formas de financiarse, pero por lo menos entendemos que están los ahorradores, que son personas que tienen recursos disponibles y no quieren consumirlos inmediatamente, personas que requieren financiamiento, que recurren al sistema financiero porque van a solicitar y tal vez, si consiguen su objetivo, recibir ese financiamiento, y un intermediario o una serie de intermediarios, que justamente es la noción del sistema financiero en el sentido clásico, y después aparece el debate con cómo funciona Crypto y Blockchain, pero en un sentido clásico tenés una serie de intermediarios, que lo que hacen es ir conectando, conectan ahorro con financiamiento, y lo que hacen también es esto, recibir información, evaluar información, los riesgos, las oportunidades, las ganancias, permiten que funcionen ciertas operaciones, ese es el sentido de tener un intermediario."
+ },
+ {
+  "id": "c2-olivares-cripto-dinero-digital",
+  "curso": 2,
+  "clase": 3,
+  "docente": "Julián Olivares",
+  "tema": "Cripto no es dinero digital: finanzas sin intermediario",
+  "archivo": "curso2-olivares-cripto-no-es-dinero-digital-finanzas-sin",
+  "duracion": "1:44",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Es lo mismo cripto que dinero digital?",
+   "¿Qué aporta DeFi respecto de las finanzas tradicionales?",
+   "¿Quién verifica operaciones y administra el riesgo si no hay intermediario?"
+  ],
+  "texto": "o sea, ojo con confundir esto, ah, criptomonedas porque hay dinero digital, no, eso no tiene nada que ver, hay dinero digital desde hace décadas, desde antes que se plantea en el mundo cripto, no es sólo una cuestión de digitalización, no es sólo una cuestión de que hay mayor velocidad en las transacciones, no es sólo una cuestión de que hay una mayor internacionalización de las finanzas, no tiene que ver con eso, lo que va, digamos, como central o como el contenido de las criptomonedas, el mundo blockchain y todo lo que estamos aprendiendo pasa por cómo y sobre todo en este curso que tiene que ver con finanzas descentralizadas, si nosotros o un sujeto puede prestar, puede pedir crédito, puede intercambiar o realizar una inversión o financiarse sin un intermediario en el sentido tradicional como hablábamos antes, bueno, pensemos, ¿no? ¿Quién se encarga de verificar esa operación, no? Porque está bien, bueno, no hay esa persona que va haciendo, digamos, en chequeo, pero bueno, ¿quién lo hace? Porque el chequeo tiene que haber sido así, ¿no? Que sucedió una operación. ¿Quién se encarga de administrar el riesgo? Porque acuérdense que el riesgo es un concepto clave de cualquier discusión y cualquier decisión financiera. Entonces, ¿quién administra el riesgo cuando hablamos de una criptomoneda? Y en términos contractuales, ¿quién está garantizando las reglas? Si no hay una entidad central que esté, digamos, administrando esta cuestión, ¿quién se encarga de que las reglas sean universales y sean, por lo tanto, iguales para todos?"
  },
  {
   "id": "c2-deiller-amm",
@@ -32,6 +304,117 @@
   "texto": "Entonces, para tratar de solucionar esto, y encima de que si no existe un order book, o sea, si no existe un libro de órdenes, no hay formación de precio, entonces no sé cuánto vale el activo, y te genera el problema también de, entonces, cómo hago que descubriera el precio? O sea, cómo igualo la oferta con la demanda para saber cuánto vale este token, por ejemplo, y ahí es donde nacen los AMM, que son los market makers automatizados, que de alguna forma conectan a los que quieren hacer de market makers con los que quieren comprar o vender a través de lo que se llama un pool de liquidez. De esta forma, no tiene que existir un order book en el que haya o exista una formación de precios, y solucione el tema de la escala o de los costos que tendrían que asumir si yo quiero ser un market maker en blockchain. Sino que el que viene quiere comprar o vender y paga el fee de la transacción, y ya está, hace su transacción, y a través de ese, en el mismo pool, se va, llamémosle descubriendo el precio. Vamos a ver las dos posturas, tanto de los que se encuentren del lado del market maker, de los que ponen la liquidez, y la postura de el que simplemente va y compra o vende en ese, a través de ese DEX, de ese exchange descentralizado."
  },
  {
+  "id": "c2-deiller-slippage-costo-oculto",
+  "curso": 2,
+  "clase": 4,
+  "docente": "Deiller Guevara",
+  "tema": "Slippage: el costo oculto de comprar en un AMM",
+  "archivo": "curso2-deiller-slippage-el-costo-oculto-de-comprar-en-un-amm",
+  "duracion": "1:44",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Qué es el slippage y por qué aparece al comprar en un exchange descentralizado?",
+   "¿Cómo me protejo de pagar más de lo esperado?"
+  ],
+  "texto": "Cuando estás enfrentándote desde el lado del que compra, o sea, no el que pone la liquidez en el fondo, sino el que está yendo a hacer el intercambio, hay un costo implícito, que le llaman el slippage, que es por esa forma, por esa fórmula como está construido, si quieres comprar mucho, vas a terminar disparando el precio, porque como te lo vas midiendo, oferta y demanda, o sea, es finito la cantidad de monedas que existen en ese pool, tiende a que si quieres comprar casi que todo el fondo, vas a volar el precio, pero igual, por lo general son fondos grandes, hay muchos, y entre los distintos DEX que hay, se van arbitrando entre ellos, y es una dinámica que no es que alguien va a venir y va a comprar todo un fondo, y va a hacer que vuele un 100% y no va a pasar nada, sino que por lo general tiende a arbitrarse, pero sí, hay un slippage, incluso cuando vas a concretar la operación, te muestra el porcentaje, incluso le puedes poner un límite, si aceptas un máximo de un 0,5 de deslizamiento, o sea, de la suba en el precio con respecto a lo que estás viendo ahora, lo puedes configurar para no pagar de más, o para no hacer que sin querer termines comprando más caro."
+ },
+ {
+  "id": "c2-olivares-defi-hacen-smart",
+  "curso": 2,
+  "clase": 5,
+  "docente": "Julián Olivares",
+  "tema": "Qué es DeFi y qué hacen los smart contracts",
+  "archivo": "curso2-olivares-que-es-defi-y-que-hacen-los-smart-contracts",
+  "duracion": "1:43",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Qué son las finanzas descentralizadas (DeFi)?",
+   "¿Qué es un smart contract y por qué puede fallar?",
+   "¿DeFi es lo mismo que criptomonedas?"
+  ],
+  "texto": "y esto es fundamental. ¿Qué quiere decir DeFi? Conjunto de aplicaciones y protocolos financieros construidos en redes blockchain. Acá está lo de las finanzas descentralizadas. Busca ofrecer funciones financieras mediante el software programable. Esto solamente es realizable en años recientes, pues si no vamos hace 60 años, por más que existiera un concepto de descentralizar las finanzas, es imposible practicarlo al nivel que se practica actualmente con un blockchain porque no tenés esa codificación, ni la tecnología para hacerlo. Incluye intercambios, préstamos, créditos, provisión de liquidez, o sea, todo lo que tiene que ver con el mundo financiero. No se trata solamente de ahorro, sino que va a un montón de cuestiones que son propias del sistema financiero, en este caso descentralizado. Y no significa solamente criptomoneda, no es que es un sinónimo directamente de finanzas descentralizadas con criptomonedas. No confundir las cosas. Yo esto ya lo doy por obvio un poco, pero se lo estoy pasando rápido. Smart contracts. Concentración, código, acción. Un smart contract puede ejecutar automáticamente determinadas reglas cuando se cumplen las condiciones previas. Aparece esta idea de que ya hay un consenso previo preestablecido y se ejecuta automáticamente. Por eso la importancia del código y que todo está automatizado. El código también puede contener errores. Acá igual como todo, puede fallar. Si la codificación está mal hecha, eso va a traer un problema. Puede traer distintos tipos de problemas, pero no es infalible el sistema. Por eso, como muchas veces, puede ocurrir errores. No porque esté descentralizado, no porque esté automatizado, es infalible. ¿Qué es lo que se permite a través de las finanzas descentralizadas?"
+ },
+ {
+  "id": "c2-olivares-existen-bancos-intermediacion",
+  "curso": 2,
+  "clase": 5,
+  "docente": "Julián Olivares",
+  "tema": "Por qué existen los bancos: intermediación",
+  "archivo": "curso2-olivares-por-que-existen-los-bancos-intermediacion",
+  "duracion": "1:54",
+  "nivel": "",
+  "preguntas": [
+   "¿Cuándo aparecieron los primeros bancos?",
+   "¿Qué función cumple un banco como intermediario?",
+   "¿Por qué conviene centralizar préstamos en una institución?"
+  ],
+  "texto": "Los bancos, hay registros de que han existido bancos en el 2000 antes de Cristo, en la región de Mesopotamia, por ejemplo, se sabe que habían entidades bancarias donde, por ejemplo, había comerciantes que prestaban semillas a productores agrícolas. Bueno, eso después, obviamente, como todo préstamo, no era por buena voluntad, sino que había un canon extra que debían pagar después esos productores. Entonces, estamos hablando de algo extremadamente antiguo. En Grecia antigua, en la etapa clásica, digamos, de Grecia o Roma, no solamente que estaban ese tipo de bancos, sino que además hay registros de que había depósito monetario, había cambio de moneda. Es decir, cuando hablamos de bancos, no estamos hablando de algo realmente nuevo, más allá de que los bancos en la sociedad capitalista, obviamente tienen una especificidad porque estamos hablando de otro tipo de relaciones sociales que no son las del mundo antiguo. Pero lo que voy con esto es que el banco no es una cosa nueva, es una cosa que es muy antigua y que tiene que ver justamente con que son instituciones que en principio se cumplen distintas funciones, pero que siempre funcionan como intermediarios. Conectan a quienes tienen recursos con quienes necesitan ese recurso, organizan relaciones sociales. Justamente organizando relaciones que serían más costosas individualmente. Acá tiene que ver justamente con la función del banco y esto incluso lo puedo explicar también a otros momentos como el comercio. La función del banco la podrían hacer un montón de sujetos fragmentados, por su cuenta prestarían y cobrarían. Pero justamente si esos préstamos se fragmentan en cada persona que quiera hacer un préstamo, eso hace que sea mucho más costoso, eso hace que sea mucho más lento, eso hace que sea por ahí también menos seguro. Entonces aparecen instituciones que se dedican justamente a hacer esa tarea de intermediación."
+ },
+ {
+  "id": "c2-olivares-burbujas-financieras-ferrocarril",
+  "curso": 2,
+  "clase": 7,
+  "docente": "Julián Olivares",
+  "tema": "Burbujas financieras: del ferrocarril a las cripto",
+  "archivo": "curso2-olivares-burbujas-financieras-del-ferrocarril-a-las",
+  "duracion": "2:12",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Qué es una burbuja financiera y cómo se infla?",
+   "¿Por qué las burbujas no son algo nuevo de las criptomonedas?",
+   "¿Qué pasó con las acciones de los ferrocarriles en el siglo XIX?"
+  ],
+  "texto": "una burbuja puede aparecer cuando el precio de un activo se aleja demasiado de determinadas referencias objetivas de valor. Por ejemplo, lo pongo con un ejemplo de criptomoneda, pero después le voy a dar un ejemplo histórico para que vean que acá no hay nada nuevo bajo el sol. Aparece una criptomoneda que genera muchas expectativas. ¿Qué es lo que pasa? Muchos van comprando. Compran, aumento rápido de precios. Eso va generando expectativas. Aparecen más compradores. Se retroalimenta porque expectativa, precio, expectativa, precio, comprador, comprador, comprador. Bueno, llega un punto de esa burbuja cuando el precio se aleja tanto del valor que cada vez es más grande el riesgo de que la burbuja explote y se entra en el ciclo de la reversión donde se empiezan a vender esos activos, se empiezan a vender masivamente y cuando se empiezan a vender masivamente se empieza a desvalorizar el activo y muchos que tienen ese activo pierden dinero. Pierden poco dinero o gran suma de dinero. ¿Y por qué digo que esto no es nada nuevo? Porque esto es así, por lo menos estas burbujas en el sistema capitalista existen desde que existe el capitalismo. La década de 1840 a 1850, cuando se empiezan a expandir los ferrocarriles, es el boom de los ferrocarriles y justamente una tecnología nueva con toda la expectativa que generaba para la expansión de la producción, para la expansión del comercio, entonces ¿qué pasa? Empiezan a entrar un montón de inversores en los ferrocarriles, se compran tierra, se compran maquinaria, crecen las acciones, se empiezan a vender acciones, sube el precio de las acciones de las empresas de ferrocarriles y en un punto eso llega a un nivel que no es sostenible, que las acciones están altísimas pero que ya es un precio ficticio que se aleja del valor real de lo que está en juego y entonces viene la caída. Se empiezan a vender acciones masivamente de los ferrocarriles y hay una enorme pérdida de dinero de los sectores que habían comprado en acciones de ferrocarriles y que eso explotó. Estamos hablando de hace casi 200 años. Por eso digo, no hay nada nuevo."
+ },
+ {
+  "id": "c2-olivares-mango-markets-manipular",
+  "curso": 2,
+  "clase": 7,
+  "docente": "Julián Olivares",
+  "tema": "Mango Markets: manipular el oráculo de precios",
+  "archivo": "curso2-olivares-mango-markets-manipular-el-oraculo-de-precios",
+  "duracion": "1:32",
+  "nivel": "hack",
+  "preguntas": [
+   "¿Cómo se puede atacar un protocolo DeFi manipulando su oráculo?",
+   "¿Qué pasó en Mango Markets en octubre de 2022?",
+   "¿Por qué un oráculo es un punto de riesgo?"
+  ],
+  "texto": "Mango Markets necesitaba una información externa sobre el precio de los activos para calcular el valor de las posiciones de sus usuarios, ¿no? Según los precios de los activos, se calculaba la posición de las personas que estaban metidas en la red. En octubre de 2022, Avraham Eisenberg realizó operaciones importantes con el token MNGO en distintos mercados, elevando artificialmente su precio. Justamente, el precio de ese token era el que utilizaba el oráculo de Mango Markets. Entonces, ¿qué es lo que pasó? Que este tipo de Avraham, ¿sí? El valor de determinadas posiciones aumentó artificialmente y Eisenberg pudo utilizar esas posiciones para pedir prestado y retirar alrededor de 116 millones de dólares en criptoactivos. O sea, no es que necesariamente hizo algo ilegal, pero bueno, de alguna manera él, al manipular la referencia que toma el oráculo de este Mango Markets, como el tipo sabía que la referencia de Mango Markets se basaba en tal token, él jugó con el precio de ese token afuera, para que después adentro pudiera sacar un montón de dinero. ¿Es ilegal? Y qué sé yo, habría que ver la letra chica, pero evidentemente tipo utilizó, digamos, cuestiones externas sabiendo que podía manipular un... Esto también es un exploit, o sea, manipuló cómo Mango Markets funciona con su oráculo a partir de cuestiones externas."
+ },
+ {
+  "id": "c2-deiller-cbdc-frente-stablecoins",
+  "curso": 2,
+  "clase": 8,
+  "docente": "Deiller Guevara",
+  "tema": "CBDC frente a stablecoins",
+  "archivo": "curso2-deiller-cbdc-frente-a-stablecoins",
+  "duracion": "1:46",
+  "nivel": "c2",
+  "preguntas": [
+   "¿Qué diferencia hay entre una CBDC y una stablecoin?",
+   "¿Quién respalda a una CBDC y a una stablecoin?",
+   "¿Por qué un banco central quiere llegar directo al consumidor?"
+  ],
+  "texto": "después tenemos las CBDC, que son, podríamos decirlo que son como criptomonedas que, como podríamos decir el USDT, o las que estuvimos viendo, son las stablecoins pero acá la diferencia es que las va a emitir un banco central es decir, es como el dinero fiat pero en la blockchain es, puede decirse, de esta manera mucho más sencilla el responsable de esa moneda, de ese token, es el banco central la emite el banco central, la respalda el estado y bueno, tiene la seguridad del emisor de que el banco central siempre se va a hacer cargo, de alguna manera cuestión que no pasa con alguna cripto en particular, o con una stablecoin en particular que es un poco más fuera del sistema las stablecoins si están cerca del sistema, pues bueno, tienen los colaterales en dólares y terminan estando muy atadas al sistema tradicional pero no tiene ninguna vinculación con el estado en sí, o el estado no respalda eso con la CBDC sí y otra particularidad con la CBDC es que los bancos centrales o el estado lo que intenta es llegar directo al consumidor, o sea, directo a nosotros los que usamos la moneda en sí"
+ },
+ {
+  "id": "c2-deiller-payback-simple-descontado",
+  "curso": 2,
+  "clase": 8,
+  "docente": "Deiller Guevara",
+  "tema": "Payback simple y descontado",
+  "archivo": "curso2-deiller-payback-simple-y-descontado",
+  "duracion": "1:48",
+  "nivel": "",
+  "preguntas": [
+   "¿Cómo se calcula el payback simple?",
+   "¿Cómo se redondea el resultado del payback?",
+   "¿Qué cambia en el payback descontado?"
+  ],
+  "texto": "El payback, tiene que calcular las dos formas, tanto el simple como el descontado. El simple es mucho más fácil, es simplemente ir sumándole el flujo que proyectamos de cada año a la inversión inicial, hasta que quede positivo y allí en ese año que quede positivo, ya te da el resultado de cuántos años demoras en tener de vuelta el capital inicial. Esto siempre se redondea hacia arriba, y por lo general el resultado que te dé, por ejemplo acá queda 2,92 años, no se deja en 2,92, sino que se deja como dos años y tantos meses. Ese mes siempre se redondea por arriba, por ejemplo que te hubiera dado algo como que 10 meses y medio se redondea a 11, siempre para arriba, nunca para abajo. Y después el descontado, tiene la misma lógica, lo único es que lo que vamos a estar sumándole a cada... O sea, el flujo que vamos a estar sumando va a ser el descontado. Cuando digo el descontado, es el que utilizamos para el VAN, o sea, es el que estaba. El flujo dividido, uno más la tasa elevado al periodo."
+ },
+ {
   "id": "c3-david-iac",
   "curso": 3,
   "clase": 2,
@@ -46,5 +429,37 @@
    "¿Qué problema tiene crear todo a clics en la consola?"
   ],
   "texto": "Entonces, fíjense que habla de gestión y aprovisionamiento de infraestructura TI y fíjense que no habla solo de la máquina virtual ¿Qué habla también? Redes. ¿Por qué? Porque parte de lo que mencionamos hoy en el dibujo que veníamos haciendo, tiene que ver con todos estos conceptos balanceador de carga, rate limiting, CDNs, firewall, todo esto son recursos de red Entonces, vuelvo para acá, mediante archivos de código aplicando principios de desarrollo de software, control de versiones y automatización o sea, en términos criollos, voy a poder crear recursos de infraestructura de forma automatizada, siguiendo las buenas prácticas o los procesos que seguimos en una aplicación o cuando construimos una aplicación Imagínense, cuando ustedes construyen una aplicación, hay un conjunto de pasos digo, voy agregando funcionalidades, voy haciendo cambios, si se rompe algo tengo que poder volver para atrás todo lo mismo que vamos haciendo en el código, lo deberíamos poder hacer en la aplicación y lo deberíamos poder hacer en la infraestructura Entonces, empiezan a marcar ciertas características como manejo de control de versiones por eso vieron que cuando yo les mencioné los requisitos del curso les pedí que tengan Git, porque vamos a utilizar Git para poder versionar el código que ustedes hagan es decir, hoy vamos a crear las máquinas, mañana las agregamos a red bueno, si se rompe algo, tengo que poder volver para atrás todo ese proceso que hacemos, lo tienen que poder representar acá también"
+ },
+ {
+  "id": "c3-david-contenedor-mini-maquina",
+  "curso": 3,
+  "clase": 3,
+  "docente": "David Petrocelli",
+  "tema": "Qué es un contenedor: una mini máquina aislada",
+  "archivo": "curso3-david-que-es-un-contenedor-una-mini-maquina-aislada",
+  "duracion": "1:03",
+  "nivel": "c3",
+  "preguntas": [
+   "¿En qué se diferencia un contenedor de una máquina virtual?",
+   "¿Por qué un contenedor es más liviano que virtualizar toda la máquina?",
+   "¿Un contenedor ve a los otros contenedores de la misma máquina?"
+  ],
+  "texto": "Empecemos a verlo como una mini máquina, una mini máquina aislada que va a correr adentro de una máquina grande, pero para esa cajita no existen, no existen los otros, yo soy solito, esto es como, a ver, fíjense que acá va a empezar a hablar de virtualización de hardware con un hypervisor, bueno, vamos a ir viéndolo, los conceptos, yo les voy a dejar las slides, lo van a ir viendo, pero básicamente lo que quiero que entiendan es que deja algunas cosas por fuera para que sea pequeño y tengo aislamiento para que los demás no vean, va a tener un montón de ventajas porque al no virtualizar toda la máquina, es decir, yo tengo un Windows, quiero instalar un Linux, tengo que instalar el Linux, ponerle todas las cosas, no, no, esto es, defino lo que necesita la aplicación y de alguna manera utilizo las librerías del sistema operativo, no es que creo una mini máquina virtual adentro de esa máquina completa, no, es un pedacito."
+ },
+ {
+  "id": "c3-david-nodos-estado-kubernetes",
+  "curso": 3,
+  "clase": 5,
+  "docente": "David Petrocelli",
+  "tema": "Nodos con estado en Kubernetes: StatefulSet y etcd",
+  "archivo": "curso3-david-nodos-con-estado-en-kubernetes-statefulset-y",
+  "duracion": "1:24",
+  "nivel": "c3",
+  "preguntas": [
+   "¿Por qué las bases de datos y colas no van con un Deployment normal?",
+   "¿Qué es un StatefulSet y cuándo se usa?",
+   "¿Qué es etcd y por qué el control plane tiene al menos tres nodos?"
+  ],
+  "texto": "es que las bases de datos tenés dos opciones, o las dejás fuera de lo que es Kubernetes, con un servicio normal de clustering, o con un servicio administrado que te dé la nube, o lo pones adentro del cluster como StatefulSet, que ya vamos a ver un poquito cómo se levanta, digo, no solo las bases de datos, los sistemas de colas, los sistemas de caché, no van con Deployment normalito, sino que van con StatefulSet, o capas más arriba de eso que no las vamos a ver, como Operators y demás que hacen como una capa de administración más alta, bien? Cierro con bases de datos, Kubernetes tiene una base de datos, la etcd que es donde se guarda, es una base de datos clave-valor, que es donde se guarda cada recurso y cuánto vale ese recurso, y en un sistema productivo, la etcd, o sea, el control plane, que elegimos la cabeza, normalmente está formado por más de un nodo virtual, no importa, no tiene porque ser físico, es más de un nodo, al menos tres, porque siempre tienen que estar atendiendo la cabeza, y detrás, la etcd también tiene un cluster, está separado de esa cabeza, es una cabecita, y ahí se guarda, digamos, porque no se puede perder los recursos, ni en qué estado están los recursos, cualquier recurso correspondiente a un Kubernetes."
  }
 ]

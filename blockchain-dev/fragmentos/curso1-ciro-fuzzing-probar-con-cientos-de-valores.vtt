@@ -1,0 +1,77 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.960
+Estas pruebas son para verificar que nuestra función, en este caso el increment,
+
+2
+00:00:05.460 --> 00:00:06.900
+realmente incremente en uno.
+
+3
+00:00:07.320 --> 00:00:12.960
+Esto que parece demasiado obvio ante la presencia literal de una función que hace
+
+4
+00:00:12.960 --> 00:00:13.460
+eso,
+
+5
+00:00:13.740 --> 00:00:17.660
+empieza a tomar más complejidad cuando hacemos tests un poquito más avanzados.
+
+6
+00:00:18.280 --> 00:00:23.240
+Y por último, el fuzzing, que es algo más avanzado que lo van a ver adelante,
+
+7
+00:00:23.240 --> 00:00:30.040
+es de alguna manera el mayor valor que tiene Foundry en lo que respecta a pruebas
+
+8
+00:00:30.040 --> 00:00:31.040
+automatizadas.
+
+9
+00:00:31.420 --> 00:00:35.620
+En lugar de que ustedes escriban pruebas para ver si setNumber funciona,
+
+10
+00:00:36.920 --> 00:00:39.140
+o si otras en definitiva están haciendo lo correcto,
+
+11
+00:00:39.340 --> 00:00:44.340
+Foundry toma la función y la ejecuta cientos de veces, 256 por defecto,
+
+12
+00:00:44.520 --> 00:00:49.640
+y de esta forma ejecuta, inyectando diferentes valores de variable X, en este caso,
+
+13
+00:00:49.640 --> 00:00:54.700
+con números aleatorios para ver en definitiva qué es lo que pasa 256 veces.
+
+14
+00:00:55.220 --> 00:00:59.720
+Lo que hace el código es poner el contador aleatorio en X,
+
+15
+00:00:59.860 --> 00:01:04.220
+verificar a través del assert que el número guardado del contrato sea efectivamente
+
+16
+00:01:04.220 --> 00:01:05.260
+el número X,
+
+17
+00:01:05.700 --> 00:01:09.860
+y si el contrato sobrevive a la aserción, esta es verdadera para todos los números
+
+18
+00:01:09.860 --> 00:01:10.520
+aleatorios,
+
+19
+00:01:10.820 --> 00:01:16.600
+y eso les da un panorama de diferentes situaciones que se va a dar sobre el test.

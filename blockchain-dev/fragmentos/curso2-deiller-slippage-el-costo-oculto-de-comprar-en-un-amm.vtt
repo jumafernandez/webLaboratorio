@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.580
+Cuando estás enfrentándote desde el lado del que compra, o sea, no el que pone la
+
+2
+00:00:05.580 --> 00:00:15.000
+liquidez en el fondo, sino el que está yendo a hacer el intercambio, hay un costo
+
+3
+00:00:15.000 --> 00:00:23.260
+implícito, que le llaman el slippage, que es por esa forma, por esa fórmula como
+
+4
+00:00:23.260 --> 00:00:24.600
+está construido,
+
+5
+00:00:25.200 --> 00:00:31.660
+si quieres comprar mucho, vas a terminar disparando el precio, porque como te lo
+
+6
+00:00:31.660 --> 00:00:36.720
+vas midiendo, oferta y demanda, o sea, es finito la cantidad de monedas que
+
+7
+00:00:36.720 --> 00:00:45.980
+existen en ese pool, tiende a que si quieres comprar casi que todo el fondo, vas a
+
+8
+00:00:45.980 --> 00:00:47.080
+volar el precio,
+
+9
+00:00:48.700 --> 00:00:55.080
+pero igual, por lo general son fondos grandes, hay muchos, y entre los distintos
+
+10
+00:00:55.080 --> 00:01:01.940
+DEX que hay, se van arbitrando entre ellos, y es una dinámica que no es que
+
+11
+00:01:01.940 --> 00:01:07.640
+alguien va a venir y va a comprar todo un fondo, y va a hacer que vuele un 100% y
+
+12
+00:01:07.640 --> 00:01:11.680
+no va a pasar nada, sino que por lo general tiende a arbitrarse,
+
+13
+00:01:11.680 --> 00:01:20.740
+pero sí, hay un slippage, incluso cuando vas a concretar la operación, te muestra
+
+14
+00:01:20.740 --> 00:01:29.240
+el porcentaje, incluso le puedes poner un límite, si aceptas un máximo de un 0,5 de
+
+15
+00:01:29.240 --> 00:01:33.680
+deslizamiento, o sea, de la suba en el precio con respecto a lo que estás viendo
+
+16
+00:01:33.680 --> 00:01:34.260
+ahora,
+
+17
+00:01:34.860 --> 00:01:43.080
+lo puedes configurar para no pagar de más, o para no hacer que sin querer termines
+
+18
+00:01:43.080 --> 00:01:43.990
+comprando más caro.
