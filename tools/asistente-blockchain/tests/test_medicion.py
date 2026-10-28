@@ -124,10 +124,10 @@ def test_valores_admitidos(entorno):
                           ("nivel_paso", {"nivel": "c4", "paso": "revert"}), ("ver_por_dentro", {"tab": "agente"}),
                           ("lista_espera_click", {"origen": "certificado"}), ("wallet_creada", {"real": True}),
                           ("compartir", {"red": "linkedin", "id": "cert"}), ("perfil", {"perfil": "finanzas"}),
-                          ("lista_espera_enviada", {"origen": "sitio"})]:
+                          ("lista_espera_enviada", {"origen": "programa"}), ("fragmento", {"curso": "c2"})]:
         assert c.post("/blockchain-dev/api/m", json={"sesion": SESION, "evento": evento,
                                                      "datos": datos}).status_code == 204, (evento, datos)
-    assert len(filas(m)) == 11
+    assert len(filas(m)) == 12
 
 
 def test_pasos_del_widget_admitidos():
