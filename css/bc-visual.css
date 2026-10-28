@@ -1156,3 +1156,36 @@ html body.blockchain-theme #mainNav .navbar-brand img { aspect-ratio: 1125 / 126
 @media (max-width: 575.98px) {
     html body.blockchain-theme:has(.docente-card) nav .breadcrumb { min-height: 3rem; align-content: flex-start; }
 }
+
+/* ---------- Entry points to the game (menu item + hero button), like dev-ia's "Asistente" ---------- */
+.bc-boton-juego {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .78rem 1.35rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--bc-lila), #8b5cf6 55%, #4c1c7f);
+    color: #fff !important;
+    font: 700 .92rem Montserrat, sans-serif;
+    text-decoration: none !important;
+    box-shadow: 0 0 28px rgba(157, 107, 255, .55);
+}
+html body.blockchain-theme header#masthead a.bc-boton-juego:not(#_) { color: #fff !important; text-decoration: none !important; }
+.bc-boton-juego:hover { box-shadow: 0 0 42px rgba(157, 107, 255, .8); }
+.bc-boton-juego:focus-visible { outline: 2px solid var(--bc-ambar); outline-offset: 2px; }
+html body.blockchain-theme #mainNav .bc-nav-juego .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin-left: .4rem;
+    padding: .38rem .9rem !important;
+    border: 1px solid rgba(196, 165, 255, .6);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(196, 165, 255, .16), rgba(139, 92, 246, .22));
+    color: var(--bc-lila) !important;
+    font-weight: 700;
+}
+html body.blockchain-theme #mainNav .bc-nav-juego .nav-link:hover { box-shadow: 0 0 18px rgba(157, 107, 255, .55); }
+@media (max-width: 991.98px) {
+    html body.blockchain-theme #mainNav .bc-nav-juego .nav-link { margin: .4rem 0 0; }
+}
