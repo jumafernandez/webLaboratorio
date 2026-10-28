@@ -2,9 +2,9 @@
  * the animated background, the chain code; see app.js) is loaded the first time the visitor opens the game, so the
  * normal site is what loads first. The page tags stay the same: one stylesheet and this module.
  *
- * The game opens when the visitor asks for it: the launcher, a [data-bcw-nivel] button on the page, ?bcw=open or
- * ?bcw=<level> in a link, or a saved "juego" preference (kept in localStorage when the visitor chose the game).
- * ?vista=sitio always starts on the site.
+ * Like dev-ia, the game opens full screen on arrival; app.js is fetched right away in that case. The site comes first
+ * with ?vista=sitio, an anchor in the URL or a saved "sitio" preference (kept when the visitor chose the normal site).
+ * The launcher, a [data-bcw-nivel] button on the page, ?bcw=open and ?bcw=<level> always open the game.
  */
 
 import { configurarMedicion, track, vaciarAlSalir } from "./medicion.js";
@@ -64,8 +64,8 @@ document.addEventListener("click", (e) => {
 
 // ---------- how this visit starts ----------
 const linked = new URLSearchParams(location.search).get("bcw");
-const forcedSite = /[?&]vista=sitio/.test(location.search);
-const startsInGame = LEVELS.includes(linked) || linked === "open" || (!forcedSite && readPref() === "juego");
+const asksSite = /[?&]vista=sitio/.test(location.search) || location.hash.length > 1 || readPref() === "sitio";
+const startsInGame = LEVELS.includes(linked) || linked === "open" || !asksSite;
 
 // One "visita" per session, wherever it starts: it is the funnel's denominator (queued until /estado answers).
 (() => {
