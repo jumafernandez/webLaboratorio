@@ -1,5 +1,5 @@
 /* Próxima charla informativa de la Diplomatura en Blockchain (portada).
-   Lee blockchain-dev/charla-proxima.json: sin fecha muestra "fecha a confirmar" y lleva a la lista de espera; con fecha
+   Lee blockchain-dev/charla-proxima.json: sin fecha muestra "fecha a confirmar", con solo el mes (AAAA-MM) muestra el mes y lleva a la lista de espera; con fecha
    muestra día y hora, el enlace de inscripción si lo hay y un botón para agregarla al calendario (.ics). */
 (function () {
     'use strict';
@@ -32,10 +32,19 @@
     function pintar(d) {
         caja.textContent = '';
         caja.appendChild(el('span', 'bc-charla-k', 'Próxima charla informativa'));
-        var hay = d && /^\d{4}-\d{2}-\d{2}$/.test(d.fecha || '');
+        var hay = d && /^\d{4}-\d{2}(-\d{2})?$/.test(d.fecha || '');
         if (!hay) {
             caja.appendChild(el('strong', 'bc-charla-f', 'Fecha a confirmar'));
             caja.appendChild(el('span', 'bc-charla-t', 'Si estás en la lista de espera, te avisamos apenas esté.'));
+            caja.appendChild(boton(ESPERA, 'Anotarme en la lista de espera'));
+            caja.hidden = false;
+            return;
+        }
+        if (/^\d{4}-\d{2}$/.test(d.fecha)) {
+            // Only the month is known: show it, without day, time or calendar file
+            var mes = new Date(d.fecha + '-15T12:00:00-03:00').toLocaleDateString('es-AR', { month: 'long', year: 'numeric', timeZone: 'America/Argentina/Buenos_Aires' });
+            caja.appendChild(el('strong', 'bc-charla-f', mes.charAt(0).toUpperCase() + mes.slice(1)));
+            caja.appendChild(el('span', 'bc-charla-t', 'Día y hora a confirmar. Si estás en la lista de espera, te avisamos.'));
             caja.appendChild(boton(ESPERA, 'Anotarme en la lista de espera'));
             caja.hidden = false;
             return;
