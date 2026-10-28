@@ -52,6 +52,15 @@ launcher.addEventListener("pointerenter", calentar, { once: true });
 launcher.addEventListener("focus", calentar, { once: true });
 launcher.addEventListener("click", () => conJuego((app) => app.abrir(true)));
 
+// Menu item and hero button of the normal site ([data-bcw-abrir], like dev-ia's "Asistente"): open the game here
+// instead of following their ?bcw=open fallback link.
+document.addEventListener("click", (e) => {
+  const b = e.target.closest?.("[data-bcw-abrir]");
+  if (!b || b.closest(".bcw-panel")) return;
+  e.preventDefault();
+  conJuego((app) => app.abrir(true));
+});
+
 // A button of the normal site that plays a level right there (data-bcw-nivel="c1"…, "red" for the live-network card).
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.("[data-bcw-nivel]");
