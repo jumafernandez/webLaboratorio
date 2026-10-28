@@ -79,7 +79,7 @@ panel.innerHTML = `
     <span class="bcw-logo">⛓️</span>
     <div class="bcw-id"><div class="bcw-title">Diplomatura en Blockchain</div><div class="bcw-sub">Juego · LICDIA · UNLu <span class="bcw-ai" hidden>· con Claude</span></div></div>
     <div class="bcw-progress-slot"></div>
-    <button class="bcw-badge" type="button" aria-expanded="false" aria-controls="bcw-redpop" aria-label="DEMO · cadena simulada. Qué red usa el juego" title="¿Qué red usa el juego?"><span class="bcw-btxt">DEMO · cadena simulada</span><span class="bcw-bq" aria-hidden="true">?</span></button>
+    <button class="bcw-badge bcw-llama" type="button" aria-expanded="false" aria-controls="bcw-redpop" aria-label="DEMO · cadena simulada. Qué red usa el juego" title="¿Qué red usa el juego?"><span class="bcw-btxt">DEMO · cadena simulada</span><span class="bcw-bq" aria-hidden="true">?</span></button>
     <button class="bcw-iconbtn bcw-home" type="button" aria-label="Mapa del juego" title="Mapa del juego">🗺️</button>
     <button class="bcw-dentro-btn bcw-llama" type="button" aria-expanded="false" aria-controls="bcw-dentro"><span class="bcw-eye"></span><span class="bcw-dtxt">Ver por dentro</span></button>
     <div class="bcw-selector" role="group" aria-label="Vista de la página">
@@ -209,6 +209,8 @@ function toggleRed(on) {
   badgeBtn.setAttribute("aria-expanded", String(open));
   vigilarBloque(redPop, open);
   if (!open) return;
+  badgeBtn.classList.remove("bcw-llama");
+  marcarVisto(RED_VISTA);
   renderRed(redPop, {
     onVerTxs: () => {
       toggleRed(false);
@@ -332,13 +334,26 @@ function renderDentro() {
   if (dentroTab === "cadena") renderCadena(body);
   else renderAgente(body, S.lastTurn, S.stats?.modelo);
 }
-// The button calls for attention (glow) until it is opened, and again when there is something new inside.
+// "Ver por dentro" and the network badge blink until opened, once per visit (sessionStorage), and "Ver por dentro"
+// again when there is something new inside.
 const DENTRO_VISTO = "bcw-dentro-visto";
-try {
-  if (localStorage.getItem(DENTRO_VISTO)) dentroBtn.classList.remove("bcw-llama");
-} catch {
-  /* no storage: keep calling */
-}
+const RED_VISTA = "bcw-red-vista";
+const visto = (k) => {
+  try {
+    return sessionStorage.getItem(k) === "1";
+  } catch {
+    return false; /* no storage: keep calling */
+  }
+};
+const marcarVisto = (k) => {
+  try {
+    sessionStorage.setItem(k, "1");
+  } catch {
+    /* no storage */
+  }
+};
+if (visto(DENTRO_VISTO)) dentroBtn.classList.remove("bcw-llama");
+if (visto(RED_VISTA)) badgeBtn.classList.remove("bcw-llama");
 function llamarDentro() {
   if (!panel.classList.contains("bcw-dentro-open")) dentroBtn.classList.add("bcw-llama");
 }
@@ -346,11 +361,7 @@ function toggleDentro(on) {
   const open = on ?? !panel.classList.contains("bcw-dentro-open");
   if (open) {
     dentroBtn.classList.remove("bcw-llama");
-    try {
-      localStorage.setItem(DENTRO_VISTO, "1");
-    } catch {
-      /* no storage */
-    }
+    marcarVisto(DENTRO_VISTO);
     toggleRed(false);
   }
   panel.classList.toggle("bcw-dentro-open", open);

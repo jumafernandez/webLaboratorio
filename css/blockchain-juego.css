@@ -515,15 +515,31 @@ html.bcw-locked, html.bcw-locked body { overflow: hidden !important; }
   transform: skewX(-20deg); animation: bcw-barrido 3.2s ease-in-out infinite;
 }
 .bcw-dentro-btn.bcw-llama .bcw-eye { width: 9px; height: 9px; box-shadow: 0 0 8px #ffd782; }
+.bcw-dentro-btn.bcw-llama { animation-duration: 1.1s; }
 @keyframes bcw-llama {
-  0%, 100% { box-shadow: 0 0 0 1px rgba(255, 215, 130, .5), 0 0 10px rgba(255, 215, 130, .3); transform: scale(1); }
-  50% { box-shadow: 0 0 0 4px rgba(255, 215, 130, .18), 0 0 28px rgba(255, 215, 130, .7); transform: scale(1.04); }
+  0%, 100% { box-shadow: 0 0 0 1px rgba(255, 215, 130, .6), 0 0 8px rgba(255, 215, 130, .3); transform: scale(1); filter: brightness(1); }
+  50% { box-shadow: 0 0 0 5px rgba(255, 215, 130, .35), 0 0 34px rgba(255, 215, 130, .95); transform: scale(1.08); filter: brightness(1.35); }
 }
 @keyframes bcw-barrido { 0%, 55% { left: -60%; } 100% { left: 130%; } }
 
 /* "Base Sepolia · en vivo" is a button: it opens the card about the network */
 button.bcw-badge { border: 0; font-family: inherit; cursor: pointer; transition: filter .2s, transform .2s; }
 button.bcw-badge:hover { filter: brightness(1.25); transform: translateY(-1px); }
+/* Same call as "Ver por dentro", in the badge's green and half a beat later, so the two blink in turn until opened */
+button.bcw-badge.bcw-llama { animation: bcw-llama-red 1.1s ease-in-out .55s infinite; }
+button.bcw-badge.bcw-llama.bcw-caida { animation-name: bcw-llama; }
+@keyframes bcw-llama-luz {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(255, 215, 130, .6), 0 0 8px rgba(255, 215, 130, .3); filter: brightness(1); }
+  50% { box-shadow: 0 0 0 4px rgba(255, 215, 130, .4), 0 0 30px rgba(255, 215, 130, .95); filter: brightness(1.4); }
+}
+@keyframes bcw-llama-red-luz {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(46, 229, 157, .55), 0 0 8px rgba(46, 229, 157, .3); filter: brightness(1); }
+  50% { box-shadow: 0 0 0 4px rgba(46, 229, 157, .35), 0 0 30px rgba(46, 229, 157, .9); filter: brightness(1.45); }
+}
+@keyframes bcw-llama-red {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(46, 229, 157, .55), 0 0 8px rgba(46, 229, 157, .3); transform: scale(1); filter: brightness(1); }
+  50% { box-shadow: 0 0 0 5px rgba(46, 229, 157, .3), 0 0 34px rgba(46, 229, 157, .9); transform: scale(1.08); filter: brightness(1.4); }
+}
 .bcw-bq {
   display: inline-grid; place-items: center; width: 15px; height: 15px; margin-left: 2px; border-radius: 50%;
   border: 1px solid currentColor; font-size: 10px; line-height: 1; opacity: .85;
@@ -709,9 +725,16 @@ a.bcw-explorer { color: var(--bcw-cian); border-style: solid; border-color: rgba
     transition-duration: .001ms !important; transition-delay: 0s !important; scroll-behavior: auto !important;
   }
   .bcw-spin, .bcw-livedot, .bcw-badge.bcw-live::before, .bcw-eye, .bcw-typing span { animation: none !important; }
-  /* no motion, but the call to action still shows: a steady golden glow */
-  .bcw-dentro-btn.bcw-llama { animation: none !important; box-shadow: 0 0 0 2px rgba(255, 215, 130, .6), 0 0 22px rgba(255, 215, 130, .55); }
+  /* no motion, but the two calls to action still blink: glow and brightness only (no scale, no sweep), about once a
+     second, well under the WCAG limit of three flashes per second */
+  .bcw-dentro-btn.bcw-llama {
+    animation: bcw-llama-luz 1.1s ease-in-out infinite !important;
+  }
   .bcw-dentro-btn.bcw-llama::after { display: none; }
+  button.bcw-badge.bcw-llama {
+    animation: bcw-llama-red-luz 1.1s ease-in-out .55s infinite !important;
+  }
+  button.bcw-badge.bcw-llama.bcw-caida { animation-name: bcw-llama-luz !important; }
   .bcw-typing span { opacity: .7; }
 }
 @media (max-width: 420px) {
