@@ -1,0 +1,16 @@
+# /etc/systemd/system/pg-puerto80.service (lo copia instalar.sh)
+# Al arrancar la VM, vuelve a desviar el 80 a PostgreSQL si quedó abierto hasta una fecha que todavía no pasó. Si
+# alguien reinicia nftables (que borra las reglas), también lo restaura.
+[Unit]
+Description=Puerto 80 a PostgreSQL de la clase (pg-puerto80)
+After=network-online.target nftables.service
+Wants=network-online.target
+PartOf=nftables.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/pg-puerto80 restaurar
+
+[Install]
+WantedBy=multi-user.target

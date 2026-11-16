@@ -1,0 +1,110 @@
+#!/bin/bash
+# Desvía al PostgreSQL de la clase (5432) las conexiones que llegan de afuera al puerto 80 de la VM, y lo deshace.
+# El 80 es uno de los dos puertos que la UNLu deja pasar. Mientras está desviado, http://licdia.unlu.edu.ar no redirige
+# a https (los navegadores ya entran por https). Las conexiones abiertas no se cortan al cambiar: siguen hasta que se
+# cierran.
+#
+# Lo instala instalar.sh en /usr/local/sbin/pg-puerto80; administrador lo corre sin contraseña:
+#   sudo pg-puerto80 abrir hasta AAAA-MM-DD   # abierto hasta las 23:59 de ese día, también después de reiniciar
+#   sudo pg-puerto80 abrir [horas]            # abierto unas horas (4 si no se indica; hasta 12)
+#   sudo pg-puerto80 cerrar
+#   sudo pg-puerto80 estado
+# Estos dos los usan solos el arranque de la VM (pg-puerto80.service) y la renovación del certificado (los hooks de
+# certbot que instala instalar.sh), para que certbot pueda validar por el 80:
+#   pg-puerto80 pausar      # el 80 vuelve a nginx, sin olvidar hasta cuándo estaba abierto
+#   pg-puerto80 restaurar   # lo vuelve a desviar si correspondía
+set -euo pipefail
+
+TABLA=clase_pg
+CIERRE=pg-puerto80-cierre
+HASTA=/var/lib/pg-puerto80/hasta
+
+abierto() { nft list table ip "$TABLA" >/dev/null 2>&1; }
+
+desviar() {
+    abierto && return 0
+    nft -f - <<EOF
+table ip $TABLA {
+    chain prerouting {
+        type nat hook prerouting priority dstnat; policy accept;
+        iifname "eth0" tcp dport 80 redirect to :5432
+    }
+}
+EOF
+}
+
+devolver() { if abierto; then nft delete table ip "$TABLA"; fi; }
+
+programar_cierre() {   # $1: la opción de systemd-run que fija el momento del cierre
+    systemctl stop "$CIERRE.timer" 2>/dev/null || true
+    systemd-run --quiet --collect --unit="$CIERRE" "$1" /usr/local/sbin/pg-puerto80 cerrar
+}
+
+cerrar() {
+    systemctl stop "$CIERRE.timer" 2>/dev/null || true
+    rm -f "$HASTA"
+    if abierto; then
+        devolver
+        echo "cerrado: el 80 vuelve a nginx"
+    else
+        echo "ya estaba cerrado: el 80 va a nginx"
+    fi
+}
+
+case "${1:-estado}" in
+    abrir)
+        if [ "${2:-}" = hasta ]; then
+            FECHA=${3:-}
+            { [[ "$FECHA" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && date -d "$FECHA" >/dev/null 2>&1; } \
+                || { echo "fecha: AAAA-MM-DD" >&2; exit 2; }
+            [[ "$FECHA" < "$(date +%F)" ]] && { echo "esa fecha ya pasó" >&2; exit 2; }
+            mkdir -p "$(dirname "$HASTA")"
+            echo "$FECHA" > "$HASTA"
+            desviar
+            programar_cierre "--on-calendar=$FECHA 23:59:00"
+            echo "abierto: el 80 va a PostgreSQL hasta el $FECHA a las 23:59, también después de reiniciar"
+        else
+            HORAS=${2:-4}
+            [[ "$HORAS" =~ ^([1-9]|1[0-2])$ ]] || { echo "horas: de 1 a 12" >&2; exit 2; }
+            rm -f "$HASTA"
+            desviar
+            programar_cierre "--on-active=${HORAS}h"
+            echo "abierto: el 80 va a PostgreSQL; se cierra solo en $HORAS h"
+        fi
+        ;;
+    cerrar)
+        cerrar
+        ;;
+    pausar)
+        devolver
+        ;;
+    restaurar)
+        if [ -f "$HASTA" ]; then
+            FECHA=$(cat "$HASTA")
+            if [[ "$FECHA" < "$(date +%F)" ]]; then
+                cerrar
+            else
+                desviar
+                systemctl is-active --quiet "$CIERRE.timer" || programar_cierre "--on-calendar=$FECHA 23:59:00"
+            fi
+        elif systemctl is-active --quiet "$CIERRE.timer"; then
+            desviar   # estaba abierto por unas horas y todavía no se cumplieron
+        fi
+        ;;
+    estado)
+        if abierto; then
+            if [ -f "$HASTA" ]; then
+                echo "abierto: el 80 va a PostgreSQL hasta el $(cat "$HASTA") a las 23:59"
+            else
+                echo "abierto: el 80 va a PostgreSQL"
+                systemctl list-timers --all --no-pager "$CIERRE.timer" | sed -n 2p
+            fi
+        else
+            echo "cerrado: el 80 va a nginx"
+        fi
+        ;;
+    *)
+        echo "uso: pg-puerto80 abrir hasta AAAA-MM-DD | abrir [horas] | cerrar | estado" >&2
+        exit 2
+        ;;
+esac
