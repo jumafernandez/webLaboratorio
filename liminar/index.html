@@ -31,6 +31,9 @@
         .liminar-capa h4 { margin-bottom: .8rem; }
         .liminar-tabla { max-width: 920px; margin: 0 auto; }
         .liminar-tabla td, .liminar-tabla th { vertical-align: middle; }
+        .liminar-resultados { max-width: 1000px; }
+        .liminar-resultados th { white-space: nowrap; }
+        .liminar-resultados th:not(:first-child), .liminar-resultados td:not(:first-child) { text-align: center; }
         .liminar-codigo { max-width: 920px; margin: 0 auto; padding: 1.2rem 1.4rem; border-radius: 10px; background: #0f1724;
             color: #dbe7f7; font-family: 'DM Mono', monospace; font-size: .9rem; line-height: 1.55; overflow-x: auto; }
         .liminar-pasos { max-width: 820px; margin: 0 auto; font-size: 1.05rem; line-height: 1.7; }
@@ -123,11 +126,11 @@
                 </table>
             </div>
             <h3 class="h5 text-center mt-5 mb-3">Resultados</h3>
-            <p class="text-muted text-center small mb-3">Cada modelo Liminar va debajo de su modelo base, y gpt-4.1-mini queda como referencia (sin MMMLU). La tabla suma cada modelo cuando tiene las tres evaluaciones completas; el método está en la <a href="https://licdia-unlu.github.io/liminar/evaluacion/" target="_blank" rel="noopener">documentación</a>.</p>
-            <div class="table-responsive liminar-tabla">
+            <p class="liminar-texto">Cada modelo Liminar va debajo de su modelo base, y gpt-4.1-mini queda como referencia (sin MMMLU). La tabla suma cada modelo cuando tiene las tres evaluaciones completas; el método está en la <a href="https://licdia-unlu.github.io/liminar/evaluacion/" target="_blank" rel="noopener">documentación</a>.</p>
+            <div class="table-responsive liminar-tabla liminar-resultados">
                 <table class="table table-striped align-middle">
                     <thead>
-                        <tr><th>Modelo</th><th>Normativa sin documentos: correctas</th><th>Nota del juez (0 a 2)</th><th>RAG: promedio (1 a 5)</th><th>RAG: incorrectas (de 60)</th><th>MMMLU ES-LA</th></tr>
+                        <tr><th>Modelo</th><th>Normativa sin documentos:<br>correctas</th><th>Nota del juez<br>(0 a 2)</th><th>RAG: promedio<br>(1 a 5)</th><th>RAG: incorrectas<br>(de 60)</th><th>MMMLU<br>ES-LA</th></tr>
                     </thead>
                     <tbody>
                         <tr><td class="text-nowrap">Gemma 4 E4B (base)</td><td class="text-nowrap">5,7 %</td><td class="text-nowrap">0,37</td><td class="text-nowrap">4,89</td><td class="text-nowrap">0</td><td class="text-nowrap">64,3 %</td></tr>
