@@ -122,6 +122,22 @@
                     </tbody>
                 </table>
             </div>
+            <h3 class="h5 text-center mt-5 mb-3">Resultados</h3>
+            <p class="text-muted text-center small mb-3">Cada modelo Liminar va debajo de su modelo base, y gpt-4.1-mini queda como referencia (sin MMMLU). La tabla suma cada modelo cuando tiene las tres evaluaciones completas; el método está en la <a href="https://licdia-unlu.github.io/liminar/evaluacion/" target="_blank" rel="noopener">documentación</a>.</p>
+            <div class="table-responsive liminar-tabla">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr><th>Modelo</th><th>Normativa sin documentos: correctas</th><th>Nota del juez (0 a 2)</th><th>RAG: promedio (1 a 5)</th><th>RAG: incorrectas (de 60)</th><th>MMMLU ES-LA</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="text-nowrap">Gemma 4 E4B (base)</td><td class="text-nowrap">5,7 %</td><td class="text-nowrap">0,37</td><td class="text-nowrap">4,89</td><td class="text-nowrap">0</td><td class="text-nowrap">64,3 %</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Gemma-4-E4B</td><td class="text-nowrap">31,7 %</td><td class="text-nowrap">1,10</td><td class="text-nowrap">5,00</td><td class="text-nowrap">0</td><td class="text-nowrap">60,6 %</td></tr>
+                        <tr><td class="text-nowrap">Ministral 3 8B (base)</td><td class="text-nowrap">7,7 %</td><td class="text-nowrap">0,78</td><td class="text-nowrap">4,92</td><td class="text-nowrap">2</td><td class="text-nowrap">64,5 %</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Ministral-3-8B</td><td class="text-nowrap">48,7 %</td><td class="text-nowrap">1,35</td><td class="text-nowrap">4,90</td><td class="text-nowrap">1</td><td class="text-nowrap">48,8 %</td></tr>
+                        <tr><td class="text-nowrap">gpt-4.1-mini (referencia)</td><td class="text-nowrap">14,3 %</td><td class="text-nowrap">0,77</td><td class="text-nowrap">4,98</td><td class="text-nowrap">0</td><td class="text-nowrap">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="text-center liminar-enlaces mt-4">
                 <a class="btn btn-primary" href="https://huggingface.co/LICDIA-UNLu" target="_blank" rel="noopener"><i class="fas fa-cubes me-2"></i>Hugging Face</a>
                 <a class="btn btn-primary" href="https://github.com/LICDIA-UNLu/liminar" target="_blank" rel="noopener"><i class="fab fa-github me-2"></i>Código</a>
