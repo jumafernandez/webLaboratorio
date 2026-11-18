@@ -126,18 +126,24 @@
                 </table>
             </div>
             <h3 class="h5 text-center mt-5 mb-3">Resultados</h3>
-            <p class="liminar-texto">Cada modelo Liminar va debajo de su modelo base, y gpt-4.1-mini queda como referencia (sin MMMLU). La tabla suma cada modelo cuando tiene las tres evaluaciones completas; el método está en la <a href="https://licdia-unlu.github.io/liminar/evaluacion/" target="_blank" rel="noopener">documentación</a>.</p>
+            <p class="liminar-texto">Cada modelo Liminar va debajo de su modelo base, y gpt-4.1-mini queda como referencia. La tabla suma cada modelo cuando tiene sus evaluaciones completas; el método está en la <a href="https://licdia-unlu.github.io/liminar/evaluacion/" target="_blank" rel="noopener">documentación</a>.</p>
             <div class="table-responsive liminar-tabla liminar-resultados">
                 <table class="table table-striped align-middle">
                     <thead>
-                        <tr><th>Modelo</th><th>Normativa sin documentos:<br>correctas</th><th>Nota del juez<br>(0 a 2)</th><th>RAG: promedio<br>(1 a 5)</th><th>RAG: incorrectas<br>(de 60)</th><th>MMMLU<br>ES-LA</th></tr>
+                        <tr><th>Modelo</th><th>Normativa sin documentos:<br>correctas</th><th>Nota del juez<br>(0 a 2)</th><th>RAG: promedio<br>(1 a 5)</th><th>RAG: incorrectas<br>(de 60)</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td class="text-nowrap">Gemma 4 E4B (base)</td><td class="text-nowrap">5,7 %</td><td class="text-nowrap">0,37</td><td class="text-nowrap">4,89</td><td class="text-nowrap">0</td><td class="text-nowrap">64,3 %</td></tr>
-                        <tr><td class="text-nowrap">Liminar-Gemma-4-E4B</td><td class="text-nowrap">31,7 %</td><td class="text-nowrap">1,10</td><td class="text-nowrap">5,00</td><td class="text-nowrap">0</td><td class="text-nowrap">60,6 %</td></tr>
-                        <tr><td class="text-nowrap">Ministral 3 8B (base)</td><td class="text-nowrap">7,7 %</td><td class="text-nowrap">0,78</td><td class="text-nowrap">4,92</td><td class="text-nowrap">2</td><td class="text-nowrap">64,5 %</td></tr>
-                        <tr><td class="text-nowrap">Liminar-Ministral-3-8B</td><td class="text-nowrap">48,7 %</td><td class="text-nowrap">1,35</td><td class="text-nowrap">4,90</td><td class="text-nowrap">1</td><td class="text-nowrap">48,8 %</td></tr>
-                        <tr><td class="text-nowrap">gpt-4.1-mini (referencia)</td><td class="text-nowrap">14,3 %</td><td class="text-nowrap">0,77</td><td class="text-nowrap">4,98</td><td class="text-nowrap">0</td><td class="text-nowrap">-</td></tr>
+                        <tr><td class="text-nowrap">Gemma 4 E4B (base)</td><td class="text-nowrap">5,7 %</td><td class="text-nowrap">0,37</td><td class="text-nowrap">4,89</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Gemma-4-E4B</td><td class="text-nowrap">31,7 %</td><td class="text-nowrap">1,10</td><td class="text-nowrap">5,00</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">Ministral 3 8B (base)</td><td class="text-nowrap">7,7 %</td><td class="text-nowrap">0,78</td><td class="text-nowrap">4,92</td><td class="text-nowrap">2</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Ministral-3-8B</td><td class="text-nowrap">48,7 %</td><td class="text-nowrap">1,35</td><td class="text-nowrap">4,90</td><td class="text-nowrap">1</td></tr>
+                        <tr><td class="text-nowrap">Qwen 3.5 9B (base)</td><td class="text-nowrap">6,0 %</td><td class="text-nowrap">0,61</td><td class="text-nowrap">4,99</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Qwen3.5-9B</td><td class="text-nowrap">36,7 %</td><td class="text-nowrap">1,08</td><td class="text-nowrap">4,97</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">Gemma 4 12B (base)</td><td class="text-nowrap">8,7 %</td><td class="text-nowrap">0,53</td><td class="text-nowrap">4,95</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Gemma-4-12B</td><td class="text-nowrap">38,7 %</td><td class="text-nowrap">1,21</td><td class="text-nowrap">4,97</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">Mistral Small 3.2 24B (base)</td><td class="text-nowrap">9,7 %</td><td class="text-nowrap">0,76</td><td class="text-nowrap">4,94</td><td class="text-nowrap">1</td></tr>
+                        <tr><td class="text-nowrap">Liminar-Mistral-Small-3.2-24B</td><td class="text-nowrap">46,3 %</td><td class="text-nowrap">1,26</td><td class="text-nowrap">4,92</td><td class="text-nowrap">0</td></tr>
+                        <tr><td class="text-nowrap">gpt-4.1-mini (referencia)</td><td class="text-nowrap">14,3 %</td><td class="text-nowrap">0,77</td><td class="text-nowrap">4,98</td><td class="text-nowrap">0</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -224,7 +230,7 @@ print(tok.decode(salida[0, entrada.shape[1]:], skip_special_tokens=True))</code>
                 <div class="col-md-6 col-lg-3">
                     <div class="liminar-capa">
                         <h4><i class="fas fa-scale-balanced me-2"></i>Evaluación</h4>
-                        <p>Cada modelo contra su base: conocimiento del dominio, conocimiento general y funcionalidad,
+                        <p>Cada modelo contra su base: conocimiento del dominio y funcionalidad,
                             entre ellas la consulta con documentos.</p>
                     </div>
                 </div>
