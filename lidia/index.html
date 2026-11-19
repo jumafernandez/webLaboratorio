@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="LidIA: sistema web de retroalimentación formativa asistida por inteligencia artificial con revisión docente. Redacta una propuesta de devolución para cada entrega según la rúbrica del curso. LICDIA - Universidad Nacional de Luján." />
+    <meta name="author" content="LICDIA - Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial - UNLu" />
+    <meta name="keywords" content="LidIA, retroalimentación formativa, evaluación, rúbrica, devoluciones, LTI 1.3, campus virtual, UNLu, LICDIA, SIED" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="LidIA - retroalimentación formativa con revisión docente" />
+    <meta property="og:description" content="Redacta una propuesta de devolución para cada entrega según la rúbrica del curso. Ninguna devolución llega al estudiante sin que un docente la revise. LICDIA - UNLu." />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/lidia/" />
+    <meta property="og:locale" content="es_AR" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/lidia/" />
+    <title>LidIA - LICDIA</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../css/licdia-visual.css" rel="stylesheet" />
+    <script src="../js/licdia-hero.js" defer></script>
+    <link href="../css/style2.css" rel="stylesheet" />
+    <style>
+        .lidia-marca { width: 110px; margin-bottom: 1rem; }
+        html body.licdia header.masthead img.lidia-marca { border: 0; box-shadow: none; outline: none; border-radius: 0; }
+        .lidia-texto { max-width: 820px; margin: 0 auto 1.2rem; font-size: 1.08rem; line-height: 1.7; }
+        .lidia-capa { height: 100%; padding: 1.6rem; border-radius: 10px; border: 1px solid rgba(125, 155, 200, .35); }
+        .lidia-capa h4 { margin-bottom: .8rem; }
+        .lidia-pasos { max-width: 820px; margin: 0 auto; font-size: 1.05rem; line-height: 1.7; }
+        .lidia-pasos li { margin-bottom: .7rem; }
+        .lidia-captura { max-width: 900px; margin: 0 auto; display: block; width: 100%; height: auto;
+            border: 1px solid rgba(125, 155, 200, .45); border-radius: 10px; }
+        .lidia-acceso { max-width: 520px; margin: 1.6rem auto 0; padding: 1.1rem 1.4rem; border-radius: 10px;
+            border: 1px solid rgba(125, 155, 200, .35); font-family: 'DM Mono', monospace; font-size: .95rem; line-height: 1.8; }
+        .lidia-acceso span { font-family: 'Montserrat', sans-serif; }
+        .lidia-estados { max-width: 820px; margin: 1.4rem auto 0; text-align: center; }
+        .lidia-estados span { display: inline-block; margin: .25rem; padding: .35rem .9rem; border-radius: 999px;
+            border: 1px solid rgba(125, 155, 200, .45); font-size: .95rem; }
+        .lidia-enlaces .btn { margin: .3rem; }
+        .lidia-texto, .lidia-capa p, .lidia-pasos li { text-align: justify; hyphens: auto; }
+        #contact .lidia-texto { text-align: center; hyphens: manual; }
+    </style>
+</head>
+
+<body id="page-top" class="licdia">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../"><img src="../assets/img/logo.ico" alt="LICDIA" /></a>
+            <a class="navbar-brand efect" href="../"><img src="../assets/img/depto.ico" alt="Departamento de Ciencias Básicas" /></a>
+            <a class="navbar-brand efect" href="../"><img src="../assets/img/unlu.ico" alt="UNLu" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Abrir el menú">
+                Menú <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#que-es">Qué hace</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#circuito">Circuito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#probarlo">Probarlo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#instalarlo">Instalarlo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead efect fondoLLM">
+        <div class="container overlay text-center">
+            <img src="lidia-marca.svg" alt="" class="lidia-marca">
+            <div class="masthead-heading text-uppercase">LidIA</div>
+            <div class="masthead-subheading">Retroalimentación formativa asistida por IA, con revisión docente</div>
+        </div>
+    </header>
+
+    <section class="page-section bg-light" id="que-es">
+        <div class="container">
+            <p class="lidia-texto">La retroalimentación favorece el aprendizaje cuando es oportuna, se apoya en criterios
+                explícitos y habilita una nueva oportunidad de producción. Sostener esas condiciones cuesta más cuanto más
+                numerosa es la cursada, más abierta la consigna y más entregas se devuelven, y lo primero que se resigna
+                es la iteración.</p>
+            <p class="lidia-texto">LidIA es un sistema web que redacta una propuesta de devolución para cada entrega.
+                El modelo no aporta criterios propios: evalúa según la rúbrica del equipo docente y el programa del curso.
+                Admite trabajos abiertos con entregas sucesivas y repreguntas, exámenes escritos y cuestionarios de opción
+                múltiple; los escritos pueden desarrollarse en la plataforma o rendirse en papel y subirse por fotografía.</p>
+            <div class="row g-4 mt-2">
+                <div class="col-md-6">
+                    <div class="lidia-capa">
+                        <h4><i class="fas fa-user-check me-2"></i>Revisión docente</h4>
+                        <p>En las instancias sujetas a calificación, ninguna devolución llega al estudiante sin revisión
+                            docente: el juicio evaluativo permanece en el equipo docente, que edita la propuesta antes de
+                            publicarla. El sistema registra cuánto la reescribe.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="lidia-capa">
+                        <h4><i class="fas fa-plug me-2"></i>Integrado al campus</h4>
+                        <p>Se incorpora al campus virtual mediante LTI 1.3, de modo que el estudiantado entra desde la
+                            misma aula en la que ya cursa y no hay que administrar usuarios aparte.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="circuito">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Circuito</h2>
+                <h3 class="section-subheading text-muted">De la entrega a la devolución.</h3>
+            </div>
+            <ol class="lidia-pasos">
+                <li><strong>El estudiante entrega</strong> una versión completa de su trabajo, o rinde el examen en la
+                    plataforma o en papel.</li>
+                <li><strong>El sistema redacta una propuesta</strong> criterio por criterio, contra la rúbrica y el
+                    programa del curso, y asigna a cada criterio uno de cuatro estados.</li>
+                <li><strong>El equipo docente la revisa,</strong> la edita y recién entonces la publica. La calificación
+                    se deriva por código de los estados y la confirma el docente.</li>
+                <li><strong>El estudiante recibe la devolución</strong> y, en los trabajos abiertos, puede repreguntar
+                    sobre ella y volver a entregar.</li>
+            </ol>
+            <div class="lidia-estados">
+                <span>Logrado</span><span>En desarrollo</span><span>Insuficiente</span><span>No presente</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section bg-light" id="probarlo">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Probarlo</h2>
+                <h3 class="section-subheading text-muted">La pantalla de revisión, con un curso de prueba cargado.</h3>
+            </div>
+            <img src="lidia-revision.jpg" alt="Pantalla de revisión docente de una entrega, criterio por criterio"
+                class="lidia-captura" loading="lazy">
+            <div class="lidia-acceso">
+                <span>docente</span> alan_turing<br>
+                <span>estudiante</span> ada_lovelace<br>
+                <span>clave</span> Enigma.1936
+            </div>
+            <div class="text-center lidia-enlaces mt-4">
+                <a class="btn btn-primary" href="https://licdia.unlu.edu.ar/entregas" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square me-2"></i>Entrar al sistema</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="instalarlo">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Instalarlo</h2>
+                <h3 class="section-subheading text-muted">A disposición de las universidades que lo deseen.</h3>
+            </div>
+            <p class="lidia-texto">El código es abierto, con licencia Apache 2.0. Es una aplicación web en un solo
+                proceso, con base SQLite, que se despliega bajo el dominio de la propia institución y se conecta al
+                modelo de lenguaje que esta elija: uno de un proveedor externo o uno abierto alojado en su propia
+                infraestructura. El trabajo del estudiantado no sale de la universidad si el modelo tampoco sale.</p>
+            <p class="lidia-texto">Si lo instala, lo adapta o lo menciona en una publicación, la cita y los datos en
+                formato legible por máquina están en el repositorio.</p>
+            <div class="text-center lidia-enlaces mt-3">
+                <a class="btn btn-primary" href="https://github.com/jumafernandez/lidIA-corrector-IA" target="_blank" rel="noopener"><i class="fab fa-github me-2"></i>Código</a>
+                <a class="btn btn-primary" href="https://github.com/jumafernandez/lidIA-corrector-IA#créditos-y-cómo-citarlo" target="_blank" rel="noopener"><i class="fas fa-quote-right me-2"></i>Cómo citarlo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="contact">
+        <div class="container text-center">
+            <h2 class="section-heading text-uppercase">Contacto</h2>
+            <p class="lidia-texto white">Desarrollado en el Laboratorio de Investigación en Ciencia de Datos &amp;
+                Inteligencia Artificial con la participación del Sistema Institucional de Educación a Distancia,
+                Departamento de Ciencias Básicas, Universidad Nacional de Luján.</p>
+            <p class="lidia-texto white"><a href="mailto:licdia@unlu.edu.ar" class="white">licdia@unlu.edu.ar</a></p>
+        </div>
+    </section>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-2">
+                Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia
+                Artificial de la Universidad de Luján
+                <a href="https://resoluciones.unlu.edu.ar/documento.frame.php?cod=128241" target="_blank"
+                    class="text-decoration-none text-info">[Disposición del Grupo de Investigación]</a>
+                <a href="https://drive.google.com/file/d/1AddV4FMq70bOO4REUgAVppe5i4Vw9h_W/view" target="_blank"
+                    class="text-decoration-none text-info">[Resolución del Laboratorio]</a>
+                - Argentina. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.js"></script>
+</body>
+
+</html>

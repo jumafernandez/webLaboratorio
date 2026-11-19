@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 126 124" role="img" aria-label="Lidia, la asistente de IA"><style>
+ .body{fill:#35b0a8;stroke:#0a4d54;stroke-width:3}
+ .fissure,.gyri path{fill:none;stroke:#0a4d54;stroke-width:2.4;stroke-linecap:round;opacity:.55}
+ .circuit path{fill:none;stroke:#d9f7f0;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+ .circuit circle{fill:#fdf1c9;stroke:#0a4d54;stroke-width:1.2}
+ .pins rect{fill:#f5a524;stroke:#0a4d54;stroke-width:1.5}
+ .antenna line{stroke:#0a4d54;stroke-width:2.6;stroke-linecap:round}
+ .antenna-tip{fill:#e8590c;stroke:#0a4d54;stroke-width:1.4}
+ .sclera{fill:#fff;stroke:#0a4d54;stroke-width:1.6}
+ .pupil{fill:#112233} .cheek{fill:#ff9d92;opacity:.75} .mouth{fill:#112233}
+ .hand circle{fill:#fdf1c9;stroke:#0a4d54;stroke-width:2.2}
+ .hand path{fill:none;stroke:#0a4d54;stroke-width:1.3;stroke-linecap:round;opacity:.45}
+</style>
+  <g class="lidia-float">
+    <!-- patitas y pines de chip -->
+    <g class="pins">
+      <rect x="40" y="103" width="7" height="14" rx="2.5"/>
+      <rect x="56" y="105" width="7" height="14" rx="2.5"/>
+      <rect x="72" y="103" width="7" height="14" rx="2.5"/>
+      <rect x="1"  y="52" width="13" height="7" rx="2.5"/>
+      <rect x="1"  y="68" width="13" height="7" rx="2.5"/>
+      <rect x="106" y="52" width="13" height="7" rx="2.5"/>
+      <rect x="106" y="68" width="13" height="7" rx="2.5"/>
+    </g>
+    <!-- antena -->
+    <g class="antenna">
+      <line x1="60" y1="14" x2="60" y2="4"/>
+      <circle class="antenna-tip" cx="60" cy="3" r="3.4"/>
+    </g>
+    <!-- cuerpo: cerebrito -->
+    <path class="body" d="M60,16
+      C52,8 38,10 34,19
+      C22,18 13,28 17,38
+      C8,44 8,58 16,64
+      C12,76 20,88 32,88
+      C34,100 48,106 58,99
+      C68,107 84,102 87,90
+      C99,90 108,79 104,67
+      C113,60 112,45 103,40
+      C106,29 96,19 85,21
+      C80,11 66,9 60,16 Z"/>
+    <!-- fisura central -->
+    <path class="fissure" d="M60,17 C57,26 63,33 59,42"/>
+    <!-- circunvoluciones (lado izquierdo, orgánico) -->
+    <g class="gyri">
+      <path d="M28,32 C34,28 40,32 39,38"/>
+      <path d="M22,50 C29,46 35,51 33,57"/>
+      <path d="M30,70 C36,65 43,69 42,76"/>
+      <path d="M44,26 C50,23 54,27 52,32"/>
+    </g>
+    <!-- circuitos (lado derecho, chip) -->
+    <g class="circuit">
+      <path d="M68,28 h12 v10 h10"/>
+      <path d="M72,44 h16"/>
+      <path d="M70,58 h10 v10"/>
+      <path d="M84,74 h8 v-8"/>
+      <circle cx="92" cy="38" r="2.6"/>
+      <circle cx="88" cy="44" r="2.6"/>
+      <circle cx="80" cy="68" r="2.6"/>
+      <circle cx="92" cy="66" r="2.6"/>
+    </g>
+    <!-- carita -->
+    <g class="face">
+      <g class="eye eye-l"><circle class="sclera" cx="45" cy="60" r="7.5"/><circle class="pupil" cx="46.5" cy="60" r="3.4"/></g>
+      <g class="eye eye-r"><circle class="sclera" cx="73" cy="60" r="7.5"/><circle class="pupil" cx="74.5" cy="60" r="3.4"/></g>
+      <circle class="cheek" cx="38" cy="72" r="4"/>
+      <circle class="cheek" cx="80" cy="72" r="4"/>
+      <path class="mouth" d="M50,78 Q59,88 68,78 Z"/>
+    </g>
+    <!-- manitos: en reposo a los costados; con .shy suben a taparle los ojos -->
+    <g class="hands">
+      <g class="hand hand-l"><circle cx="17" cy="84" r="8.5"/><path d="M11,80 v7 M17,78 v9 M23,80 v7"/></g>
+      <g class="hand hand-r" transform="rotate(18 113 36)"><circle cx="113" cy="36" r="8.5"/><path d="M107,32 v7 M113,30 v9 M119,32 v7"/></g>
+    </g>
+  </g>
+</svg>
