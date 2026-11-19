@@ -3,7 +3,8 @@
 Cada entrada es Markdown (admite HTML) con un encabezado entre dos líneas '---', una clave por línea:
   titulo, fecha (AAAA-MM-DD), autores, categoria (novedades | publicaciones | tesis | tecnicos),
   tema (ia | blockchain | datos), idioma (es | en), resumen
-  y, si hacen falta: imagen, imagen_alt, imagen_vertical (si), video (id de YouTube), etiqueta, slug, codigo (si).
+  y, si hacen falta: imagen, imagen_alt, imagen_vertical (si), imagen_en_entrada (no: la imagen queda solo para la
+  tarjeta y para compartir), video (id de YouTube), etiqueta, slug, codigo (si).
 Escribe blog/<slug>/index.html, blog/index.html y blog/feed.xml; el bloque de novedades de la portada y las URL del blog
 en sitemap.xml (entre <!-- BLOG:INICIO --> y <!-- BLOG:FIN -->); y la redirección de /dev-ia/blog/ al blog
 (/blockchain-dev/blog/ tiene sus propias notas y no se toca).
@@ -119,7 +120,7 @@ def pagina_entrada(e, todas):
     tema = TEMAS[e["tema"]][1 if en else 0]
     figura = ""
     # con video, la entrada muestra el video y la imagen queda para la tarjeta y para compartir
-    if e.get("imagen") and not e.get("video"):
+    if e.get("imagen") and not e.get("video") and e.get("imagen_en_entrada") != "no":
         webp = re.sub(r"\.(jpe?g|png)$", ".webp", e["imagen"])
         fuente = f'<source srcset="{esc(webp)}" type="image/webp">' if (RAIZ / webp.lstrip("/")).exists() else ""
         clase = ' vertical' if e.get("imagen_vertical") == "si" else ""

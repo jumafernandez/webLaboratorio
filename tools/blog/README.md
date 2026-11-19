@@ -14,7 +14,7 @@ Los estilos están en `css/blog.css` y los filtros y el mapa del encabezado en `
 
 1. Crear `entradas/AAAA-MM-DD-slug.md` copiando una existente. Claves del encabezado:
    - obligatorias: `titulo`, `fecha`, `autores` (separados por coma), `categoria` (`novedades`, `publicaciones`, `tesis` o `tecnicos`), `tema` (`ia`, `blockchain` o `datos`), `idioma` (`es` o `en`), `resumen`;
-   - optativas: `imagen` (ruta absoluta; si existe la versión `.webp` al lado, se usa), `imagen_alt`, `imagen_vertical: si`, `video` (id de YouTube; con video, la entrada muestra el video y la imagen queda para la tarjeta), `slug` (si no, sale del nombre del archivo), `codigo: si` (resalta bloques de código).
+   - optativas: `imagen` (ruta absoluta; si existe la versión `.webp` al lado, se usa), `imagen_alt`, `imagen_vertical: si`, `imagen_en_entrada: no` (la imagen queda solo para la tarjeta y para compartir), `video` (id de YouTube; con video, la entrada muestra el video y la imagen queda para la tarjeta), `slug` (si no, sale del nombre del archivo), `codigo: si` (resalta bloques de código).
 2. `tools/blog/.venv/bin/python tools/blog/generar.py`
 3. Publicar `blog/`, `index.html` y `sitemap.xml`.
 

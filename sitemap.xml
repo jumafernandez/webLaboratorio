@@ -36,7 +36,8 @@
   <url><loc>https://licdia.unlu.edu.ar/dev-ia/por-que-elegirnos/</loc><priority>0.85</priority><lastmod>2026-06-02</lastmod></url>
   <url><loc>https://licdia.unlu.edu.ar/dev-ia/inscripcion-dev-ia/</loc><priority>0.85</priority><lastmod>2026-06-02</lastmod></url>
   <!-- BLOG:INICIO (lo escribe tools/blog/generar.py) -->
-  <url><loc>https://licdia.unlu.edu.ar/blog/</loc><priority>0.7</priority><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://licdia.unlu.edu.ar/blog/</loc><priority>0.7</priority><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://licdia.unlu.edu.ar/blog/posters-jornadas-2026/</loc><priority>0.6</priority><lastmod>2026-11-19</lastmod></url>
   <url><loc>https://licdia.unlu.edu.ar/blog/trabajo-distinguido-cacic-2026/</loc><priority>0.6</priority><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://licdia.unlu.edu.ar/blog/poster-awards-nlp-school-2026/</loc><priority>0.6</priority><lastmod>2026-09-04</lastmod></url>
   <url><loc>https://licdia.unlu.edu.ar/blog/your-first-smart-contract-with-solidity/</loc><priority>0.6</priority><lastmod>2026-05-27</lastmod></url>
