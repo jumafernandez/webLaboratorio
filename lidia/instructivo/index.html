@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Instructivo de uso de LidIA para el equipo docente y el estudiantado: acceso, entregas, devoluciones, revisión docente y configuración de las instancias de evaluación. LICDIA - Universidad Nacional de Luján." />
+    <meta name="description" content="Instructivo de uso de LidIA, paso a paso y con capturas: acceso, entregas y devoluciones para el estudiantado; instancias de evaluación, revisión y firma para el equipo docente. LICDIA - Universidad Nacional de Luján." />
     <meta name="author" content="LICDIA - Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial - UNLu" />
     <meta name="keywords" content="LidIA, instructivo, manual, guía de uso, devoluciones, rúbrica, UNLu, LICDIA" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="LidIA - instructivo de uso" />
-    <meta property="og:description" content="Cómo se usa LidIA: acceso, entregas y devoluciones para el estudiantado; instancias, revisión y firma para el equipo docente." />
+    <meta property="og:description" content="Paso a paso, con capturas: cómo se entrega, cómo se recibe la devolución y cómo la revisa y la firma el equipo docente." />
     <meta property="og:url" content="https://licdia.unlu.edu.ar/lidia/instructivo/" />
     <meta property="og:locale" content="es_AR" />
     <link rel="canonical" href="https://licdia.unlu.edu.ar/lidia/instructivo/" />
@@ -26,26 +26,52 @@
     <style>
         .lidia-marca { width: 110px; margin-bottom: 1rem; }
         html body.licdia header.masthead img.lidia-marca { border: 0; box-shadow: none; outline: none; border-radius: 0; }
-        .ins-texto { max-width: 860px; margin: 0 auto 1.2rem; font-size: 1.06rem; line-height: 1.7;
-            text-align: justify; hyphens: auto; }
-        .ins-bloque { max-width: 860px; margin: 0 auto 1.6rem; padding: 1.3rem 1.5rem; border-radius: 10px;
-            border: 1px solid rgba(125, 155, 200, .35); }
-        .ins-bloque h4 { margin-bottom: .7rem; font-size: 1.15rem; }
-        .ins-bloque p, .ins-bloque li { font-size: 1.04rem; line-height: 1.7; text-align: justify; hyphens: auto; }
-        .ins-bloque ol, .ins-bloque ul { margin-bottom: 0; padding-left: 1.2rem; }
-        .ins-bloque li { margin-bottom: .55rem; }
-        .ins-bloque li:last-child { margin-bottom: 0; }
-        .ins-rotulo { font-family: 'DM Mono', monospace; font-size: .93rem; padding: .1rem .4rem; border-radius: 4px;
-            border: 1px solid rgba(125, 155, 200, .45); white-space: nowrap; }
-        .ins-aviso { max-width: 860px; margin: 0 auto 1.6rem; padding: 1rem 1.3rem; border-radius: 10px;
+
+        .ins-entrada { max-width: 920px; margin: 0 auto; font-size: 1.08rem; line-height: 1.7; text-align: center; }
+
+        /* Las dos puertas de entrada */
+        .ins-puertas { max-width: 920px; margin: 2rem auto 0; display: grid; gap: 1.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+        .ins-puerta { display: block; padding: 1.5rem 1.6rem; border-radius: 12px; text-decoration: none;
+            border: 1px solid rgba(125, 155, 200, .4); transition: transform .15s ease, box-shadow .15s ease; }
+        .ins-puerta:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(30, 60, 100, .13); text-decoration: none; }
+        .ins-puerta i { font-size: 1.7rem; margin-bottom: .6rem; display: block; }
+        .ins-puerta strong { display: block; font-size: 1.2rem; margin-bottom: .35rem; }
+        .ins-puerta span { font-size: .98rem; line-height: 1.6; display: block; opacity: .85; }
+
+        /* Un paso: número + texto + captura */
+        .ins-paso { max-width: 980px; margin: 0 auto 2.6rem; }
+        .ins-paso-cabeza { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: .9rem; }
+        .ins-num { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; font-size: 1.15rem; border: 2px solid rgba(125, 155, 200, .6); }
+        .ins-paso-cabeza h4 { margin: .3rem 0 0; font-size: 1.22rem; }
+        .ins-paso p { font-size: 1.05rem; line-height: 1.7; margin-bottom: .7rem; }
+        .ins-paso ul { font-size: 1.04rem; line-height: 1.7; padding-left: 1.2rem; }
+        .ins-paso li { margin-bottom: .45rem; }
+        .ins-cuerpo { padding-left: 58px; }
+        @media (max-width: 576px) { .ins-cuerpo { padding-left: 0; } }
+
+        .ins-figura { margin: 1rem 0 0; }
+        .ins-figura img { width: 100%; height: auto; display: block; border-radius: 10px;
+            border: 1px solid rgba(125, 155, 200, .45); box-shadow: 0 4px 16px rgba(30, 60, 100, .09); }
+        .ins-figura figcaption { font-size: .92rem; opacity: .75; margin-top: .5rem; text-align: center; }
+
+        .ins-rotulo { font-family: 'DM Mono', monospace; font-size: .92rem; padding: .1rem .4rem;
+            border-radius: 4px; border: 1px solid rgba(125, 155, 200, .45); white-space: nowrap; }
+
+        .ins-aviso { max-width: 980px; margin: 0 auto 2.2rem; padding: 1rem 1.3rem; border-radius: 10px;
             border-left: 4px solid rgba(125, 155, 200, .9); background: rgba(125, 155, 200, .10);
-            font-size: 1.02rem; line-height: 1.65; text-align: justify; hyphens: auto; }
-        .ins-indice { max-width: 860px; margin: 0 auto; text-align: center; }
-        .ins-indice a { display: inline-block; margin: .3rem; }
-        .ins-tabla { max-width: 860px; margin: 0 auto 1.4rem; width: 100%; font-size: 1.02rem; }
+            font-size: 1.02rem; line-height: 1.65; }
+        .ins-aviso strong { display: block; margin-bottom: .2rem; }
+
+        .ins-tabla { max-width: 980px; margin: 0 auto 1.2rem; width: 100%; font-size: 1.02rem; }
         .ins-tabla th, .ins-tabla td { padding: .6rem .8rem; border-bottom: 1px solid rgba(125, 155, 200, .3);
             vertical-align: top; text-align: left; }
-        .ins-tabla th { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+        .ins-tabla th { font-family: 'Montserrat', sans-serif; font-weight: 600; white-space: nowrap; }
+
+        .ins-cierre { max-width: 980px; margin: 0 auto; font-size: 1.05rem; line-height: 1.7; }
+        .ins-cierre .btn { margin: .3rem; }
     </style>
 </head>
 
@@ -66,7 +92,6 @@
                     <li class="nav-item"><a class="nav-link" href="#estudiantes">Estudiantes</a></li>
                     <li class="nav-item"><a class="nav-link" href="#docentes">Docentes</a></li>
                     <li class="nav-item"><a class="nav-link" href="#datos">Datos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#ayuda">Ayuda</a></li>
                 </ul>
             </div>
         </div>
@@ -76,40 +101,48 @@
         <div class="container overlay text-center">
             <img src="../lidia-marca.svg" alt="" class="lidia-marca">
             <div class="masthead-heading text-uppercase">Instructivo</div>
-            <div class="masthead-subheading">Uso de LidIA para el equipo docente y el estudiantado</div>
+            <div class="masthead-subheading">Paso a paso, con las pantallas del sistema</div>
         </div>
     </header>
 
     <section class="page-section bg-light" id="acceso">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Acceso</h2>
-                <h3 class="section-subheading text-muted">El primer ingreso y la contraseña.</h3>
+            <p class="ins-entrada">LidIA se usa desde el navegador, sin instalar nada. Lo que sigue muestra las
+                pantallas reales: a la izquierda lo que hace quien cursa, a la derecha lo que hace el equipo docente.</p>
+            <div class="ins-puertas">
+                <a class="ins-puerta" href="#estudiantes">
+                    <i class="fas fa-file-arrow-up"></i>
+                    <strong>Si cursás</strong>
+                    <span>Entregar un trabajo, leer la devolución, repreguntar y presentar la versión
+                        definitiva.</span>
+                </a>
+                <a class="ins-puerta" href="#docentes">
+                    <i class="fas fa-user-check"></i>
+                    <strong>Si das clase</strong>
+                    <span>Armar la instancia de evaluación con su rúbrica, inscribir al curso, revisar y firmar las
+                        devoluciones.</span>
+                </a>
             </div>
-            <p class="ins-texto">LidIA se usa desde el navegador, sin instalar nada. Cada persona entra con el usuario
-                que le asignó su institución: el documento de identidad en el caso del estudiantado y del equipo docente
-                de la Universidad Nacional de Luján.</p>
-            <div class="ins-bloque">
-                <h4>Primer ingreso</h4>
-                <ol>
-                    <li>El sistema envía por correo un enlace de un solo uso, válido durante una semana. Si no llega,
-                        conviene revisar la carpeta de correo no deseado antes de pedir otro.</li>
-                    <li>Ese enlace abre una pantalla donde cada persona fija su propia contraseña, de ocho caracteres como
-                        mínimo. Nadie más la conoce: no queda escrita en ningún lado ni la ve la coordinación.</li>
-                    <li>Con la contraseña ya fijada se entra desde la pantalla de ingreso, con el usuario y esa
-                        contraseña.</li>
-                </ol>
-            </div>
-            <div class="ins-bloque">
-                <h4>Contraseña olvidada</h4>
-                <p>En la pantalla de ingreso, la opción de recuperación envía un enlace nuevo al correo registrado, válido
-                    por dos horas. La contraseña también se cambia en cualquier momento desde
-                    <span class="ins-rotulo">Tu cuenta</span>, en el menú que se abre con el nombre propio, arriba a la
-                    derecha. Esa misma pantalla permite subir una foto de perfil.</p>
-            </div>
-            <div class="ins-aviso">
-                Cuando la cursada está integrada al campus virtual, no hace falta nada de lo anterior: se entra desde la
-                actividad de LidIA dentro del aula de Moodle y la sesión se abre sola.
+
+            <div class="ins-paso" style="margin-top:3rem">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num"><i class="fas fa-key" style="font-size:1rem"></i></div>
+                    <h4>El primer ingreso</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>El sistema manda por correo un enlace de un solo uso, válido una semana. Ese enlace abre la
+                        pantalla donde cada persona fija su propia contraseña. Nadie más la conoce: no queda escrita en
+                        ningún lado ni la ve la coordinación. Si el correo no aparece, conviene mirar la carpeta de
+                        correo no deseado antes de pedir otro.</p>
+                    <p>Después se entra con el usuario, que en la UNLu es el documento de identidad, y esa contraseña.
+                        Se cambia cuando se quiera desde <span class="ins-rotulo">Tu cuenta</span>, en el menú del
+                        nombre propio. Si la cursada entra por el campus virtual, nada de esto hace falta: la sesión se
+                        abre sola desde el aula de Moodle.</p>
+                    <figure class="ins-figura">
+                        <img src="img/ingreso.jpg" alt="Pantalla de ingreso de LidIA, con los campos de usuario y contraseña" loading="lazy">
+                        <figcaption>La pantalla de ingreso. Abajo a la izquierda, la recuperación de contraseña.</figcaption>
+                    </figure>
+                </div>
             </div>
         </div>
     </section>
@@ -117,58 +150,110 @@
     <section class="page-section" id="estudiantes">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Estudiantes</h2>
-                <h3 class="section-subheading text-muted">De la consigna a la devolución.</h3>
+                <h2 class="section-heading text-uppercase">Si cursás</h2>
+                <h3 class="section-subheading text-muted">De la consigna a la devolución, y otra vez.</h3>
             </div>
-            <div class="ins-bloque">
-                <h4>1. Elegir la cursada y leer la consigna</h4>
-                <p>Al entrar se listan las cursadas en las que la persona está inscripta. Dentro de cada una aparecen las
-                    instancias de evaluación disponibles, con su <span class="ins-rotulo">Consigna</span> y sus
-                    <span class="ins-rotulo">Criterios de evaluación</span>. Conviene leer los criterios antes de
-                    escribir: son exactamente los que va a usar la devolución.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">1</div>
+                    <h4>Elegir la cursada</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Al entrar aparecen las cursadas en las que estás inscripto, con la cantidad de instancias de
+                        evaluación que tiene cada una.</p>
+                    <figure class="ins-figura">
+                        <img src="img/cursos.jpg" alt="Listado de cursadas del estudiante, con la cantidad de instancias de cada una" loading="lazy">
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>2. Entregar</h4>
-                <p>Se sube un archivo (PDF, Word, una notebook <span class="ins-rotulo">.ipynb</span>, una página HTML o
-                    texto plano) o se pega el texto directamente. Cada entrega se evalúa como un trabajo completo: no es
-                    un espacio de borradores sucesivos. Presentar algo todavía inmaduro consume un intento igual, y esa
-                    también es parte de la consigna.</p>
-                <p>Cuando la instancia admite grupos, el grupo se arma antes de entregar desde
-                    <span class="ins-rotulo">Armar grupo</span>, y la entrega vale para todos sus integrantes.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">2</div>
+                    <h4>Leer la consigna y los criterios</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Cada instancia muestra la consigna y, al lado, los criterios con los que se va a evaluar. Son los
+                        mismos que va a usar la devolución, criterio por criterio, así que conviene leerlos antes de
+                        escribir y no después.</p>
+                    <figure class="ins-figura">
+                        <img src="img/consigna.jpg" alt="Pantalla de una instancia de evaluación: consigna a la izquierda y criterios de evaluación a la derecha" loading="lazy">
+                        <figcaption>La consigna y los criterios, uno al lado del otro.</figcaption>
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>3. Devoluciones de práctica</h4>
-                <p>Cada instancia tiene un cupo de devoluciones de práctica, habitualmente tres. La devolución se redacta
-                    criterio por criterio contra la rúbrica del equipo docente y el programa de la cursada, y señala qué
-                    está logrado y qué conviene revisar. Generarla demora entre treinta y noventa segundos.</p>
-                <p>Con esa devolución en mano se corrige el trabajo y se vuelve a entregar, dentro del cupo disponible.
-                    El historial de versiones queda a la vista.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">3</div>
+                    <h4>Entregar</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Se sube un archivo: PDF, Word, una notebook <span class="ins-rotulo">.ipynb</span>, una página
+                        HTML o texto plano. Cada entrega se evalúa como un trabajo completo, no como un borrador: una
+                        versión inmadura consume el intento igual, y el sistema avisa cuántos quedan antes de confirmar.</p>
+                    <ul>
+                        <li>El cupo habitual es de tres devoluciones de práctica por instancia.</li>
+                        <li>Si la instancia admite grupos, el grupo se arma antes de entregar y la devolución es la misma
+                            para todos sus integrantes.</li>
+                        <li>La devolución demora entre treinta y noventa segundos.</li>
+                    </ul>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>4. Preguntas sobre la devolución</h4>
-                <p>Sobre cada devolución se pueden hacer hasta tres preguntas, para aclarar algo que no se entendió.
-                    LidIA explica lo que escribió, pero no evalúa contenido nuevo ni reescribe el trabajo: eso pertenece
-                    a la próxima entrega. Las respuestas esperadas de un examen nunca se revelan por esta vía.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">4</div>
+                    <h4>Leer la devolución</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>La devolución no es un puntaje: recorre la rúbrica criterio por criterio, dice qué quedó logrado y
+                        qué no, y cierra con una lista de prioridades para la versión siguiente. Es lo que hay que
+                        trabajar antes de volver a entregar.</p>
+                    <figure class="ins-figura">
+                        <img src="img/devolucion.jpg" alt="Devolución de LidIA sobre una entrega, con la evaluación por criterio, las fortalezas y las prioridades para la próxima versión" loading="lazy">
+                        <figcaption>Una devolución real sobre una propuesta de trabajo final. Abajo, los botones para
+                            decir si sirvió.</figcaption>
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>5. Entrega definitiva</h4>
-                <p>Cuando el trabajo está listo se usa
-                    <span class="ins-rotulo">Presentar esta versión como definitiva</span>. Esa entrega no consume
-                    prácticas y sigue otro camino: la propuesta de devolución que redacta el sistema la ven únicamente
-                    los docentes, que la editan y la aprueban. Recién entonces llega, junto con la calificación cuando
-                    corresponde. El equipo docente también puede reabrir la entrega para pedir una versión nueva.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">5</div>
+                    <h4>Repreguntar lo que no se entendió</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Sobre cada devolución se pueden hacer hasta tres preguntas. LidIA aclara lo que escribió: qué
+                        significa una observación, dónde aplica, cómo encararla. No evalúa contenido nuevo ni reescribe
+                        el trabajo, y en los exámenes nunca revela la respuesta esperada.</p>
+                    <figure class="ins-figura">
+                        <img src="img/preguntas.jpg" alt="Sección de preguntas sobre una devolución, con la pregunta del estudiante y la respuesta del sistema" loading="lazy">
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>Exámenes en papel</h4>
-                <p>En los exámenes escritos y de opción múltiple, la entrega puede ser una fotografía del examen resuelto
-                    a mano, hasta seis imágenes. El sistema transcribe lo fotografiado sin corregir nada y muestra esa
-                    lectura para que la persona la revise antes de confirmar. Hasta ese momento no se registra nada ni se
-                    consume cupo. Lo que vale es el papel, que el equipo docente conserva.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">6</div>
+                    <h4>Presentar la versión definitiva</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Cuando una versión convence, se la marca con
+                        <span class="ins-rotulo">Presentar esta versión como definitiva</span>. Esa entrega no consume
+                        prácticas y sigue otro camino: la propuesta de devolución la ven solamente los docentes, que la
+                        editan y la aprueban. Recién entonces llega, con la calificación cuando corresponde. El equipo
+                        docente también puede reabrir la entrega y pedir una versión nueva.</p>
+                </div>
             </div>
+
             <div class="ins-aviso">
-                Debajo de cada devolución hay dos botones, <span class="ins-rotulo">Me sirvió</span> y
-                <span class="ins-rotulo">No me sirvió</span>. Es la única forma que tiene el equipo docente de saber si
-                las devoluciones están ayudando, así que conviene usarlos.
+                <strong>Exámenes en papel</strong>
+                En los exámenes escritos y de opción múltiple se puede entregar una foto del examen resuelto a mano,
+                hasta seis imágenes. El sistema transcribe lo fotografiado sin corregir nada y muestra esa lectura para
+                revisarla antes de confirmar: hasta ese momento no se registra nada ni se consume cupo. Lo que vale es
+                el papel, que el equipo docente conserva.
             </div>
         </div>
     </section>
@@ -176,75 +261,126 @@
     <section class="page-section bg-light" id="docentes">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Docentes</h2>
+                <h2 class="section-heading text-uppercase">Si das clase</h2>
                 <h3 class="section-subheading text-muted">Armar la instancia, revisar, firmar.</h3>
             </div>
-            <p class="ins-texto">Cada docente administra las cursadas que tiene a cargo: su programa, sus instancias de
-                evaluación, sus estudiantes y sus entregas. La coordinación crea las materias y las cursadas y asigna el
-                equipo docente.</p>
-            <div class="ins-bloque">
-                <h4>1. El programa de la cursada</h4>
-                <p>El programa se carga una vez por cursada, desde su ficha. Contiene los contenidos, la bibliografía y el
-                    equipo docente, y es el contexto que comparten todas las instancias: sirve para que los comentarios se
-                    sitúen en las unidades que se dictaron y no reclamen temas que la cursada no cubrió. El programa no es
-                    criterio de evaluación; el criterio es la consigna y la rúbrica.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">1</div>
+                    <h4>La ficha de la cursada</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Es el tablero de la materia. Arriba, una tira de pasos indica qué está hecho y qué falta para que
+                        la cursada funcione: programa, docentes, estudiantes, instancia, consigna, activación, entregas y
+                        correcciones. Debajo, las instancias de evaluación con sus entregas pendientes de revisar, y más
+                        abajo el listado de inscriptos.</p>
+                    <p>El programa se carga una vez y vale para toda la cursada: es el contexto que usa LidIA para situar
+                        los comentarios en las unidades que se dictaron. No es criterio de evaluación; el criterio es la
+                        consigna y la rúbrica.</p>
+                    <figure class="ins-figura">
+                        <img src="img/cursada.jpg" alt="Ficha de una cursada, con la tira de pasos completados y el listado de instancias de evaluación" loading="lazy">
+                        <figcaption>La tira de arriba marca qué falta para poner la cursada en marcha.</figcaption>
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>2. Crear la instancia de evaluación</h4>
-                <p>Desde la ficha de la cursada, <span class="ins-rotulo">Nueva instancia</span>. Primero se define el
-                    nombre, el tipo y las fechas; después se carga el material. Hay tres tipos:</p>
-                <table class="ins-tabla">
-                    <tr><th>Trabajo abierto</th><td>Se evalúa contra consigna y rúbrica, criterio por criterio, sin nota
-                        numérica. Admite entregas sucesivas.</td></tr>
-                    <tr><th>Examen escrito</th><td>Preguntas con su respuesta esperada y su puntaje. En las prácticas se
-                        señala el error y se orienta el repaso sin revelar la respuesta; en la corrección final se revela
-                        y se propone una calificación por puntaje.</td></tr>
-                    <tr><th>Opción múltiple</th><td>Preguntas con opciones y clave por ítem, con una única oportunidad de
-                        entrega.</td></tr>
-                </table>
-                <p>Los exámenes se pueden tipear en la ficha o cargar desde un documento: la pantalla ofrece una plantilla
-                    de Word para descargar, completar y volver a subir.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">2</div>
+                    <h4>Crear la instancia de evaluación</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Primero el nombre, el tipo y las fechas; después el material. Hay tres tipos:</p>
+                    <table class="ins-tabla">
+                        <tr><th>Trabajo abierto</th><td>Se evalúa contra consigna y rúbrica, criterio por criterio.
+                            Admite entregas sucesivas.</td></tr>
+                        <tr><th>Examen escrito</th><td>Preguntas con su respuesta esperada y su puntaje. En las prácticas
+                            se señala el error y se orienta el repaso sin revelar la respuesta; en la corrección final se
+                            revela y se propone una calificación por puntaje.</td></tr>
+                        <tr><th>Opción múltiple</th><td>Preguntas con opciones y clave por ítem, con una única
+                            oportunidad de entrega.</td></tr>
+                    </table>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>3. Material de corrección y cupos</h4>
-                <p>En la ficha de la instancia se cargan la consigna, la rúbrica o las respuestas esperadas, la cantidad
-                    de devoluciones de práctica y de preguntas por devolución, y la cantidad máxima de integrantes por
-                    grupo. Las respuestas esperadas y la clave son material interno: el estudiantado no las ve en ningún
-                    momento, tampoco a través de las preguntas.</p>
-                <p>La rúbrica es lo que más determina la calidad de la devolución. Conviene redactarla con criterios
-                    separados y observables, porque la devolución se organiza siguiéndolos uno por uno.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">3</div>
+                    <h4>Cargar la consigna y la rúbrica</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Se tipean en la ficha o se traen desde un documento: el sistema ofrece una plantilla de Word para
+                        descargar, completar y volver a subir, y muestra lo que leyó antes de guardar nada.</p>
+                    <p>La rúbrica es lo que más determina la calidad de la devolución, porque la devolución se organiza
+                        siguiéndola. Conviene un criterio por línea, redactado en términos observables. Las respuestas
+                        esperadas y la clave son material interno: el estudiantado no las ve nunca, tampoco a través de
+                        las preguntas.</p>
+                    <figure class="ins-figura">
+                        <img src="img/instancia-material.jpg" alt="Ficha de una instancia con la consigna y la rúbrica cargadas, un criterio por línea" loading="lazy">
+                        <figcaption>Consigna y rúbrica. Un criterio por línea.</figcaption>
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>4. Activar</h4>
-                <p>Toda instancia nace en estado <span class="ins-rotulo">Borrador</span> y el estudiantado no la ve. Se
-                    publica tildando <span class="ins-rotulo">Activa — visible para los estudiantes del curso</span> y
-                    guardando. Si falta material de corrección, el sistema no la activa y avisa qué falta.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">4</div>
+                    <h4>Fijar los cupos y activar</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Cuántas versiones mejorables admite, cuántas preguntas por devolución, la nota de aprobación y los
+                        integrantes por grupo. También se puede agregar una indicación de corrección propia, por ejemplo
+                        pedir que el trabajo declare el uso de IA generativa.</p>
+                    <p>Toda instancia nace en <span class="ins-rotulo">Borrador</span> y el estudiantado no la ve. Se
+                        publica con el tilde <span class="ins-rotulo">Activa — visible para los estudiantes del curso</span>.
+                        Si falta material de corrección, el sistema no la activa y dice qué falta.</p>
+                    <figure class="ins-figura">
+                        <img src="img/instancia-ajustes.jpg" alt="Ajustes de una instancia: versiones mejorables, preguntas por devolución, nota para aprobar, integrantes por grupo y el tilde de activación" loading="lazy">
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>5. Inscribir al estudiantado</h4>
-                <p>Desde la ficha de la cursada, de a una persona por vez con
-                    <span class="ins-rotulo">Nuevo estudiante</span>, o en lote con
-                    <span class="ins-rotulo">Importar listado</span>, que acepta un archivo CSV o el listado pegado
-                    directamente desde una planilla con el formato documento, apellido y nombre, correo. Si el documento
-                    ya existe en el sistema, la persona solo queda inscripta en esa cursada. Cada alta dispara el correo
-                    con el enlace para fijar la contraseña.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">5</div>
+                    <h4>Inscribir al curso</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>De a una persona por vez, o en lote pegando el listado desde una planilla con el formato
+                        documento, apellido y nombre, correo. Si el documento ya existe en el sistema, la persona queda
+                        inscripta sin duplicarse. Cada alta dispara el correo con el enlace para fijar la contraseña.</p>
+                    <figure class="ins-figura">
+                        <img src="img/importar.jpg" alt="Pantalla de importación de estudiantes, con el área para pegar el listado desde una planilla" loading="lazy">
+                    </figure>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>6. Revisar y firmar</h4>
-                <p>Las entregas definitivas esperan en <span class="ins-rotulo">Entregas</span>, y la ficha de la cursada
-                    indica cuántas hay pendientes en <span class="ins-rotulo">Definitivas por revisar</span>. La pantalla
-                    de revisión muestra el trabajo entregado junto a la propuesta de devolución, criterio por criterio,
-                    con un estado por criterio: logrado, en desarrollo, insuficiente o no presente.</p>
-                <p>Esa propuesta se edita libremente. Con
-                    <span class="ins-rotulo">Validar y publicar</span> la devolución llega al estudiante, en la
-                    aplicación y por correo. Con <span class="ins-rotulo">Reabrir (pedir nueva versión)</span> vuelve
-                    para que la rehaga, con el motivo que se indique.</p>
-                <p>La calificación se deriva de los estados de los criterios y la confirma quien revisa. Las notas de la
-                    cursada se descargan en formato CSV desde su ficha.</p>
+
+            <div class="ins-paso">
+                <div class="ins-paso-cabeza">
+                    <div class="ins-num">6</div>
+                    <h4>Revisar y firmar</h4>
+                </div>
+                <div class="ins-cuerpo">
+                    <p>Las entregas definitivas esperan en <span class="ins-rotulo">Entregas</span>. La pantalla de
+                        revisión muestra el trabajo junto a la propuesta de devolución, criterio por criterio, con cuatro
+                        estados posibles: logrado, en desarrollo, insuficiente o no presente.</p>
+                    <p>Esa propuesta se edita libremente. Con <span class="ins-rotulo">Validar y publicar</span> la
+                        devolución llega al estudiante, en la aplicación y por correo. Con
+                        <span class="ins-rotulo">Reabrir (pedir nueva versión)</span> vuelve para que la rehaga. La
+                        calificación se deriva de los estados y la confirma quien revisa; las notas de la cursada se
+                        descargan en CSV.</p>
+                    <figure class="ins-figura">
+                        <img src="../lidia-revision.jpg" alt="Pantalla de revisión docente: la entrega a un lado y la propuesta de devolución criterio por criterio al otro" loading="lazy">
+                        <figcaption>La pantalla de revisión. Nada se publica hasta que un docente lo valida.</figcaption>
+                    </figure>
+                </div>
             </div>
+
             <div class="ins-aviso">
-                El juicio evaluativo es del equipo docente. Ninguna devolución sujeta a calificación llega al
-                estudiantado sin que una persona la revise y la publique.
+                <strong>El juicio evaluativo es del equipo docente</strong>
+                Ninguna devolución sujeta a calificación llega al estudiantado sin que una persona la revise y la
+                publique. El sistema registra cuánto se reescribió la propuesta antes de firmarla.
             </div>
         </div>
     </section>
@@ -255,29 +391,21 @@
                 <h2 class="section-heading text-uppercase">Datos</h2>
                 <h3 class="section-subheading text-muted">Qué se envía al modelo y qué no.</h3>
             </div>
-            <div class="ins-bloque">
-                <h4>Lo que viaja al modelo</h4>
-                <p>El texto del trabajo, el nombre de pila y el perfil de corrección de la persona, cuando lo tiene
-                    cargado. El documento de identidad nunca se envía: es solamente el identificador de acceso.</p>
+            <div class="ins-paso">
+                <div class="ins-cuerpo" style="padding-left:0">
+                    <ul>
+                        <li>Al modelo van el texto del trabajo, el nombre de pila y el perfil de corrección de la persona
+                            cuando lo tiene cargado.</li>
+                        <li>El documento de identidad nunca se envía: es solamente el identificador de acceso.</li>
+                        <li>Cada estudiante decide en <span class="ins-rotulo">Tu cuenta</span> si sus entregas pueden
+                            usarse con fines de investigación. Sin ese consentimiento quedan fuera de toda exportación, y
+                            el sistema se usa exactamente igual. Lo exportado va seudonimizado.</li>
+                    </ul>
+                </div>
             </div>
-            <div class="ins-bloque">
-                <h4>Uso de las entregas en investigación</h4>
-                <p>Cada estudiante decide en <span class="ins-rotulo">Tu cuenta</span> si sus entregas pueden utilizarse
-                    con fines de investigación. Sin ese consentimiento explícito quedan fuera de toda exportación, y el
-                    sistema se usa exactamente igual. Lo que se exporta va seudonimizado.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section bg-light" id="ayuda">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Ayuda</h2>
-                <h3 class="section-subheading text-muted">Dónde consultar.</h3>
-            </div>
-            <p class="ins-texto">Las dudas sobre la consigna, los criterios o la calificación se resuelven con el equipo
-                docente de la cursada. Las dificultades de acceso o los problemas técnicos se consultan al laboratorio.</p>
-            <div class="text-center ins-indice mt-4">
+            <div class="ins-cierre text-center">
+                <p>Las dudas sobre la consigna, los criterios o la calificación se resuelven con el equipo docente de la
+                    cursada. Las dificultades de acceso, con el laboratorio.</p>
                 <a class="btn btn-primary" href="../"><i class="fas fa-circle-info me-2"></i>Sobre LidIA</a>
                 <a class="btn btn-primary" href="mailto:licdia@unlu.edu.ar"><i class="fas fa-envelope me-2"></i>licdia@unlu.edu.ar</a>
             </div>

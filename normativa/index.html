@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Consulta conversacional de la normativa de la UNLu: un sistema de generación aumentada por recuperación (RAG) sobre los actos que la universidad publica en SUDOCU, que responde en lenguaje natural y cita cada afirmación con el enlace al documento oficial. LICDIA - Universidad Nacional de Luján." />
+    <meta name="author" content="LICDIA - Laboratorio de Investigación en Ciencia de Datos e Inteligencia Artificial - UNLu" />
+    <meta name="keywords" content="normativa universitaria, digesto, SUDOCU, RAG, generación aumentada por recuperación, resoluciones, UNLu, LICDIA, SIU" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Consulta conversacional de la normativa de la UNLu" />
+    <meta property="og:description" content="Responde en lenguaje natural sobre los actos que la UNLu publica en SUDOCU y cita cada afirmación con el enlace al documento oficial. LICDIA - UNLu." />
+    <meta property="og:url" content="https://licdia.unlu.edu.ar/normativa/" />
+    <meta property="og:image" content="https://licdia.unlu.edu.ar/assets/img/desarrollos/normativa.jpg" />
+    <meta property="og:locale" content="es_AR" />
+    <link rel="canonical" href="https://licdia.unlu.edu.ar/normativa/" />
+    <title>Normativa UNLu - LICDIA</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../css/licdia-visual.css" rel="stylesheet" />
+    <script src="../js/licdia-hero.js" defer></script>
+    <link href="../css/style2.css" rel="stylesheet" />
+    <style>
+        .nor-marca { font-size: 84px; margin-bottom: 1.1rem; color: #3fd2f2; }
+        .nor-texto { max-width: 820px; margin: 0 auto 1.2rem; font-size: 1.08rem; line-height: 1.7; }
+        .nor-capa { height: 100%; padding: 1.6rem; border-radius: 10px; border: 1px solid rgba(125, 155, 200, .35); }
+        .nor-capa h4 { margin-bottom: .8rem; }
+        .nor-cifras { max-width: 900px; margin: 0 auto; }
+        .nor-cifra { height: 100%; padding: 1.3rem 1.2rem; border-radius: 10px; border: 1px solid rgba(125, 155, 200, .35); text-align: center; }
+        .nor-cifra b { display: block; margin-bottom: .4rem; font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.1; }
+        .nor-cifra span { font-size: .95rem; line-height: 1.5; }
+        .nor-captura { max-width: 900px; margin: 0 auto; display: block; width: 100%; height: auto;
+            border: 1px solid rgba(125, 155, 200, .45); border-radius: 10px; }
+        .nor-enlaces .btn { margin: .3rem; }
+        .nor-texto { text-align: justify; hyphens: auto; }
+        #contact .nor-texto { text-align: center; hyphens: manual; }
+    </style>
+</head>
+
+<body id="page-top" class="licdia">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand efect" href="../"><img src="../assets/img/logo.ico" alt="LICDIA" /></a>
+            <a class="navbar-brand efect" href="../"><img src="../assets/img/depto.ico" alt="Departamento de Ciencias Básicas" /></a>
+            <a class="navbar-brand efect" href="../"><img src="../assets/img/unlu.ico" alt="UNLu" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Abrir el menú">
+                Menú <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#que-es">Qué hace</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#evaluacion">Evaluación</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#alcance">Alcance</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#probarlo">Probarlo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead efect fondoLLM">
+        <div class="container overlay text-center">
+            <div class="nor-marca"><i class="fas fa-scale-balanced" aria-hidden="true"></i></div>
+            <div class="masthead-heading text-uppercase">Normativa UNLu</div>
+            <div class="masthead-subheading">Consulta conversacional de la normativa universitaria, con la fuente de cada afirmación</div>
+        </div>
+    </header>
+
+    <section class="page-section bg-light" id="que-es">
+        <div class="container">
+            <p class="nor-texto">Los portales de normativa universitaria suelen buscar por atributos del acto, como el
+                tipo, el número o el órgano emisor, que resultan familiares para el personal administrativo pero no para
+                quien busca información sobre una situación concreta. El Sistema Único Documental (SUDOCU), creado por la
+                UNGS, adoptado por el SIU y utilizado por 37 instituciones, ofrece una base común: un módulo de publicación
+                con una interfaz de acceso uniforme.</p>
+            <p class="nor-texto">Sobre esa base, el sistema desarrollado en el LICDIA emplea generación aumentada por
+                recuperación (RAG): responde en lenguaje natural sobre todos los actos que la UNLu publica en SUDOCU,
+                segmentados por unidad normativa, y respalda cada afirmación con el fragmento citado y el enlace al
+                documento oficial.</p>
+            <div class="row g-4 mt-2">
+                <div class="col-md-4">
+                    <div class="nor-capa">
+                        <h4><i class="fas fa-quote-right me-2"></i>Fuente de cada afirmación</h4>
+                        <p>Cada respuesta muestra el fragmento en el que se apoya y el enlace al acto publicado, para que
+                            quien consulta pueda leerlo completo.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="nor-capa">
+                        <h4><i class="fas fa-magnifying-glass me-2"></i>Recuperación híbrida</h4>
+                        <p>Combina recuperación semántica y léxica. La búsqueda léxica trata identificadores normativos como
+                            «RESHCS-LUJ: 0000042-24» o «528/2025» como una unidad, que es justamente lo que la semántica no
+                            distingue.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="nor-capa">
+                        <h4><i class="fas fa-comments me-2"></i>Repreguntas</h4>
+                        <p>Mantiene un estado de diálogo visible y editable, que permite resolver repreguntas elípticas sin
+                            repetir el contexto de la consulta anterior.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="evaluacion">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Evaluación</h2>
+                <h3 class="section-subheading text-muted">Métricas automáticas y validación humana.</h3>
+            </div>
+            <div class="row g-4 nor-cifras">
+                <div class="col-sm-6 col-lg-3"><div class="nor-cifra"><b>100 %</b><span>de las consultas por identificador resueltas</span></div></div>
+                <div class="col-sm-6 col-lg-3"><div class="nor-cifra"><b>0,12 a 0,93</b><span>cobertura en repreguntas elípticas, sin y con estado de diálogo</span></div></div>
+                <div class="col-sm-6 col-lg-3"><div class="nor-cifra"><b>97 %</b><span>de los actos citados tienen correspondencia con lo recuperado</span></div></div>
+                <div class="col-sm-6 col-lg-3"><div class="nor-cifra"><b>&gt; 4,5 / 5</b><span>utilidad, fidelidad, completitud y claridad, según cinco evaluadores</span></div></div>
+            </div>
+            <p class="nor-texto mt-4">El sistema está diseñado para ser portable: está implementado en la UNLu, se replicó
+                en la Universidad Nacional de San Luis solo mediante configuración y puede desplegarse en cualquier
+                institución con un portal SUDOCU.</p>
+            <div class="text-center nor-enlaces mt-3">
+                <a class="btn btn-primary" href="/publicaciones/pdf/rag-sudocu-cacic2026.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf me-2"></i>Trabajo completo (CACIC 2026)</a>
+                <a class="btn btn-primary" href="/blog/posters-jornadas-2026/#p-rag-sudocu"><i class="fas fa-image me-2"></i>Póster (Jornadas 2026)</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section bg-light" id="alcance">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Alcance</h2>
+                <h3 class="section-subheading text-muted">Un límite del corpus, no del sistema.</h3>
+            </div>
+            <p class="nor-texto">La UNLu no registra en ningún sistema qué acto deroga o modifica a otro. Por eso el
+                sistema no puede establecer si una norma sigue vigente: puede citar una resolución que fue reemplazada
+                después. Cada respuesta enlaza el documento oficial para verificarlo, y las respuestas pueden contener
+                errores.</p>
+        </div>
+    </section>
+
+    <section class="page-section" id="probarlo">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Probarlo</h2>
+                <h3 class="section-subheading text-muted">La pantalla inicial, con consultas sugeridas.</h3>
+            </div>
+            <img src="../assets/img/desarrollos/normativa.jpg" alt="Pantalla inicial del sistema, con consultas sugeridas sobre la normativa de la UNLu"
+                class="nor-captura" width="1000" height="600" loading="lazy">
+            <div class="text-center nor-enlaces mt-4">
+                <a class="btn btn-primary" href="/rag-unlu/" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square me-2"></i>Entrar al sistema</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="contact">
+        <div class="container text-center">
+            <h2 class="section-heading text-uppercase">Contacto</h2>
+            <p class="nor-texto white">Desarrollado en el Laboratorio de Investigación en Ciencia de Datos &amp;
+                Inteligencia Artificial, Departamento de Ciencias Básicas, Universidad Nacional de Luján, con la
+                colaboración del LIDIC de la Universidad Nacional de San Luis.</p>
+            <p class="nor-texto white"><a href="mailto:licdia@unlu.edu.ar" class="white">licdia@unlu.edu.ar</a></p>
+        </div>
+    </section>
+
+    <footer class="footer bg-dark text-white py-4 mt-2">
+        <div class="container text-center small">
+            <p class="mb-2">
+                Copyright &copy; 2026 | Laboratorio de Investigación en Ciencia de Datos &amp; Inteligencia
+                Artificial de la Universidad de Luján
+                <a href="https://resoluciones.unlu.edu.ar/documento.frame.php?cod=128241" target="_blank"
+                    class="text-decoration-none text-info">[Disposición del Grupo de Investigación]</a>
+                <a href="https://drive.google.com/file/d/1AddV4FMq70bOO4REUgAVppe5i4Vw9h_W/view" target="_blank"
+                    class="text-decoration-none text-info">[Resolución del Laboratorio]</a>
+                - Argentina. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.js"></script>
+</body>
+
+</html>
