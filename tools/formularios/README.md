@@ -22,3 +22,9 @@ Está instalado en licdia.unlu@gmail.com como el proyecto de Apps Script "Regist
 
 Si se cambia el script, hay que publicar una versión nueva en "Implementar" → "Administrar implementaciones" (la URL
 se mantiene).
+
+## Sumate al LICDIA
+
+`sumate-registro.gs` es la misma aplicación con otra planilla («Registros · Sumate al LICDIA»): recibe el formulario
+de la sección «Sumate» de la portada y avisa a licdia@unlu.edu.ar (que reenvía a la cuenta de Gmail). Está instalada en licdia.unlu@gmail.com como el proyecto "Registro Sumate" (implementación "Formulario Sumate de la
+portada", 20/11/2026) y su URL `/exec` está en `SUMATE_URL` de `js/sumate.js`. Sin URL, el formulario abre el correo de quien escribe con el mensaje listo para licdia@unlu.edu.ar.

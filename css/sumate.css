@@ -1,0 +1,43 @@
+/* Sección «Sumate al LICDIA» de la portada (#sumate); el envío está en js/sumate.js. */
+
+#sumate .sm-caminos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; margin-bottom: 2.4rem; }
+#sumate .sm-camino {
+    padding: 1.4rem 1.3rem; border: 1px solid var(--lv-borde, #e3e8ef); border-radius: 16px; background: #fff;
+    box-shadow: 0 6px 20px rgba(14, 22, 38, .05);
+}
+/* el ícono va dentro de un span porque Font Awesome (JS) reemplaza el <i> por un <svg> */
+#sumate .sm-icono { display: inline-grid; place-items: center; width: 42px; height: 42px; margin-bottom: .8rem;
+    border-radius: 12px; background: rgba(63, 210, 242, .12); color: var(--lv-acento, #0b7f99); font-size: 1.05rem; }
+#sumate .sm-camino h4 { margin: 0 0 .45rem; color: var(--lv-tinta, #0e1626); font: 600 1.05rem/1.3 var(--lv-titulo, sans-serif); text-transform: none; }
+#sumate .sm-camino p { margin: 0; color: var(--lv-texto, #3a475c); font-size: .9rem; line-height: 1.6; }
+
+#sumate .sm-form {
+    max-width: 860px; margin: 0 auto; padding: 1.8rem; border: 1px solid var(--lv-borde, #e3e8ef); border-radius: 18px;
+    background: #fff; box-shadow: 0 10px 30px rgba(14, 22, 38, .07); text-align: left;
+}
+#sumate .sm-campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.2rem; }
+#sumate .sm-campos label { display: flex; flex-direction: column; gap: .35rem; color: var(--lv-tinta, #0e1626); font: 600 .82rem var(--lv-cuerpo, sans-serif); }
+#sumate .sm-ancho { grid-column: 1 / -1; }
+#sumate .sm-campos input[type="text"], #sumate .sm-campos input[type="email"], #sumate .sm-campos select, #sumate .sm-campos textarea {
+    width: 100%; padding: .65rem .8rem; border: 1px solid #cfd8e3; border-radius: 10px; background: #fbfcfe;
+    color: var(--lv-tinta, #0e1626); font: 400 .95rem var(--lv-cuerpo, sans-serif);
+}
+#sumate .sm-campos input:focus, #sumate .sm-campos select:focus, #sumate .sm-campos textarea:focus {
+    outline: none; border-color: var(--lv-acento, #0b7f99); box-shadow: 0 0 0 3px rgba(11, 127, 153, .15);
+}
+#sumate .sm-revisar :invalid { border-color: #d14b4b !important; }
+#sumate .sm-check { flex-direction: row !important; align-items: flex-start; gap: .55rem !important; font-weight: 400 !important; color: var(--lv-texto, #3a475c) !important; }
+#sumate .sm-check input { margin-top: .2rem; }
+#sumate .sm-trampa { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+#sumate .sm-pie { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.3rem; }
+#sumate .sm-estado { color: var(--lv-texto, #3a475c); font-size: .9rem; }
+#sumate .sm-estado a { color: var(--lv-acento, #0b7f99); font-weight: 600; }
+#sumate .sm-gracias { display: flex; align-items: center; gap: 1rem; padding: .6rem; color: var(--lv-tinta, #0e1626); }
+#sumate .sm-gracias i { color: #1fa872; font-size: 1.8rem; }
+#sumate .sm-gracias p { margin: 0; }
+
+@media (max-width: 991.98px) { #sumate .sm-caminos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 575.98px) {
+    #sumate .sm-caminos, #sumate .sm-campos { grid-template-columns: 1fr; }
+    #sumate .sm-form { padding: 1.2rem; }
+}

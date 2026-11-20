@@ -30,6 +30,16 @@
     <script src="../js/licdia-hero.js" defer></script>
     <link href="../css/style2.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Cursos del proyecto: tarjeta propia en lugar de los flyers (tenían el texto encimado dentro de la imagen) */
+        .ens-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; height: 220px;
+            color: #e8f1ff; background: radial-gradient(420px 220px at 50% 0%, rgba(63, 210, 242, .25), transparent 70%),
+            linear-gradient(160deg, #060b18, #13254a); }
+        .ens-visual[data-curso="web"] { background: radial-gradient(420px 220px at 50% 0%, rgba(241, 123, 183, .25), transparent 70%), linear-gradient(160deg, #060b18, #2a1640); }
+        .ens-visual[data-curso="juego"] { background: radial-gradient(420px 220px at 50% 0%, rgba(157, 146, 255, .3), transparent 70%), linear-gradient(160deg, #060b18, #1f1a4a); }
+        .ens-visual svg, .ens-visual i { font-size: 3rem; opacity: .9; }
+        .ens-visual span { font: 500 .75rem "DM Mono", ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+    </style>
 </head>
 
 <body id="page-top" class="licdia">
@@ -63,9 +73,9 @@
     <section class="page-section bg-light" id="portfolio">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase"> ¿De que trata el proyecto? </h2>
-                <h3 class="section-subheading text-muted white"> Proyeto de extensión de la Universidad De Luján, cuyo objetivo es la enseñanza de programación en escuelas secundarias de la zona de
-                    influencia de la Universidad Nacional de Luján, para lograr estó, se presentaron los siguientes cursos.  </h3>
+                <h2 class="section-heading text-uppercase"> El proyecto </h2>
+                <h3 class="section-subheading text-muted white"> Proyecto de extensión de la Universidad Nacional de Luján, cuyo objetivo es la enseñanza de programación en escuelas secundarias de la zona de
+                    influencia de la Universidad Nacional de Luján, para lograr esto, se presentaron los siguientes cursos.  </h3>
             </div>
             <section class="page-section bg-light oculto" id="portfolio">
                 <div class="text-center">
@@ -78,7 +88,7 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <picture><source srcset="../assets/img/ia.webp" type="image/webp"><img class="img-fluid" src="../assets/img/ia.png" alt="..." ></picture>
+                                <div class="ens-visual" data-curso="ia"><i class="fas fa-eye" aria-hidden="true"></i><span>Reconocimiento de imágenes</span></div>
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">Introducción a la Inteligencia
@@ -94,7 +104,7 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <picture><source srcset="../assets/img/web.webp" type="image/webp"><img class="img-fluid" src="../assets/img/web.png" alt="..." loading="lazy"></picture>
+                                <div class="ens-visual" data-curso="web"><i class="fas fa-code" aria-hidden="true"></i><span>Programación web</span></div>
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">Primeros pasos en programación
@@ -110,7 +120,7 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <picture><source srcset="../assets/img/juego.webp" type="image/webp"><img class="img-fluid" src="../assets/img/juego.png" alt="..." loading="lazy"></picture>
+                                <div class="ens-visual" data-curso="juego"><i class="fas fa-gamepad" aria-hidden="true"></i><span>Videojuegos</span></div>
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading"> Introducción a la programación de

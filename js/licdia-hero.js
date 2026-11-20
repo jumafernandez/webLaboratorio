@@ -1,5 +1,5 @@
 /* LICDIA, portada y demás páginas del laboratorio: la red de nodos del fondo de Contacto (el sitio original de Lucas Santillán), animada en el encabezado.
-   Los nodos con nombre son las líneas de trabajo de "¿Qué hacemos?", leídas de la misma página; el resto es la red que
+   Los nodos con nombre son las líneas de I+D de "Investigación", leídas de la misma página; el resto es la red que
    las une. Canvas liviano: se pausa fuera de pantalla y queda quieto con "reducir movimiento". */
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
     var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
     var semilla = 13, nodos = [], visible = true, corriendo = false;
     function azar() { semilla = (semilla * 16807) % 2147483647; return (semilla - 1) / 2147483646; }
-    var lineas = Array.prototype.map.call(document.querySelectorAll('#portfolio .portfolio-caption-heading'), function (e) {
+    var lineas = Array.prototype.map.call(document.querySelectorAll('#portfolio .qh-linea h4'), function (e) {
         return e.textContent.replace(/\s+/g, ' ').trim();
     }).filter(function (t) { return t && t.length < 60; });
 
@@ -41,6 +41,12 @@
             nodos.push({ x: W * (x0 + azar() * 0.08), y: H * (y + (azar() - 0.5) * 0.06), vx: (azar() - 0.5) * 0.12,
                          vy: (azar() - 0.5) * 0.1, r: 2.6, c: '63,210,242', nombre: t, izq: izq });
         });
+    }
+    // corta en el espacio más cercano a la mitad
+    function partir(t) {
+        var m = t.length / 2, mejor = -1;
+        for (var i = 0; i < t.length; i++) if (t[i] === ' ' && (mejor < 0 || Math.abs(i - m) < Math.abs(mejor - m))) mejor = i;
+        return mejor < 0 ? [t] : [t.slice(0, mejor), t.slice(mejor + 1)];
     }
     // más tenue detrás del texto central
     function velo(x, y) {
@@ -75,11 +81,15 @@
             var v = velo(n.x, n.y);
             ctx.fillStyle = 'rgba(' + n.c + ',' + (0.35 + 0.55 * v).toFixed(3) + ')';
             ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.283); ctx.fill();
-            if (n.nombre && W > 760) {
+            if (n.nombre && W >= 1200) {   // con menos ancho el título ocupa los costados
                 ctx.fillStyle = 'rgba(200,230,255,' + (0.5 * v).toFixed(3) + ')';
                 // en los márgenes: el nombre se escribe hacia adentro
                 ctx.textAlign = n.izq ? 'left' : 'right';
-                ctx.fillText(n.nombre, n.x + (n.izq ? 9 : -9), n.y + 4);
+                // los nombres largos van en dos renglones para no llegar al título
+                var renglones = n.nombre.length > 24 ? partir(n.nombre) : [n.nombre];
+                renglones.forEach(function (r, k) {
+                    ctx.fillText(r, n.x + (n.izq ? 9 : -9), n.y + 4 + (k - (renglones.length - 1) / 2) * 13);
+                });
             }
         });
         if (visible && !reducir) requestAnimationFrame(cuadro); else corriendo = false;

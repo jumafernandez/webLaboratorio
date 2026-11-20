@@ -30,6 +30,12 @@
     <script src="../js/licdia-hero.js" defer></script>
     <link href="../css/style2.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Docencia: fondo azul noche (antes celeste, con el texto claro casi ilegible) */
+        #docencia h2.section-heading { color: #f3f8ff !important; }
+        #docencia h3.section-subheading { color: rgba(214, 228, 248, .88) !important; }
+        #docencia hr { border-color: rgba(120, 180, 255, .25); opacity: 1; }
+    </style>
 </head>
 
 <body id="page-top" class="licdia">
@@ -178,7 +184,7 @@
                     </section>
             </div>
     </section>
-    <section class="page-section oculto" id="docencia" style="background-color: #6c9abf;">
+    <section class="page-section oculto" id="docencia" style="background: linear-gradient(180deg, #060b18, #0c1730);">
             <div class="container">
                 <hr>
                 <div class="text-center">
@@ -295,9 +301,12 @@
                 <div class="col-md-6">
                     <div class="form-group form-group-textarea mb-md-0">
                         <div id="map">
-                            <script defer
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeElQ8-FhEaRjMozZPYdVwhQybgQMIE4o&callback=initMap">
-                                </script>
+                            <iframe
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=-59.1145%2C-34.5750%2C-59.0945%2C-34.5630&amp;layer=mapnik&amp;marker=-34.5689%2C-59.1044"
+                                style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                title="Mapa Universidad Nacional de Luján"></iframe>
+                            <p style="font-size:0.85em;margin-top:0.5em;"><a href="https://www.openstreetmap.org/?mlat=-34.5689&amp;mlon=-59.1044#map=16/-34.5689/-59.1044"
+                                target="_blank" rel="noopener">Ver mapa ampliado</a></p>
                         </div>
                     </div>
                 </div>

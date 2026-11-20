@@ -13,15 +13,14 @@
     }
     function titulo(sec, k) { return sec ? sec.querySelectorAll('h2.section-heading')[k || 0] : null; }
 
-    // ¿Qué hacemos?: tarjetas debajo de "Líneas de I+D" y de "Proyectos de I+D+E"
+    // Investigación: tarjetas de líneas (.qh-linea), proyectos (.qh-proy) y desarrollos (las .portfolio-item que quedan)
     var portfolio = document.getElementById('portfolio');
     if (portfolio) {
-        var lineas = 0, proyectos = 0, actual = null;
-        Array.prototype.forEach.call(portfolio.querySelectorAll('h3.section-heading, .portfolio-item'), function (e) {
-            if (e.tagName === 'H3') { actual = /proyecto/i.test(e.textContent) ? 'p' : 'l'; return; }
-            if (actual === 'l') lineas++; else if (actual === 'p') proyectos++;
-        });
-        rotulo(titulo(portfolio), plural(lineas, 'línea de I+D', 'líneas de I+D') + ' · ' + plural(proyectos, 'proyecto', 'proyectos'));
+        var lineas = portfolio.querySelectorAll('.qh-linea').length;
+        var proyectos = portfolio.querySelectorAll('.qh-proy').length;
+        var desarrollos = portfolio.querySelectorAll('.portfolio-item').length;
+        rotulo(titulo(portfolio), plural(lineas, 'línea de I+D', 'líneas de I+D') + ' · ' + plural(proyectos, 'proyecto', 'proyectos') +
+            ' · ' + plural(desarrollos, 'desarrollo', 'desarrollos'));
     }
 
     var novedades = document.getElementById('noticias');

@@ -27,8 +27,11 @@
     <link href="css/styles.css?v=2026-10-23b" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="css/licdia-visual.css" rel="stylesheet" />
-    <script src="js/licdia-hero.js" defer></script>
-    <script src="js/licdia-secciones.js" defer></script>
+    <link href="css/que-hacemos.css?v=2026-11-20" rel="stylesheet" />
+    <link href="css/sumate.css?v=2026-11-20" rel="stylesheet" />
+    <script src="js/licdia-hero.js?v=2026-11-20" defer></script>
+    <script src="js/licdia-secciones.js?v=2026-11-20" defer></script>
+    <script src="js/sumate.js?v=2026-11-20b" defer></script>
     <!-- Asistente del laboratorio: la misma interfaz que el de la diplomatura en IA Generativa, con el índice del labo -->
     <link href="css/devia-asistente.css" rel="stylesheet" />
     <script>
@@ -89,11 +92,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">¿QUÉ HACEMOS?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">INVESTIGACIÓN</a></li>
                     <li class="nav-item"><a class="nav-link" href="/publicaciones/">PUBLICACIONES</a></li>
                     <li class="nav-item"><a class="nav-link" href="/blog/">BLOG</a></li>
                     <li class="nav-item"><a class="nav-link" href="#cursosYcarreras"> Cursos & Carreras </a></li>
                     <li class="nav-item"><a class="nav-link" href="#team">Equipo y colaboradores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sumate">Sumate</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
                     <li class="nav-item lv-nav-asistente"><a class="nav-link" href="#" data-da-abrir><span class="da-logo" aria-hidden="true"><i class="da-logo-anillo"></i><i class="da-logo-centro"></i></span>Asistente</a></li>
                 </ul>
@@ -102,7 +106,7 @@
     </nav>
     <!-- Masthead-->
     <header class="masthead efect">
-        <!-- La red de nodos de Contacto, animada; los nodos con nombre son las líneas de "¿Qué hacemos?" (js/licdia-hero.js) -->
+        <!-- La red de nodos de Contacto, animada; los nodos con nombre son las líneas de I+D de "Investigación" (js/licdia-hero.js) -->
         <div class="lv-red" aria-hidden="true"></div>
         <div class="container">
             <span class="lv-logo" aria-hidden="true"><i class="lv-logo-anillo"></i><i class="lv-logo-centro"></i></span>
@@ -137,247 +141,45 @@
     <section class="page-section bg-light oculto" id="portfolio">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase"> ¿Qué hacemos? </h2>
-                <h3 class="section-subheading text-muted white">El Laboratorio de Investigación en Ciencia de Datos &
-                    Inteligencia Artificial del Departamento de Ciencias Básicas de la
-                    UNLu se enfoca en la investigación aplicada, desarrollando soluciones innovadoras en inteligencia
-                    artificial y ciencia de datos para resolver problemas reales y
-                    complejos.</h3>
+                <h2 class="section-heading text-uppercase"> Investigación </h2>
+                <h3 class="section-subheading text-muted white">Investigación aplicada en ciencia de datos e IA, con fuerte impronta en los problemas regionales.</h3>
             </div>
-            <div id="labCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <picture><source srcset="assets/img/carrusel/1.webp" type="image/webp"><img src="assets/img/carrusel/1.jpg" class="d-block w-100" alt="Imagen 1"></picture>
-                    </div>
-                    <div class="carousel-item">
-                        <picture><source srcset="assets/img/carrusel/2.webp" type="image/webp"><img src="assets/img/carrusel/2.jpg" class="d-block w-100" alt="Imagen 2" loading="lazy"></picture>
-                    </div>
-                    <div class="carousel-item">
-                        <picture><source srcset="assets/img/carrusel/3.webp" type="image/webp"><img src="assets/img/carrusel/3.jpg" class="d-block w-100" alt="Imagen 3" loading="lazy"></picture>
-                    </div>
-                    <div class="carousel-item">
-                        <picture><source srcset="assets/img/carrusel/4.webp" type="image/webp"><img src="assets/img/carrusel/4.jpg" class="d-block w-100" alt="Imagen 4" loading="lazy"></picture>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#labCarousel" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#labCarousel" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </a>
+            <div class="qh-mosaico" aria-label="Trabajos del laboratorio">
+                <div class="qh-fila qh-fila-1"><div class="qh-pista"><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-peft-vs-fft"><img src="/assets/img/noticias/jornadas-2026/peft-vs-fft-520.webp" alt="Póster · PEFT vs. FFT" loading="lazy" decoding="async"><span>Póster · PEFT vs. FFT</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-credenciales-soulbound"><img src="/assets/img/noticias/jornadas-2026/credenciales-soulbound-520.webp" alt="Póster · Credenciales soulbound" loading="lazy" decoding="async"><span>Póster · Credenciales soulbound</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-rag-sudocu"><img src="/assets/img/noticias/jornadas-2026/rag-sudocu-520.webp" alt="Póster · Normativa sobre SUDOCU" loading="lazy" decoding="async"><span>Póster · Normativa sobre SUDOCU</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-embeddings-turnos"><img src="/assets/img/noticias/jornadas-2026/embeddings-turnos-520.webp" alt="Póster · Embeddings de turnos" loading="lazy" decoding="async"><span>Póster · Embeddings de turnos</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-lidia"><img src="/assets/img/noticias/jornadas-2026/lidia-520.webp" alt="Póster · LidIA" loading="lazy" decoding="async"><span>Póster · LidIA</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-restauracion-fachadas"><img src="/assets/img/noticias/jornadas-2026/restauracion-fachadas-520.webp" alt="Póster · Restauración de fachadas" loading="lazy" decoding="async"><span>Póster · Restauración de fachadas</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-contabilidad-pymes"><img src="/assets/img/noticias/jornadas-2026/contabilidad-pymes-520.webp" alt="Póster · Contabilidad digital" loading="lazy" decoding="async"><span>Póster · Contabilidad digital</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-reclamos-distribuidoras"><img src="/assets/img/noticias/jornadas-2026/reclamos-distribuidoras-520.webp" alt="Póster · Reclamos eléctricos" loading="lazy" decoding="async"><span>Póster · Reclamos eléctricos</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-inferhive"><img src="/assets/img/noticias/jornadas-2026/inferhive-520.webp" alt="Póster · InferHive" loading="lazy" decoding="async"><span>Póster · InferHive</span></a><a class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-suelos-geoespaciales"><img src="/assets/img/noticias/jornadas-2026/suelos-geoespaciales-520.webp" alt="Póster · Suelos bonaerenses" loading="lazy" decoding="async"><span>Póster · Suelos bonaerenses</span></a><div class="qh-copia" aria-hidden="true"><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-peft-vs-fft"><img src="/assets/img/noticias/jornadas-2026/peft-vs-fft-520.webp" alt="Póster · PEFT vs. FFT" loading="lazy" decoding="async"><span>Póster · PEFT vs. FFT</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-credenciales-soulbound"><img src="/assets/img/noticias/jornadas-2026/credenciales-soulbound-520.webp" alt="Póster · Credenciales soulbound" loading="lazy" decoding="async"><span>Póster · Credenciales soulbound</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-rag-sudocu"><img src="/assets/img/noticias/jornadas-2026/rag-sudocu-520.webp" alt="Póster · Normativa sobre SUDOCU" loading="lazy" decoding="async"><span>Póster · Normativa sobre SUDOCU</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-embeddings-turnos"><img src="/assets/img/noticias/jornadas-2026/embeddings-turnos-520.webp" alt="Póster · Embeddings de turnos" loading="lazy" decoding="async"><span>Póster · Embeddings de turnos</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-lidia"><img src="/assets/img/noticias/jornadas-2026/lidia-520.webp" alt="Póster · LidIA" loading="lazy" decoding="async"><span>Póster · LidIA</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-restauracion-fachadas"><img src="/assets/img/noticias/jornadas-2026/restauracion-fachadas-520.webp" alt="Póster · Restauración de fachadas" loading="lazy" decoding="async"><span>Póster · Restauración de fachadas</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-contabilidad-pymes"><img src="/assets/img/noticias/jornadas-2026/contabilidad-pymes-520.webp" alt="Póster · Contabilidad digital" loading="lazy" decoding="async"><span>Póster · Contabilidad digital</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-reclamos-distribuidoras"><img src="/assets/img/noticias/jornadas-2026/reclamos-distribuidoras-520.webp" alt="Póster · Reclamos eléctricos" loading="lazy" decoding="async"><span>Póster · Reclamos eléctricos</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-inferhive"><img src="/assets/img/noticias/jornadas-2026/inferhive-520.webp" alt="Póster · InferHive" loading="lazy" decoding="async"><span>Póster · InferHive</span></a><a tabindex="-1" class="qh-pieza vertical" href="/blog/posters-jornadas-2026/#p-suelos-geoespaciales"><img src="/assets/img/noticias/jornadas-2026/suelos-geoespaciales-520.webp" alt="Póster · Suelos bonaerenses" loading="lazy" decoding="async"><span>Póster · Suelos bonaerenses</span></a></div></div></div>
+                <div class="qh-fila qh-fila-2"><div class="qh-pista"><a class="qh-pieza " href="/normativa/"><img src="/assets/img/desarrollos/normativa.webp" alt="Normativa UNLu" loading="lazy" decoding="async"><span>Normativa UNLu</span></a><a class="qh-pieza " href="/blog/trabajo-distinguido-cacic-2026/"><img src="/assets/img/noticias/cacic-2026-licdia.webp" alt="Trabajo distinguido · CACIC 2026" loading="lazy" decoding="async"><span>Trabajo distinguido · CACIC 2026</span></a><a class="qh-pieza " href="/fitba-13c/"><img src="/assets/img/desarrollos/ide-lujan.webp" alt="IDE del Municipio de Luján" loading="lazy" decoding="async"><span>IDE del Municipio de Luján</span></a><a class="qh-pieza " href="/lidia/"><img src="/assets/img/desarrollos/lidia.webp" alt="LidIA" loading="lazy" decoding="async"><span>LidIA</span></a><a class="qh-pieza " href="/blog/supercomputadora-clementina-xxi/"><img src="/assets/img/noticias/clementina-xxi-ipac.webp" alt="Clementina XXI" loading="lazy" decoding="async"><span>Clementina XXI</span></a><a class="qh-pieza " href="/liminar/"><img src="/assets/img/desarrollos/liminar.webp" alt="Liminar" loading="lazy" decoding="async"><span>Liminar</span></a><a class="qh-pieza " href="/blog/poster-awards-nlp-school-2026/"><img src="/assets/img/noticias/poster-peft-vs-galore-2026.webp" alt="2.º lugar · NLP School 2026" loading="lazy" decoding="async"><span>2.º lugar · NLP School 2026</span></a><a class="qh-pieza " href="/ipc/"><img src="/assets/img/desarrollos/ipc.webp" alt="Precios para el IPC" loading="lazy" decoding="async"><span>Precios para el IPC</span></a><div class="qh-copia" aria-hidden="true"><a tabindex="-1" class="qh-pieza " href="/normativa/"><img src="/assets/img/desarrollos/normativa.webp" alt="Normativa UNLu" loading="lazy" decoding="async"><span>Normativa UNLu</span></a><a tabindex="-1" class="qh-pieza " href="/blog/trabajo-distinguido-cacic-2026/"><img src="/assets/img/noticias/cacic-2026-licdia.webp" alt="Trabajo distinguido · CACIC 2026" loading="lazy" decoding="async"><span>Trabajo distinguido · CACIC 2026</span></a><a tabindex="-1" class="qh-pieza " href="/fitba-13c/"><img src="/assets/img/desarrollos/ide-lujan.webp" alt="IDE del Municipio de Luján" loading="lazy" decoding="async"><span>IDE del Municipio de Luján</span></a><a tabindex="-1" class="qh-pieza " href="/lidia/"><img src="/assets/img/desarrollos/lidia.webp" alt="LidIA" loading="lazy" decoding="async"><span>LidIA</span></a><a tabindex="-1" class="qh-pieza " href="/blog/supercomputadora-clementina-xxi/"><img src="/assets/img/noticias/clementina-xxi-ipac.webp" alt="Clementina XXI" loading="lazy" decoding="async"><span>Clementina XXI</span></a><a tabindex="-1" class="qh-pieza " href="/liminar/"><img src="/assets/img/desarrollos/liminar.webp" alt="Liminar" loading="lazy" decoding="async"><span>Liminar</span></a><a tabindex="-1" class="qh-pieza " href="/blog/poster-awards-nlp-school-2026/"><img src="/assets/img/noticias/poster-peft-vs-galore-2026.webp" alt="2.º lugar · NLP School 2026" loading="lazy" decoding="async"><span>2.º lugar · NLP School 2026</span></a><a tabindex="-1" class="qh-pieza " href="/ipc/"><img src="/assets/img/desarrollos/ipc.webp" alt="Precios para el IPC" loading="lazy" decoding="async"><span>Precios para el IPC</span></a></div></div></div>
+            </div>
+            <div class="qh-cifras">
+                <a href="/publicaciones/"><b>33</b><span>publicaciones</span></a>
+                <a href="#lineas"><b>6</b><span>líneas de I+D</span></a>
+                <a href="#desarrollos"><b>5</b><span>desarrollos</span></a>
+                <a href="/blog/posters-jornadas-2026/"><b>10</b><span>pósters en las Jornadas 2026</span></a>
             </div>
 
-            <div class="text-center">
-                <h3 class="section-heading text-uppercase" style="padding-bottom: 20px;"> Líneas de I+D </h3>
+            <div class="text-center" id="lineas">
+                <h3 class="section-heading text-uppercase" style="padding-bottom: 6px;"> Líneas de I+D </h3>
+            </div>
+            <div class="qh-lineas">
+                <article class="qh-linea" data-linea="blockchain"><div class="qh-rotulo">Línea de I+D</div><h4>Blockchain y credenciales</h4><p>Credenciales académicas verificables y formación en desarrollo sobre cadenas de bloques.</p><ul><li><a href="/blog/posters-jornadas-2026/#p-credenciales-soulbound">Certificación de logros con tokens soulbound</a></li><li><a href="/blockchain-dev/">Diplomatura en desarrollo blockchain</a></li></ul></article>
+                <article class="qh-linea" data-linea="dialogo"><div class="qh-rotulo">Línea de I+D</div><h4>Diálogo y RAG</h4><p>Sistemas conversacionales y recuperación aumentada sobre corpus institucionales.</p><ul><li><a href="/normativa/">Consulta conversacional de la normativa de la UNLu</a></li><li><a href="/blog/trabajo-distinguido-cacic-2026/">Embeddings dinámicos de turnos (trabajo distinguido, CACIC 2026)</a></li></ul></article>
+                <article class="qh-linea" data-linea="gobernanza"><div class="qh-rotulo">Línea de I+D</div><h4>Gobernanza y transformación digital</h4><p>Adopción de IA y automatización en organizaciones públicas y privadas de la región.</p><ul><li><a href="/blog/posters-jornadas-2026/#p-contabilidad-pymes">Contabilidad digital en PyMEs</a></li><li><a href="/blog/posters-jornadas-2026/#p-reclamos-distribuidoras">Reclamos en distribuidoras eléctricas</a></li></ul></article>
+                <article class="qh-linea" data-linea="educacion"><div class="qh-rotulo">Línea de I+D</div><h4>IA en educación</h4><p>Herramientas de IA para la enseñanza y la evaluación formativa.</p><ul><li><a href="/lidia/">LidIA: retroalimentación formativa con revisión docente</a></li><li><a href="/proyecto-enseñanza/">Enseñanza de programación en escuelas secundarias</a></li></ul></article>
+                <article class="qh-linea" data-linea="imagenes"><div class="qh-rotulo">Línea de I+D</div><h4>Imágenes y datos geoespaciales</h4><p>Modelos fundacionales de imágenes y datos espaciales aplicados a problemas regionales.</p><ul><li><a href="/fitba-13c/">Base de datos espaciales del Municipio de Luján</a></li><li><a href="/blog/posters-jornadas-2026/#p-suelos-geoespaciales">Propiedades de suelos agrícolas bonaerenses</a></li></ul></article>
+                <article class="qh-linea" data-linea="lenguaje"><div class="qh-rotulo">Línea de I+D</div><h4>Modelos de lenguaje abiertos</h4><p>Adaptación, evaluación y servicio de modelos de lenguaje de pesos abiertos.</p><ul><li><a href="/liminar/">Liminar: modelos del sistema universitario argentino</a></li><li><a href="/blog/poster-awards-nlp-school-2026/">PEFT vs. GaLore (2.º lugar, NLP School 2026)</a></li></ul></article>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 1-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion1">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/1.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/1.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">LLM</div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="#investigacion1"
-                                    data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 2-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion2">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/2.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/2.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading"> Soluciones de IA </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="#investigacion2"
-                                    data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 3-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion3">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/3.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/3.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">Ciencia de Datos</div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="#investigacion3"
-                                    data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 4-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion11">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/11.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/11.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">Patrones de comportamiento poblacional</div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info"
-                                    href="#investigacion11" data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 4-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion4">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/4.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/4.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">Procesamiento de datos ambientales y biológicos</div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="#investigacion4"
-                                    data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 text-center">
                     <h3 class="section-heading text-uppercase" style="padding-bottom: 20px;"> Proyectos de I+D+E</h3>
                 </div>
-                <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                    <!-- Investigación item 5-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion5">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/5.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/5.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class=" difSize">Generación de herramientas de extracción de información ambiental
-                            </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="#investigacion5"
-                                    data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" href="/LLM/">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/investigaciones/LLM.jpg" alt="..." loading="lazy">
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading"> Modelos de lenguaje a gran escala sobre
-                                infraestructura basada en computación en la
-                                nube para la implementación de soluciones de
-                                Inteligencia Artificial Generativa </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="/LLM/"> > Más
-                                    información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 7-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" href="/ipc/">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/investigaciones/7.jpg" alt="..." loading="lazy">
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading"> Desarrollo de un sistema para la obtención
-                                automática de datos para el Índice de Precios al Consumidor de la Provincia de Buenos
-                                Aires </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="/ipc/"> > Más
-                                    información </a> </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 8-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" href="/fitba-13c/">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/8.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/8.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="difSize"> Base de datos espaciales del Municipio de Luján <br><br> </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info" href="/fitba-13c/"> >
-                                    Más información </a> <br></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigacion item 9-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" href="/proyecto-enseñanza/">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/9.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/9.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading"> Enseñanza de programación en escuelas secundarias de
-                                la zona de influencia de la Universidad Nacional de Luján </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info"
-                                    href="/proyecto-enseñanza/"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                    <!-- Investigacion item 10-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion10">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/investigaciones/10.jpg" alt="..." loading="lazy">
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">Sistemas de Información Ambiental Integrada para la
-                                gestión pública del Partido de Luján: Integración con una base de datos espaciales.
-                            </div>
-                            <div class="portfolio-caption-subheading"> <a class="decoration-info"
-                                    href="#investigacion10" data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Investigación item 6-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#investigacion6">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <picture><source srcset="assets/img/investigaciones/6.webp" type="image/webp"><img class="img-fluid" src="assets/img/investigaciones/6.jpg" alt="..." loading="lazy"></picture>
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">Descubrimiento de patrones de comportamiento
-                                vinculados al abandono en la Universidad Nacional de Luján</div>
-                            <div class="portfolio-caption-subheading"><a class="decoration-info" href="#investigacion6"
-                                    data-bs-toggle="modal"> > Más información </a> </div>
-                        </div>
-                    </div>
+                <div class="col-12">
+                  <div class="qh-proyectos">
+                    <a class="qh-proy" href="/fitba-13c/"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Base de datos espaciales del Municipio de Luján <br><br></span><span class="qh-mas">&gt; Más información</span></a>
+                    <a class="qh-proy" href="/ipc/"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Desarrollo de un sistema para la obtención automática de datos para el Índice de Precios al Consumidor de la Provincia de Buenos Aires</span><span class="qh-mas">&gt; Más información</span></a>
+                    <a class="qh-proy" href="#investigacion6" data-bs-toggle="modal"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Descubrimiento de patrones de comportamiento vinculados al abandono en la Universidad Nacional de Luján</span><span class="qh-mas">&gt; Más información</span></a>
+                    <a class="qh-proy" href="/proyecto-enseñanza/"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Enseñanza de programación en escuelas secundarias de la zona de influencia de la Universidad Nacional de Luján</span><span class="qh-mas">&gt; Más información</span></a>
+                    <a class="qh-proy" href="#investigacion5" data-bs-toggle="modal"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Generación de herramientas de extracción de información ambiental</span><span class="qh-mas">&gt; Más información</span></a>
+                    <a class="qh-proy" href="/LLM/"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Modelos de lenguaje a gran escala sobre infraestructura basada en computación en la nube para la implementación de soluciones de Inteligencia Artificial Generativa</span><span class="qh-mas">&gt; Más información</span></a>
+                    <a class="qh-proy" href="#investigacion10" data-bs-toggle="modal"><span class="qh-rotulo">Proyecto de I+D+E</span><span class="qh-proy-titulo">Sistemas de Información Ambiental Integrada para la gestión pública del Partido de Luján: Integración con una base de datos espaciales.</span><span class="qh-mas">&gt; Más información</span></a>
+                  </div>
                 </div>
                 <div class="col-12 text-center" id="desarrollos">
                     <h3 class="section-heading text-uppercase" style="padding-bottom: 20px;"> Desarrollos</h3>
@@ -834,8 +636,8 @@
                     <div class="col-lg-5 col-md-6">
                         <a class="diplo-card" href="dev-ia/">
                             <div class="diplo-card-img">
-                                <picture><source srcset="assets/img/carreras/dev-ia.webp" type="image/webp"><img
-                                    src="assets/img/carreras/dev-ia.jpg" alt="" width="1200" height="600" loading="lazy"></picture>
+                                <picture><source srcset="assets/img/carreras/dev-ia-portada.webp" type="image/webp"><img
+                                    src="assets/img/carreras/dev-ia-portada.jpg" alt="Portada de la diplomatura en IA Generativa en la Nube" width="1200" height="675" loading="lazy"></picture>
                                 <span class="diplo-card-tag">Diplomatura de posgrado · UNLu</span>
                             </div>
                             <div class="diplo-card-body">
@@ -853,8 +655,8 @@
                     <div class="col-lg-5 col-md-6">
                         <a class="diplo-card" href="blockchain-dev/">
                             <div class="diplo-card-img">
-                                <picture><source srcset="assets/img/carreras/blockchain-dev.webp" type="image/webp"><img
-                                    src="assets/img/carreras/blockchain-dev.jpg" alt="" width="1200" height="600" loading="lazy"></picture>
+                                <picture><source srcset="assets/img/carreras/blockchain-dev-portada.webp" type="image/webp"><img
+                                    src="assets/img/carreras/blockchain-dev-portada.jpg" alt="Portada de la diplomatura en Blockchain" width="1200" height="675" loading="lazy"></picture>
                                 <span class="diplo-card-tag">Diplomatura de posgrado · UNLu</span>
                             </div>
                             <div class="diplo-card-body">
@@ -1428,6 +1230,37 @@
         </div>
         </div>
     </section>
+    <!-- Sumate: el formulario lo recibe tools/formularios/sumate-registro.gs (js/sumate.js) -->
+    <section class="page-section bg-light" id="sumate">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Sumate al LICDIA</h2>
+                <h3 class="section-subheading text-muted">Tesis, ayudantías, becas, integración de docentes y convenios con instituciones.</h3>
+            </div>
+            <div class="sm-caminos">
+                <div class="sm-camino"><span class="sm-icono"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span><h4>Tesinas y tesis</h4><p>Dirección de tesinas de grado y tesis de posgrado en las líneas de I+D del laboratorio.</p></div>
+                <div class="sm-camino"><span class="sm-icono"><i class="fas fa-flask" aria-hidden="true"></i></span><h4>Ayudantías y becas</h4><p>Participación en los proyectos de investigación como ayudante o becario.</p></div>
+                <div class="sm-camino"><span class="sm-icono"><i class="fas fa-users" aria-hidden="true"></i></span><h4>Docentes e investigadores</h4><p>Docentes e investigadores pueden sumarse como integrantes del laboratorio.</p></div>
+                <div class="sm-camino"><span class="sm-icono"><i class="fas fa-handshake" aria-hidden="true"></i></span><h4>Instituciones</h4><p>Convenios de colaboración y transferencia con organismos públicos, empresas y otras universidades.</p></div>
+            </div>
+            <form class="sm-form" id="formSumate" novalidate>
+                <div class="sm-campos">
+                    <label>Nombre y apellido<input type="text" name="Nombre" required maxlength="120" autocomplete="name"></label>
+                    <label>Correo<input type="email" name="Correo" required maxlength="160" autocomplete="email"></label>
+                    <label>Perfil<select name="Perfil" required><option value="">Elegí una opción</option><option>Estudiante de grado</option><option>Estudiante de posgrado</option><option>Docente o investigador/a</option><option>Institución u organización</option><option>Otro</option></select></label>
+                    <label>Me interesa<select name="Interés" required><option value="">Elegí una opción</option><option>Tesina o tesis</option><option>Ayudantía o beca</option><option>Sumarme como integrante</option><option>Convenio o transferencia</option><option>Otro</option></select></label>
+                    <label class="sm-ancho">Línea de I+D<select name="Línea"><option>Todavía no sé</option><option>Blockchain y credenciales</option><option>Diálogo y RAG</option><option>Gobernanza y transformación digital</option><option>IA en educación</option><option>Imágenes y datos geoespaciales</option><option>Modelos de lenguaje abiertos</option></select></label>
+                    <label class="sm-ancho">Mensaje<textarea name="Mensaje" rows="4" maxlength="500" placeholder="Contanos brevemente qué te interesa o en qué estás trabajando."></textarea></label>
+                    <label class="sm-trampa" aria-hidden="true">No completar<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+                    <label class="sm-ancho sm-check"><input type="checkbox" name="Consentimiento" value="Sí" required> Acepto que el LICDIA use estos datos solo para responder esta consulta.</label>
+                </div>
+                <div class="sm-pie">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <span class="sm-estado" role="status" aria-live="polite"></span>
+                </div>
+            </form>
+        </div>
+    </section>
     <!-- Contact-->
     <section class="page-section" id="contact">
         <div class="container oculto">
@@ -1508,184 +1341,6 @@
         </div>
     </footer>
     <!-- Investigación modelos-->
-    <!-- Investigación item 1 LLM-->
-    <div class="portfolio-modal modal fade" id="investigacion1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">LLM (Lenguajes de Modelos de Escala)</h2>
-                                <picture><source srcset="assets/img/investigaciones/1.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/1.jpg"
-                                    alt="..." loading="lazy"></picture>
-                                <p>Exploramos y entrenamos modelos de lenguaje a gran escala, para soluciones vinculadas
-                                    a
-                                    asistentes virtuales y sistemas de generación de texto, para mejorar la comprensión
-                                    y producción automática de lenguaje natural
-                                </p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Categoría:</strong>
-                                        Líneas de I+D
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    <i class="fas fa-xmark me-1"></i>
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Investigación item 2 Soluciones de IA-->
-    <div class="portfolio-modal modal fade" id="investigacion2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Soluciones de IA</h2>
-                                <picture><source srcset="assets/img/investigaciones/2.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/2.jpg"
-                                    alt="..." loading="lazy"></picture>
-                                <p>
-                                    Aplicamos diferentes técnicas de IA para mejorar la toma de decisiones y automatizar
-                                    procesos.
-                                </p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Categoría:</strong>
-                                        Líneas de I+D
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    <i class="fas fa-xmark me-1"></i>
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Investigación item 3 Ciencia de Datos-->
-    <div class="portfolio-modal modal fade" id="investigacion3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Ciencia de Datos</h2>
-                                <picture><source srcset="assets/img/investigaciones/3.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/3.jpg"
-                                    alt="..." loading="lazy"></picture>
-                                <p>Análisis avanzado de datos para descubrir patrones, tendencias y soluciones en
-                                    grandes volúmenes de información</p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Categoría:</strong>
-                                        Líneas de I+D
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    <i class="fas fa-xmark me-1"></i>
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Investigación item 4 Ciencia de Datos-->
-    <div class="portfolio-modal modal fade" id="investigacion11" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Patrones de comportamiento poblacional</h2>
-                                <picture><source srcset="assets/img/investigaciones/11.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/11.jpg"
-                                    alt="..." loading="lazy"></picture>
-                                <p>Aplicamos técnicas de aprendizaje automático para el estudio de patrones de
-                                    comportamiento vinculados al rendimiento académico y abandono en los estudios en el
-                                    nivel universitario.
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Categoría:</strong>
-                                        Líneas de I+D
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    <i class="fas fa-xmark me-1"></i>
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Investigación item 4 Problematicas especificas-->
-    <div class="portfolio-modal modal fade" id="investigacion4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Problematicas especificas</h2>
-                                <picture><source srcset="assets/img/investigaciones/4.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/4.jpg"
-                                    alt="..." loading="lazy"></picture>
-                                <p>
-                                    Trabajamos en el análisis y procesamiento de datos ambientales y biológicos para la
-                                    resolución de diferentes problemáticas regionales.
-                                </p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Categoría:</strong>
-                                        Líneas de I+D
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    <i class="fas fa-xmark me-1"></i>
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Investigación item 5 Proyecto de Investigación Multidisciplinario e Interdepartamental de la Universidad Nacional de Luján -->
     <div class="portfolio-modal modal fade" id="investigacion5" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
@@ -1701,8 +1356,6 @@
                                     Interdepartamental de la Universidad Nacional de Luján</h2>
                                 <p class="item-intro text-muted">Universidad Nacional de Luján (UNLu) - Universidad
                                     Nacional de San Luis (UNSL) </p>
-                                <picture><source srcset="assets/img/investigaciones/5.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/5.jpg"
-                                    alt="..." loading="lazy"></picture>
                                 <p>
                                     "Generación de herramientas de extracción de información
                                     ambiental mediante técnicas de aprendizaje automático, a partir de bases de datos
@@ -1742,8 +1395,6 @@
                                 <!-- Project details-->
                                 <h2 class="text-uppercase">Proyecto de Investigación PI^2+ A</h2>
                                 <p class="item-intro text-muted">2023-2025</p>
-                                <picture><source srcset="assets/img/investigaciones/6.webp" type="image/webp"><img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/6.jpg"
-                                    alt="..." loading="lazy"></picture>
                                 <p>
                                     “Descubrimiento de patrones de comportamiento vinculados al abandono en la
                                     Universidad Nacional de Luján mediante la aplicación
@@ -1751,46 +1402,6 @@
                                     Universidad Nacional de Luján. Vigencia: 2023-2025. Mg. Mario Oloriz (director),
                                     Lic. Hugo Delfino (co-director), Mg. Ruben Baquel, Lic. Sebastián Bertoglio, Lic.
                                     Carla Martinez, Mg. Juan Manuel Fernández.
-                                </p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Categoría:</strong>
-                                        Proyectos de I+E+D
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    <i class="fas fa-xmark me-1"></i>
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Investigación item 7 Proyecto de vinculación tecnológica -->
-    <div class="portfolio-modal modal fade" id="investigacion7" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Proyecto de vinculación tecnológica</h2>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/7.jpg"
-                                    alt="..." loading="lazy">
-                                <p>
-                                    Proyecto presentado para la Convocatoria Edición 2023 de la Línea Soluciones
-                                    Innovadoras para desafíos de software del Ministerio de Ciencia, Tecnología e
-                                    Innovación de la Nación junto con la Fundación Dr. Manuel Sadosky: “Desarrollo de un
-                                    sistema para la obtención automática de datos para el Índice de Precios
-                                    al Consumidor de la Provincia de Buenos Aires”. 2023-2024. Director: Dr. Marcelo
-                                    Errecalde (director), Mg. Juan Manuel Fernández, Dra. Leticia Cagnina.
                                 </p>
                                 <ul class="list-inline">
                                     <li>
@@ -1822,8 +1433,6 @@
                             <div class="modal-body">
                                 <!-- Project details-->
                                 <h2 class="text-uppercase"> Proyecto de Extensión </h2>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/investigaciones/10.jpg"
-                                    alt="..." loading="lazy">
                                 <p>
                                     “Sistemas de Información Ambiental Integrada para la gestión pública del Partido de
                                     Luján. 2da parte: integración con una base de datos espaciales.”.

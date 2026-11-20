@@ -236,7 +236,14 @@ html :is(body.home, body.licdia) .timeline-body p { color: var(--lv-tenue) !impo
 html :is(body.home, body.licdia) .timeline-pdf { color: var(--lv-acento) !important; font: 600 .82rem var(--lv-mono); }
 
 /* ---------- Cursos y carreras: el fondo en movimiento, con la paleta del labo ---------- */
-html :is(body.home, body.licdia) .fondo-movimiento { background-image: linear-gradient(rgba(6, 11, 24, .82), rgba(12, 23, 48, .78)), url("../assets/img/fondo-cursos.jpg"); }
+html :is(body.home, body.licdia) .fondo-movimiento {
+    /* grilla del laboratorio en lugar de la foto de circuitos de banco; la animación del sitio original la desplaza */
+    background-image: radial-gradient(900px 420px at 50% 0%, rgba(30, 80, 160, .35), transparent 65%),
+        linear-gradient(rgba(120, 180, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 180, 255, .06) 1px, transparent 1px),
+        linear-gradient(180deg, #060b18, #0c1730);
+    background-size: auto, 52px 52px, 52px 52px, auto;
+    background-repeat: no-repeat, repeat, repeat, no-repeat;
+}
 html :is(body.home, body.licdia) .fondo-movimiento h2.section-heading { color: #fff !important; }
 /* Tarjetas de cursos: imagen arriba (16:9), esquinas redondeadas, misma altura; el zoom del sitio original queda en la imagen */
 html :is(body.home, body.licdia) #cursosYcarreras .row > div:has(> .portfolio-item) { display: flex; }
