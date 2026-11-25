@@ -20,9 +20,10 @@ No se guardan conversaciones: solo cada pregunta suelta, anónima (ver "Topes y 
 
 - `ingesta/extraer_sitio.py`: extrae las secciones del sitio (portada, preguntas frecuentes, módulos del plan y
   subpáginas) a `indice/secciones.json`.
-- `ingesta/licdia/extraer.py`: lo mismo para el laboratorio (portada con las ventanas de líneas y proyectos, equipo,
-  carreras y contacto; las publicaciones desde `tools/publicaciones`; las entradas de `tools/blog`; las páginas de
-  proyectos) a `indice-licdia/secciones.json`. Su ficha, expansiones y preguntas de prueba están en `ingesta/licdia/`.
+- `ingesta/licdia/extraer.py`: lo mismo para el laboratorio (portada: presentación y cifras, líneas de I+D con sus
+  trabajos, proyectos, desarrollos, cursos, carreras, equipo, «Sumate» y contacto; las publicaciones desde
+  `tools/publicaciones`; las entradas de `tools/blog`, con cada póster de las Jornadas como sección; las páginas de
+  proyectos, Liminar, LidIA y su instructivo, Normativa, director y maestría) a `indice-licdia/secciones.json`. Su ficha, expansiones y preguntas de prueba están en `ingesta/licdia/`.
 - `ingesta/indexar.py [carpeta]`: embeddings de las secciones (`intfloat/multilingual-e5-base`), `modelo.json` y la
   proyección 3D por PCA que dibuja la interfaz.
 - `backend/app.py`: FastAPI con `/dev-ia/api/mapa` y `/dev-ia/api/chat`. Llama a Claude con el SDK oficial de
@@ -99,7 +100,27 @@ Para el laboratorio (también cuando hay una entrada nueva en el blog o una publ
 .venv/bin/python ingesta/evaluar.py indice-licdia
 ```
 
-y volver a desplegar (`indice/` e `indice-licdia/` viajan con el código).
+Así se prueban los cambios en la Mac. Los índices que usa el servicio no viajan con el código: los arma la VM (ver
+«Reindexado automático»).
+
+## Reindexado automático
+
+`despliegue/reindexar.sh` rearma los dos índices en la VM desde el sitio publicado (`/var/www/html`, más la
+documentación de Liminar por el proxy de la UNLu), sin sudo. Lo corre:
+
+- el cron del usuario administrador, todos los días a las 4:30
+  (`30 4 * * * bash /opt/asistente-dev-ia/despliegue/reindexar.sh >> /home/administrador/reindexar.log 2>&1`);
+- `actualizar.sh`, al final de cada despliegue, con `--reiniciar`.
+
+Trabaja sobre una copia del código en `/var/tmp`: extrae, indexa y corre las preguntas de prueba de cada asistente
+(`ingesta/evaluar.py` termina con error si falla alguna). Solo si pasan todas y el índice cambió, lo copia a
+`/opt/asistente-dev-ia` y reinicia el servicio (unos 40 s sin asistente mientras carga los modelos). Si algo falla, el
+asistente sigue con los índices anteriores y el motivo queda en `/home/administrador/reindexar.log`. Si el contenido
+no cambió, termina en segundos.
+
+Cada índice guarda `cache-vectores.npz` (texto → vector): solo se calculan las secciones nuevas o cambiadas, porque en
+la CPU de la VM cada una tarda unos 2,5 s. Una corrida desde cero lleva unos 30 minutos; con la caché, entre 10 y 20
+(la mayor parte es la evaluación). Para pausar el reindexado diario: `crontab -e` en la VM y comentar la línea.
 
 ## Despliegue en la VM
 

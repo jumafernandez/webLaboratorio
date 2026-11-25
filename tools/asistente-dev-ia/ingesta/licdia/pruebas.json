@@ -1,26 +1,316 @@
 {
  "_nota": "Preguntas de prueba de la recuperación del asistente del laboratorio (ingesta/evaluar.py indice-licdia): cada requisito es una lista de alternativas de título y tienen que cumplirse todos.",
  "pruebas": [
-  ["¿Qué hace el laboratorio?", [["¿Qué hace el laboratorio?"]]],
-  ["¿Quién dirige el laboratorio?", [["Integrantes del laboratorio"]]],
-  ["¿Trabajan con modelos de lenguaje?", [["LLM"]]],
-  ["¿Qué publicaron sobre RAG?", [["RAG"]]],
-  ["Quiero hacer mi tesis con ustedes, ¿qué tesis están en curso?", [["Tesistas actuales"]]],
-  ["¿Cómo los contacto?", [["Contacto"]]],
-  ["¿Qué carreras dictan?", [["Carrera:", "Otras carreras"]]],
-  ["¿Qué hicieron con la supercomputadora Clementina?", [["Clementina", "PEFT", "Fine-tuning y adaptación"]]],
-  ["¿Ganaron algún premio?", [["Trabajo distinguido", "Segundo lugar"]]],
-  ["¿Qué proyectos de extensión tienen?", [["Proyecto de Extensión", "escuelas secundarias", "Enseñanza de programación"]]],
-  ["¿Trabajan con el Municipio de Luján?", [["Municipio de Luján", "Base de datos espaciales"]]],
-  ["¿De qué se trata el proyecto del IPC?", [["IPC"]]],
-  ["¿Qué cursos o webinars dieron?", [["Cursos, charlas"]]],
-  ["¿Dónde queda el laboratorio?", [["Contacto y ubicación"]]],
-  ["¿Investigan el abandono universitario?", [["abandono", "Patrones de comportamiento", "PI^2"]]],
-  ["¿Qué presentaron en CACIC 2026?", [["CACIC 2026", "Remembering the Flow", "SUDOCU"]]],
-  ["¿Hay una diplomatura de blockchain?", [["Blockchain"]]],
-  ["¿Qué escribieron en el blog sobre RAG y fine-tuning?", [["Blog: RAG vs Fine-Tuning"]]],
-  ["¿Qué publicó David Petrocelli?", [["Publicación:"]]],
-  ["¿Tienen trabajos sobre fine-tuning?", [["Fine-tuning", "PEFT", "Fine-Tuning"]]],
-  ["¿Qué hacen con datos ambientales?", [["ambientales", "Ambiental"]]]
+  [
+   "¿Qué hace el laboratorio?",
+   [
+    [
+     "Investigación del laboratorio"
+    ]
+   ]
+  ],
+  [
+   "¿Quién dirige el laboratorio?",
+   [
+    [
+     "Integrantes del laboratorio"
+    ]
+   ]
+  ],
+  [
+   "¿Trabajan con modelos de lenguaje?",
+   [
+    [
+     "LLM"
+    ]
+   ]
+  ],
+  [
+   "¿Qué publicaron sobre RAG?",
+   [
+    [
+     "RAG"
+    ]
+   ]
+  ],
+  [
+   "Quiero hacer mi tesis con ustedes, ¿qué tesis están en curso?",
+   [
+    [
+     "Tesistas actuales"
+    ]
+   ]
+  ],
+  [
+   "¿Cómo los contacto?",
+   [
+    [
+     "Contacto"
+    ]
+   ]
+  ],
+  [
+   "¿Qué carreras dictan?",
+   [
+    [
+     "Carrera:",
+     "Otras carreras"
+    ]
+   ]
+  ],
+  [
+   "¿Qué hicieron con la supercomputadora Clementina?",
+   [
+    [
+     "Clementina",
+     "PEFT",
+     "Fine-tuning y adaptación"
+    ]
+   ]
+  ],
+  [
+   "¿Ganaron algún premio?",
+   [
+    [
+     "Trabajo distinguido",
+     "Segundo lugar"
+    ]
+   ]
+  ],
+  [
+   "¿Qué proyectos de extensión tienen?",
+   [
+    [
+     "Proyecto de Extensión",
+     "escuelas secundarias",
+     "Enseñanza de programación"
+    ]
+   ]
+  ],
+  [
+   "¿Trabajan con el Municipio de Luján?",
+   [
+    [
+     "Municipio de Luján",
+     "Base de datos espaciales"
+    ]
+   ]
+  ],
+  [
+   "¿De qué se trata el proyecto del IPC?",
+   [
+    [
+     "IPC"
+    ]
+   ]
+  ],
+  [
+   "¿Qué cursos o webinars dieron?",
+   [
+    [
+     "Cursos, charlas"
+    ]
+   ]
+  ],
+  [
+   "¿Dónde queda el laboratorio?",
+   [
+    [
+     "Contacto y ubicación"
+    ]
+   ]
+  ],
+  [
+   "¿Qué presentaron en CACIC 2026?",
+   [
+    [
+     "CACIC 2026",
+     "Remembering the Flow",
+     "SUDOCU"
+    ]
+   ]
+  ],
+  [
+   "¿Hay una diplomatura de blockchain?",
+   [
+    [
+     "Blockchain"
+    ]
+   ]
+  ],
+  [
+   "¿Qué escribieron en el blog sobre RAG y fine-tuning?",
+   [
+    [
+     "Blog: RAG vs Fine-Tuning"
+    ]
+   ]
+  ],
+  [
+   "¿Qué publicó David Petrocelli?",
+   [
+    [
+     "Publicación:"
+    ]
+   ]
+  ],
+  [
+   "¿Tienen trabajos sobre fine-tuning?",
+   [
+    [
+     "Fine-tuning",
+     "PEFT",
+     "Fine-Tuning"
+    ]
+   ]
+  ],
+  [
+   "¿Qué hacen con datos ambientales?",
+   [
+    [
+     "ambientales",
+     "Ambiental"
+    ]
+   ]
+  ],
+  [
+   "¿Investigan el abandono universitario?",
+   [
+    [
+     "abandono",
+     "Patrones de comportamiento",
+     "PI^2"
+    ]
+   ]
+  ],
+  [
+   "¿Qué líneas de investigación tienen?",
+   [
+    [
+     "Línea de I+D"
+    ]
+   ]
+  ],
+  [
+   "¿Qué es Liminar?",
+   [
+    [
+     "Liminar"
+    ]
+   ]
+  ],
+  [
+   "¿Dónde puedo descargar los modelos de Liminar?",
+   [
+    [
+     "Liminar"
+    ]
+   ]
+  ],
+  [
+   "¿Qué es LidIA y cómo la uso?",
+   [
+    [
+     "LidIA"
+    ]
+   ]
+  ],
+  [
+   "¿Cómo me sumo al laboratorio?",
+   [
+    [
+     "Sumate"
+    ]
+   ]
+  ],
+  [
+   "Soy docente, ¿puedo integrarme al laboratorio?",
+   [
+    [
+     "Sumate"
+    ]
+   ]
+  ],
+  [
+   "¿Qué pósters presentaron en las Jornadas de Ciencia y Tecnología?",
+   [
+    [
+     "Póster"
+    ]
+   ]
+  ],
+  [
+   "¿Hay algún trabajo sobre credenciales con blockchain?",
+   [
+    [
+     "credenciales",
+     "soulbound"
+    ]
+   ]
+  ],
+  [
+   "¿Puedo consultar la normativa de la UNLu?",
+   [
+    [
+     "ormativa"
+    ]
+   ]
+  ],
+  [
+   "¿Qué sistemas desarrollaron?",
+   [
+    [
+     "Desarrollo"
+    ]
+   ]
+  ],
+  [
+   "¿Qué es la Maestría en Ciencia de Datos?",
+   [
+    [
+     "Maestría en Ciencia de Datos"
+    ]
+   ]
+  ],
+  [
+   "¿Cómo se evaluaron los modelos de Liminar?",
+   [
+    [
+     "Liminar (documentación)"
+    ]
+   ]
+  ],
+  [
+   "¿Con qué datos se entrenó Liminar?",
+   [
+    [
+     "Liminar (documentación)"
+    ]
+   ]
+  ],
+  [
+   "¿Cuánto cuesta la diplomatura en blockchain?",
+   [
+    [
+     "Diplomatura en Blockchain"
+    ]
+   ]
+  ],
+  [
+   "¿Cuál es el plan de estudios de la Maestría en Ciencia de Datos?",
+   [
+    [
+     "Maestría en Ciencia de Datos"
+    ]
+   ]
+  ],
+  [
+   "¿Cuántas horas tiene la diplomatura en IA generativa?",
+   [
+    [
+     "Diplomatura en IA Generativa"
+    ]
+   ]
+  ]
  ]
 }

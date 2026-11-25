@@ -2,22 +2,34 @@
  "_nota": "Secciones del índice del laboratorio que van siempre en el contexto del asistente (por título o por ancla). Ver ingesta/ficha.json, el de la diplomatura.",
  "secciones": [
   {
-   "titulo": "¿Qué hace el laboratorio?"
+   "titulo": "Investigación del laboratorio"
   },
   {
-   "ancla": "investigacion1"
+   "titulo": "Línea de I+D:"
   },
   {
-   "ancla": "investigacion2"
+   "titulo": "Línea de I+D:"
   },
   {
-   "ancla": "investigacion3"
+   "titulo": "Línea de I+D:"
   },
   {
-   "ancla": "investigacion11"
+   "titulo": "Línea de I+D:"
   },
   {
-   "ancla": "investigacion4"
+   "titulo": "Línea de I+D:"
+  },
+  {
+   "titulo": "Línea de I+D:"
+  },
+  {
+   "titulo": "Desarrollos del laboratorio"
+  },
+  {
+   "titulo": "Proyectos de I+D+E del laboratorio"
+  },
+  {
+   "titulo": "Sumate al LICDIA"
   },
   {
    "titulo": "Equipo: Integrantes del laboratorio (UNLu)"

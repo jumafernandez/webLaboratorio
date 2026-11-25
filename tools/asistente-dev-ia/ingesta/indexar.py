@@ -9,7 +9,11 @@ La carpeta es la del índice: indice (la diplomatura, por defecto) o indice-licd
 salen de ingesta/expansiones.json o de ingesta/licdia/expansiones.json. Los dos índices tienen que usar el mismo
 modelo, porque el backend lo carga una sola vez.
 Escribe <carpeta>/embeddings.npy (float32, una fila por sección, en el orden del JSON), modelo.json y pca.npz.
+Guarda además <carpeta>/cache-vectores.npz (texto → vector) y en la corrida siguiente solo calcula las secciones nuevas
+o cambiadas: en la CPU de la VM cada sección tarda unos 2,5 s, y el reindexado diario casi no cambia nada.
 """
+
+import hashlib
 
 import json
 import os
@@ -38,9 +42,23 @@ def main():
         return "".join(v + "\n" for k, v in exp.items() if k in titulo)
 
     textos = [f"{pref_p}{s['titulo']}\n{extra(s['titulo'])}{s['texto']}" for s in datos["secciones"]]
-    E = SentenceTransformer(modelo, device="cpu").encode(textos, normalize_embeddings=True, batch_size=16,
-                                                          show_progress_bar=False)
-    np.save(indice / "embeddings.npy", E.astype(np.float32))
+    # Caché por texto exacto (incluye prefijo, expansión y modelo): lo que no cambió no se vuelve a calcular
+    claves = [hashlib.sha1(f"{modelo}\n{t}".encode("utf-8")).hexdigest() for t in textos]
+    f_cache = indice / "cache-vectores.npz"
+    cache = {}
+    if f_cache.exists():
+        c = np.load(f_cache)
+        cache = dict(zip(c["claves"].tolist(), c["vectores"]))
+    faltan = [i for i, k in enumerate(claves) if k not in cache]
+    if faltan:
+        nuevos = SentenceTransformer(modelo, device="cpu").encode([textos[i] for i in faltan], normalize_embeddings=True,
+                                                                  batch_size=16, show_progress_bar=False)
+        for i, v in zip(faltan, nuevos):
+            cache[claves[i]] = v
+    E = np.stack([cache[k] for k in claves]).astype(np.float32)
+    np.savez(f_cache, claves=np.array(claves), vectores=E)   # solo las secciones actuales
+    print(f"{len(faltan)} de {len(textos)} secciones calculadas (el resto, de la caché)")
+    np.save(indice / "embeddings.npy", E)
     (indice / "modelo.json").write_text(json.dumps({"modelo": modelo, "prefijo_consulta": pref_q,
                                                             "prefijo_pasaje": pref_p}, ensure_ascii=False) + "\n", encoding="utf-8")
     # Proyección a 3D por PCA para el mapa de la interfaz. Es lineal: el backend proyecta la pregunta con la

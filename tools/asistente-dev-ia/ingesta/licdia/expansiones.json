@@ -1,5 +1,8 @@
 {
  "_nota": "Texto que se suma al embedding de las secciones cuyo título contiene la clave (no se muestra ni va al modelo). Ver ingesta/expansiones.json, el de la diplomatura.",
  "Equipo: Integrantes del laboratorio": "Quién dirige el laboratorio: director, coordinación, investigadores y docentes del equipo.",
- "Blog:": "Entrada del blog del laboratorio: artículo técnico, nota o novedad escrita por el equipo."
+ "Blog:": "Entrada del blog del laboratorio: artículo técnico, nota o novedad escrita por el equipo.",
+ "Equipo: Tesistas actuales del laboratorio": "Tesis en curso en el laboratorio: tesistas de grado y de posgrado que dirige el equipo y los temas de sus tesis.",
+ "Otras carreras en las que participa el laboratorio": "Carreras que dicta el laboratorio o en las que participa: oferta académica de grado y posgrado, diplomaturas, maestría, especialización y licenciatura.",
+ "Carrera:": "Carrera que dicta el laboratorio: diplomatura de posgrado de la oferta académica de la UNLu."
 }

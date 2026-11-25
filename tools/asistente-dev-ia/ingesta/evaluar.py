@@ -71,6 +71,7 @@ def main():
     print(f"{len(pruebas) - len(fallos)}/{len(pruebas)} preguntas con todas sus secciones entre las {K} recuperadas")
     for f in fallos:
         print("  falla:", f)
+    sys.exit(1 if fallos else 0)   # despliegue/reindexar.sh no publica un índice que no pasa todas las pruebas
 
 
 if __name__ == "__main__":
