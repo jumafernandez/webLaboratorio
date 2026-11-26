@@ -21,6 +21,7 @@
   --cuerpo: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --literal: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   --texto: 15.5px;
+  --etiqueta: 13.5px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -79,14 +80,12 @@ details.ejemplo summary { cursor: pointer; font-weight: 600; }
 .pregunta small { display: block; color: var(--tinta); font-size: 13.5px; font-weight: 400; margin-top: 2px; }
 .fila { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 6px; border-top: 1px solid color-mix(in srgb, var(--q) 25%, transparent); border-radius: 4px; }
 .fila:first-child { border-top: 0; }
-.fila.activa { outline: 2px solid var(--q); outline-offset: -1px; }
-.etq { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: var(--texto); }
-.chip { padding: 1px 9px; border-radius: 999px; font-family: var(--literal); font-size: var(--texto); color: var(--q); background: var(--papel); border: 1px solid color-mix(in srgb, var(--q) 40%, transparent); overflow-wrap: anywhere; }
+.etq { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: var(--etiqueta); }
+.chip { padding: 1px 8px; border-radius: 999px; font-family: var(--literal); font-size: var(--etiqueta); color: var(--q); background: var(--papel); border: 1px solid color-mix(in srgb, var(--q) 40%, transparent); overflow-wrap: anywhere; }
 .glosa { color: var(--tinta); }
 .vacio { margin: 4px 6px; color: var(--tenue); font-style: italic; }
-.lista { display: flex; flex-direction: column; gap: 6px; margin: 2px 0 12px; }
-.opciones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.pregunta.activa { outline: 2px solid var(--q); outline-offset: 1px; }
+.opciones { display: grid; grid-template-columns: repeat(3, minmax(64px, auto)); gap: 6px; }
+@media (max-width: 560px) { .fila { grid-template-columns: 1fr; } .opciones { grid-template-columns: 1fr 1fr 1fr; } }
 button { font: inherit; color: var(--tinta); background: var(--papel); border: 1px solid var(--borde); border-radius: 6px; padding: 8px 10px; min-height: 42px; cursor: pointer; }
 button:hover { border-color: var(--acento); }
 button:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
@@ -148,14 +147,12 @@ button:disabled { opacity: .45; cursor: default; }
 
     <fieldset class="pregunta q-f" id="q-acto">
       <legend><span data-t="accion"></span><small data-t="accionPregunta"></small></legend>
-      <div class="lista" id="lista-acto"></div>
-      <div class="opciones" data-q="acto"><button type="button" class="opcion si" data-v="si" data-t="si"></button><button type="button" class="opcion no" data-v="no" data-t="no"></button><button type="button" class="opcion duda" data-v="duda" data-t="duda"></button></div>
+      <div id="filas-acto"></div>
     </fieldset>
 
     <fieldset class="pregunta q-d" id="q-datos">
       <legend><span data-t="datos"></span><small data-t="datosPregunta"></small></legend>
-      <div class="lista" id="lista-datos"></div>
-      <div class="opciones" data-q="datos"><button type="button" class="opcion si" data-v="si" data-t="si"></button><button type="button" class="opcion no" data-v="no" data-t="no"></button><button type="button" class="opcion duda" data-v="duda" data-t="duda"></button></div>
+      <div id="filas-datos"></div>
     </fieldset>
 
     <nav class="navegar">
@@ -175,16 +172,16 @@ button:disabled { opacity: .45; cursor: default; }
   const API = "/dev-ia/api/anotador";                     // "" con Apps Script; si no, la dirección del servicio que guarda
   const DEL_SERVIDOR = { a: "", l: "" };   // Apps Script los pasa desde ?a= y ?l=
   const URLP = new URLSearchParams(location.search);
-  const CLAVE_NOMBRE = "anotacion-reescrituras-v4-nombre", CLAVE_IDIOMA = "anotacion-reescrituras-v4-idioma";
+  const CLAVE_NOMBRE = "anotacion-reescrituras-v5-nombre", CLAVE_IDIOMA = "anotacion-reescrituras-v5-idioma";
   const TEXTOS = {
     es: {
       titulo: "Anotación de parafraseos del LLM", anota: "Anota: ",
-      clave: "Cada turno de diálogo lo reescribió un modelo de lenguaje. Abajo figuran las <strong>acciones</strong> y los <strong>datos</strong> del turno original: respondé si el turno los mantiene.",
+      clave: "Cada turno de diálogo lo reescribió un modelo de lenguaje. Abajo figuran las <strong>acciones</strong> y los <strong>datos</strong> del turno original: para cada uno, marcá si el turno lo tiene.",
       ayuda: "Ayuda",
-      ayudaTexto: '<p>Ejemplo: acción <span class="mono">request</span> (pide algo); datos <span class="mono">number of people</span> (cantidad de personas) y <span class="mono">time</span> (hora).</p><ul><li><span class="mono">could you get me a table for four at 8 pm</span>: acción sí, datos sí.</li><li><span class="mono">i need a table for two at 7 pm please</span>: datos sí; los valores pueden ser otros.</li><li><span class="mono">could you get me a table for four</span>: datos no; sacó la hora.</li><li><span class="mono">a table for four at 8 pm near the river</span>: datos no; agregó un lugar.</li><li><span class="mono">i booked a table for four at 8 pm</span>: acción no; informa en vez de pedir.</li></ul><p>Un dato también cuenta si aparece como pregunta: <span class="mono">what time works for you?</span> menciona la hora. Las respuestas se guardan solas y se puede seguir otro día desde el mismo enlace.</p>',
+      ayudaTexto: '<p>Ejemplo con la acción <span class="mono">request</span> (pide algo) y los datos <span class="mono">number of people</span> (cantidad de personas) y <span class="mono">time</span> (hora):</p><ul><li><span class="mono">could you get me a table for four at 8 pm</span>: los tres, sí.</li><li><span class="mono">i need a table for two at 7 pm please</span>: los tres, sí; los valores pueden ser otros.</li><li><span class="mono">could you get me a table for four</span>: time, no; no se nombra ni se pide la hora.</li><li><span class="mono">i booked a table for four at 8 pm</span>: request, no; informa en vez de pedir.</li></ul><p>Un dato también cuenta si se pide: en <span class="mono">what time works for you?</span>, time es sí. Las respuestas se guardan solas y se puede seguir otro día desde el mismo enlace.</p>',
       tuNombre: "Tu nombre", empezar: "Empezar", oracion: "Turno de diálogo",
-      accion: "Acción", accionPregunta: "¿El turno hace todas estas acciones, sin sacar ni agregar ninguna?",
-      datos: "Datos", datosPregunta: "¿El turno mantiene todos estos datos, sin sacar, agregar ni cambiar ninguno por otro tipo de dato? Los valores pueden ser otros, y un dato puede aparecer como pregunta.",
+      accion: "Acción", accionPregunta: "¿El turno hace cada una de estas acciones?",
+      datos: "Datos", datosPregunta: "¿Se nombra o se pide cada uno de estos datos? Los valores pueden ser otros.",
       sinAcciones: "Ninguna anotada.", sinDatos: "Ninguno anotado.",
       si: "Sí", no: "No", duda: "No sé", anterior: "Anterior", siguiente: "Siguiente",
       casos: "{h} de {n} casos", posicion: "Caso {i} de {n}", irCaso: "Ir al caso {i}",
@@ -195,12 +192,12 @@ button:disabled { opacity: .45; cursor: default; }
     },
     en: {
       titulo: "Annotation of LLM paraphrases", anota: "Annotator: ",
-      clave: "Each dialogue turn was rewritten by a language model. Below are the <strong>actions</strong> and the <strong>data</strong> of the original turn: answer whether the turn keeps them.",
+      clave: "Each dialogue turn was rewritten by a language model. Below are the <strong>actions</strong> and the <strong>data</strong> of the original turn: for each one, mark whether the turn has it.",
       ayuda: "Help",
-      ayudaTexto: '<p>Example: action <span class="mono">request</span> (asks for something); data <span class="mono">number of people</span> and <span class="mono">time</span>.</p><ul><li><span class="mono">could you get me a table for four at 8 pm</span>: actions yes, data yes.</li><li><span class="mono">i need a table for two at 7 pm please</span>: data yes; the values may differ.</li><li><span class="mono">could you get me a table for four</span>: data no; the time was dropped.</li><li><span class="mono">a table for four at 8 pm near the river</span>: data no; a place was added.</li><li><span class="mono">i booked a table for four at 8 pm</span>: actions no; it informs instead of asking.</li></ul><p>A piece of data also counts when it appears as a question: <span class="mono">what time works for you?</span> mentions the time. Answers are saved automatically, and you can continue another day from the same link.</p>',
+      ayudaTexto: '<p>Example with the action <span class="mono">request</span> (asks for something) and the data <span class="mono">number of people</span> and <span class="mono">time</span>:</p><ul><li><span class="mono">could you get me a table for four at 8 pm</span>: all three, yes.</li><li><span class="mono">i need a table for two at 7 pm please</span>: all three, yes; the values may differ.</li><li><span class="mono">could you get me a table for four</span>: time, no; the time is neither mentioned nor asked for.</li><li><span class="mono">i booked a table for four at 8 pm</span>: request, no; it informs instead of asking.</li></ul><p>A piece of data also counts when it is asked for: in <span class="mono">what time works for you?</span>, time is yes. Answers are saved automatically, and you can continue another day from the same link.</p>',
       tuNombre: "Your name", empezar: "Start", oracion: "Dialogue turn",
-      accion: "Action", accionPregunta: "Does the turn do all of these actions, without dropping or adding any?",
-      datos: "Data", datosPregunta: "Does the turn keep all of these pieces of data, without dropping, adding or replacing any with another kind of data? The values may differ, and a piece of data can appear as a question.",
+      accion: "Action", accionPregunta: "Does the turn do each of these actions?",
+      datos: "Data", datosPregunta: "Is each of these pieces of data mentioned or asked for? The values may differ.",
       sinAcciones: "None annotated.", sinDatos: "None annotated.",
       si: "Yes", no: "No", duda: "Not sure", anterior: "Previous", siguiente: "Next",
       casos: "{h} of {n} cases", posicion: "Case {i} of {n}", irCaso: "Go to case {i}",
@@ -216,17 +213,15 @@ button:disabled { opacity: .45; cursor: default; }
   let sincronizado = false, interactuo = false, estadoClave = "";
   const $ = (id) => document.getElementById(id);
   const limpiar = (s) => String(s || "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9áéíóúñü_-]/g, "").slice(0, 40);
-  const claveLocal = () => "anotacion-reescrituras-v4-" + anotador;
+  const claveLocal = () => "anotacion-reescrituras-v5-" + anotador;
   const T = (k, v) => String(TEXTOS[idioma][k]).replace(/\{(\w+)\}/g, (_, x) => (v && x in v ? v[x] : ""));
   const leer = (k) => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
   const escribir = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento local */ } };
 
-  // Una respuesta por cuadro, guardada bajo la clave "*" (la API guarda etiqueta -> respuesta). El caso está completo
-  // cuando los dos cuadros tienen respuesta; el de datos se responde aunque la etiqueta no tenga datos ("no agregó").
-  const TODAS = "*";
+  // Un caso está completo cuando cada acción y cada dato de su etiqueta tienen respuesta.
   function completo(p, r) {
     r = r || {};
-    return !!((r.acto || {})[TODAS] && (r.datos || {})[TODAS]);
+    return p.a.every((e) => (r.acto || {})[e]) && p.s.every((e) => (r.datos || {})[e]);
   }
   function algo(r) { return !!r && (Object.keys(r.acto || {}).length + Object.keys(r.datos || {}).length) > 0; }
 
@@ -322,16 +317,25 @@ button:disabled { opacity: .45; cursor: default; }
     if (otraVez || (!fallo && pendientes.size)) { otraVez = false; enviar(); }
   }
 
-  function lista(cont, lista, glosas, vacio) {
+  function filas(cont, q, lista, glosas, vacio, r) {
     cont.textContent = "";
     if (!lista.length) { const v = document.createElement("p"); v.className = "vacio"; v.textContent = T(vacio); cont.appendChild(v); return; }
     lista.forEach((e) => {
+      const fila = document.createElement("div"); fila.className = "fila"; fila.dataset.q = q; fila.dataset.e = e;
       const etq = document.createElement("div"); etq.className = "etq";
       const chip = document.createElement("span"); chip.className = "chip"; chip.textContent = e;
       etq.appendChild(chip);
       const g = glosas[e];
       if (g && g.toLowerCase() !== e.toLowerCase()) { const gl = document.createElement("span"); gl.className = "glosa"; gl.textContent = g; etq.appendChild(gl); }
-      cont.appendChild(etq);
+      const op = document.createElement("div"); op.className = "opciones";
+      ["si", "no", "duda"].forEach((v) => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "opcion " + v; b.dataset.v = v;
+        b.textContent = T(v); b.setAttribute("aria-pressed", String(((r[q] || {})[e]) === v));
+        b.setAttribute("aria-label", e + ": " + T(v));
+        op.appendChild(b);
+      });
+      fila.appendChild(etq); fila.appendChild(op);
+      cont.appendChild(fila);
     });
   }
 
@@ -339,12 +343,11 @@ button:disabled { opacity: .45; cursor: default; }
     const p = PARES[actual];
     const r = res[p.id] || {};
     $("reescritura").textContent = p.r;
-    lista($("lista-acto"), p.a, GLOSAS[idioma].actos, "sinAcciones");
-    lista($("lista-datos"), p.s, GLOSAS[idioma].slots, "sinDatos");
-    document.querySelectorAll(".opciones[data-q] .opcion").forEach((b) => b.setAttribute("aria-pressed", String(((r[b.parentNode.dataset.q] || {})[TODAS]) === b.dataset.v)));
-    const pendiente = ["acto", "datos"].find((q) => !(r[q] || {})[TODAS]);
-    $("q-acto").classList.toggle("activa", pendiente === "acto");
-    $("q-datos").classList.toggle("activa", pendiente === "datos");
+    filas($("filas-acto"), "acto", p.a, GLOSAS[idioma].actos, "sinAcciones", r);
+    filas($("filas-datos"), "datos", p.s, GLOSAS[idioma].slots, "sinDatos", r);
+    const todas = [...document.querySelectorAll(".fila")];
+    const pendiente = todas.find((f) => !(r[f.dataset.q] || {})[f.dataset.e]);
+    todas.forEach((f) => f.classList.toggle("activa", f === pendiente));
     const hechos = PARES.filter((x) => completo(x, res[x.id])).length;
     $("cuenta").textContent = T("casos", { h: hechos, n: PARES.length });
     $("relleno").style.width = (100 * hechos / PARES.length) + "%";
@@ -367,13 +370,13 @@ button:disabled { opacity: .45; cursor: default; }
     for (let k = 1; k <= PARES.length; k++) { const i = (actual + k) % PARES.length; if (!completo(PARES[i], res[PARES[i].id])) return i; }
     return actual;
   }
-  function responder(q, v) {
+  function responder(q, e, v) {
     interactuo = true;
     const p = PARES[actual];
     const previo = res[p.id] || {};
     const yaCompleto = completo(p, previo);
     const nuevo = { acto: Object.assign({}, previo.acto || {}), datos: Object.assign({}, previo.datos || {}) };
-    if (nuevo[q][TODAS] === v) delete nuevo[q][TODAS]; else nuevo[q][TODAS] = v;
+    if (nuevo[q][e] === v) delete nuevo[q][e]; else nuevo[q][e] = v;
     res[p.id] = nuevo;
     version[p.id] = (version[p.id] || 0) + 1;
     pendientes.add(p.id);
@@ -399,7 +402,7 @@ button:disabled { opacity: .45; cursor: default; }
     document.querySelectorAll(".idiomas button").forEach((b) => b.addEventListener("click", () => aplicarIdioma(b.dataset.l)));
     ["q-acto", "q-datos"].forEach((id) => $(id).addEventListener("click", (ev) => {
       const b = ev.target.closest("button.opcion"); if (!b) return;
-      responder(b.parentNode.dataset.q, b.dataset.v);
+      const f = b.closest(".fila"); responder(f.dataset.q, f.dataset.e, b.dataset.v);
     }));
     $("anterior").addEventListener("click", () => { interactuo = true; ir(actual - 1); });
     $("siguiente").addEventListener("click", () => { interactuo = true; ir(actual + 1); });
