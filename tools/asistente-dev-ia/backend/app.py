@@ -34,6 +34,8 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from backend.anotador import Base as BaseAnotador
+from backend.anotador import rutas as rutas_anotador
 from backend.recuperacion import K, consultas_de, recuperar
 from backend.registro import Registro
 
@@ -355,6 +357,10 @@ def chat(p: Pedido, request: Request):
 @app.post("/dev-ia/api/opinion")
 def opinion(o: Opinion):
     return {"ok": REGISTRO.opinar(o.clave, o.voto, o.comentario.strip())}
+
+
+# Anotador de parafraseos de D2F (licdia.unlu.edu.ar/anotador-d2f): otra base, la misma app (backend/anotador.py)
+app.include_router(rutas_anotador(BaseAnotador()))
 
 
 # En desarrollo se sirve el sitio estático en la misma dirección (en producción lo sirve nginx)

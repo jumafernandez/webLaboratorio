@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Anotación de parafraseos del LLM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Herramienta de trabajo sobria: una oración por vez; debajo, cada acción y cada dato de su etiqueta con su respuesta. */
+:root {
+  color-scheme: light;
+  --fondo: #f4f6f8; --papel: #ffffff; --tinta: #17212b; --tenue: #566472; --borde: #d3dbe3;
+  --acento: #1f5f8b; --si: #1d7a55; --no: #b3402f; --duda: #8a6a14;
+  /* acción en azul y datos en violeta; la oración en verde */
+  --f: #1f5f8b; --f-fondo: #e9f2f9; --d: #6b3fa0; --d-fondo: #f3edf9;
+  --r: #1d7a55; --r-fondo: #ebf6f0; --r-borde: #b9dcc8;
+  --clave: #b07800; --clave-fondo: #fff5dc;
+  --cuerpo: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --literal: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --texto: 15.5px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --fondo: #12181f; --papel: #1b232c; --tinta: #e6ecf2; --tenue: #9db0c0; --borde: #33414f;
+    --acento: #6fb3e0; --si: #5cc79c; --no: #ef8f7f; --duda: #dcb95a;
+    --f: #6fb3e0; --f-fondo: #1a2b39; --d: #bb9cf0; --d-fondo: #282136;
+    --r: #5cc79c; --r-fondo: #17302a; --r-borde: #2f5a48;
+    --clave: #dcb95a; --clave-fondo: #33291a;
+  }
+}
+[hidden] { display: none !important; }
+* { box-sizing: border-box; min-width: 0; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--fondo); color: var(--tinta); font-family: var(--cuerpo); font-size: 16px; line-height: 1.45; overflow-x: clip; }
+.hoja, #trabajo { display: flex; flex-direction: column; gap: 14px; }
+.hoja { max-width: 720px; margin: 0 auto; padding: 20px 16px 40px; }
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.titulos { display: flex; flex-direction: column; gap: 2px; }
+h1 { font-size: 21px; font-weight: 600; margin: 0; text-wrap: balance; }
+.anotador { margin: 0; font-size: 13.5px; color: var(--tenue); }
+.idiomas { display: flex; flex-shrink: 0; border: 1px solid var(--borde); border-radius: 6px; overflow: hidden; }
+.idiomas button { min-height: 32px; padding: 4px 10px; border: 0; border-radius: 0; font-size: 13.5px; font-weight: 600; color: var(--tenue); background: var(--papel); }
+.idiomas button + button { border-left: 1px solid var(--borde); }
+.idiomas button[aria-pressed="true"] { color: #fff; background: var(--acento); }
+@media (prefers-color-scheme: dark) { .idiomas button[aria-pressed="true"] { color: #10161c; } }
+.clave { margin: 0; padding: 10px 12px; background: var(--clave-fondo); border-left: 4px solid var(--clave); border-radius: 4px; font-size: 14.5px; }
+.clave strong { font-weight: 600; }
+.mono { font-family: var(--literal); font-size: 13.5px; color: var(--tinta); }
+details.ejemplo { background: var(--papel); border: 1px solid var(--borde); border-radius: 6px; padding: 10px 14px; font-size: 14.5px; }
+details.ejemplo summary { cursor: pointer; font-weight: 600; }
+.ejemplo p { margin: 8px 0 4px; }
+.ejemplo ul { margin: 0; padding-left: 18px; }
+.ejemplo li { margin: 5px 0; }
+.quien { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--papel); border: 1px solid var(--borde); border-radius: 6px; padding: 12px 14px; }
+.quien label { font-weight: 600; }
+.quien input { font: inherit; color: var(--tinta); background: var(--fondo); border: 1px solid var(--borde); border-radius: 6px; padding: 9px 10px; flex: 1 1 180px; }
+.avance { display: flex; flex-direction: column; gap: 6px; }
+.avance-fila { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: var(--tenue); font-variant-numeric: tabular-nums; }
+#cuenta { color: var(--tinta); font-weight: 600; }
+.barra { height: 6px; background: var(--borde); border-radius: 3px; overflow: hidden; }
+.barra > div { height: 100%; width: 0; background: var(--acento); transition: width .2s; }
+.aviso { display: none; padding: 10px 12px; border: 1px solid var(--borde); border-left: 4px solid var(--duda); background: var(--papel); font-size: 14.5px; }
+.aviso.listo { border-left-color: var(--si); }
+.aviso.visible { display: block; }
+.aviso button { margin-top: 8px; }
+#copia { display: block; width: 100%; min-height: 120px; margin-top: 8px; font-family: var(--literal); font-size: 12.5px; color: var(--tinta); background: var(--fondo); border: 1px solid var(--borde); }
+.oracion { background: var(--r-fondo); border: 1px solid var(--r-borde); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.rotulo { font-size: 12.5px; font-weight: 600; color: var(--r); }
+.literal { margin: 0; font-family: var(--literal); font-size: var(--texto); line-height: 1.5; overflow-wrap: anywhere; }
+.pregunta { margin: 0; padding: 10px 12px; border: 1px solid var(--borde); border-left: 4px solid var(--q); border-radius: 6px; background: var(--q-fondo); }
+.pregunta.q-f { --q: var(--f); --q-fondo: var(--f-fondo); }
+.pregunta.q-d { --q: var(--d); --q-fondo: var(--d-fondo); }
+.pregunta legend { float: left; width: 100%; padding: 0; margin-bottom: 6px; font-weight: 600; color: var(--q); }
+.pregunta legend + * { clear: both; }
+.pregunta small { display: block; color: var(--tinta); font-size: 13.5px; font-weight: 400; margin-top: 2px; }
+.fila { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 6px; border-top: 1px solid color-mix(in srgb, var(--q) 25%, transparent); border-radius: 4px; }
+.fila:first-child { border-top: 0; }
+.fila.activa { outline: 2px solid var(--q); outline-offset: -1px; }
+.etq { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: var(--texto); }
+.chip { padding: 1px 9px; border-radius: 999px; font-family: var(--literal); font-size: var(--texto); color: var(--q); background: var(--papel); border: 1px solid color-mix(in srgb, var(--q) 40%, transparent); overflow-wrap: anywhere; }
+.glosa { color: var(--tinta); }
+.vacio { margin: 4px 6px; color: var(--tenue); font-style: italic; }
+.lista { display: flex; flex-direction: column; gap: 6px; margin: 2px 0 12px; }
+.opciones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pregunta.activa { outline: 2px solid var(--q); outline-offset: 1px; }
+button { font: inherit; color: var(--tinta); background: var(--papel); border: 1px solid var(--borde); border-radius: 6px; padding: 8px 10px; min-height: 42px; cursor: pointer; }
+button:hover { border-color: var(--acento); }
+button:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+button:disabled { opacity: .45; cursor: default; }
+.opcion[aria-pressed="true"] { color: #fff; font-weight: 600; border-color: transparent; }
+@media (prefers-color-scheme: dark) { .opcion[aria-pressed="true"] { color: #10161c; } }
+.opcion.si[aria-pressed="true"] { background: var(--si); }
+.opcion.no[aria-pressed="true"] { background: var(--no); }
+.opcion.duda[aria-pressed="true"] { background: var(--duda); }
+.navegar { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
+#posicion { color: var(--tenue); font-size: 14px; font-variant-numeric: tabular-nums; }
+.mapa { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; }
+@media (max-width: 420px) { .mapa { grid-template-columns: repeat(10, 1fr); gap: 4px; } }
+.celda { aspect-ratio: 1; min-width: 0; min-height: 0; padding: 0; border-radius: 2px; background: var(--fondo); border: 1px solid var(--borde); }
+.celda.parcial { background: var(--borde); }
+.celda.completa { background: var(--acento); border-color: var(--acento); }
+.celda.actual { outline: 2px solid var(--tinta); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { .barra > div { transition: none; } }
+</style>
+</head>
+<body>
+<div class="hoja">
+  <header>
+    <div class="titulos">
+      <h1 data-t="titulo"></h1>
+      <p class="anotador" id="quien-es" hidden></p>
+    </div>
+    <div class="idiomas" role="group" aria-label="Idioma / Language">
+      <button type="button" data-l="es" aria-pressed="false">ES</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <p class="clave" data-th="clave"></p>
+
+  <details class="ejemplo">
+    <summary data-t="ayuda"></summary>
+    <div data-th="ayudaTexto"></div>
+  </details>
+
+  <form class="quien" id="quien" hidden>
+    <label for="nombre" data-t="tuNombre"></label>
+    <input id="nombre" autocomplete="given-name" required>
+    <button type="submit" data-t="empezar"></button>
+  </form>
+
+  <div id="trabajo" hidden>
+    <div class="avance">
+      <div class="avance-fila"><span id="cuenta"></span><span id="estado"></span></div>
+      <div class="barra"><div id="relleno"></div></div>
+    </div>
+
+    <div class="aviso" id="aviso"></div>
+
+    <section class="oracion" aria-live="polite">
+      <div class="rotulo" data-t="oracion"></div>
+      <p class="literal" id="reescritura"></p>
+    </section>
+
+    <fieldset class="pregunta q-f" id="q-acto">
+      <legend><span data-t="accion"></span><small data-t="accionPregunta"></small></legend>
+      <div class="lista" id="lista-acto"></div>
+      <div class="opciones" data-q="acto"><button type="button" class="opcion si" data-v="si" data-t="si"></button><button type="button" class="opcion no" data-v="no" data-t="no"></button><button type="button" class="opcion duda" data-v="duda" data-t="duda"></button></div>
+    </fieldset>
+
+    <fieldset class="pregunta q-d" id="q-datos">
+      <legend><span data-t="datos"></span><small data-t="datosPregunta"></small></legend>
+      <div class="lista" id="lista-datos"></div>
+      <div class="opciones" data-q="datos"><button type="button" class="opcion si" data-v="si" data-t="si"></button><button type="button" class="opcion no" data-v="no" data-t="no"></button><button type="button" class="opcion duda" data-v="duda" data-t="duda"></button></div>
+    </fieldset>
+
+    <nav class="navegar">
+      <button type="button" id="anterior" data-t="anterior"></button>
+      <span id="posicion"></span>
+      <button type="button" id="siguiente" data-t="siguiente"></button>
+    </nav>
+
+    <div class="mapa" id="mapa"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const PARES = [{"id": 1, "a": ["confirm answer", "good bye", "request"], "s": ["personfullname"], "r": "yes, table available at 8. i can book it. name for the reservation? tell me to finish the order"}, {"id": 2, "a": ["inform failure", "request update"], "s": ["number of room"], "r": "my bad, we're out of space, maybe try booking a smaller amount of rooms?"}, {"id": 3, "a": ["inform", "recommendation"], "s": ["addr", "area", "choice", "fee", "name", "type"], "r": "5 science centers found in the south one is the tech lab on bridge street in reading with no entry fee want info on others?"}, {"id": 4, "a": ["inform", "offer"], "s": ["count", "title"], "r": "2 films available: blade runner or tenet"}, {"id": 5, "a": ["confirm"], "s": ["destination", "number of seat", "ride type"], "r": "uh, yeah, could you, um, confirm a normal ride for five to, uh, 631 cedar lane"}, {"id": 6, "a": ["request compare"], "s": [], "r": "um, could i, uh, get the names of those hotels please?"}, {"id": 7, "a": ["inform", "recommendation"], "s": ["address", "choice", "name", "pricerange", "type"], "r": "sorry, um, which one did you want, uh, more info about, the london stay hotel, or maybe, uh, the quaint cottage b&b, or the regent place"}, {"id": 8, "a": ["inform", "request alternative"], "s": ["to location"], "r": "got any other options? i'm trying to head to phoenix"}, {"id": 9, "a": ["inform"], "s": ["date showing", "name movie", "name theater", "num ticket", "time showing"], "r": "all set! you got 4 seats for the film scream tonight at 7 pm at the regal cinema. they're all booked and should be in your inbox now"}, {"id": 10, "a": ["confirm"], "s": ["destination", "number of rider", "shared ride"], "r": "confirm 210 pine road, 5 people, shared ride"}, {"id": 11, "a": ["good bye"], "s": [], "r": "uh, no worries, um, have a good one"}, {"id": 12, "a": ["recommendation"], "s": ["area", "name"], "r": "which spot are you leaning toward in oxford street, maybe the bistro, pasta palace, the grill house, sushi world, or burger joint"}, {"id": 13, "a": ["request compare"], "s": [], "r": "do they have a good spot?"}, {"id": 14, "a": ["inform", "offer"], "s": ["restaurantname"], "r": "found 3 moderately priced restaurants: blue salt, red pepper, and green leaf. which one should i book?"}, {"id": 15, "a": ["inform", "offer"], "s": ["date"], "r": "great, weather for the 5th of this month"}, {"id": 16, "a": ["inform", "inform success"], "s": ["name", "ref"], "r": "reserved at the cafe, held for 30 minutes, ref 7vbx4q55, anything else?"}, {"id": 17, "a": ["confirm answer"], "s": [], "r": "yeah i am thanks i'm hoping to get a spot on saturday near 8pm if that works"}, {"id": 18, "a": ["inform success", "request compare"], "s": ["dst city"], "r": "is this place rated higher than the spot in recife?"}, {"id": 19, "a": ["good bye", "thank you"], "s": [], "r": "cheers for the help, i'm all set now"}, {"id": 20, "a": ["request alternative"], "s": [], "r": "give me another option"}, {"id": 21, "a": ["good bye", "offer"], "s": [], "r": "great, that's correct"}, {"id": 22, "a": ["inform", "request alternative"], "s": ["pickup time", "type"], "r": "um, what else is there? uh, i'd like, you know, an intermediate car, maybe for pickup around 8 pm"}, {"id": 23, "a": ["inform", "inform failure"], "s": ["area", "food", "price"], "r": "I apologize, but there are no high-end portuguese establishments within the city. However, there is an affordable portuguese restaurant in the west and another in the east; would either of these be acceptable?"}, {"id": 24, "a": ["inform", "inform success"], "s": ["budget"], "r": "no, looking for lowest price"}, {"id": 25, "a": ["inform failure", "request more"], "s": [], "r": "sorry, reservation failed. anything else?"}, {"id": 26, "a": ["greeting"], "s": ["date", "num people", "time"], "r": "hi, um, could you, uh, save a table for 3 tomorrow at 4 15 pm"}, {"id": 27, "a": ["confirm answer", "inform"], "s": ["city", "state", "video format"], "r": "yeah, uh, seattle wa, um, imax"}, {"id": 28, "a": ["confirm"], "s": ["property name", "visit date"], "r": "very well, let us verify the arrangements; you wish to arrange a tour of zenith gardens for may 20th"}, {"id": 29, "a": ["recommendation"], "s": ["area", "name"], "r": "The National Archive is located in the city center; would that be acceptable to you?"}, {"id": 30, "a": ["disagreement", "thank you"], "s": [], "r": "no, nothing else, thanks"}, {"id": 31, "a": ["request alternative"], "s": [], "r": "any other buses that day?"}, {"id": 32, "a": ["confirm answer"], "s": [], "r": "Would you be so kind as to provide the names of the restaurants?"}, {"id": 33, "a": ["inform", "thank you"], "s": ["free entry"], "r": "Thank you, I am very grateful. Could you tell me if there are any local sights that do not require an admission fee?"}, {"id": 34, "a": ["inform success"], "s": [], "r": "okay, so, uh, your booking is all done, um, have a good one"}, {"id": 35, "a": ["inform", "thank you"], "s": ["closing"], "r": "that is wonderful, thank you very much, and I wish you a pleasant afternoon"}, {"id": 36, "a": ["inform failure"], "s": ["area", "price", "pricerange"], "r": "nothing budget-friendly in the east, so can i look for other stuff?"}, {"id": 37, "a": ["good bye", "inform"], "s": ["numberofpeople", "starttime", "taskcomplete", "theater"], "r": "alright, so, um, i've picked up, uh, 1 ticket for the 5pm show at the odeon for you, uh, enjoy the movie"}, {"id": 38, "a": ["inform", "offer"], "s": ["airline", "count", "inbound departure time", "outbound departure time", "price"], "r": "um, so i found, uh, one flight that might work, it's with jetblue for, let's see, 380 dollars, leaving at 5 am and then coming back at 8 20 pm"}, {"id": 39, "a": ["greeting", "inform", "request"], "s": ["cuisine", "rating", "restaurantname"], "r": "It is my pleasure to help you. I am able to provide the four highest-rated establishments in the area, or would you prefer to specify a particular cuisine to refine the results?"}, {"id": 40, "a": ["inform", "offer"], "s": ["count", "fare", "leaving time", "transfer"], "r": "i found 5 buses, there's one leaving at 8 15 am with no changes for 32 bucks"}, {"id": 41, "a": ["greeting", "inform", "request"], "s": ["city", "cuisine", "date", "numberofpeople", "pricing", "reservation", "starttime", "state"], "r": "hi, reservation for 3, 5 pm friday, mid-priced chinese, chicago illinois"}, {"id": 42, "a": ["thank you"], "s": [], "r": "thanks, could you also snag me a rental car? i'll want one to zip around while i'm in miami"}, {"id": 43, "a": ["disagreement", "inform"], "s": ["visit date"], "r": "nah, let's go with the 12th"}, {"id": 44, "a": ["inform success"], "s": ["name", "reference"], "r": "your reservation at the grand manor has been confirmed with the reference number jf83m2q may i assist you with any further requests today?"}, {"id": 45, "a": ["greeting", "inform", "request"], "s": ["car type", "pickup location", "pickup location city"], "r": "it is my pleasure to be of service. i shall verify whether uberblack or uberlux vehicles are accessible for you in chicago; could you please provide your pickup address?"}, {"id": 46, "a": ["inform success", "request compare"], "s": ["category"], "r": "could you tell me which of these locations features the highest rated accommodations?"}, {"id": 47, "a": ["good bye", "thank you"], "s": [], "r": "thanks, i'm all set"}, {"id": 48, "a": ["request alternative"], "s": [], "r": "no, find another"}, {"id": 49, "a": ["disagreement", "thank you"], "s": [], "r": "no, uh, you've already, um, made things a bit simpler for me today"}, {"id": 50, "a": ["agreement", "request"], "s": ["price", "ride fare"], "r": "yeah, um, that's right, uh, how much is the fare going to be?"}, {"id": 51, "a": ["inform failure", "request update"], "s": ["location"], "r": "I apologize, but there are no hotels that meet your criteria. Would you be open to different areas?"}, {"id": 52, "a": ["confirm question", "inform"], "s": ["car type", "cost"], "r": "okay, um, that's everything i need. uh, it looks like the only thing available for your trip right now is, um, the uberx for 15 45, so, uh, do you want to book that?"}, {"id": 53, "a": ["inform failure", "request update"], "s": ["type"], "r": "no matching attractions found. search others?"}, {"id": 54, "a": ["recommendation"], "s": ["addr", "name"], "r": "um, i think, uh, you might like the green olive cafe on, uh, market road, do you want me to, like, book a table?"}, {"id": 55, "a": ["agreement", "request"], "s": ["average rating", "street address"], "r": "Yes, that is acceptable. Would you be so kind as to provide their physical address and the mean rating?"}, {"id": 56, "a": ["inform failure", "request update"], "s": ["number of room"], "r": "um, i couldn't, uh, get that many rooms unfortunately, so, should i maybe try a lower number of rooms?"}, {"id": 57, "a": ["inform"], "s": ["internet"], "r": "I require urgent assistance in finding accommodations that provide free wireless internet for professional purposes. Would you be able to assist me?"}, {"id": 58, "a": ["confirm"], "s": ["name", "number of night", "number of room", "start date"], "r": "thanks for that, uh, jessica, so, um, just confirm you want to book, uh, 1 room at the plaza resort on july 8 for, uh, 2 nights"}, {"id": 59, "a": ["offer", "thank you"], "s": [], "r": "I understand, thank you. I would now like to verify the current balance of my account."}, {"id": 60, "a": ["inform failure"], "s": [], "r": "we haven't got any trips going to or coming from rome just yet"}];
+  const GLOSAS = {"es": {"actos": {"inform": "informa algo", "inform failure": "avisa que algo no se pudo o no hay", "inform success": "avisa que algo salió bien", "thank you": "agradece", "offer": "ofrece algo", "good bye": "se despide", "greeting": "saluda", "request": "pide algo (un dato o una acción)", "request alternative": "pide otra opción", "request update": "propone cambiar el pedido o la búsqueda", "request compare": "pide comparar o elegir entre opciones", "request more": "pregunta si necesita algo más", "recommendation": "recomienda o propone una opción", "confirm": "pide confirmar algo", "confirm answer": "responde que sí", "confirm question": "pregunta si confirma", "agreement": "está de acuerdo", "disagreement": "dice que no"}, "slots": {"name": "nombre de un lugar o servicio", "area": "zona", "type": "tipo de lugar, auto o atracción", "price": "precio", "number of room": "cantidad de habitaciones", "count": "cantidad de resultados", "date": "fecha", "addr": "dirección", "choice": "cantidad de opciones", "destination": "destino", "pricerange": "rango de precios", "restaurantname": "nombre del restaurante", "city": "ciudad", "state": "estado (de EE. UU.)", "visit date": "fecha de la visita", "numberofpeople": "cantidad de personas", "starttime": "hora de inicio", "cuisine": "tipo de cocina", "car type": "tipo de auto", "personfullname": "nombre de la persona", "fee": "precio de la entrada", "title": "título de una película, libro o canción", "number of seat": "cantidad de asientos", "ride type": "tipo de viaje", "address": "dirección", "to location": "destino", "date showing": "fecha de la función", "name movie": "nombre de la película", "name theater": "nombre del cine", "num ticket": "cantidad de entradas", "time showing": "hora de la función", "number of rider": "cantidad de pasajeros", "shared ride": "viaje compartido", "ref": "código de reserva", "dst city": "ciudad de destino", "pickup time": "hora de retiro", "food": "tipo de comida", "budget": "presupuesto", "num people": "cantidad de personas", "time": "hora", "video format": "formato de video", "property name": "nombre del alojamiento", "free entry": "entrada gratuita", "closing": "cierre de la conversación", "taskcomplete": "aviso de que la tarea se hizo", "theater": "cine", "airline": "aerolínea", "inbound departure time": "hora de salida de la vuelta", "outbound departure time": "hora de salida de la ida", "rating": "calificación", "fare": "tarifa", "leaving time": "hora de salida", "transfer": "cantidad de transbordos", "pricing": "nivel de precios", "reservation": "reserva", "reference": "código de reserva", "pickup location": "lugar de retiro", "pickup location city": "ciudad de retiro", "category": "categoría", "ride fare": "precio del viaje", "location": "ubicación", "cost": "costo", "average rating": "calificación promedio", "street address": "dirección", "internet": "internet o wifi", "number of night": "cantidad de noches", "start date": "fecha de inicio"}}, "en": {"actos": {"inform": "gives information", "inform failure": "says something failed or is not available", "inform success": "says something was done", "thank you": "thanks", "offer": "offers something", "good bye": "says goodbye", "greeting": "greets", "request": "asks for something (information or an action)", "request alternative": "asks for another option", "request update": "suggests changing the request or the search", "request compare": "asks to compare or choose between options", "request more": "asks whether anything else is needed", "recommendation": "recommends or suggests an option", "confirm": "asks to confirm something", "confirm answer": "answers yes", "confirm question": "asks whether to confirm", "agreement": "agrees", "disagreement": "says no"}, "slots": {"name": "name of a place or service", "area": "area", "type": "type of place, car or attraction", "price": "price", "number of room": "number of rooms", "count": "number of results", "date": "date", "addr": "address", "choice": "number of options", "destination": "destination", "pricerange": "price range", "restaurantname": "restaurant name", "city": "city", "state": "US state", "visit date": "date of the visit", "numberofpeople": "number of people", "starttime": "start time", "cuisine": "type of cuisine", "car type": "type of car", "personfullname": "person's name", "fee": "entrance fee", "title": "title of a film, book or song", "number of seat": "number of seats", "ride type": "type of ride", "address": "address", "to location": "destination", "date showing": "date of the showing", "name movie": "film title", "name theater": "cinema name", "num ticket": "number of tickets", "time showing": "time of the showing", "number of rider": "number of passengers", "shared ride": "shared ride", "ref": "booking code", "dst city": "destination city", "pickup time": "pickup time", "food": "type of food", "budget": "budget", "num people": "number of people", "time": "time", "video format": "video format", "property name": "name of the accommodation", "free entry": "free entrance", "closing": "closing of the conversation", "taskcomplete": "notice that the task is done", "theater": "cinema", "airline": "airline", "inbound departure time": "departure time of the return trip", "outbound departure time": "departure time of the outbound trip", "rating": "rating", "fare": "fare", "leaving time": "departure time", "transfer": "number of transfers", "pricing": "price level", "reservation": "booking", "reference": "booking code", "pickup location": "pickup place", "pickup location city": "pickup city", "category": "category", "ride fare": "ride fare", "location": "location", "cost": "cost", "average rating": "average rating", "street address": "address", "internet": "internet or wifi", "number of night": "number of nights", "start date": "start date"}}};
+  const API = "/dev-ia/api/anotador";                     // "" con Apps Script; si no, la dirección del servicio que guarda
+  const DEL_SERVIDOR = { a: "", l: "" };   // Apps Script los pasa desde ?a= y ?l=
+  const URLP = new URLSearchParams(location.search);
+  const CLAVE_NOMBRE = "anotacion-reescrituras-v4-nombre", CLAVE_IDIOMA = "anotacion-reescrituras-v4-idioma";
+  const TEXTOS = {
+    es: {
+      titulo: "Anotación de parafraseos del LLM", anota: "Anota: ",
+      clave: "Cada turno de diálogo lo reescribió un modelo de lenguaje. Abajo figuran las <strong>acciones</strong> y los <strong>datos</strong> del turno original: respondé si el turno los mantiene.",
+      ayuda: "Ayuda",
+      ayudaTexto: '<p>Ejemplo: acción <span class="mono">request</span> (pide algo); datos <span class="mono">number of people</span> (cantidad de personas) y <span class="mono">time</span> (hora).</p><ul><li><span class="mono">could you get me a table for four at 8 pm</span>: acción sí, datos sí.</li><li><span class="mono">i need a table for two at 7 pm please</span>: datos sí; los valores pueden ser otros.</li><li><span class="mono">could you get me a table for four</span>: datos no; sacó la hora.</li><li><span class="mono">a table for four at 8 pm near the river</span>: datos no; agregó un lugar.</li><li><span class="mono">i booked a table for four at 8 pm</span>: acción no; informa en vez de pedir.</li></ul><p>Un dato también cuenta si aparece como pregunta: <span class="mono">what time works for you?</span> menciona la hora. Las respuestas se guardan solas y se puede seguir otro día desde el mismo enlace.</p>',
+      tuNombre: "Tu nombre", empezar: "Empezar", oracion: "Turno de diálogo",
+      accion: "Acción", accionPregunta: "¿El turno hace todas estas acciones, sin sacar ni agregar ninguna?",
+      datos: "Datos", datosPregunta: "¿El turno mantiene todos estos datos, sin sacar, agregar ni cambiar ninguno por otro tipo de dato? Los valores pueden ser otros, y un dato puede aparecer como pregunta.",
+      sinAcciones: "Ninguna anotada.", sinDatos: "Ninguno anotado.",
+      si: "Sí", no: "No", duda: "No sé", anterior: "Anterior", siguiente: "Siguiente",
+      casos: "{h} de {n} casos", posicion: "Caso {i} de {n}", irCaso: "Ir al caso {i}",
+      conectando: "Conectando…", conectado: "Conectado", guardando: "Guardando…", guardado: "Guardado",
+      sinConexion: "Sin conexión: guardado en este navegador", copiadas: "Respuestas copiadas", copiaManual: "Copiá el texto del recuadro",
+      fallo: "No se pudo guardar. Las respuestas quedan en este navegador y se vuelven a enviar con el próximo cambio. Si el problema sigue, copialas y mandáselas a Juan Manuel.",
+      copiar: "Copiar respuestas", listo: "Listo: están guardados los {n} casos. Gracias."
+    },
+    en: {
+      titulo: "Annotation of LLM paraphrases", anota: "Annotator: ",
+      clave: "Each dialogue turn was rewritten by a language model. Below are the <strong>actions</strong> and the <strong>data</strong> of the original turn: answer whether the turn keeps them.",
+      ayuda: "Help",
+      ayudaTexto: '<p>Example: action <span class="mono">request</span> (asks for something); data <span class="mono">number of people</span> and <span class="mono">time</span>.</p><ul><li><span class="mono">could you get me a table for four at 8 pm</span>: actions yes, data yes.</li><li><span class="mono">i need a table for two at 7 pm please</span>: data yes; the values may differ.</li><li><span class="mono">could you get me a table for four</span>: data no; the time was dropped.</li><li><span class="mono">a table for four at 8 pm near the river</span>: data no; a place was added.</li><li><span class="mono">i booked a table for four at 8 pm</span>: actions no; it informs instead of asking.</li></ul><p>A piece of data also counts when it appears as a question: <span class="mono">what time works for you?</span> mentions the time. Answers are saved automatically, and you can continue another day from the same link.</p>',
+      tuNombre: "Your name", empezar: "Start", oracion: "Dialogue turn",
+      accion: "Action", accionPregunta: "Does the turn do all of these actions, without dropping or adding any?",
+      datos: "Data", datosPregunta: "Does the turn keep all of these pieces of data, without dropping, adding or replacing any with another kind of data? The values may differ, and a piece of data can appear as a question.",
+      sinAcciones: "None annotated.", sinDatos: "None annotated.",
+      si: "Yes", no: "No", duda: "Not sure", anterior: "Previous", siguiente: "Next",
+      casos: "{h} of {n} cases", posicion: "Case {i} of {n}", irCaso: "Go to case {i}",
+      conectando: "Connecting…", conectado: "Connected", guardando: "Saving…", guardado: "Saved",
+      sinConexion: "Offline: saved in this browser", copiadas: "Answers copied", copiaManual: "Copy the text in the box",
+      fallo: "Your answers could not be saved. They stay in this browser and are sent again with the next change. If the problem persists, copy them and send them to Juan Manuel.",
+      copiar: "Copy answers", listo: "Done: all {n} cases are saved. Thank you."
+    }
+  };
+
+  const res = {}, version = {}, pendientes = new Set();
+  let anotador = "", idioma = "es", actual = 0, enviando = false, otraVez = false, fallo = false, avisoActual = "";
+  let sincronizado = false, interactuo = false, estadoClave = "";
+  const $ = (id) => document.getElementById(id);
+  const limpiar = (s) => String(s || "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9áéíóúñü_-]/g, "").slice(0, 40);
+  const claveLocal = () => "anotacion-reescrituras-v4-" + anotador;
+  const T = (k, v) => String(TEXTOS[idioma][k]).replace(/\{(\w+)\}/g, (_, x) => (v && x in v ? v[x] : ""));
+  const leer = (k) => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
+  const escribir = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento local */ } };
+
+  // Una respuesta por cuadro, guardada bajo la clave "*" (la API guarda etiqueta -> respuesta). El caso está completo
+  // cuando los dos cuadros tienen respuesta; el de datos se responde aunque la etiqueta no tenga datos ("no agregó").
+  const TODAS = "*";
+  function completo(p, r) {
+    r = r || {};
+    return !!((r.acto || {})[TODAS] && (r.datos || {})[TODAS]);
+  }
+  function algo(r) { return !!r && (Object.keys(r.acto || {}).length + Object.keys(r.datos || {}).length) > 0; }
+
+  function leerLocal() { try { return JSON.parse(localStorage.getItem(claveLocal()) || "{}"); } catch (e) { return {}; } }
+  function guardarLocal() { escribir(claveLocal(), JSON.stringify(res)); }
+  function estado(k) { estadoClave = k; $("estado").textContent = k ? T(k) : ""; }
+
+  function servidor(fn, ...args) {
+    if (API) {
+      const pedido = fn === "cargar"
+        ? fetch(API + "?anotador=" + encodeURIComponent(args[0]), { cache: "no-store" })
+        : fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ anotador: args[0], lista: args[1] }) });
+      return pedido.then((r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))));
+    }
+    return new Promise((ok, no) => {
+      if (!(window.google && google.script && google.script.run)) { no(new Error("sin servidor")); return; }
+      google.script.run.withSuccessHandler(ok).withFailureHandler(no)[fn](...args);
+    });
+  }
+
+  function textoRespuestas() { return JSON.stringify({ anotador: anotador, respuestas: PARES.map((p) => Object.assign({ id: p.id }, res[p.id] || {})) }); }
+  function copiar() {
+    const t = textoRespuestas();
+    const mostrar = () => {
+      let ta = $("copia");
+      if (!ta) { ta = document.createElement("textarea"); ta.id = "copia"; ta.readOnly = true; $("aviso").appendChild(ta); }
+      ta.value = t; ta.select(); estado("copiaManual");
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => estado("copiadas"), mostrar);
+    else mostrar();
+  }
+  function actualizarAviso(forzar) {
+    const hechos = PARES.filter((p) => completo(p, res[p.id])).length;
+    const clave = fallo ? "fallo" : (hechos === PARES.length && !pendientes.size ? "listo" : "");
+    if (clave === avisoActual && !forzar) return;
+    avisoActual = clave;
+    const a = $("aviso");
+    if (clave === "fallo") {
+      a.className = "aviso visible";
+      a.textContent = T("fallo");
+      a.appendChild(document.createElement("br"));
+      const b = document.createElement("button"); b.type = "button"; b.textContent = T("copiar"); b.addEventListener("click", copiar);
+      a.appendChild(b);
+    } else if (clave === "listo") {
+      a.className = "aviso visible listo"; a.textContent = T("listo", { n: PARES.length });
+    } else { a.className = "aviso"; a.textContent = ""; }
+  }
+
+  // Lo cambiado en esta sesión y sin enviar manda; en el resto manda lo guardado, y lo que solo está en este navegador completa.
+  function mezclar(guardadas) {
+    guardadas = guardadas || {};
+    PARES.forEach((p) => {
+      if (pendientes.has(p.id)) return;
+      const s = guardadas[p.id] || {}, l = res[p.id] || {};
+      const r = { acto: Object.assign({}, l.acto || {}, s.acto || {}), datos: Object.assign({}, l.datos || {}, s.datos || {}) };
+      if (algo(r)) res[p.id] = r; else delete res[p.id];
+      if (JSON.stringify(r.acto) !== JSON.stringify(s.acto || {}) || JSON.stringify(r.datos) !== JSON.stringify(s.datos || {})) {
+        if (algo(r)) { version[p.id] = (version[p.id] || 0) + 1; pendientes.add(p.id); }
+      }
+    });
+  }
+
+  async function enviar() {
+    guardarLocal();
+    if (enviando) { otraVez = true; return; }
+    if (sincronizado && !pendientes.size) { actualizarAviso(); return; }
+    enviando = true;
+    let envio = false;
+    try {
+      if (!sincronizado) {
+        estado("conectando");
+        mezclar(await servidor("cargar", anotador));
+        sincronizado = true;
+        if (!interactuo) actual = primeraSinCompletar();
+        pintar();
+      }
+      if (pendientes.size) {
+        const lote = [...pendientes].map((id) => ({ id: id, v: version[id] }));
+        estado("guardando");
+        await servidor("guardar", anotador, lote.map((x) => ({ id: x.id, acto: (res[x.id] || {}).acto || {}, datos: (res[x.id] || {}).datos || {}, idioma: idioma })));
+        lote.forEach((x) => { if (version[x.id] === x.v) pendientes.delete(x.id); });
+        envio = true;
+      }
+      fallo = false;
+      estado(pendientes.size ? "guardando" : (envio ? "guardado" : "conectado"));
+    } catch (e) {
+      fallo = true;
+      estado("sinConexion");
+    }
+    enviando = false;
+    guardarLocal();
+    pintar();
+    if (otraVez || (!fallo && pendientes.size)) { otraVez = false; enviar(); }
+  }
+
+  function lista(cont, lista, glosas, vacio) {
+    cont.textContent = "";
+    if (!lista.length) { const v = document.createElement("p"); v.className = "vacio"; v.textContent = T(vacio); cont.appendChild(v); return; }
+    lista.forEach((e) => {
+      const etq = document.createElement("div"); etq.className = "etq";
+      const chip = document.createElement("span"); chip.className = "chip"; chip.textContent = e;
+      etq.appendChild(chip);
+      const g = glosas[e];
+      if (g && g.toLowerCase() !== e.toLowerCase()) { const gl = document.createElement("span"); gl.className = "glosa"; gl.textContent = g; etq.appendChild(gl); }
+      cont.appendChild(etq);
+    });
+  }
+
+  function pintar() {
+    const p = PARES[actual];
+    const r = res[p.id] || {};
+    $("reescritura").textContent = p.r;
+    lista($("lista-acto"), p.a, GLOSAS[idioma].actos, "sinAcciones");
+    lista($("lista-datos"), p.s, GLOSAS[idioma].slots, "sinDatos");
+    document.querySelectorAll(".opciones[data-q] .opcion").forEach((b) => b.setAttribute("aria-pressed", String(((r[b.parentNode.dataset.q] || {})[TODAS]) === b.dataset.v)));
+    const pendiente = ["acto", "datos"].find((q) => !(r[q] || {})[TODAS]);
+    $("q-acto").classList.toggle("activa", pendiente === "acto");
+    $("q-datos").classList.toggle("activa", pendiente === "datos");
+    const hechos = PARES.filter((x) => completo(x, res[x.id])).length;
+    $("cuenta").textContent = T("casos", { h: hechos, n: PARES.length });
+    $("relleno").style.width = (100 * hechos / PARES.length) + "%";
+    $("posicion").textContent = T("posicion", { i: actual + 1, n: PARES.length });
+    $("anterior").disabled = actual === 0;
+    $("siguiente").disabled = actual === PARES.length - 1;
+    document.querySelectorAll(".celda").forEach((c, i) => {
+      const x = PARES[i], rx = res[x.id];
+      c.classList.toggle("completa", completo(x, rx));
+      c.classList.toggle("parcial", !completo(x, rx) && algo(rx));
+      c.classList.toggle("actual", i === actual);
+      c.setAttribute("aria-label", T("irCaso", { i: i + 1 }));
+    });
+    actualizarAviso();
+  }
+
+  function ir(i) { actual = Math.max(0, Math.min(PARES.length - 1, i)); pintar(); }
+  function primeraSinCompletar() { const i = PARES.findIndex((p) => !completo(p, res[p.id])); return i < 0 ? 0 : i; }
+  function siguienteSinCompletar() {
+    for (let k = 1; k <= PARES.length; k++) { const i = (actual + k) % PARES.length; if (!completo(PARES[i], res[PARES[i].id])) return i; }
+    return actual;
+  }
+  function responder(q, v) {
+    interactuo = true;
+    const p = PARES[actual];
+    const previo = res[p.id] || {};
+    const yaCompleto = completo(p, previo);
+    const nuevo = { acto: Object.assign({}, previo.acto || {}), datos: Object.assign({}, previo.datos || {}) };
+    if (nuevo[q][TODAS] === v) delete nuevo[q][TODAS]; else nuevo[q][TODAS] = v;
+    res[p.id] = nuevo;
+    version[p.id] = (version[p.id] || 0) + 1;
+    pendientes.add(p.id);
+    enviar();
+    pintar();
+    if (!yaCompleto && completo(p, nuevo)) setTimeout(() => ir(siguienteSinCompletar()), 350);
+  }
+
+  function aplicarIdioma(l) {
+    idioma = l === "en" ? "en" : "es";
+    escribir(CLAVE_IDIOMA, idioma);
+    document.documentElement.lang = idioma;
+    document.title = T("titulo");
+    document.querySelectorAll("[data-t]").forEach((n) => { n.textContent = T(n.dataset.t); });
+    document.querySelectorAll("[data-th]").forEach((n) => { n.innerHTML = TEXTOS[idioma][n.dataset.th]; });
+    document.querySelectorAll(".idiomas button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.l === idioma)));
+    if (anotador) $("quien-es").textContent = T("anota") + anotador;
+    if (estadoClave) $("estado").textContent = T(estadoClave);
+    if (anotador) { pintar(); actualizarAviso(true); }
+  }
+
+  function prepararPantalla() {
+    document.querySelectorAll(".idiomas button").forEach((b) => b.addEventListener("click", () => aplicarIdioma(b.dataset.l)));
+    ["q-acto", "q-datos"].forEach((id) => $(id).addEventListener("click", (ev) => {
+      const b = ev.target.closest("button.opcion"); if (!b) return;
+      responder(b.parentNode.dataset.q, b.dataset.v);
+    }));
+    $("anterior").addEventListener("click", () => { interactuo = true; ir(actual - 1); });
+    $("siguiente").addEventListener("click", () => { interactuo = true; ir(actual + 1); });
+    PARES.forEach((p, i) => {
+      const c = document.createElement("button");
+      c.type = "button"; c.className = "celda";
+      c.addEventListener("click", () => { interactuo = true; ir(i); });
+      $("mapa").appendChild(c);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || !anotador) return;
+      const t = e.target && e.target.tagName;
+      if (t === "INPUT" || t === "TEXTAREA") return;
+      if (e.key === "ArrowLeft") { interactuo = true; ir(actual - 1); }
+      else if (e.key === "ArrowRight") { interactuo = true; ir(actual + 1); }
+    });
+  }
+
+  function empezar(nombre) {
+    anotador = nombre;
+    escribir(CLAVE_NOMBRE, anotador);
+    $("quien").hidden = true;
+    $("trabajo").hidden = false;
+    $("quien-es").hidden = false;
+    $("quien-es").textContent = T("anota") + anotador;
+    Object.assign(res, leerLocal());
+    ir(primeraSinCompletar());
+    enviar();
+  }
+
+  prepararPantalla();
+  aplicarIdioma(DEL_SERVIDOR.l || URLP.get("l") || leer(CLAVE_IDIOMA) || "es");
+  const inicial = limpiar(DEL_SERVIDOR.a || URLP.get("a") || leer(CLAVE_NOMBRE));
+  if (inicial) empezar(inicial);
+  else {
+    $("quien").hidden = false;
+    $("quien").addEventListener("submit", (e) => { e.preventDefault(); const n = limpiar($("nombre").value); if (n) empezar(n); });
+  }
+})();
+</script>
+</body>
+</html>
